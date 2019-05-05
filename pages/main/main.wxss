@@ -1,0 +1,57 @@
+.userView {
+  width: 100%;
+  background-color: white;
+}
+
+.headPhotoView {
+  float: left;
+}
+
+.userHead {
+  width: 150rpx;
+  height: 150rpx;
+  margin-top: 50rpx;
+  margin-left: 48rpx;
+  border-radius: 12rpx;
+}
+
+.basicInfoView {
+  float: left;
+  margin-top: 50rpx;
+  margin-left: 48rpx;
+}
+
+.nickNameText {
+  margin-top: 7rpx;
+  font-size: 42rpx;
+}
+
+.countView {
+  font-size: 15px;
+  margin-top: 5px;
+}
+
+.sendCountView {
+  float: left;
+  border: 1px solid red;
+}
+
+.receiveCountView {
+  float: left;
+}
+
+.coinCountView {
+  float: left;
+}
+
+.countText {
+}
+
+.sendCount {
+}
+
+.receiveCount {
+}
+
+.coinCount {
+}
