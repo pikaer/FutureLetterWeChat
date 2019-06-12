@@ -5,20 +5,23 @@
     </view>
     <view class="basicInfoView">
       <view class="nickNameText">Pikaer</view>
-      <view class="countView">
-        <view class="sendCountView">
-          <view class="countText">发出</view>
-          <view class="sendCount">20</view>
-        </view>
-        <view class="receiveCountView">
-          <view class="countText">收到</view>
-          <view class="receiveCount">30</view>
-        </view>
+      <view class="countView">	
         <view class="coinCountView">
-          <view class="countText">金币余额</view>
-          <view class="coinCount">40</view>
+          <view class="countText">金币余额:100</view>
         </view>
       </view>
     </view>
+    <view class="userInfoView">
+      <navigator url="../../pages/userspace/userspace" class="navigator">
+        <view class="navigator-text" style='color:#9d9d9d;'>我的钱包</view>
+        <view class="navigator-arrow"></view>
+      </navigator>
+    </view>
   </view>
+	<view class="lineView"></view>
+	<view class="tabBarView">
+	<view class="titleView">互动列表</view>
+	<view class="iconfont more" style="float:right;font-size:20px;padding-right:10px;padding-top:6px;"></view>
+	</view>
+	<view class="lineView"></view>
 </view>

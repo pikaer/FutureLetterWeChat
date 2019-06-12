@@ -1,8 +1,8 @@
 {
 	"pages": [
 		"pages/main/main",
-		"pages/index/index",
-		"pages/discovery/discovery"
+		"pages/discovery/discovery",
+		"pages/publishmoment/publishmoment"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -13,12 +13,6 @@
 	},
 	"tabBar": {
 		"list": [
-			{
-				"text": "广场",
-				"pagePath": "pages/index/index",
-				"iconPath": "content/images/index.png",
-				"selectedIconPath": "content/images/index1.png"
-			},
 			{
 				"text": "发现",
 				"pagePath": "pages/discovery/discovery",
