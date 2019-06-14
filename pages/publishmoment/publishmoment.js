@@ -198,8 +198,8 @@ function upload_file_server(self, upload_picture_list, j) {
 		success: function (res) {
 			let data = JSON.parse(res.data);
 			let serverImgs = self.data.serverImgs;
-			if (data.head.success) {
-				serverImgs.push(data.content);
+			if (data.success) {
+				serverImgs.push(data.content.imgPath);
 				self.setData({
 					serverImgs: serverImgs
 				});

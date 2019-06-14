@@ -1,8 +1,8 @@
 App({
 	//全局变量
 	globalData: {
-		baseUrl: "https://www.pikaer.com/today/",
-		// baseUrl: "http://192.168.137.1:8899/",
+		baseUrl: "http://www.pikaer.com/today/",
+		// baseUrl: "https://localhost:44386/",
 
 		myAppid: "wx1d0224e0b787c008",
 		mySecret: "ed6edc516373c675ce9bd46e5f2e7fbd", //小程序密钥
@@ -37,7 +37,7 @@ App({
 			},
 			header: this.globalData.httpHeader,
 			success: function (res) {
-				if (res.data.head.success) {
+				if (res.data.success) {
 					//console.info("*******"+url+"成功获取数据*******" + JSON.stringify(res.data.content));
 					return typeof successFunc == "function" && successFunc(res.data.content);
 				} else {
