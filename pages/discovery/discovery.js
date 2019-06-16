@@ -2,10 +2,6 @@ const app = getApp()
 
 Page({
 	data: {
-		isRecommendChecked: true,
-		isNewestChecked: false,
-		isAttentionChecked: false,
-		currentItem: 0,
 		currentMoment: {},
 		pickUpList: [],
 		pageIndex: 1,
@@ -15,22 +11,9 @@ Page({
 
 	//下拉刷新页面数据
 	onPullDownRefresh: function () {
-		this.setData({
-			pickUpList: [],
-			pageIndex: 1
-		});
-		this.getMoments(0);
+		this.getPickUp();
 	},
 
-	//私聊
-	startChat: function () {
-		let currentMoment = this.data.currentMoment;
-		wx.navigateTo({
-			url: "/pages/chatdetail/chatdetail?partnerUId=" + currentMoment.uId + "&nickName=" + currentMoment.dispalyName
-		})
-
-		this.resetSelectItem();
-	},
 
 	//停止刷新
 	stopRefresh: function () {
@@ -39,17 +22,52 @@ Page({
 		});
 	},
 
+	//删除瓶子
+	deleteItem: function () {
+		var self = this;
+		let index = ops.currentTarget.dataset.key;
+		let pickUpId = ops.currentTarget.dataset.pickUpId;
+		app.httpPost(
+			'api/Letter/DeleteBottle', {
+				"PickUpId": pickUpId
+			},
+			function (res) {
+				console.info("删除瓶子成功！");
+				let list = self.data.pickUpList;
+				list.splice(index, 1);
+				self.setData({
+					pickUpList: list
+				});
+			},
+			function (res) {
+				console.info("删除瓶子失败");
+			})
+	},
+
+	//举报瓶子
+	reportItem: function () {
+		let pickUpId = ops.currentTarget.dataset.pickUpId;
+		app.httpPost(
+			'api/Letter/ReportBottle', {
+				"PickUpId": pickUpId
+			},
+			function (res) {
+				console.info("举报瓶子成功！");
+			},
+			function (res) {
+				console.info("举报瓶子失败");
+			})
+	},
+
 	//更多
 	moreAction: function (ops) {
 		let key = ops.currentTarget.dataset.key;
-		let momentList = this.data.momentList;
-		let hasAttention = momentList[key].hasAttention;
-
+		let pickUpId = ops.currentTarget.dataset.pickUpId;
+		let pickUpList = this.data.pickUpList;
 		this.setData({
 			actionHidden: false,
 			selectItem: ops.currentTarget.dataset,
-			attentionTxt: hasAttention ? "已关注" : "关注",
-			currentMoment: momentList[key]
+			currentMoment: pickUpList[key]
 		})
 	},
 
@@ -117,7 +135,6 @@ Page({
 			url: "/pages/chatdetail/chatdetail?partnerUId=" + currentMoment.uId + "&nickName=" + currentMoment.dispalyName
 		})
 
-		this.resetSelectItem();
 	},
 
 	//预览图片
@@ -157,6 +174,33 @@ Page({
 			function (res) {
 				console.info("获取数据失败");
 				self.stopRefresh();
+			})
+	},
+
+	//下拉获取新的瓶子
+	getPickUp: function () {
+		var self = this;
+		let tempPickUpList = self.data.pickUpList;
+		app.httpPost(
+			'api/Letter/PickUp', {
+				"UId": app.globalData.apiHeader.UId
+			},
+			function (res) {
+				if (tempPickUpList.length == 0) {
+					tempPickUpList = res.pickUpList
+				} else {
+					if (res.pickUpList != null && res.pickUpList.length > 0) {
+						tempPickUpList = res.pickUpList.concat(tempPickUpList);
+					}
+				}
+				self.setData({
+					pickUpList: tempPickUpList
+				});
+				wx.stopPullDownRefresh();
+			},
+			function (res) {
+				console.info("获取数据失败");
+				wx.stopPullDownRefresh();
 			})
 	}
 })

@@ -135,8 +135,7 @@
 }
 
 .imgCount {
-  max-width: 250px;
-  max-height: 280px;
+  max-width: 100%;
   margin-bottom: 3px;
   border-radius: 7px;
 }

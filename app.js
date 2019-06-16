@@ -1,11 +1,9 @@
 App({
 	//全局变量
 	globalData: {
-		baseUrl: "http://www.pikaer.com/today/",
+		baseUrl: "https://www.pikaer.com/today/",
 		// baseUrl: "https://localhost:44386/",
 
-		myAppid: "wx1d0224e0b787c008",
-		mySecret: "ed6edc516373c675ce9bd46e5f2e7fbd", //小程序密钥
 		httpHeader: {
 			"Content-Type": "application/json"
 		},
