@@ -9,7 +9,7 @@ App({
 		},
 		apiHeader: {
 			"Token": "",
-			"UId": 1,
+			"UId": 0,
 			"Platform": "miniApp"
 		},
 		openid: "",

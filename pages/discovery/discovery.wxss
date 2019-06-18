@@ -80,11 +80,11 @@
 }
 
 .nickNameView {
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .timeView {
-  font-size: 11px;
+  font-size: 14px;
   color: #8e8e8e;
 }
 
@@ -109,9 +109,9 @@
 }
 
 .textView {
-  font-size: 14px;
-  margin-top: 10px;
-  margin-bottom: 7px;
+  font-size: 16px;
+  padding-top: 10px;
+  padding-bottom: 7px;
   margin-left: 8px;
   margin-right: 8px;
 }

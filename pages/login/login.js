@@ -123,10 +123,6 @@ Page({
       },
       function(res) {
         console.error("存入用户信息失败!");
-
-        wx.switchTab({
-          url: '/pages/discovery/discovery'
-        })
       })
   },
 })

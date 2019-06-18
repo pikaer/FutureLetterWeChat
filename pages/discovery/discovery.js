@@ -6,9 +6,17 @@ Page({
 		pickUpList: [],
 		pageIndex: 1,
 		loadHide: true,
-		actionHidden: true
+		actionHidden: true,
+		actionAllClearHidden: true,
 	},
 
+	onShow: function () {
+		this.getPickUpList();
+	},
+
+	onLoad: function () {
+		this.getPickUpList();
+	},
 	//下拉刷新页面数据
 	onPullDownRefresh: function () {
 		this.getPickUp();
@@ -25,8 +33,8 @@ Page({
 	//删除瓶子
 	deleteItem: function () {
 		var self = this;
-		let index = ops.currentTarget.dataset.key;
-		let pickUpId = ops.currentTarget.dataset.pickUpId;
+		let pickUpId = this.data.currentMoment.pickUpId;
+		let index = this.data.selectItem.key;
 		app.httpPost(
 			'api/Letter/DeleteBottle', {
 				"PickUpId": pickUpId
@@ -38,6 +46,8 @@ Page({
 				self.setData({
 					pickUpList: list
 				});
+
+				self.resetSelectItem()
 			},
 			function (res) {
 				console.info("删除瓶子失败");
@@ -45,17 +55,20 @@ Page({
 	},
 
 	//举报瓶子
-	reportItem: function () {
-		let pickUpId = ops.currentTarget.dataset.pickUpId;
+	reportItem: function (ops) {
+		var self = this;
+		let pickUpId = this.data.currentMoment.pickUpId;
 		app.httpPost(
 			'api/Letter/ReportBottle', {
 				"PickUpId": pickUpId
 			},
 			function (res) {
 				console.info("举报瓶子成功！");
+				self.resetSelectItem()
 			},
 			function (res) {
 				console.info("举报瓶子失败");
+				self.resetSelectItem()
 			})
 	},
 
@@ -71,11 +84,18 @@ Page({
 		})
 	},
 
-	//重置长按选择项
+	//重置
 	resetSelectItem: function () {
 		this.setData({
 			actionHidden: true,
 			selectItem: []
+		})
+	},
+
+	//重置
+	resetAllClearSelectItem: function () {
+		this.setData({
+			actionAllClearHidden: true
 		})
 	},
 
@@ -95,14 +115,17 @@ Page({
 
 	},
 
-	onShow: function () {
-		this.getPickUpList();
-	},
-
 	//置顶
 	toTop: function () {
 		wx.pageScrollTo({
 			scrollTop: 0
+		})
+	},
+
+  //全部清空
+	allClearClick: function () {
+		this.setData({
+			actionAllClearHidden: false,
 		})
 	},
 
@@ -129,21 +152,14 @@ Page({
 		})
 	},
 
-	reportItem: function () {
-		let currentMoment = this.data.currentMoment;
-		wx.navigateTo({
-			url: "/pages/chatdetail/chatdetail?partnerUId=" + currentMoment.uId + "&nickName=" + currentMoment.dispalyName
-		})
-
-	},
-
-	//预览图片
+	// 预览图片
 	previewImg: function (e) {
-		let imgContents = e.currentTarget.dataset.imgcontents;
-		let index = e.currentTarget.dataset.index;
+		let imgContent = e.currentTarget.dataset.imgcontent;
+		let imgContents=[];
+		imgContents.push(imgContent);
 		wx.previewImage({
 			//当前显示图片
-			current: imgContents[index],
+			current: imgContent,
 			//所有图片
 			urls: imgContents
 		})
@@ -201,6 +217,25 @@ Page({
 			function (res) {
 				console.info("获取数据失败");
 				wx.stopPullDownRefresh();
+			})
+	},
+
+	//清空所有未回复过的瓶子
+	allClear: function () {
+		var self = this;
+		app.httpPost(
+			'api/Letter/ClearAllBottle', {
+				"UId": app.globalData.apiHeader.UId
+			},
+			function (res) {
+				console.info("清空所有未回复过的瓶子成功");
+				self.setData({
+					pickUpList:[]
+				});
+				self.resetAllClearSelectItem()
+			},
+			function (res) {
+				console.warn("清空所有未回复过的瓶子失败");
 			})
 	}
 })

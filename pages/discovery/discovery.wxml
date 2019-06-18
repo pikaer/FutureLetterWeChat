@@ -8,7 +8,7 @@
         <view class="nickNameView">{{value.nickName}}</view>
         <view class="timeView">{{value.createTime}}</view>
       </view>
-      <view class="rightView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-key='{{key}}'  catchtap='moreAction'>
+      <view class="rightView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-key='{{key}}' catchtap='moreAction'>
         <view class="iconfont more" style='font-size:20px'></view>
       </view>
     </view>
@@ -16,8 +16,8 @@
       <!-- 文本动态 -->
       <view class="textView">{{value.textContent}}</view>
       <!-- 图片动态 -->
-      <view class="imgView" wx:if="{{value.imgContent!=null}}">
-        <image src="{{value.imgContent}}" catchtap="previewImg"  class="imgCount"></image>
+      <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
+        <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' catchtap="previewImg" class="imgCount"></image>
       </view>
     </view>
   </view>
@@ -33,6 +33,7 @@
 
   <view class="publishIcon">
     <view class="iconfont arrow3-top" style='font-size:50px;color:#0099ff;height:65px' catchtap='toTop'></view>
+    <view class="iconfont gengduo" style='font-size:50px;color:#0099ff;height:65px' catchtap='allClearClick'></view>
     <view class="iconfont gengduo4" style='font-size:50px;color:#0099ff' catchtap="publishMoment"></view>
   </view>
 </view>
@@ -42,4 +43,9 @@
   <action-sheet-item bindtap="deleteItem">删除</action-sheet-item>
   <action-sheet-item bindtap="reportItem">举报</action-sheet-item>
   <action-sheet-cancel bindtap="resetSelectItem">取消</action-sheet-cancel>
+</action-sheet>
+
+<action-sheet hidden="{{actionAllClearHidden}}">
+  <action-sheet-item bindtap="allClear">全部清空</action-sheet-item>
+  <action-sheet-cancel bindtap="resetAllClearSelectItem">取消</action-sheet-cancel>
 </action-sheet>
