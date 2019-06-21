@@ -1,27 +1,47 @@
 <view class="container">
-  <view class="userView">
-    <view class="headPhotoView">
-      <image class="userHead" src="/content/images/pikaer.jpg"></image>
-    </view>
-    <view class="basicInfoView">
-      <view class="nickNameText">Pikaer</view>
-      <view class="countView">	
-        <view class="coinCountView">
-          <view class="countText">金币余额:100</view>
+  <view class="tabView">
+    <view class="userView">
+      <view class="headPhotoView">
+        <image class="userHead" src="/content/images/pikaer.jpg"></image>
+      </view>
+      <view class="basicInfoView">
+        <view class="nickNameText">Pikaer</view>
+        <view class="countView">
+          <view class="coinCountView">
+            <view class="countText">金币余额:100</view>
+          </view>
         </view>
       </view>
+      <view class="userInfoView">
+        <navigator url="../../pages/userspace/userspace" class="navigator">
+          <view class="navigator-text" style='color:#9d9d9d;'>我的钱包</view>
+          <view class="navigator-arrow"></view>
+        </navigator>
+      </view>
     </view>
-    <view class="userInfoView">
-      <navigator url="../../pages/userspace/userspace" class="navigator">
-        <view class="navigator-text" style='color:#9d9d9d;'>我的钱包</view>
-        <view class="navigator-arrow"></view>
-      </navigator>
+    <view class="tabBarView">
+      <view class="titleView">互动列表:</view>
+      <view class="iconfont more" style="float:right;font-size:20px;padding-right:10px;padding-top:6px;"></view>
     </view>
+    <view class="lineView"></view>
   </view>
-	<view class="lineView"></view>
-	<view class="tabBarView">
-	<view class="titleView">互动列表</view>
-	<view class="iconfont more" style="float:right;font-size:20px;padding-right:10px;padding-top:6px;"></view>
-	</view>
-	<view class="lineView"></view>
+
+  <view class="chatContainer">
+    <navigator url="/pages/discussdetail/discussdetail?pickUpId={{value.pickUpId}}" wx:for="{{tempDiscussList}}" wx:for-item="value" wx:for-index="key" data-index='{{key}}' data-idx='{{value.pickUpId}}' bindtap="clearUnReadCount" bindlongpress="deleteItem">
+      <view class="chatArea">
+        <navigator url="../../pages/userspace/userspace?uid={{value.partnerUId}}" class="headPhotoViewV2">
+          <image class="userHeadV2" src="{{value.headImgPath}}"></image>
+        </navigator>
+        <view class="centerView">
+          <view class="dispalyNameTxt">{{value.nickName}}</view>
+          <view class="chatContentTxt">{{value.textContent}}</view>
+        </view>
+        <view class="rightView">
+          <view class="chatTime">{{value.recentChatTime}}</view>
+          <view class="unreadCount" hidden='{{value.unReadCount==""}}'>5</view>
+        </view>
+      </view>
+      <view class="chatLineView"></view>
+    </navigator>
+  </view>
 </view>

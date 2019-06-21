@@ -30,18 +30,6 @@
   padding-top: 7px;
 }
 
-.tabUnCheckedView {
-  flex-grow: 1;
-  font-size: 37rpx;
-  color: #4d4d4d;
-}
-
-.topSpinner {
-  padding-bottom: 40px;
-  width: 100%;
-  background-color: white;
-  text-align: center;
-}
 
 .contentArea {
   margin-bottom: 7px;
@@ -92,21 +80,6 @@
   clear: both;
 }
 
-.footerView {
-  clear: both;
-  height: 35px;
-  width: 100%;
-}
-
-.supportView {
-  float: left;
-  margin-left: 80px;
-}
-
-.commentView {
-  float: right;
-  margin-right: 80px;
-}
 
 .textView {
   font-size: 16px;
@@ -114,20 +87,6 @@
   padding-bottom: 7px;
   margin-left: 8px;
   margin-right: 8px;
-}
-
-.supportTxt {
-  float: left;
-  font-size: 12px;
-  margin-top: 6px;
-  margin-left: 5px;
-}
-
-.commentTxt {
-  float: left;
-  font-size: 12px;
-  margin-top: 6px;
-  margin-left: 5px;
 }
 
 .imgView {
@@ -142,7 +101,7 @@
 
 .publishIcon {
   position: fixed;
-  bottom: 0px;
+  bottom: 50px;
   right: 10px;
 }
 
@@ -177,6 +136,8 @@ page {
   height: 40px;
   text-align: center;
   font-size: 14px;
+	background-color:white;
+
 }
 
 .spinner .bounce1 {

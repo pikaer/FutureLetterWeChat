@@ -3,16 +3,18 @@
 		"pages/login/login",
 		"pages/main/main",
 		"pages/discovery/discovery",
+		"pages/discussdetail/discussdetail",
 		"pages/publishmoment/publishmoment"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
-		"navigationBarBackgroundColor": "#0099ff",
+		"navigationBarBackgroundColor": "white",
 		"navigationBarTitleText": "WeChat",
-		"navigationBarTextStyle": "white",
+		"navigationBarTextStyle": "black",
 		"enablePullDownRefresh": true
 	},
 	"tabBar": {
+		"backgroundColor":"white",
 		"list": [
 			{
 				"text": "发现",

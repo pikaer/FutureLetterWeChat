@@ -6,25 +6,26 @@ Page({
     headPhotoPath: "pikaer.jpg"
   },
   onLoad: function() {
-    var that = this;
-    // 查看是否授权
-    wx.getSetting({
-      success: function(res) {
-        if (res.authSetting['scope.userInfo']) {
-          wx.getUserInfo({
-            success: function(res) {
-              //从数据库获取用户信息
-              that.userLogin();
-              //用户已经授权过
-              wx.switchTab({
-                url: '/pages/discovery/discovery'
-              })
-            }
-          });
-        }
-      }
-    })
+
+		//this.checkSetting();
   },
+
+	checkSetting:function() {
+		var that = this;
+		// 查看是否授权
+		wx.getSetting({
+			success: function (res) {
+				if (res.authSetting['scope.userInfo']) {
+					wx.getUserInfo({
+						success: function (res) {
+							//从数据库获取用户信息
+							that.userLogin();
+						}
+					});
+				}
+			}
+		})
+	},
 
   bindGetUserInfo: function(e) {
     if (e.detail.userInfo) {
@@ -92,8 +93,9 @@ Page({
               if (self.userInfoReadyCallback) {
                 self.userInfoReadyCallback(res)
               }
-
-              self.setUserInfo();
+							self.setUserInfo();
+							// self.setAvatarUrl(res.userInfo.avatarUrl);
+							
             }
           })
         }
@@ -111,6 +113,7 @@ Page({
         "Country": app.globalData.userInfoWX.country,
         "Province": app.globalData.userInfoWX.province,
         "City": app.globalData.userInfoWX.city,
+				"AvatarUrl": app.globalData.userInfoWX.avatarUrl,
         "Gender": app.globalData.userInfoWX.gender
       },
       function(res) {
@@ -125,4 +128,6 @@ Page({
         console.error("存入用户信息失败!");
       })
   },
-})
+
+});
+

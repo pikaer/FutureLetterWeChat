@@ -1,5 +1,4 @@
 const app = getApp()
-
 Page({
 	data: {
 		currentMoment: {},
@@ -11,11 +10,17 @@ Page({
 	},
 
 	onShow: function () {
-		this.getPickUpList();
+		this.setData({
+			pageIndex: 1
+		});
+		this.getPickUpList(true);
 	},
 
 	onLoad: function () {
-		this.getPickUpList();
+		this.setData({
+			pageIndex: 1
+		});
+		this.getPickUpList(true);
 	},
 	//下拉刷新页面数据
 	onPullDownRefresh: function () {
@@ -110,8 +115,8 @@ Page({
 		let self = this;
 		//loading动画加载1.5秒后执行
 		setTimeout(function () {
-			self.getPickUpList();
-		}, 1500)
+			self.getPickUpList(false);
+		}, 1000)
 
 	},
 
@@ -131,9 +136,9 @@ Page({
 
 	//动态详情页面
 	previewMomentDetail: function (e) {
-		let momentId = e.currentTarget.dataset.momentid;
+		let pickUpId = e.currentTarget.dataset.pickupid;
 		wx.navigateTo({
-			url: "../../pages/momentdetail/momentdetail?momentId=" + momentId
+			url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId
 		})
 	},
 
@@ -166,7 +171,7 @@ Page({
 	},
 
 	//获取动态
-	getPickUpList: function () {
+	getPickUpList: function (onShow) {
 		var self = this;
 		let tempPickUpList = self.data.pickUpList;
 		app.httpPost(
@@ -175,13 +180,18 @@ Page({
 				"PageIndex": this.data.pageIndex
 			},
 			function (res) {
-				if (tempPickUpList.length == 0) {
+				if (onShow){
 					tempPickUpList = res.pickUpList
-				} else {
-					if (res.pickUpList != null && res.pickUpList.length > 0) {
-						tempPickUpList = tempPickUpList.concat(res.pickUpList);
+				}else{
+					if (tempPickUpList.length == 0) {
+						tempPickUpList = res.pickUpList
+					} else {
+						if (res.pickUpList != null && res.pickUpList.length > 0) {
+							tempPickUpList = tempPickUpList.concat(res.pickUpList);
+						}
 					}
 				}
+				
 				self.setData({
 					pickUpList: tempPickUpList
 				});
