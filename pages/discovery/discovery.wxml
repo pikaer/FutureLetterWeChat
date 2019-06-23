@@ -17,7 +17,7 @@
       <view class="textView">{{value.textContent}}</view>
       <!-- 图片动态 -->
       <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
-        <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' catchtap="previewImg" class="imgCount"></image>
+        <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' catchtap="previewImg" class="imgCount" mode="widthFix"></image>
       </view>
     </view>
   </view>
@@ -32,8 +32,7 @@
   </view>
 
   <view class="publishIcon">
-    <view class="iconfont arrow3-top" style='font-size:50px;color:#0099ff;height:65px' catchtap='toTop'></view>
-    <view class="iconfont gengduo" style='font-size:50px;color:#0099ff;height:65px' catchtap='allClearClick'></view>
+    <view class="iconfont arrow3-top" hidden='{{scrollHidden}}' style='font-size:50px;color:#0099ff;height:65px' catchtap='toTop'></view>
     <view class="iconfont gengduo4" style='font-size:50px;color:#0099ff' catchtap="publishMoment"></view>
   </view>
 </view>
@@ -42,10 +41,6 @@
 <action-sheet hidden="{{actionHidden}}">
   <action-sheet-item bindtap="deleteItem">删除</action-sheet-item>
   <action-sheet-item bindtap="reportItem">举报</action-sheet-item>
+	<action-sheet-item bindtap="allClear">全部清空</action-sheet-item>
   <action-sheet-cancel bindtap="resetSelectItem">取消</action-sheet-cancel>
-</action-sheet>
-
-<action-sheet hidden="{{actionAllClearHidden}}">
-  <action-sheet-item bindtap="allClear">全部清空</action-sheet-item>
-  <action-sheet-cancel bindtap="resetAllClearSelectItem">取消</action-sheet-cancel>
 </action-sheet>

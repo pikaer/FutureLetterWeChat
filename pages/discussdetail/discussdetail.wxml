@@ -13,7 +13,7 @@
     <view class="textView">{{discussDetail.textContent}}</view>
     <!-- 图片动态 -->
     <view class="imgView" wx:if="{{discussDetail.imgContent!=null&&discussDetail.imgContent!=''}}">
-      <image src="{{discussDetail.imgContent}}" data-imgContent='{{discussDetail.imgContent}}' catchtap="previewImg" class="imgCount"></image>
+      <image src="{{discussDetail.imgContent}}" data-imgContent='{{discussDetail.imgContent}}' catchtap="previewImg" class="imgCount" mode="widthFix"></image>
     </view>
   </view>
   <view class="lineView"></view>
@@ -32,10 +32,10 @@
     </view>
   </view>
   <!-- 发送评论输入区域 -->
-  <view class="inputarea">
+  <view class="inputarea" style="{{inputMarBot?'margin-bottom:18px':''}}">
     <view class="chatLineView"></view>
     <view class="viewinput">
-      <input auto-focus placeholder="输入评论" value='{{discussContent}}' bindinput="discussContentInput" />
+      <input placeholder="输入评论" value='{{discussContent}}' bindinput="discussContentInput" bindfocus='settingMbShow' bindblur='settingMbNoShow'/>
     </view>
     <view class="viewSend" data-idx='{{partnerId}}' bindtap="insertDiscussContent">
       <view class="txtSend">发 送</view>

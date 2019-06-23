@@ -20,14 +20,14 @@
       </view>
     </view>
     <view class="tabBarView">
-      <view class="titleView">互动列表:</view>
-      <view class="iconfont more" style="float:right;font-size:20px;padding-right:10px;padding-top:6px;"></view>
+      <!-- <view class="titleView">互动列表:</view> -->
+      <view class="iconfont more" style="float:right;font-size:20px;padding-right:10px;padding-top:6px;" bindtap="moreAction"></view>
     </view>
     <view class="lineView"></view>
   </view>
 
   <view class="chatContainer">
-    <navigator url="/pages/discussdetail/discussdetail?pickUpId={{value.pickUpId}}" wx:for="{{tempDiscussList}}" wx:for-item="value" wx:for-index="key" data-index='{{key}}' data-idx='{{value.pickUpId}}' bindtap="clearUnReadCount" bindlongpress="deleteItem">
+    <navigator url="/pages/discussdetail/discussdetail?pickUpId={{value.pickUpId}}" wx:for="{{tempDiscussList}}" wx:for-item="value" wx:for-index="key" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' bindtap="clearUnReadCount" bindlongpress="bindlongpress">
       <view class="chatArea">
         <navigator url="../../pages/userspace/userspace?uid={{value.partnerUId}}" class="headPhotoViewV2">
           <image class="userHeadV2" src="{{value.headImgPath}}"></image>
@@ -38,10 +38,23 @@
         </view>
         <view class="rightView">
           <view class="chatTime">{{value.recentChatTime}}</view>
-          <view class="unreadCount" hidden='{{value.unReadCount==""}}'>5</view>
+          <view class="unreadCount" hidden='{{value.unReadCount==""||value.unReadCount==null}}'>{{value.unReadCount}}</view>
         </view>
       </view>
       <view class="chatLineView"></view>
     </navigator>
   </view>
 </view>
+
+<!-- 底部弹出菜单 -->
+<action-sheet hidden="{{actionHidden}}">
+  <action-sheet-item bindtap="toHasRead">标为已读</action-sheet-item>
+  <action-sheet-item bindtap="deleteChat">删除会话</action-sheet-item>
+  <action-sheet-cancel bindtap="resetSelectItem">取消</action-sheet-cancel>
+</action-sheet>
+
+<action-sheet hidden="{{moreActionHidden}}">
+  <action-sheet-item bindtap="allHasRead">全部已读</action-sheet-item>
+	<action-sheet-item bindtap="clearAllBottle">全部清空</action-sheet-item>
+  <action-sheet-cancel bindtap="resetMoreAction">取消</action-sheet-cancel>
+</action-sheet>

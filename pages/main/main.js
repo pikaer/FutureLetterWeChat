@@ -5,14 +5,14 @@ Page({
 
 	data: {
 		tempDiscussList: [],
-		totalUnReadCount: "",
-		actionHidden: true,
-		selectItem: [],
-		pageIndex:1,
-		count: 1
+		moreActionHidden: true, //更多action
+		actionHidden: true, //长按action
+		selectItem: [], //长按后选中的
+		pageIndex:1
 	},
 
 	onShow: function () {
+		this.unReadTotalCount();
 		this.getChatList();
 	},
 
@@ -36,12 +36,12 @@ Page({
 	setTabBarBadge: function (count) {
 		if (!app.isBlank(count)) {
 			wx.setTabBarBadge({
-				index: 0,
+				index: 1,
 				text: count
 			})
 		} else {
 			wx.removeTabBarBadge({
-				index: 0
+				index: 1
 			})
 		}
 	},
@@ -62,7 +62,7 @@ Page({
 						tempDiscussList: res.discussList
 					});
 
-					self.setTabBarBadge(res.totalUnReadCount);
+					self.setTabBarBadge(res.currentTotalUnReadCount);
 					//获取聊天数据结束后，停止刷新下拉
 					wx.stopPullDownRefresh();
 				},
@@ -77,22 +77,20 @@ Page({
 	//清除未读消息
 	clearUnReadCount: function (ops) {
 		let self = this;
-		let partnerId = ops.currentTarget.dataset.idx;
-		let index = ops.currentTarget.dataset.index;
 		if (app.globalData.apiHeader.UId > 0) {
 			app.httpPost(
 				'api/Letter/ClearUnReadCount', {
 					"UId": app.globalData.apiHeader.UId,
-					"PartnerUId": partnerId
+					"PickUpId": ops.currentTarget.dataset.pickupid
 				},
 				function (res) {
 					console.info("清除未读消息成功！")
-
-					self.data.tempChatList[index].unReadCount = '';
+					self.data.tempDiscussList[ops.currentTarget.dataset.index].unReadCount = '';
 					self.setData({
-						tempChatList: self.data.tempChatList,
-						totalUnReadCount: res.currentTotalUnReadCount
+						tempDiscussList: self.data.tempDiscussList
 					})
+
+					self.setTabBarBadge(res.currentTotalUnReadCount);
 				},
 				function (res) {
 					console.info("清除未读消息Http失败！")
@@ -100,8 +98,22 @@ Page({
 		}
 	},
 
+	//更多动作
+	moreAction: function () {
+		this.setData({
+			moreActionHidden: false
+		})
+	},
+
+	//重置更多
+	resetMoreAction: function () {
+		this.setData({
+			moreActionHidden: true
+		})
+	},
+
 	//长按删除对话弹框
-	deleteItem: function (ops) {
+	bindlongpress: function (ops) {
 		this.setData({
 			actionHidden: false,
 			selectItem: ops.currentTarget.dataset
@@ -116,31 +128,93 @@ Page({
 		})
 	},
 
+	//标为已读
+	toHasRead: function () {
+		let self = this;
+		if (app.globalData.apiHeader.UId > 0) {
+			app.httpPost(
+				'api/Letter/ClearUnReadCount', {
+					"UId": app.globalData.apiHeader.UId,
+					"PickUpId": self.data.selectItem.pickupid
+				},
+				function (res) {
+					console.info("清除未读消息成功！")
+					self.data.tempDiscussList[self.data.selectItem.index].unReadCount = '';
+					self.setData({
+						tempDiscussList: self.data.tempDiscussList
+					})
+					self.unReadTotalCount();
+					self.resetSelectItem();
+				},
+				function (res) {
+					self.resetSelectItem();
+				})
+		}
+	},
+
 	//删除对话
 	deleteChat: function () {
 		let self = this;
-		let partnerId = this.data.selectItem.idx;
-		let index = this.data.selectItem.key;
 		if (app.globalData.apiHeader.UId > 0) {
 			app.httpPost(
-				'api/Letter/DeleteChat', {
+				'api/Letter/DeleteBottle', {
 					"UId": app.globalData.apiHeader.UId,
-					"PartnerUId": partnerId
+					"PickUpId": self.data.selectItem.pickupid
 				},
 				function (res) {
 					console.info("删除对话成功！");
-					let list = self.data.tempChatList;
-					list.splice(index, 1);
+					let list = self.data.tempDiscussList;
+					list.splice(self.data.selectItem.index, 1);
 					self.setData({
-						tempChatList: list,
-						totalUnReadCount: res.currentTotalUnReadCount
+						tempDiscussList: list
 					});
+
+					self.setTabBarBadge(res.currentTotalUnReadCount);
 					//重置数据
 					self.resetSelectItem();
 				},
 				function (res) {
 					console.error("删除对话Http失败！");
 					self.resetSelectItem();
+				})
+		}
+	},
+	
+	//全部清空
+	deleteAllBottle: function () {
+		let self = this;
+		if (app.globalData.apiHeader.UId > 0) {
+			app.httpPost(
+				'api/Letter/DeleteAllBottle', {
+					"UId": app.globalData.apiHeader.UId
+				},
+				function (res) {
+					console.info("删除对话成功！");
+					self.setData({
+						tempDiscussList: []
+					});
+
+					self.setTabBarBadge("");
+				},
+				function (res) {
+					console.error("全部清空失败");
+				})
+		}
+	},
+
+	//更新未读总条数
+	unReadTotalCount: function () {
+		let self = this;
+		if (app.globalData.apiHeader.UId > 0) {
+			app.httpPost(
+				'api/Letter/UnReadTotalCount', {
+					"UId": app.globalData.apiHeader.UId
+				},
+				function (res) {
+					self.setTabBarBadge(res.unReadCount);
+				},
+				function (res) {
+					console.error("更新未读总条数失败！");
 				})
 		}
 	}

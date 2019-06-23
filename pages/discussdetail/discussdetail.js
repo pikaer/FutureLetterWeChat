@@ -4,7 +4,8 @@ Page({
 		discussDetail: {},
 		discussDetailList:[],
 		pickUpId: "",
-		discussContent: ""
+		discussContent: "",
+		inputMarBot: false
 	},
 
 	onLoad: function (options) {
@@ -78,5 +79,18 @@ Page({
 			function (res) {
 				console.error("发表评论失败");
 			})
+	},
+
+	// 评论输入框聚焦时，设置与底部的距离
+	settingMbShow: function () {
+		this.setData({
+			inputMarBot: true
+		})
+	},
+	//  评论输入框失去聚焦时，设置与底部的距离（默认状态）
+	settingMbNoShow: function () {
+		this.setData({
+			inputMarBot: false
+		})
 	},
 })

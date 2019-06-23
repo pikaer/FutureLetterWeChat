@@ -38,7 +38,8 @@
 }
 
 .imgView {
-  margin-left: 8px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .discussView {
@@ -52,8 +53,8 @@
 .discussContent {
   clear: both;
   font-size: 14px;
-  padding-top: 7px;
-  margin-left: 7px;
+  padding-top: 0px;
+  margin-left: 58px;
   margin-bottom: 8px;
 }
 
@@ -88,20 +89,20 @@
 
 .viewSend {
   float: left;
-  margin-top: 15px;
+  margin-top: 11px;
   margin-left: 0px;
 }
 
 .txtSend {
   width: 40px;
-  height: 30px;
+  height: 28px;
   background: #7fff00;
   padding-left: 4px;
   padding-right: 3px;
   border-radius: 5px;
   font-size: 14px;
   text-align: center;
-  padding-top: 3px;
+  padding-top: 4px;
 }
 
 input {
@@ -132,4 +133,8 @@ input {
   padding-bottom: 7px;
   margin-left: 8px;
   margin-right: 8px;
+}
+
+.imgCount {
+  width: 100%;
 }

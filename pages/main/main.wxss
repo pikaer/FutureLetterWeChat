@@ -5,11 +5,13 @@
 
 .headPhotoView {
   float: left;
+	margin-top:5px;
+
 }
 
 .userHead {
-  width: 150rpx;
-  height: 150rpx;
+  width: 120rpx;
+  height: 120rpx;
   margin-left: 48rpx;
   border-radius: 100%;
 }
@@ -32,7 +34,7 @@
 
 .countText {
   float: left;
-  font-size: 16px;
+  font-size: 13px;
   color: #9d9d9d;
 }
 
@@ -139,7 +141,7 @@
   font-size: 14rpx;
   color: #000;
   width: 100%;
-	margin-top:112px;
+	margin-top:99px;
 
 }
 

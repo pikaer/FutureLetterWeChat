@@ -30,7 +30,6 @@
   padding-top: 7px;
 }
 
-
 .contentArea {
   margin-bottom: 7px;
   background-color: white;
@@ -68,11 +67,11 @@
 }
 
 .nickNameView {
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .timeView {
-  font-size: 14px;
+  font-size: 12px;
   color: #8e8e8e;
 }
 
@@ -80,9 +79,8 @@
   clear: both;
 }
 
-
 .textView {
-  font-size: 16px;
+  font-size: 14px;
   padding-top: 10px;
   padding-bottom: 7px;
   margin-left: 8px;
@@ -91,6 +89,7 @@
 
 .imgView {
   margin-left: 8px;
+  margin-right: 8px;
 }
 
 .imgCount {
@@ -101,7 +100,7 @@
 
 .publishIcon {
   position: fixed;
-  bottom: 50px;
+  bottom: 10px;
   right: 10px;
 }
 
@@ -136,8 +135,7 @@ page {
   height: 40px;
   text-align: center;
   font-size: 14px;
-	background-color:white;
-
+  background-color: white;
 }
 
 .spinner .bounce1 {
@@ -176,4 +174,10 @@ page {
   size: 14px;
   color: gray;
   padding-left: 8px;
+}
+
+image {
+  width: 100%;
+  display: inline-block;
+  overflow: hidden;
 }

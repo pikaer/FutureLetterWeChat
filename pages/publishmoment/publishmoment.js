@@ -43,7 +43,7 @@ Page({
 			title: title,
 			icon: 'success',
 			image: img,
-			duration: 1500
+			duration: 2500
 		})
 	},
 
