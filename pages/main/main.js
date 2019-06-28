@@ -152,6 +152,25 @@ Page({
 		}
 	},
 
+	//全部标为已读
+	toAllHasRead: function () {
+		let self = this;
+		if (app.globalData.apiHeader.UId > 0) {
+			app.httpPost(
+				'api/Letter/ClearAllUnReadCount', {
+					"UId": app.globalData.apiHeader.UId
+				},
+				function (res) {
+					self.getChatList();
+				},
+				function (res) {
+					console.error("全部标为已读失败！");
+				})
+		}
+		self.resetMoreAction();
+		self.setTabBarBadge("");
+	},
+
 	//删除对话
 	deleteChat: function () {
 		let self = this;
@@ -163,12 +182,6 @@ Page({
 				},
 				function (res) {
 					console.info("删除对话成功！");
-					let list = self.data.tempDiscussList;
-					list.splice(self.data.selectItem.index, 1);
-					self.setData({
-						tempDiscussList: list
-					});
-
 					self.setTabBarBadge(res.currentTotalUnReadCount);
 					//重置数据
 					self.resetSelectItem();
@@ -178,6 +191,12 @@ Page({
 					self.resetSelectItem();
 				})
 		}
+
+		let list = self.data.tempDiscussList;
+		list.splice(self.data.selectItem.index, 1);
+		self.setData({
+			tempDiscussList: list
+		});
 	},
 	
 	//全部清空
@@ -193,11 +212,13 @@ Page({
 					self.setData({
 						tempDiscussList: []
 					});
-
+					self.resetMoreAction();
 					self.setTabBarBadge("");
 				},
 				function (res) {
 					console.error("全部清空失败");
+					self.resetMoreAction();
+					self.setTabBarBadge("");
 				})
 		}
 	},

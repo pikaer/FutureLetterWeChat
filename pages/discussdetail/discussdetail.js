@@ -5,13 +5,26 @@ Page({
 		discussDetailList:[],
 		pickUpId: "",
 		discussContent: "",
-		inputMarBot: false
+		inputMarBot: false,
+    showModal: false
 	},
 
 	onLoad: function (options) {
 		this.data.pickUpId = options.pickUpId
 		this.discussDetail();
 	},
+
+  toShowModal: function () {
+    this.setData({
+      showModal: true
+    });
+  },
+
+  hideModal: function () {
+    this.setData({
+      showModal: false
+    });
+  },
 
 	//下拉刷新页面数据
 	onPullDownRefresh: function () {

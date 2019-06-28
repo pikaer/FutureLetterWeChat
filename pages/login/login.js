@@ -2,8 +2,7 @@ const app = getApp();
 Page({
   data: {
     //判断小程序的API，回调，参数，组件等是否在当前版本可用。
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    headPhotoPath: "pikaer.jpg"
+    canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   onLoad: function() {
 
@@ -94,8 +93,6 @@ Page({
                 self.userInfoReadyCallback(res)
               }
 							self.setUserInfo();
-							// self.setAvatarUrl(res.userInfo.avatarUrl);
-							
             }
           })
         }

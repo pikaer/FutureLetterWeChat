@@ -6,7 +6,8 @@ Page({
     pageIndex: 1,
     loadHide: true,
     actionHidden: true,
-    scrollHidden: true
+    scrollHidden: true,
+    showModal:false,
   },
 
   onShow: function() {
@@ -21,6 +22,18 @@ Page({
       pageIndex: 1
     });
     this.getPickUpList(true);
+  },
+
+  toShowModal: function(){
+    this.setData({
+      showModal: true
+    });
+  },
+
+  hideModal:function() {
+    this.setData({
+      showModal: false
+    });
   },
 
   //下拉刷新页面数据

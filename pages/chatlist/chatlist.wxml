@@ -1,34 +1,20 @@
 <view class="container">
   <view class="tabView">
-    <view class="userView">
-      <view class="headPhotoView">
+    <view class="{{isChatList?'discussViewClick':'discussView'}}" bindtap="toChatList">
+      互动列表
+    </view>
+    <view class="{{isChatList?'publishView':'publishViewClick'}}" bindtap="toPulish">
+      我扔出的
+    </view>
+    <view class="userInfoView">
+      <navigator url="../../pages/userspace/userspace" class="navigator">
         <image class="userHead" src="/content/images/pikaer.jpg"></image>
-      </view>
-      <view class="basicInfoView">
-        <view class="nickNameText">Pikaer</view>
-        <view class="countView">
-          <view class="coinCountView">
-            <view class="countText">金币余额:100</view>
-          </view>
-        </view>
-      </view>
-      <view class="userInfoView">
-        <navigator url="../../pages/userspace/userspace" class="navigator">
-          <view class="navigator-text" style='color:#9d9d9d;'>我的钱包</view>
-          <view class="navigator-arrow"></view>
-        </navigator>
-      </view>
+        <view class="navigator-arrow"></view>
+      </navigator>
     </view>
-     <view class="lineView"></view>
-    <view class="tabBarView">
-      <view class="iconfont jieri" style="float:left;font-size:30px;padding-right:10px;padding-top:6px;" bindtap="moreAction"></view>
 
-      <view class="iconfont more" style="float:right;font-size:20px;padding-right:10px;padding-top:6px;" bindtap="moreAction"></view>
-
-    </view>
-    <view class="lineView"></view>
   </view>
-
+    <view class="chatLineView"></view>
   <view class="chatContainer">
     <navigator url="/pages/discussdetail/discussdetail?pickUpId={{value.pickUpId}}" wx:for="{{tempDiscussList}}" wx:for-item="value" wx:for-index="key" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' bindtap="clearUnReadCount" bindlongpress="bindlongpress">
       <view class="chatArea">
@@ -53,11 +39,7 @@
 <action-sheet hidden="{{actionHidden}}">
   <action-sheet-item bindtap="toHasRead">标为已读</action-sheet-item>
   <action-sheet-item bindtap="deleteChat">删除会话</action-sheet-item>
-  <action-sheet-cancel bindtap="resetSelectItem">取消</action-sheet-cancel>
-</action-sheet>
-
-<action-sheet hidden="{{moreActionHidden}}">
   <action-sheet-item bindtap="toAllHasRead">全部已读</action-sheet-item>
   <action-sheet-item bindtap="deleteAllBottle">全部清空</action-sheet-item>
-  <action-sheet-cancel bindtap="resetMoreAction">取消</action-sheet-cancel>
+  <action-sheet-cancel bindtap="resetSelectItem">取消</action-sheet-cancel>
 </action-sheet>
