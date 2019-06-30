@@ -1,4 +1,6 @@
 <view class="container">
+
+  <!-- tabBar -->
   <view class="tabView">
     <view class="{{isChatList?'discussViewClick':'discussView'}}" bindtap="toChatList">
       互动列表
@@ -7,20 +9,23 @@
       我扔出的
     </view>
     <view class="userInfoView">
-      <navigator url="../../pages/userspace/userspace" class="navigator">
-        <image class="userHead" src="/content/images/pikaer.jpg"></image>
+      <navigator url="../../pages/userinfo/userinfo" class="navigator">
+        <image class="userHead" src="{{tempHeadImgPath}}"></image>
         <view class="navigator-arrow"></view>
       </navigator>
     </view>
-
   </view>
-    <view class="chatLineView"></view>
-  <view class="chatContainer">
+
+  <!-- 分割线 -->
+  <view class="chatLineView"></view>
+
+  <!-- 互动列表 -->
+  <view class="chatContainer" wx:if="{{isChatList}}">
     <navigator url="/pages/discussdetail/discussdetail?pickUpId={{value.pickUpId}}" wx:for="{{tempDiscussList}}" wx:for-item="value" wx:for-index="key" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' bindtap="clearUnReadCount" bindlongpress="bindlongpress">
       <view class="chatArea">
-        <navigator url="../../pages/userspace/userspace?uid={{value.partnerUId}}" class="headPhotoViewV2">
+        <view data-uId='{{value.uId}}'  class="headPhotoViewV2" catchtap='toShowModal'>
           <image class="userHeadV2" src="{{value.headImgPath}}"></image>
-        </navigator>
+        </view>
         <view class="centerView">
           <view class="dispalyNameTxt">{{value.nickName}}</view>
           <view class="chatContentTxt">{{value.textContent}}</view>
@@ -33,7 +38,45 @@
       <view class="chatLineView"></view>
     </navigator>
   </view>
+
+  <!-- 扔出去的未回复的瓶子 -->
+  <view class="momentArea" wx:if="{{!isChatList}}">
+    <view class="momentView" wx:for="{{tempMomentList}}" wx:for-index="key" wx:for-item="value" data-momentId='{{value.momentId}}'>
+      <view class="border">
+        <view class="iconfont tianqi-qing" style="color:red;float:left"></view>
+        <view class="content">
+          <view class="textView">{{value.textContent}}</view>
+          <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
+            <image src="{{value.imgContent}}" class="momentImg" bindtap="previewMomentImg" data-imgPath='{{value.imgContent}}' mode="widthFix"></image>
+          </view>
+          <view class="publishTime">{{value.publishTime}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!--custom Modal-->
+  <view class="modal-mask-all" bindtap="hideModal" wx:if="{{showModal}}"></view>
+  <view wx:if="{{showModal}}">
+    <view class="modal-content-all">
+      <view class="headView-all">
+        <image class="userHead-all" src="{{basicUserInfo.headPhotoPath}}"></image>
+      </view>
+      <view class='nickNameView-all'>
+        {{basicUserInfo.nickName}}
+      </view>
+      <view class='basicInfoView-all'>
+        {{basicUserInfo.basicUserInfo}}
+      </view>
+      <view class='signatrueView-all' wx:if="{{basicUserInfo.signature!=null&&basicUserInfo.signature!=''}}">
+        个性签名：{{basicUserInfo.signature}}
+      </view>
+    </view>
+
+  </view>
+
 </view>
+
 
 <!-- 底部弹出菜单 -->
 <action-sheet hidden="{{actionHidden}}">

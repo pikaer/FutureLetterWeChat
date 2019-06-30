@@ -1,0 +1,142 @@
+.titleView {
+  font-size: 24px;
+}
+
+.userHeadV2 {
+  height: 80px;
+  width: 80px;
+  border-radius: 100%;
+}
+
+.basicView {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+}
+
+.title {
+  font-size: 16px;
+  padding-top: 10px;
+  float: left;
+}
+
+.desc {
+  float: right;
+  font-size: 16px;
+  margin-right: 16px;
+  margin-top: 10px;
+}
+
+.navigatorView {
+  flex: 1;
+  font-size: 16px;
+  margin-left: 7px;
+  margin-bottom: 8px;
+}
+
+.birth-arrow {
+  padding-right: 26rpx;
+  position: relative;
+}
+
+.homeLable {
+  font-size: 16px;
+  float: left;
+}
+
+.homeValue {
+  font-size: 16px;
+  float: right;
+  margin-right: 65px;
+}
+
+.homeView {
+  width: 100%;
+  height: 35px;
+  margin-left: 22px;
+  margin-top: 10px;
+}
+
+.blockView {
+  margin-top: 12px;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+}
+
+.btnView {
+  margin-top: 15px;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.blockBtnView {
+  height: 100%;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.pickView {
+  width: 100%;
+  height: 35px;
+  margin-left: 22px;
+  margin-top: 10px;
+}
+
+.pickLable {
+  font-size: 16px;
+  float: left;
+}
+
+.pickValue {
+  font-size: 16px;
+  float: right;
+  margin-right: 65px;
+}
+
+.radio {
+  height: 45px;
+  margin-left: 20px;
+}
+
+.radioLable {
+  font-size: 16px;
+  margin-top: 10px;
+  float: left;
+}
+
+.radioView {
+  float: right;
+  margin-top: 10px;
+  margin-right: 30px;
+}
+
+.labelMan {
+  font-size: 16px;
+  margin-right: 15px;
+  color: #4d4d4d;
+}
+
+.labelWoman {
+  font-size: 16px;
+  color: #4d4d4d;
+}
+
+#radioMan {
+  margin-bottom: 10px;
+}
+
+#radioWoMan {
+  margin-bottom: 10px;
+}
+
+.pickData {
+  float: left;
+}
+
+page {
+  user-select: none;
+  width: 100%;
+  overflow-x: hidden;
+  background-color: #f0f4f3;
+}

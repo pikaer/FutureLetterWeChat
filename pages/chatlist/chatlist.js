@@ -5,20 +5,26 @@ Page({
 
   data: {
     tempDiscussList: [],
+    tempMomentList: [],
+    basicUserInfo: {},
     actionHidden: true, //长按action
     selectItem: [], //长按后选中的
     pageIndex: 1,
-    isChatList: true
+    isChatList: true,
+    showModal: false,
+    tempHeadImgPath: "",
   },
 
 
   onShow: function() {
     this.unReadTotalCount();
     this.getChatList();
+    this.getMyMomentList();
   },
 
   onLoad: function() {
-    this.getChatList();
+    this.getHeadImgPath();
+    this.getMyMomentList();
   },
 
   //tab切换
@@ -26,12 +32,42 @@ Page({
     this.setData({
       isChatList: true
     });
+    this.getChatList();
+  },
+
+
+  //获取用户基础信息
+  toShowModal: function (ops) {
+    var self = this;
+    self.setData({
+      basicUserInfo: {}
+    });
+    app.httpPost(
+      'api/Letter/BasicUserInfo', {
+        "UId": ops.currentTarget.dataset.uid
+      },
+      function (res) {
+        self.setData({
+          basicUserInfo: res,
+          showModal: true
+        });
+      },
+      function (res) {
+        console.error("获取用户基础信息失败");
+      })
+  },
+
+  hideModal: function () {
+    this.setData({
+      showModal: false
+    });
   },
 
   toPulish: function() {
     this.setData({
       isChatList: false
     });
+    this.getMyMomentList();
   },
 
   //下拉刷新页面数据
@@ -60,8 +96,52 @@ Page({
     }
   },
 
+  //获取我扔出去的没有被评论的动态
+  getHeadImgPath: function () {
+    var self = this;
+    if (app.globalData.apiHeader.UId > 0) {
+      app.httpPost(
+        'api/Letter/BasicUserInfo', {
+          "UId": app.globalData.apiHeader.UId
+        },
+        function (res) {
+          console.info("获取用户头像成功！")
+          self.setData({
+            tempHeadImgPath: res.headPhotoPath
+          });
+        },
+        function (res) {
+          console.error("获取用户头像失败！");
+        })
+    }
+  },
+
+  //获取我扔出去的没有被评论的动态
+  getMyMomentList: function() {
+    var self = this;
+    if (app.globalData.apiHeader.UId > 0) {
+      app.httpPost(
+        'api/Letter/MyMomentList', {
+          "UId": app.globalData.apiHeader.UId,
+          "PageIndex": self.data.pageIndex
+        },
+        function(res) {
+          console.info("获取聊天列表成功！")
+
+          self.setData({
+            tempMomentList: res.momentList
+          });
+
+        },
+        function(res) {
+          console.error("获取聊天列表失败！");
+        })
+    }
+  },
+
+
   //获取用户数据
-  getChatList: function() {
+  getChatList: function () {
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
@@ -69,7 +149,7 @@ Page({
           "UId": app.globalData.apiHeader.UId,
           "PageIndex": self.data.pageIndex
         },
-        function(res) {
+        function (res) {
           console.info("获取聊天列表成功！")
 
           self.setData({
@@ -80,7 +160,7 @@ Page({
           //获取聊天数据结束后，停止刷新下拉
           wx.stopPullDownRefresh();
         },
-        function(res) {
+        function (res) {
           console.error("获取聊天列表失败！");
           //获取聊天数据结束后，停止刷新下拉
           wx.stopPullDownRefresh();

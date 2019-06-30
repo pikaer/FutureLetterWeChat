@@ -50,6 +50,19 @@ App({
     })
   },
 
+  //弹框
+  saveToast: function (success) {
+    let title = success ? "保存成功" : "保存失败";
+    let img = success ? "" : "../../content/images/warn.png"
+    wx.showToast({
+      title: title,
+      icon: 'success',
+      image: img,
+      duration: 1000
+    })
+  },
+
+
   //判断空指针
   isBlank: function(str) {
     if (Object.prototype.toString.call(str) === '[object Undefined]') { //空

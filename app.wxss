@@ -89,7 +89,7 @@
 
 /* for custom modal */
 
-.modal-mask {
+.modal-mask-all {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -102,7 +102,7 @@
   color: #fff;
 }
 
-.modal-content {
+.modal-content-all {
   position: fixed;
   top: 160px;
   right: 15%;
@@ -111,4 +111,79 @@
   height: 280px;
   background: #fff;
   border-radius: 2rpx;
+}
+
+.headPhotoView-all {
+  float: left;
+  margin-top: 5px;
+}
+
+.userHead-all {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 100%;
+}
+
+.headView-all {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.nickNameView-all {
+  text-align: center;
+  margin-top: 5px;
+  font-size: 18px;
+}
+
+.basicInfoView-all {
+  text-align: center;
+  margin-top: 3px;
+  font-size: 14px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.signatrueView-all {
+  font-size: 14px;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 10px;
+  color: #8e8e8e;
+}
+
+.arrow {
+  width: 10px;
+  height: 10px;
+  border-top: 1.2px solid #999;
+  border-right: 1.2px solid #999;
+  position: absolute;
+  right: 28px;
+  transform: rotate(45deg);
+  margin-top: 17rpx;
+}
+
+.inputView {
+  padding-top: 10px;
+  width: 100%;
+  height: 50px;
+  border-bottom: 1px solid #09f;
+}
+
+.inputValueView {
+  font-size: 16px;
+  line-height: 50px;
+  height: 50px;
+  padding-left: 10px;
+  padding-top: 7px;
+}
+
+.btnView {
+  margin-top: 100px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.primary {
+  color: #fff;
+  background-color: #09f;
 }

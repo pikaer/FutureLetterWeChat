@@ -4,6 +4,10 @@
     "pages/main/main",
     "pages/discovery/discovery",
     "pages/chatlist/chatlist",
+    "pages/userinfo/userinfo",
+    "pages/schoolname/schoolname",
+    "pages/nickname/nickname",
+    "pages/signature/signature",
     "pages/discussdetail/discussdetail",
     "pages/publishmoment/publishmoment"
   ],
@@ -20,14 +24,14 @@
       {
         "text": "漂流瓶",
         "pagePath": "pages/discovery/discovery",
-        "iconPath": "content/images/discovery.png",
-        "selectedIconPath": "content/images/discovery1.png"
+        "iconPath": "content/images/index.png",
+        "selectedIconPath": "content/images/index1.png"
       },
       {
         "text": "消息",
         "pagePath": "pages/chatlist/chatlist",
-        "iconPath": "content/images/index.png",
-        "selectedIconPath": "content/images/index1.png"
+        "iconPath": "content/images/chat.png",
+        "selectedIconPath": "content/images/chat1.png"
       }
     ]
   },
@@ -35,5 +39,6 @@
     "request": 20000,
     "downloadFile": 20000
   },
-  "debug": true
+  "debug": true,
+  "sitemapLocation": "sitemap30.json"
 }

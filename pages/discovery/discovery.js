@@ -2,6 +2,7 @@ const app = getApp()
 Page({
   data: {
     currentMoment: {},
+    basicUserInfo: {},
     pickUpList: [],
     pageIndex: 1,
     loadHide: true,
@@ -24,10 +25,26 @@ Page({
     this.getPickUpList(true);
   },
 
-  toShowModal: function(){
-    this.setData({
-      showModal: true
+
+  //获取用户基础信息
+  toShowModal: function (ops) {
+    var self = this;
+    self.setData({
+      basicUserInfo: {}
     });
+    app.httpPost(
+      'api/Letter/BasicUserInfo', {
+        "UId": ops.currentTarget.dataset.uid
+      },
+      function (res) {
+        self.setData({
+          basicUserInfo: res,
+          showModal: true
+        });
+      },
+      function (res) {
+        console.error("获取用户基础信息失败");
+      })
   },
 
   hideModal:function() {
@@ -256,11 +273,11 @@ Page({
 
   //清空所有未回复过的瓶子
   allClear: function() {
+    var self = this;
     wx.showModal({
       content: '将清空所有消息！',
       success(res) {
         if (res.confirm) {
-					var self = this;
 					app.httpPost(
 						'api/Letter/ClearAllBottle', {
 							"UId": app.globalData.apiHeader.UId

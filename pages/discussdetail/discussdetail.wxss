@@ -3,7 +3,6 @@
   background-color: white;
   clear: both;
   width: 100%;
-  height: 100%;
 }
 
 .titleView {
@@ -137,4 +136,12 @@ input {
 
 .imgCount {
   width: 100%;
+}
+
+
+page {
+  background-color:#f0f4f3;
+  height: 100%;
+  font-size: 32rpx;
+  line-height: 1.6;
 }

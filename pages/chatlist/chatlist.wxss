@@ -17,11 +17,6 @@
   margin-right: 20px;
 }
 
-.basicInfoView {
-  float: left;
-  font-size: 42rpx;
-  margin-left: 48rpx;
-}
 
 .nickNameText {
   margin-top: 7rpx;
@@ -178,4 +173,60 @@
   font-size: 20px;
   padding-left: 20px;
   color: #09f;
+}
+
+.momentArea {
+  height: 100%;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.momentView {
+  height: 100%;
+}
+
+.border {
+  border-left: 2px solid #bfbfbf;
+  border-top: 0px solid #68ea3e;
+  border-bottom: 1px solid #f0f4f3;
+  margin-left: 20px;
+}
+
+.content {
+  width: 78%;
+  background-color: white;
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  margin-left: 30px;
+  margin-bottom: 25px;
+  border-radius: 5px;
+}
+
+.imgView {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.momentImg {
+  border-radius: 7px;
+  width: 100%;
+}
+
+.publishTime {
+  font-size: 10px;
+  color: gray;
+}
+
+.textView {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+page {
+  user-select: none;
+  width: 100%;
+  overflow-x: hidden;
+  background-color: #f0f4f3;
 }

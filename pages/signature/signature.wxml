@@ -1,0 +1,8 @@
+<view class="inputView">
+  <!--这个是输入框-->
+  <input class="inputValueView" placeholder="请输入个性签名" value="{{tempSignature}}" bindinput="signatureInput" placeholder-style="color: gray"/>
+
+  <view class="btnView">
+    <button class="primary" bindtap='updateSignature'>保 存</button>
+  </view>
+</view>

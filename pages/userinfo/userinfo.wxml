@@ -1,0 +1,115 @@
+<view class="container">
+  <view class="titleView">
+    <image class="userHeadV2" src="{{tempHeadImgPath}}"></image>
+  </view>
+  <view class="basicView">
+    <view class="radio">
+      <view class="radioLable">性别</view>
+      <view class="radioView">
+        <radio-group class="group" bindchange="genderChange">
+          <label class="labelMan">
+            <radio value="1" checked="{{tempUserInfo.gender!=2}}" />小哥哥
+          </label>
+          <label class="labelWoman">
+            <radio value="2" checked="{{tempUserInfo.gender==2}}" />小姐姐
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <view class="lineView"></view>
+    <view>
+      <navigator url="../../pages/nickname/nickname?nickName={{tempUserInfo.nickName}}" class="navigator">
+        <view class="navigatorView">
+          <view class="title">昵称</view>
+          <view class="desc">{{tempUserInfo.nickName}}</view>
+        </view>
+        <view class="navigator-arrow"></view>
+      </navigator>
+    </view>
+    <view class="lineView"></view>
+    <view class="pickView">
+      <view class="pickLable">生日</view>
+      <view class="pickValue">
+        <picker mode="date" value="{{tempUserInfo.birthDate}}" start="1970-01-01" end="2019-12-01" bindchange="bindBirthDayChange">
+          <view class="pickData">{{tempUserInfo.birthDate}}</view>
+        </picker>
+        <view class="arrow"></view>
+      </view>
+    </view>
+    <view class="lineView"></view>
+    <view class="homeView">
+      <view class="homeLable">所在地</view>
+      <view class="homeValue">
+        <picker mode="region" bindchange="bindPlaceRegionChange" value="{{placeRegion}}" custom-item="全部">
+          <view class="picker">
+            {{tempUserInfo.province}}-{{tempUserInfo.city}}-{{tempUserInfo.area}}
+          </view>
+        </picker>
+      </view>
+      <view class="arrow"></view>
+    </view>
+    <view class="lineView"></view>
+  </view>
+  <view class="blockView">
+    <view>
+      <navigator url="../../pages/schoolname/schoolname?schoolName={{tempUserInfo.schoolName}}" class="navigator">
+        <view class="navigatorView">
+          <view class="title">学校名称</view>
+          <view class="desc">{{tempUserInfo.schoolName}}</view>
+        </view>
+        <view class="navigator-arrow"></view>
+      </navigator>
+    </view>
+    <view class="lineView"></view>
+    <view class="pickView">
+      <view class="pickLable">入学时间</view>
+      <view class="pickValue">
+        <picker mode="date" value="{{tempUserInfo.entranceDate}}" fields="month" start="1970-01" end="2019-12" bindchange="bindEntranceDateChange">
+          <view class="pickData">{{tempUserInfo.entranceDate}}</view>
+        </picker>
+        <view class="arrow"></view>
+      </view>
+    </view>
+    <view class="lineView"></view>
+    <view class="pickView">
+      <view class="pickLable">学校类型</view>
+      <view class="pickValue">
+        <picker bindchange="bindSchoolTypeChange" value="{{tempUserInfo.schoolType}}" range="{{schoolTypeArray}}">
+          <view class="pickData">{{schoolTypeArray[tempUserInfo.schoolType]}}</view>
+        </picker>
+        <view class="arrow"></view>
+      </view>
+    </view>
+    <view class="lineView"></view>
+    <view class="radio">
+      <view class="radioLable">学籍状态</view>
+      <view class="radioView">
+        <radio-group class="group" bindchange="liveStateChange">
+          <label class="labelMan">
+            <radio value="1" checked="{{tempUserInfo.liveState!=2}}" />学生党
+          </label>
+          <label class="labelWoman">
+            <radio value="2" checked="{{tempUserInfo.liveState==2}}" />工作党
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <view class="lineView"></view>
+    <view>
+      <navigator url="../../pages/signatureTxt/signatureTxt?signatureTxt={{tempUserInfo.signature}}" class="navigator">
+        <view class="navigatorView">
+          <view class="title">个性签名</view>
+          <view class="desc">{{tempUserInfo.signature}}</view>
+        </view>
+        <view class="navigator-arrow"></view>
+      </navigator>
+    </view>
+    <view class="lineView"></view>
+  </view>
+
+  <view class="blockBtnView">
+    <view class="btnView">
+      <button class="primary" bindtap='updateUserInfo'>保 存</button>
+    </view>
+  </view>
+</view>
