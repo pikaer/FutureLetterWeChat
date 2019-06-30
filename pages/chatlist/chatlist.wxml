@@ -72,9 +72,9 @@
         个性签名：{{basicUserInfo.signature}}
       </view>
     </view>
-
   </view>
 
+  
 </view>
 
 

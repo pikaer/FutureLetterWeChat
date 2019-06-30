@@ -96,7 +96,7 @@
     </view>
     <view class="lineView"></view>
     <view>
-      <navigator url="../../pages/signatureTxt/signatureTxt?signatureTxt={{tempUserInfo.signature}}" class="navigator">
+      <navigator url="../../pages/signature/signature?signature={{tempUserInfo.signature}}" class="navigator">
         <view class="navigatorView">
           <view class="title">个性签名</view>
           <view class="desc">{{tempUserInfo.signature}}</view>

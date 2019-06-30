@@ -14,7 +14,7 @@ Page({
       "schoolName": "上海大学",
       "entranceDate": "2017-12",
       "schoolType": 1,
-      "schoolType": 1,
+      "signature": "",
       "liveState": 2
     }
   },
@@ -65,7 +65,8 @@ Page({
             let entranceDate = 'tempUserInfo.entranceDate';
             let schoolType = 'tempUserInfo.schoolType';
             let liveState = 'tempUserInfo.liveState';
-
+            let signature = 'tempUserInfo.signature';
+            
             var placeRegion0 = "placeRegion[" + 0 + "]";
             var placeRegion1 = "placeRegion[" + 1 + "]";
             var placeRegion2 = "placeRegion[" + 2 + "]";
@@ -81,7 +82,7 @@ Page({
               [entranceDate]: res.entranceDate,
               [schoolType]: res.schoolType,
               [liveState]: res.liveState,
-
+              [signature]: res.signature,
               //所在地下拉框默认值
               [placeRegion0]: res.province,
               [placeRegion1]: res.city,
@@ -113,6 +114,7 @@ Page({
           "SchoolName": tempUserInfo.schoolName,
           "EntranceDate": tempUserInfo.entranceDate,
           "SchoolType": tempUserInfo.schoolType,
+          "Signature": tempUserInfo.signature,
           "LiveState": tempUserInfo.liveState
         },
         function (res) {

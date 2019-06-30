@@ -6,7 +6,8 @@ Page({
     pickUpId: "",
     discussContent: "",
     inputMarBot: false,
-    showModal: false
+    showModal: false,
+    basicUserInfo: {},
   },
 
   onLoad: function (options) {
@@ -14,10 +15,25 @@ Page({
     this.discussDetail();
   },
 
-  toShowModal: function () {
-    this.setData({
-      showModal: true
+  //获取用户基础信息
+  toShowModal: function (ops) {
+    var self = this;
+    self.setData({
+      basicUserInfo: {}
     });
+    app.httpPost(
+      'api/Letter/BasicUserInfo', {
+        "UId": ops.currentTarget.dataset.uid
+      },
+      function (res) {
+        self.setData({
+          basicUserInfo: res,
+          showModal: true
+        });
+      },
+      function (res) {
+        console.error("获取用户基础信息失败");
+      })
   },
 
   hideModal: function () {
@@ -25,6 +41,7 @@ Page({
       showModal: false
     });
   },
+
 
   //下拉刷新页面数据
   onPullDownRefresh: function () {
