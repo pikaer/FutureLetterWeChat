@@ -8,7 +8,9 @@ Page({
     tempMomentList: [],
     basicUserInfo: {},
     actionHidden: true, //长按action
+    deleteMomentHidden: true,
     selectItem: [], //长按后选中的
+    selectMomentItem: [],
     pageIndex: 1,
     isChatList: true,
     showModal: false,
@@ -216,6 +218,22 @@ Page({
     })
   },
 
+   //长按删除对话弹框
+   bindlongMomentPress: function(ops) {
+    this.setData({
+      deleteMomentHidden: false,
+      selectMomentItem: ops.currentTarget.dataset
+    })
+  },
+
+  //重置长按选择项
+  resetSelectMomentItem: function() {
+    this.setData({
+      deleteMomentHidden: true,
+      selectMomentItem: []
+    })
+  },
+
   //标为已读
   toHasRead: function() {
     let self = this;
@@ -254,6 +272,7 @@ Page({
           self.setTabBarBadge("");
         },
         function(res) {
+          self.resetSelectItem();
           console.error("全部标为已读失败！");
         })
     }
@@ -324,5 +343,64 @@ Page({
           console.error("更新未读总条数失败！");
         })
     }
+  },
+
+
+  //删除单个
+  deleteMoment: function () {
+    let self = this;
+    if (app.globalData.apiHeader.UId > 0) {
+      app.httpPost(
+        'api/Letter/DeleteMoment', {
+          "MomentId": self.data.selectMomentItem.momentid
+        },
+        function (res) {
+          console.info("删除动态成功！");
+          let list = self.data.tempMomentList;
+          list.splice(self.data.selectMomentItem.index, 1);
+          self.setData({
+            tempMomentList: list
+          });
+          //重置数据
+          self.resetSelectMomentItem();
+        },
+        function (res) {
+          console.error("删除动态失败！");
+          //重置数据
+          self.resetSelectMomentItem();
+        })
+    }
+  },
+
+  
+  //删除所有动态
+  deleteAllMoment: function() {
+    var self = this;
+    wx.showModal({
+      content: '将清空所有发布的动态！',
+      success(res) {
+        if (app.globalData.apiHeader.UId > 0) {
+          app.httpPost(
+            'api/Letter/DeleteAllMoment', {
+              "UId": app.globalData.apiHeader.UId
+            },
+            function (res) {
+              console.info("删除所有动态成功！");
+              self.setData({
+                tempMomentList: []
+              });
+              //重置数据
+              self.resetSelectMomentItem();
+            },
+            function (res) {
+              console.error("删除所有动态失败！");
+              //重置数据
+              self.resetSelectMomentItem();
+            })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
   }
 })

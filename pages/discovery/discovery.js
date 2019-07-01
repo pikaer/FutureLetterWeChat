@@ -287,10 +287,11 @@ Page({
 							self.setData({
 								pickUpList: []
 							});
-							self.resetAllClearSelectItem()
+              self.resetSelectItem()
 						},
 						function (res) {
 							console.warn("清空所有未回复过的瓶子失败");
+              self.resetSelectItem()
 						})
         } else if (res.cancel) {
           console.log('用户点击取消')
