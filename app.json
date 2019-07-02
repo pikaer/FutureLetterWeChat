@@ -4,6 +4,7 @@
     "pages/main/main",
     "pages/discovery/discovery",
     "pages/chatlist/chatlist",
+    "pages/chat/chat",
     "pages/userinfo/userinfo",
     "pages/schoolname/schoolname",
     "pages/nickname/nickname",
@@ -26,6 +27,11 @@
         "pagePath": "pages/discovery/discovery",
         "iconPath": "content/images/index.png",
         "selectedIconPath": "content/images/index1.png"
+      },{
+        "text": "首页",
+        "pagePath": "pages/chat/chat",
+        "iconPath": "content/images/chat.png",
+        "selectedIconPath": "content/images/chat1.png"
       },
       {
         "text": "消息",

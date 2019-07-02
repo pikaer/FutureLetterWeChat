@@ -1,0 +1,15 @@
+<view class="container">
+  <view class="page-body">
+    <view class="page-section page-section-spacing swiper">
+      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px">
+         <swiper-item>
+            <view class="swiper-item demo-text-1"></view>
+          </swiper-item>
+
+           <swiper-item>
+            <view class="swiper-item demo-text-2"></view>
+          </swiper-item>
+      </swiper>
+    </view>
+  </view>
+</view>

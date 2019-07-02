@@ -39,8 +39,9 @@
   </view>
 
   <view class="publishIcon">
-    <view class="iconfont arrow3-top" hidden='{{scrollHidden}}' style='font-size:50px;color:#0099ff;height:65px' catchtap='toTop'></view>
-    <view class="iconfont gengduo4" style='font-size:50px;color:#0099ff' catchtap="publishMoment"></view>
+    <!-- <view class="iconfont arrow3-top" hidden='{{scrollHidden}}' style='font-size:50px;color:#0099ff;height:65px' catchtap='toTop'></view> -->
+    <view class="publishIconView" catchtap="publishMoment">+ </view>
+    <!-- <view class="iconfont gengduo4" style='font-size:50px;color:#0099ff' catchtap="publishMoment"></view> -->
   </view>
 </view>
 
