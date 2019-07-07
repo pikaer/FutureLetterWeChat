@@ -1,1 +1,7 @@
-/* pages/signature/signature.wxss */
+.textValueView {
+  font-size: 16px;
+  padding-top: 10px;
+  width: 100%;
+  border-bottom: 1px solid #09f;
+  height: 80px;
+}

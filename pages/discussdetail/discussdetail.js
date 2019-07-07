@@ -50,11 +50,12 @@ Page({
 
   // 预览图片
   previewImg: function (e) {
-    let imgContents = e.currentTarget.dataset.imgcontents;
-    let index = e.currentTarget.dataset.index;
+    let imgContent = e.currentTarget.dataset.imgcontent;
+    let imgContents = [];
+    imgContents.push(imgContent);
     wx.previewImage({
       //当前显示图片
-      current: imgContents[index],
+      current: imgContent,
       //所有图片
       urls: imgContents
     })

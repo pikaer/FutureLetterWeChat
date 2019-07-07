@@ -8,7 +8,7 @@ Page({
     loadHide: true,
     actionHidden: true,
     scrollHidden: true,
-    showModal:false,
+    showModal: false,
   },
 
   onShow: function() {
@@ -27,7 +27,7 @@ Page({
 
 
   //获取用户基础信息
-  toShowModal: function (ops) {
+  toShowModal: function(ops) {
     var self = this;
     self.setData({
       basicUserInfo: {}
@@ -36,18 +36,18 @@ Page({
       'api/Letter/BasicUserInfo', {
         "UId": ops.currentTarget.dataset.uid
       },
-      function (res) {
+      function(res) {
         self.setData({
           basicUserInfo: res,
           showModal: true
         });
       },
-      function (res) {
+      function(res) {
         console.error("获取用户基础信息失败");
       })
   },
 
-  hideModal:function() {
+  hideModal: function() {
     this.setData({
       showModal: false
     });
@@ -152,18 +152,6 @@ Page({
     })
   },
 
-  //监听滚动条位置
-  onPageScroll: function(e) { // 获取滚动条当前位置
-    if (e.scrollTop > 700) {
-      this.setData({
-        scrollHidden: false
-      });
-    } else {
-      this.setData({
-        scrollHidden: true
-      });
-    }
-  },
 
   //动态详情页面
   previewMomentDetail: function(e) {
@@ -278,21 +266,21 @@ Page({
       content: '将清空所有消息！',
       success(res) {
         if (res.confirm) {
-					app.httpPost(
-						'api/Letter/ClearAllBottle', {
-							"UId": app.globalData.apiHeader.UId
-						},
-						function (res) {
-							console.info("清空所有未回复过的瓶子成功");
-							self.setData({
-								pickUpList: []
-							});
+          app.httpPost(
+            'api/Letter/ClearAllBottle', {
+              "UId": app.globalData.apiHeader.UId
+            },
+            function(res) {
+              console.info("清空所有未回复过的瓶子成功");
+              self.setData({
+                pickUpList: []
+              });
               self.resetSelectItem()
-						},
-						function (res) {
-							console.warn("清空所有未回复过的瓶子失败");
+            },
+            function(res) {
+              console.warn("清空所有未回复过的瓶子失败");
               self.resetSelectItem()
-						})
+            })
         } else if (res.cancel) {
           console.log('用户点击取消')
         }

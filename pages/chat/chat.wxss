@@ -1,9 +1,8 @@
-/* @import "./weui.wxss"; */
-
 .container {
   display: block;
   height: 100%;
   width: 100%;
+  position: fixed;
 }
 
 page {
@@ -57,57 +56,6 @@ page {
   padding-right: 0;
 }
 
-.demo-text-1 {
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  background-color: #1aad19;
-  color: #fff;
-  font-size: 36rpx;
-}
-
-.demo-text-1:before {
-  content: 'A';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.demo-text-2 {
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  background-color: #2782d7;
-  color: #fff;
-  font-size: 36rpx;
-}
-
-.demo-text-2:before {
-  content: 'B';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.demo-text-3 {
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  background-color: #f1f1f1;
-  color: #353535;
-  font-size: 36rpx;
-}
-
-.demo-text-3:before {
-  content: 'C';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
 button {
   margin-bottom: 30rpx;
 }
@@ -154,4 +102,242 @@ swiper-item {
   will-change: 'transform';
   height: 100%;
   width: 100%;
+}
+
+.userView {
+  width: 100%;
+  background-color: white;
+  height: 17px;
+}
+
+.headPhotoView {
+  float: left;
+  margin-top: 5px;
+}
+
+.userHead {
+  width: 60rpx;
+  height: 60rpx;
+  margin-left: 48rpx;
+  border-radius: 100%;
+  margin-right: 20px;
+}
+
+.nickNameText {
+  margin-top: 7rpx;
+  font-size: 42rpx;
+}
+
+.coinCountView {
+  float: left;
+  font-size: 15px;
+}
+
+.countText {
+  float: left;
+  font-size: 13px;
+  color: #9d9d9d;
+}
+
+.countView {
+  margin-top: 10px;
+}
+
+.userInfoView {
+  float: right;
+}
+
+.tabBarView {
+  width: 100%;
+  height: 35px;
+  clear: both;
+}
+
+.titleView {
+  padding-left: 5px;
+  padding-top: 7px;
+  font-size: 15px;
+  float: left;
+}
+
+.chatArea {
+  height: 65px;
+  width: 100%;
+}
+
+.headPhotoViewV2 {
+  float: left;
+  height: 100%;
+}
+
+.userHeadV2 {
+  width: 48px;
+  height: 48px;
+  border-radius: 200px;
+  margin-top: 10px;
+  margin-left: 8px;
+}
+
+.centerView {
+  float: left;
+  margin-top: 12px;
+  margin-left: 8px;
+}
+
+.dispalyNameTxt {
+  font-size: 14px;
+}
+
+.chatContentTxt {
+  font-size: 13px;
+  color: #8e8e8e;
+  margin-top: 8px;
+}
+
+.rightView {
+  float: right;
+  margin-top: 8px;
+  margin-right: 8px;
+}
+
+.chatTime {
+  font-size: 13px;
+  color: #8e8e8e;
+  float: right;
+  padding-right: 2px;
+}
+
+.unreadCount {
+  font-size: 13px;
+  width: 30px;
+  height: 20px;
+  background-color: red;
+  text-align: center;
+  color: white;
+  font-weight: 600;
+  margin-left: 25px;
+  margin-top: 28px;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+  clear: both;
+}
+
+.chatLineView {
+  margin: 0 auto;
+  width: 100%;
+  height: 1.5rpx;
+  background-color: #e5e5e5;
+}
+
+.chatContainer {
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background: white;
+  padding: 0;
+  font-size: 14rpx;
+  color: #000;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 32px;
+}
+
+.tabView {
+  width: 100%;
+  background-color: #f0f4f3;
+  padding-bottom: 5px;
+  padding-left: 15px;
+}
+
+.discussView {
+  float: left;
+  font-size: 14px;
+  color: #8e8e8e;
+  padding-top: 7px;
+}
+
+.discussViewClick {
+  float: left;
+  font-size: 20px;
+  color: #09f;
+}
+
+.publishView {
+  float: left;
+  font-size: 14px;
+  padding-left: 20px;
+  padding-top: 7px;
+  color: #8e8e8e;
+}
+
+.publishViewClick {
+  float: left;
+  font-size: 20px;
+  padding-left: 20px;
+  color: #09f;
+}
+
+.momentArea {
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0;
+  font-size: 14rpx;
+  color: #000;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 32px;
+}
+
+.momentView {
+}
+
+.border {
+  border-left: 2px solid #bfbfbf;
+  border-top: 0px solid #68ea3e;
+  border-bottom: 1px solid #f0f4f3;
+  margin-left: 20px;
+}
+
+.content {
+  width: 78%;
+  background-color: white;
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  margin-left: 30px;
+  margin-bottom: 25px;
+  border-radius: 5px;
+}
+
+.imgView {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.momentImg {
+  border-radius: 7px;
+  width: 100%;
+}
+
+.publishTime {
+  font-size: 10px;
+  color: gray;
+}
+
+.textView {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+page {
+  user-select: none;
+  width: 100%;
+  overflow-x: hidden;
+  background-color: #f0f4f3;
 }

@@ -48,6 +48,7 @@
   font-size: 16px;
   float: right;
   margin-right: 65px;
+  margin-left: 60px;
 }
 
 .homeView {

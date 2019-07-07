@@ -45,6 +45,24 @@ Page({
   },
 
   //获取我扔出去的没有被评论的动态
+  updateImgPath: function (path) {
+    var self = this;
+    if (app.globalData.apiHeader.UId > 0) {
+      app.httpPost(
+        'api/Letter/UpdateAvatarUrl', {
+          "UId": app.globalData.apiHeader.UId,
+          "AvatarUrl": path
+        },
+        function (res) {
+          self.getHeadImgPath();
+        },
+        function (res) {
+          console.error("更新用户头像失败！");
+        })
+    }
+  },
+
+  //获取我扔出去的没有被评论的动态
   getUserInfo: function () {
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
@@ -192,6 +210,39 @@ Page({
     this.setData({
       [liveState]: e.detail.value
     })
-  }
-})
+  },
 
+
+  //选择图片方法
+  uploadpic: function (e) {
+    let self = this //获取上下文
+    wx.chooseImage({
+      count: 1, // 默认9，这里显示一次选择相册的图片数量 
+      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有  
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function (res) { // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片 
+        self.uploadimage(res.tempFiles[0]);
+      }
+    })
+  },
+
+  //上传图片
+  uploadimage(tempPath) {
+    let self = this
+    wx.uploadFile({
+      url: app.globalData.baseUrl + "api/Letter/UpLoadImg", //需要用HTTPS，同时在微信公众平台后台添加服务器地址  
+      filePath: tempPath.path, //上传的文件本地地址    
+      name: 'file',
+      success: function (res) {
+        let data = JSON.parse(res.data);
+        if (data.success) {
+          self.updateImgPath(data.content.imgPath);
+        }
+      },
+      fail: function (res) {
+        console.info(res);
+      }
+    })
+  },
+
+})

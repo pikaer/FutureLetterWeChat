@@ -1,5 +1,5 @@
 <view class="container">
-  <view class="titleView">
+  <view class="titleView" bindtap='uploadpic'>
     <image class="userHeadV2" src="{{tempHeadImgPath}}"></image>
   </view>
   <view class="basicView">

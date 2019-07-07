@@ -1,7 +1,7 @@
 <view class="contentArea">
   <view class="titleView">
     <view class="leftView">
-      <image src="{{discussDetail.headImgPath}}" class="userHead"  data-uId='{{discussDetail.momentUId}}' catchtap='toShowModal'></image>
+      <image src="{{discussDetail.headImgPath}}" class="userHead" data-uId='{{discussDetail.momentUId}}' catchtap='toShowModal'></image>
     </view>
     <view class="centerView">
       <view class="nickNameView">{{discussDetail.nickName}}</view>
@@ -23,7 +23,7 @@
   <view class="discussArea">
     <view class="discussView" wx:for="{{discussDetailList}}" wx:for-index="key" wx:for-item="value">
       <view class="leftView">
-        <image src="{{value.headImgPath}}"  data-uId='{{value.pickUpUId}}' class="userHead" catchtap='toShowModal'></image>
+        <image src="{{value.headImgPath}}" data-uId='{{value.pickUpUId}}' class="userHead" catchtap='toShowModal'></image>
       </view>
       <view class="centerView">
         <view class="nickNameView">{{value.nickName}}</view>
@@ -41,11 +41,16 @@
       <view class="headView-all">
         <image class="userHead-all" src="{{basicUserInfo.headPhotoPath}}"></image>
       </view>
-      <view class='nickNameView-all'>
-        {{basicUserInfo.nickName}}
-      </view>
-      <view class='basicInfoView-all'>
-        {{basicUserInfo.basicUserInfo}}
+      <view class="rightUserInfo-all">
+        <view class='nickNameView-all'>
+          {{basicUserInfo.nickName}}
+        </view>
+        <view class='basicInfoView-all'>
+          {{basicUserInfo.basicUserInfo}}
+        </view>
+        <view class='placeInfoView-all'>
+          <view class="iconfont dingwei" style='font-size:12px'> {{basicUserInfo.placeInfo}}</view>
+        </view>
       </view>
       <view class='signatrueView-all' wx:if="{{basicUserInfo.signature!=null&&basicUserInfo.signature!=''}}">
         个性签名：{{basicUserInfo.signature}}
@@ -59,7 +64,7 @@
   <view class="inputarea" style="{{inputMarBot?'margin-bottom:18px':''}}">
     <view class="chatLineView"></view>
     <view class="viewinput">
-      <input placeholder="输入评论" value='{{discussContent}}' bindinput="discussContentInput" bindfocus='settingMbShow' bindblur='settingMbNoShow'/>
+      <input placeholder="输入评论" value='{{discussContent}}' bindinput="discussContentInput" bindfocus='settingMbShow' bindblur='settingMbNoShow' />
     </view>
     <view class="viewSend" data-idx='{{partnerId}}' bindtap="insertDiscussContent">
       <view class="txtSend">发 送</view>
@@ -67,5 +72,3 @@
     <view class="chatLineView"></view>
   </view>
 </view>
-
-
