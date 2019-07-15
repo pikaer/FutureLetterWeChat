@@ -3,49 +3,49 @@ Page({
   data: {
     placeRegion: ['广东省', '广州市', '海珠区'],
     schoolTypeArray: ['其他', '学院/大学', '一本', '211/985/海外院校'],
-    tempHeadImgPath:"",
+    tempHeadImgPath: "",
     tempUserInfo: {
       "gender": 1,
-      "nickName": "Hello",
-      "birthDate": "2016-09-07",
-      "province": "海南省",
-      "city": "三亚市",
-      "area": "海珠区",
-      "schoolName": "上海大学",
-      "entranceDate": "2017-12",
+      "nickName": "",
+      "birthDate": "",
+      "province": "",
+      "city": "",
+      "area": "",
+      "schoolName": "",
+      "entranceDate": "",
       "schoolType": 1,
       "signature": "",
       "liveState": 2
     }
   },
 
-  onLoad: function () {
+  onLoad: function() {
     this.getHeadImgPath();
     this.getUserInfo();
   },
 
   //获取我扔出去的没有被评论的动态
-  getHeadImgPath: function () {
+  getHeadImgPath: function() {
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
         'api/Letter/BasicUserInfo', {
           "UId": app.globalData.apiHeader.UId
         },
-        function (res) {
+        function(res) {
           console.info("获取用户头像成功！")
           self.setData({
             tempHeadImgPath: res.headPhotoPath
           });
         },
-        function (res) {
+        function(res) {
           console.error("获取用户头像失败！");
         })
     }
   },
 
   //获取我扔出去的没有被评论的动态
-  updateImgPath: function (path) {
+  updateImgPath: function(path) {
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
@@ -53,25 +53,25 @@ Page({
           "UId": app.globalData.apiHeader.UId,
           "AvatarUrl": path
         },
-        function (res) {
+        function(res) {
           self.getHeadImgPath();
         },
-        function (res) {
+        function(res) {
           console.error("更新用户头像失败！");
         })
     }
   },
 
   //获取我扔出去的没有被评论的动态
-  getUserInfo: function () {
+  getUserInfo: function() {
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
         'api/Letter/GetUserInfo', {
           "UId": app.globalData.apiHeader.UId
         },
-        function (res) {
-          if (res!= null) {
+        function(res) {
+          if (res != null) {
             console.info("获取用户信息成功");
             let gender = 'tempUserInfo.gender';
             let nickName = 'tempUserInfo.nickName';
@@ -84,7 +84,7 @@ Page({
             let schoolType = 'tempUserInfo.schoolType';
             let liveState = 'tempUserInfo.liveState';
             let signature = 'tempUserInfo.signature';
-            
+
             var placeRegion0 = "placeRegion[" + 0 + "]";
             var placeRegion1 = "placeRegion[" + 1 + "]";
             var placeRegion2 = "placeRegion[" + 2 + "]";
@@ -108,7 +108,7 @@ Page({
             })
           }
         },
-        function (res) {
+        function(res) {
           console.error("获取用户信息失败！");
         })
     }
@@ -116,7 +116,7 @@ Page({
 
 
   //获取我扔出去的没有被评论的动态
-  updateUserInfo: function () {
+  updateUserInfo: function() {
     let self = this;
     let tempUserInfo = this.data.tempUserInfo;
     if (app.globalData.apiHeader.UId > 0) {
@@ -135,7 +135,7 @@ Page({
           "Signature": tempUserInfo.signature,
           "LiveState": tempUserInfo.liveState
         },
-        function (res) {
+        function(res) {
           if (res.isExecuteSuccess) {
             console.info("修改用户信息成功")
             app.saveToast(true);
@@ -143,19 +143,19 @@ Page({
             app.saveToast(false);
           }
         },
-        function (res) {
+        function(res) {
           console.error("修改用户信息失败！");
         })
     }
   },
 
   //页面下拉刷新监听
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     wx.stopPullDownRefresh();
   },
 
   //生日下拉列表框
-  bindBirthDayChange: function (e) {
+  bindBirthDayChange: function(e) {
     let birth = 'tempUserInfo.birthDate';
     this.setData({
       [birth]: e.detail.value
@@ -163,7 +163,7 @@ Page({
   },
 
   //入学时间下拉列表
-  bindEntranceDateChange: function (e) {
+  bindEntranceDateChange: function(e) {
     let entrance = 'tempUserInfo.entranceDate';
     this.setData({
       [entrance]: e.detail.value
@@ -171,7 +171,7 @@ Page({
   },
 
   //所在地监听变化
-  bindPlaceRegionChange: function (e) {
+  bindPlaceRegionChange: function(e) {
     let province = 'tempUserInfo.province';
     let city = 'tempUserInfo.city';
     let area = 'tempUserInfo.area';
@@ -189,7 +189,7 @@ Page({
   },
 
   //学校类型下拉列表
-  bindSchoolTypeChange: function (e) {
+  bindSchoolTypeChange: function(e) {
     let schoolType = 'tempUserInfo.schoolType';
     this.setData({
       [schoolType]: e.detail.value
@@ -197,7 +197,7 @@ Page({
   },
 
   //性别单选框值变动
-  genderChange: function (e) {
+  genderChange: function(e) {
     let gender = 'tempUserInfo.gender';
     this.setData({
       [gender]: e.detail.value
@@ -205,7 +205,7 @@ Page({
   },
 
   //学籍状态单选框值变动
-  liveStateChange: function (e) {
+  liveStateChange: function(e) {
     let liveState = 'tempUserInfo.liveState';
     this.setData({
       [liveState]: e.detail.value
@@ -214,13 +214,13 @@ Page({
 
 
   //选择图片方法
-  uploadpic: function (e) {
+  uploadpic: function(e) {
     let self = this //获取上下文
     wx.chooseImage({
       count: 1, // 默认9，这里显示一次选择相册的图片数量 
       sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有  
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function (res) { // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片 
+      success: function(res) { // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片 
         self.uploadimage(res.tempFiles[0]);
       }
     })
@@ -233,13 +233,13 @@ Page({
       url: app.globalData.baseUrl + "api/Letter/UpLoadImg", //需要用HTTPS，同时在微信公众平台后台添加服务器地址  
       filePath: tempPath.path, //上传的文件本地地址    
       name: 'file',
-      success: function (res) {
+      success: function(res) {
         let data = JSON.parse(res.data);
         if (data.success) {
           self.updateImgPath(data.content.imgPath);
         }
       },
-      fail: function (res) {
+      fail: function(res) {
         console.info(res);
       }
     })

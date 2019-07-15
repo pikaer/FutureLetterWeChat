@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/login/login",
+    "pages/startup/startup",
     "pages/main/main",
     "pages/discovery/discovery",
     "pages/chatlist/chatlist",
@@ -23,7 +23,7 @@
     "backgroundColor": "white",
     "list": [
       {
-        "text": "漂流瓶",
+        "text": "一张图",
         "pagePath": "pages/discovery/discovery",
         "iconPath": "content/images/index.png",
         "selectedIconPath": "content/images/index1.png"

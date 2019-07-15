@@ -1,32 +1,36 @@
 const app = getApp();
 Page({
   data: {
-    //判断小程序的API，回调，参数，组件等是否在当前版本可用。
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
-  },
-  onLoad: function() {
-
-		//this.checkSetting();
+    showStartUp: true
   },
 
-	checkSetting:function() {
-		var that = this;
-		// 查看是否授权
-		wx.getSetting({
-			success: function (res) {
-				if (res.authSetting['scope.userInfo']) {
-					wx.getUserInfo({
-						success: function (res) {
-							//从数据库获取用户信息
-							that.userLogin();
-						}
-					});
-				}
-			}
-		})
-	},
+  onLoad: function () {
+    this.checkSetting();
+  },
 
-  bindGetUserInfo: function(e) {
+
+  checkSetting: function () {
+    var that = this;
+    // 查看是否授权
+    wx.getSetting({
+      success: function (res) {
+        if (res.authSetting['scope.userInfo']) {
+          wx.getUserInfo({
+            success: function (res) {
+              //从数据库获取用户信息
+              that.userLogin();
+            }
+          });
+        }else{
+          that.setData({
+            showStartUp: false
+          })
+        }
+      }
+    })
+  },
+
+  bindGetUserInfo: function (e) {
     if (e.detail.userInfo) {
       this.userLogin();
     } else {
@@ -36,7 +40,7 @@ Page({
         content: '您点击了拒绝授权，将无法进入小程序，请授权之后再进入!!!',
         showCancel: false,
         confirmText: '返回授权',
-        success: function(res) {
+        success: function (res) {
           if (res.confirm) {
             console.log('用户点击了“返回授权”')
           }
@@ -46,7 +50,7 @@ Page({
   },
 
   //用户登录
-  userLogin: function() {
+  userLogin: function () {
     let self = this;
     wx.login({
       success: res => {
@@ -59,25 +63,25 @@ Page({
   },
 
   //获取OpenId
-  getOpenId: function(code) {
+  getOpenId: function (code) {
     let self = this;
     app.httpPost(
       'api/Letter/GetOpenId', {
         "LoginCode": code
       },
-      function(res) {
+      function (res) {
         console.info("获取OpenId成功");
         app.globalData.openid = res.openId;
         app.globalData.session_key = res.session_key;
         self.getUserInfoWX();
       },
-      function(res) {
+      function (res) {
         console.error("获取OpenId信息失败!");
       })
   },
 
   //获取微信用户信息
-  getUserInfoWX: function() {
+  getUserInfoWX: function () {
     let self = this;
     wx.getSetting({
       success: res => {
@@ -92,7 +96,7 @@ Page({
               if (self.userInfoReadyCallback) {
                 self.userInfoReadyCallback(res)
               }
-							self.setUserInfo();
+              self.setUserInfo();
             }
           })
         }
@@ -101,7 +105,7 @@ Page({
   },
 
   //存入用户信息
-  setUserInfo: function() {
+  setUserInfo: function () {
     let self = this;
     app.httpPost(
       'api/Letter/SetUserInfo', {
@@ -110,10 +114,10 @@ Page({
         "Country": app.globalData.userInfoWX.country,
         "Province": app.globalData.userInfoWX.province,
         "City": app.globalData.userInfoWX.city,
-				"AvatarUrl": app.globalData.userInfoWX.avatarUrl,
+        "AvatarUrl": app.globalData.userInfoWX.avatarUrl,
         "Gender": app.globalData.userInfoWX.gender
       },
-      function(res) {
+      function (res) {
         console.info("存入用户信息成功");
         app.globalData.apiHeader.UId = res.uId;
 
@@ -121,7 +125,7 @@ Page({
           url: '/pages/discovery/discovery'
         })
       },
-      function(res) {
+      function (res) {
         console.error("存入用户信息失败!");
       })
   },

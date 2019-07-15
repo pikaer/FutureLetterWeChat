@@ -4,6 +4,7 @@ Page({
     currentMoment: {},
     basicUserInfo: {},
     pickUpList: [],
+    currentTargetPickUpId: "",
     pageIndex: 1,
     loadHide: true,
     actionHidden: true,
@@ -16,8 +17,46 @@ Page({
       pageIndex: 1
     });
     this.getPickUpList(true);
+    this.unReadTotalCount();
   },
 
+  //更新未读总条数
+  unReadTotalCount: function() {
+    let self = this;
+    if (app.globalData.apiHeader.UId > 0) {
+      app.httpPost(
+        'api/Letter/UnReadTotalCount', {
+          "UId": app.globalData.apiHeader.UId
+        },
+        function(res) {
+          self.setTabBarBadge(res.unReadCount);
+        },
+        function(res) {
+          console.error("更新未读总条数失败！");
+        })
+    }
+  },
+
+  setTabBarBadge: function(count) {
+    if (!app.isBlank(count)) {
+      wx.setTabBarBadge({
+        index: 1,
+        text: count
+      })
+    } else {
+      wx.removeTabBarBadge({
+        index: 1
+      })
+    }
+  },
+
+  sharebtn: function () {
+    this.setData({
+      pageIndex: 1
+    });
+    this.getPickUpList(true);
+  },
+  
   onLoad: function() {
     this.setData({
       pageIndex: 1
@@ -30,7 +69,8 @@ Page({
   toShowModal: function(ops) {
     var self = this;
     self.setData({
-      basicUserInfo: {}
+      basicUserInfo: {},
+      currentTargetPickUpId: ops.currentTarget.dataset.pickupid
     });
     app.httpPost(
       'api/Letter/BasicUserInfo', {
@@ -47,11 +87,22 @@ Page({
       })
   },
 
+  //隐藏弹框
   hideModal: function() {
     this.setData({
       showModal: false
     });
   },
+
+  //聊一聊
+  toChat: function() {
+    this.hideModal();
+    let pickUpId = this.data.currentTargetPickUpId;
+    wx.navigateTo({
+      url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId
+    })
+  },
+
 
   //下拉刷新页面数据
   onPullDownRefresh: function() {
@@ -244,9 +295,9 @@ Page({
           });
         } else {
           wx.showToast({
-            title: '没有更多瓶子啦',
+            title: '没有更多动态啦，去发布一个吧！',
             icon: 'none',
-            duration: 1500
+            duration: 3000
           })
 
         }

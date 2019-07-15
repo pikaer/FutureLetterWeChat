@@ -194,3 +194,56 @@ image {
   margin-bottom: 20px;
   line-height: 49px;
 }
+
+.modal-content {
+  position: fixed;
+  top: 160px;
+  right: 15%;
+  left: 15%;
+  z-index: 9500;
+  height: 250px;
+  background: #fff;
+  border-radius: 10rpx;
+}
+
+.basicInfoAreaView {
+  height: 200px;
+}
+
+.chatBtnView {
+  padding-bottom: 15px;
+  text-align: center;
+  width: 80px;
+  background-color: #179b16;
+  height: 15px;
+  margin-left: 90px;
+  border-radius: 5px;
+  color: white;
+  padding-top: 5px;
+}
+
+.shareIcon {
+  position: relative;
+  padding-left: 14px;
+  padding-right: 14px;
+  box-sizing: border-box;
+  font-size: 18px;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+  color: #000;
+  background-color: white;
+  border: 0px solid rgba(0, 0, 0, 0.2);
+}
+
+.shareAction {
+  background-color: #fff;
+  position: relative;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  text-align: center;
+  font-size: 18px;
+  display: block;
+}

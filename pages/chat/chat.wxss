@@ -120,12 +120,18 @@ swiper-item {
   height: 60rpx;
   margin-left: 48rpx;
   border-radius: 100%;
-  margin-right: 20px;
+  margin-right: 5px;
 }
 
 .nickNameText {
   margin-top: 7rpx;
   font-size: 42rpx;
+}
+
+.basicInfoTxt {
+  font-size: 14px;
+  padding-right: 14px;
+  color: #8e8e8e;
 }
 
 .coinCountView {
