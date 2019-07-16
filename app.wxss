@@ -133,27 +133,27 @@
 
 .nickNameView-all {
   margin-top: 5px;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .basicInfoView-all {
-  font-size: 13px;
+  font-size: 12px;
   color: #8e8e8e;
 }
 
 .placeInfoView-all {
-  font-size: 13px;
+  font-size: 12px;
   color: #8e8e8e;
 }
 
 .rightUserInfo-all {
   float: left;
   margin-left: 10px;
-  margin-top: 13px;
+  margin-top: 12px;
 }
 
 .signatrueView-all {
-  font-size: 14px;
+  font-size: 13px;
   margin-left: 15px;
   margin-right: 15px;
   margin-top: 10px;

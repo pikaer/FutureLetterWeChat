@@ -32,6 +32,9 @@ Page({
 
   bindGetUserInfo: function (e) {
     if (e.detail.userInfo) {
+      this.setData({
+        showStartUp: true
+      })
       this.userLogin();
     } else {
       //用户按了拒绝按钮

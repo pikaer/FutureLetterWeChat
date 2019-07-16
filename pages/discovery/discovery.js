@@ -12,6 +12,13 @@ Page({
     showModal: false,
   },
 
+  onLoad: function () {
+    this.setData({
+      pageIndex: 1
+    });
+    this.getPickUpList(true);
+  },
+
   onShow: function() {
     this.setData({
       pageIndex: 1
@@ -57,12 +64,7 @@ Page({
     this.getPickUpList(true);
   },
   
-  onLoad: function() {
-    this.setData({
-      pageIndex: 1
-    });
-    this.getPickUpList(true);
-  },
+  
 
 
   //获取用户基础信息
@@ -151,7 +153,13 @@ Page({
       },
       function(res) {
         console.info("举报瓶子成功！");
-        self.resetSelectItem()
+        self.resetSelectItem();
+
+        wx.showToast({
+          title: "举报成功",
+          icon: 'success',
+          duration: 1500
+        });
       },
       function(res) {
         console.info("举报瓶子失败");
