@@ -5,6 +5,7 @@
     "pages/discovery/discovery",
     "pages/chatlist/chatlist",
     "pages/chat/chat",
+    "pages/meindex/meindex",
     "pages/userinfo/userinfo",
     "pages/schoolname/schoolname",
     "pages/nickname/nickname",
@@ -27,11 +28,25 @@
         "pagePath": "pages/discovery/discovery",
         "iconPath": "content/images/index.png",
         "selectedIconPath": "content/images/index1.png"
-      },{
+      },
+      {
+        "text": "消息",
+        "pagePath": "pages/main/main",
+        "iconPath": "content/images/chat.png",
+        "selectedIconPath": "content/images/chat1.png"
+      },
+      {
         "text": "消息",
         "pagePath": "pages/chat/chat",
         "iconPath": "content/images/chat.png",
         "selectedIconPath": "content/images/chat1.png"
+      }
+      ,
+      {
+        "text": "我",
+        "pagePath": "pages/meindex/meindex",
+        "iconPath": "content/images/mine.png",
+        "selectedIconPath": "content/images/mine1.png"
       }
     ]
   },

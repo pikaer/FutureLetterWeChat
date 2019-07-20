@@ -8,11 +8,15 @@ Page({
     inputMarBot: false,
     showModal: false,
     basicUserInfo: {},
+    showinputarea:false
   },
 
   onLoad: function (options) {
     this.data.pickUpId = options.pickUpId
     this.discussDetail();
+    this.setData({
+      showinputarea: app.globalData.apiHeader.UId>0
+    });
   },
 
   //获取用户基础信息

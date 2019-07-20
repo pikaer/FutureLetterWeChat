@@ -7,13 +7,13 @@
     <view bindtap="toPulish"  class="{{currentTab==0?'publishView':'publishViewClick'}}">
       我发布的
     </view>
-    <view class="userInfoView">
+    <!-- <view class="userInfoView">
       <navigator url="../../pages/userinfo/userinfo" class="navigator">
         <image class="userHead" src="{{tempHeadImgPath}}"></image>
         <view class="basicInfoTxt">个人信息</view>
         <view class="navigator-arrow"></view>
       </navigator>
-    </view>
+    </view> -->
   </view>
 
   <view class="page-body">

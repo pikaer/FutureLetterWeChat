@@ -18,6 +18,7 @@ App({
     userInfoAPI: {} //从API获取的用户信息
   },
 
+ 
   /**
    * HttpPost请求封装
    * @param 请求相对地址 

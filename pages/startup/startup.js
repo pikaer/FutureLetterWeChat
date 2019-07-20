@@ -4,10 +4,19 @@ Page({
     showStartUp: true
   },
 
-  onLoad: function () {
-    this.checkSetting();
+  onLoad: function (options) {
+    if (options != null && options.pickUpId != undefined) {
+      this.setData({
+        showStartUp: false
+      })
+      //这个pickUpId的值存在则证明首页的开启来源于用户点击来首页,同时可以通过获取到的pageId的值跳转导航到对应的详情页
+      wx.navigateTo({
+        url: "../../pages/discussdetail/discussdetail?pickUpId=" + options.pickUpId
+      })
+    } else {
+      this.checkSetting();
+    }
   },
-
 
   checkSetting: function () {
     var that = this;

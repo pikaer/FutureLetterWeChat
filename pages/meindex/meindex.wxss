@@ -1,0 +1,315 @@
+.userView {
+  width: 100%;
+  height: 100px;
+}
+
+.headPhotoView {
+  float: left;
+  margin-top: 5px;
+}
+
+.userHead {
+  width: 160rpx;
+  height: 160rpx;
+  margin-left: 48rpx;
+  border-radius: 100%;
+}
+
+.iconImg {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.iconServiceImg {
+  width: 70rpx;
+  height: 70rpx;
+}
+
+.nickNameText {
+  margin-top: 7rpx;
+  font-size: 42rpx;
+}
+
+.coinCountView {
+  float: left;
+  font-size: 15px;
+}
+
+.countText {
+  float: left;
+  font-size: 13px;
+  color: #9d9d9d;
+}
+
+.countView {
+  margin-top: 10px;
+}
+
+.userInfoView {
+  margin-top: 65rpx;
+  float: right;
+}
+
+.tabView {
+  width: 100%;
+  background-color: #f0f4f3;
+}
+
+.labTags {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2px;
+}
+
+.attentionView {
+  flex-grow: 1;
+  font-size: 32rpx;
+  color: #4d4d4d;
+}
+
+.fansView {
+  flex-grow: 1;
+  font-size: 32rpx;
+  color: #4d4d4d;
+}
+
+.visitorView {
+  flex-grow: 1;
+  font-size: 32rpx;
+  color: #4d4d4d;
+}
+
+.funsView {
+  height: 100%;
+  width: 100%;
+  margin-top: 40rpx;
+  background-color: white;
+}
+
+.basicInfoView {
+  float: left;
+  padding-top: 12px;
+  padding-left: 20px;
+}
+
+.iconView-all {
+}
+
+.iconText-all {
+  color: #9d9d9d;
+  font-size: 14px;
+}
+
+.momentContainer {
+  width: 100%;
+}
+
+.publishView {
+  float: left;
+  font-size: 20px;
+  color: #8e8e8e;
+  padding-top: 7px;
+  flex-grow: 1;
+}
+
+.publishViewClick {
+  float: left;
+  font-size: 20px;
+  color: #09f;
+  flex-grow: 1;
+}
+
+.collectView {
+  float: left;
+  font-size: 20px;
+  padding-left: 20px;
+  padding-top: 7px;
+  color: #8e8e8e;
+  flex-grow: 1;
+}
+
+.itemTitleView {
+  float: left;
+  font-size: 20px;
+  padding-left: 20px;
+  color: #09f;
+  flex-grow: 1;
+}
+
+.titleView {
+  padding-top: 10px;
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  text-align: center;
+}
+
+page {
+  background-color: #f8f8f8;
+  height: 100%;
+  width: 100%;
+  font-size: 32rpx;
+  line-height: 1.6;
+  position: fixed;
+}
+
+.page-body {
+  height: 100%;
+  width: 100%;
+  border-top: solid 1px #e4dfdf;
+}
+
+.page-section {
+  width: 100%;
+  margin-bottom: 60rpx;
+}
+
+.page-section_center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page-section:last-child {
+  margin-bottom: 0;
+}
+
+.page-section-gap {
+  box-sizing: border-box;
+  padding: 0 30rpx;
+}
+
+.page-section-spacing {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+
+.page-section-title {
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 10rpx;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+}
+
+.page-section-gap .page-section-title {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+button {
+  margin-bottom: 30rpx;
+}
+
+button:last-child {
+  margin-bottom: 0;
+}
+
+.page-section-title {
+  padding: 0;
+}
+
+.swiper-item {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.page-section-title {
+  margin-top: 60rpx;
+  position: relative;
+}
+
+.info {
+  position: absolute;
+  right: 0;
+  color: #353535;
+  font-size: 30rpx;
+}
+
+.page-foot {
+  margin-top: 50rpx;
+}
+
+swiper {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+swiper-item {
+  display: block;
+  overflow: hidden;
+  will-change: 'transform';
+  height: 100%;
+  width: 100%;
+}
+
+.textView {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.imgView {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.publishTime {
+  font-size: 10px;
+  color: gray;
+}
+
+.momentImg {
+  width: 100%;
+}
+
+.fixedView {
+  width: 100%;
+}
+
+.momentArea {
+  width: 100%;
+  height: 100%;
+}
+
+.momentView {
+  background-color: white;
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-top: 5px;
+  padding-bottom: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 1px #837c7c;
+}
+
+.momentTitleCilick {
+  width: 40px;
+  margin: auto;
+  border-bottom: solid 4px #09f;
+  color: #09f;
+}
+
+.momentTitle {
+  width: 40px;
+  margin: auto;
+  color: #9d9d9d;
+}
+
+.placeUseView {
+  height: 100px;
+  width: 100%;
+  margin-bottom: 150px;
+  text-align: center;
+  font-size: 14px;
+  color:#9d9d9d;
+}

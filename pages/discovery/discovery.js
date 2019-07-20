@@ -12,12 +12,13 @@ Page({
     showModal: false,
   },
 
-  onLoad: function () {
+  onLoad: function() {
     this.setData({
       pageIndex: 1
     });
     this.getPickUpList(true);
   },
+
 
   onShow: function() {
     this.setData({
@@ -25,6 +26,32 @@ Page({
     });
     this.getPickUpList(true);
     this.unReadTotalCount();
+  },
+
+  //分享功能
+  onShareAppMessage: function(res) {
+    let pickUpId = this.data.selectItem.pickupid;
+    let index = this.data.selectItem.key;
+    let list = this.data.pickUpList;
+    let url = "";
+    let title = "今日份一张图";
+    if (list[index].textContent != "" && list[index].textContent != null) {
+      title = list[index].textContent;
+    }
+    if (list[index].imgContent != "" && list[index].imgContent != null) {
+      url = list[index].imgContent;
+    }
+    return {
+      title: title,
+      imageUrl: url,
+      path: "/pages/startup/startup?pickUpId=" + pickUpId,
+      success: function(res) {
+        // 转发成功
+      },
+      fail: function(res) {
+        // 转发失败
+      }
+    }
   },
 
   //更新未读总条数
@@ -57,14 +84,14 @@ Page({
     }
   },
 
-  sharebtn: function () {
+  sharebtn: function() {
     this.setData({
       pageIndex: 1
     });
     this.getPickUpList(true);
   },
-  
-  
+
+
 
 
   //获取用户基础信息
