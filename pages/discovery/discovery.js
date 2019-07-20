@@ -7,8 +7,6 @@ Page({
     currentTargetPickUpId: "",
     pageIndex: 1,
     loadHide: true,
-    actionHidden: true,
-    scrollHidden: true,
     showModal: false,
     showModalStatus: false,
   },
@@ -210,6 +208,14 @@ Page({
       })
   },
 
+  saveLocal: function(){
+    wx.showToast({
+      title: "功能开发中，敬请期待",
+      icon: 'none',
+      duration: 1500
+    });
+  },
+
   //举报瓶子
   reportItem: function(ops) {
     var self = this;
@@ -315,14 +321,6 @@ Page({
   publishMoment: function() {
     wx.navigateTo({
       url: '../../pages/publishmoment/publishmoment'
-    })
-  },
-
-  //跳转个人空间页面
-  toSpace: function(e) {
-    let uId = e.currentTarget.dataset.uId;
-    wx.navigateTo({
-      url: "../../pages/userspace/userspace?uid=" + uId
     })
   },
 

@@ -1,0 +1,25 @@
+<view class="indexContainer">
+  <view class="subContainer">
+    <view class="mainContainer">
+      <view class="contentArea">
+        <view class="titleView">
+          <view class="leftView">
+            <image src="{{discussDetail.headImgPath}}" class="userHead" data-uId='{{discussDetail.momentUId}}' catchtap='toShowModal'></image>
+          </view>
+          <view class="centerView">
+            <view class="nickNameView">{{discussDetail.nickName}}</view>
+            <view class="timeView">{{discussDetail.createTime}}</view>
+          </view>
+        </view>
+        <view class="bodyView">
+          <!-- 文本动态 -->
+          <view class="textView">{{discussDetail.textContent}}</view>
+          <!-- 图片动态 -->
+          <view class="imgView" wx:if="{{discussDetail.imgContent!=null&&discussDetail.imgContent!=''}}">
+            <image src="{{discussDetail.imgContent}}" data-imgContent='{{discussDetail.imgContent}}' catchtap="previewImg" class="imgCount" mode="widthFix"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

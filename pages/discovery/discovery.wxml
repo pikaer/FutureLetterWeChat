@@ -78,19 +78,19 @@
     <view class='dialog_content'>
       <view class="shareTo ">
         <button bindtap="addCollect">
-          <image class="shareIcon " src="/content/images/collect.svg "></image>
+          <image class="shareIcon" src="/content/images/collect.svg "></image>
         </button>
-        <view class="shareText ">添加收藏</view>
+        <view class="shareText">添加收藏</view>
       </view>
-      <view class="shareTo ">
+      <view class="shareTo">
         <button open-type='share'>
-          <image class="shareIcon " src="/content/images/weixin.svg "></image>
+          <image class="shareIcon" src="/content/images/weixin.svg "></image>
         </button>
         <view class="shareText ">分享好友/群</view>
       </view>
-      <view class="shareTo ">
-        <button bindtap="bindGetUserInfo">
-          <image class="shareIcon " src="/content/images/baocuntupian.svg "></image>
+      <view class="shareTo">
+        <button bindtap="saveLocal">
+          <image class="shareIcon" src="/content/images/baocuntupian.svg "></image>
         </button>
         <view class="shareText ">保存本地</view>
       </view>
@@ -98,21 +98,21 @@
     <view class='dialog_content'>
       <view class="shareTo ">
         <button bindtap="reportItem">
-          <image class="shareIcon " src="/content/images/report.svg "></image>
+          <image class="shareIcon" src="/content/images/report.svg "></image>
         </button>
-        <view class="shareText ">举报</view>
+        <view class="shareText">举报</view>
       </view>
-      <view class="shareTo ">
+      <view class="shareTo">
         <button bindtap="allClear">
-          <image class="shareIcon " src="/content/images/clear.svg"></image>
+          <image class="shareIcon" src="/content/images/clear.svg"></image>
         </button>
-        <view class="shareText ">全部清空</view>
+        <view class="shareText">全部清空</view>
       </view>
       <view class="shareTo" bindtap="deleteItem">
         <button>
-          <image class="shareIcon " src="/content/images/delete.svg "></image>
+          <image class="shareIcon" src="/content/images/delete.svg "></image>
         </button>
-        <view class="shareText ">删除</view>
+        <view class="shareText">删除</view>
       </view>
     </view>
   </view>

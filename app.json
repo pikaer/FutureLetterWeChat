@@ -9,6 +9,7 @@
     "pages/nickname/nickname",
     "pages/signature/signature",
     "pages/discussdetail/discussdetail",
+    "pages/momentdetail/momentdetail",
     "pages/publishmoment/publishmoment"
   ],
   "window": {
