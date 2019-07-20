@@ -1,9 +1,7 @@
 {
   "pages": [
     "pages/startup/startup",
-    "pages/main/main",
     "pages/discovery/discovery",
-    "pages/chatlist/chatlist",
     "pages/chat/chat",
     "pages/meindex/meindex",
     "pages/userinfo/userinfo",
