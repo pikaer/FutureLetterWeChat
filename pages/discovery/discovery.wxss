@@ -21,7 +21,6 @@
   height: 100%;
   border-radius: 6px;
   box-shadow: 0px 0px 9px #837c7c;
-
 }
 
 .userHead {
@@ -252,4 +251,97 @@ image {
   text-align: center;
   font-size: 18px;
   display: block;
+}
+
+.popupLayer {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.2;
+  overflow: hidden;
+  z-index: 1000;
+  color: #fff;
+}
+
+.dialog_box {
+  border-top-right-radius: 25rpx;
+  border-top-left-radius: 25rpx;
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 2000;
+  background: whitesmoke;
+  padding-top: 1px;
+}
+
+.dialog_title {
+  font-size: 16px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  color: black;
+}
+
+.dialog_content {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.shareArea {
+  position: relative;
+  overflow: hidden;
+  background-color: white;
+  padding-bottom: 10px;
+}
+
+.shareTo {
+  text-align: center;
+  width: 160rpx;
+  height: 160rpx;
+  background: white;
+  font-size: 28rpx;
+  float: left;
+  flex-grow: 1;
+  margin-left: 20px;
+  position: relative;
+  margin-bottom: 10px;
+  margin-right: 20px;
+}
+
+.shareIcon {
+  margin-top: 15px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+button::after {
+  border: none;
+}
+
+button {
+  background-color: white;
+  line-height: 1;
+  overflow: flex;
+  width: 65px;
+  height: 65px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.shareText {
 }

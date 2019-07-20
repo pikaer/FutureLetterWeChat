@@ -10,6 +10,7 @@ Page({
     actionHidden: true,
     scrollHidden: true,
     showModal: false,
+    showModalStatus: false,
   },
 
   onLoad: function() {
@@ -91,7 +92,47 @@ Page({
     this.getPickUpList(true);
   },
 
+  //显示遮罩层
+  showModalShare: function() {
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+      showModalStatus: true
+    })
+    setTimeout(function() {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export()
+      })
+    }.bind(this), 200)
+  },
 
+  hideModalShare: function() {
+    // 隐藏遮罩层
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+    })
+    setTimeout(function() {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export(),
+        showModalStatus: false
+      })
+    }.bind(this), 200)
+  },
 
 
   //获取用户基础信息
@@ -138,7 +179,6 @@ Page({
     this.getPickUp();
   },
 
-
   //停止刷新
   stopRefresh: function() {
     this.setData({
@@ -147,7 +187,7 @@ Page({
   },
 
   //删除瓶子
-  deleteItem: function() {
+  deleteItem: function(ops) {
     var self = this;
     let pickUpId = this.data.currentMoment.pickUpId;
     let index = this.data.selectItem.key;
@@ -200,20 +240,17 @@ Page({
     let pickUpId = ops.currentTarget.dataset.pickUpId;
     let pickUpList = this.data.pickUpList;
     this.setData({
-      actionHidden: false,
       selectItem: ops.currentTarget.dataset,
       currentMoment: pickUpList[key]
     })
+
+    this.showModalShare()
   },
 
   //重置
   resetSelectItem: function() {
-    this.setData({
-      actionHidden: true,
-      selectItem: []
-    })
+    this.hideModalShare();
   },
-
 
   //触底加载更多数据
   onReachBottom: function() {
@@ -237,7 +274,6 @@ Page({
       scrollTop: 0
     })
   },
-
 
   //动态详情页面
   previewMomentDetail: function(e) {
@@ -334,9 +370,7 @@ Page({
             icon: 'none',
             duration: 3000
           })
-
         }
-
         wx.stopPullDownRefresh();
       },
       function(res) {

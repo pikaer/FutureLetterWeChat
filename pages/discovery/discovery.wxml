@@ -39,9 +39,7 @@
   </view>
 
   <view class="publishIcon">
-    <!-- <view class="iconfont arrow3-top" hidden='{{scrollHidden}}' style='font-size:50px;color:#0099ff;height:65px' catchtap='toTop'></view> -->
     <view class="publishIconView" catchtap="publishMoment">+ </view>
-    <!-- <view class="iconfont gengduo4" style='font-size:50px;color:#0099ff' catchtap="publishMoment"></view> -->
   </view>
 </view>
 
@@ -69,18 +67,55 @@
       </view>
     </view>
     <view class="chatBtnView" catchtap='toChat'>聊一聊</view>
-
   </view>
 </view>
 
+<!--弹出框start-->
+<view class="popupLayer" bindtap="hideModalShare" wx:if="{{showModalStatus}}"></view>
+<view class="dialog_box" animation="{{animationData}}" wx:if="{{showModalStatus}}">
+  <view class='shareArea'>
+    <view class='dialog_title'>更多</view>
 
-<!-- 底部弹出菜单 -->
-<action-sheet hidden="{{actionHidden}}">
-  <action-sheet-item   class="shareAction">
-    <button open-type='share' class="shareIcon">分享好友</button>
-  </action-sheet-item>
-  <action-sheet-item bindtap="deleteItem">删除</action-sheet-item>
-  <action-sheet-item bindtap="reportItem">举报</action-sheet-item>
-  <action-sheet-item bindtap="allClear">全部清空</action-sheet-item>
-  <action-sheet-cancel bindtap="resetSelectItem">取消</action-sheet-cancel>
-</action-sheet>
+       <view class='dialog_content'>
+      <view class="shareTo ">
+        <button bindtap="bindGetUserInfo ">
+          <image class="shareIcon " src="/content/images/collect.svg "></image>
+        </button>
+        <view class="shareText ">添加收藏</view>
+      </view>
+      <view class="shareTo ">
+        <button open-type='share'>
+          <image class="shareIcon " src="/content/images/weixin.svg "></image>
+        </button>
+        <view class="shareText ">分享好友/群</view>
+      </view>
+      <view class="shareTo ">
+        <button  bindtap="bindGetUserInfo">
+          <image class="shareIcon " src="/content/images/baocuntupian.svg "></image>
+        </button>
+        <view class="shareText ">保存本地</view>
+      </view>
+    </view>
+     <view class='dialog_content'>
+      <view class="shareTo ">
+        <button bindtap="reportItem">
+          <image class="shareIcon " src="/content/images/report.svg "></image>
+        </button>
+        <view class="shareText ">举报</view>
+      </view>
+        <view class="shareTo ">
+        <button   bindtap="allClear">
+          <image class="shareIcon " src="/content/images/clear.svg"></image>
+        </button>
+        <view class="shareText ">全部清空</view>
+      </view>
+      <view class="shareTo" bindtap="deleteItem">
+        <button>
+          <image class="shareIcon " src="/content/images/delete.svg "></image>
+        </button>
+        <view class="shareText ">删除</view>
+      </view>
+    </view>
+  </view>
+</view>
+<!--弹出框end-->
