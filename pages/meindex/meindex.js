@@ -25,12 +25,6 @@ Page({
   },
 
   onShow: function () {
-    this.unReadTotalCount();
-    this.getChatList();
-    this.getMyMomentList();
-  },
-
-  onLoad: function () {
     this.getMyMomentList();
   },
 

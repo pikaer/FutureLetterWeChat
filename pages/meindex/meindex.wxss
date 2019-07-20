@@ -95,9 +95,6 @@
   padding-left: 20px;
 }
 
-.iconView-all {
-}
-
 .iconText-all {
   color: #9d9d9d;
   font-size: 14px;
@@ -311,5 +308,5 @@ swiper-item {
   margin-bottom: 150px;
   text-align: center;
   font-size: 14px;
-  color:#9d9d9d;
+  color: #9d9d9d;
 }
