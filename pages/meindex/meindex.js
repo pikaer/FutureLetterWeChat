@@ -3,7 +3,6 @@ const app = getApp()
 
 Page({
   data: {
-    tempDiscussList: [],
     tempMomentList: [],
     tempCollectList: [],
     basicUserInfo: {},
@@ -27,9 +26,8 @@ Page({
   onShow: function() {
     this.getMyMomentList();
     this.getCollectList();
+    this.unReadTotalCount();
   },
-
-
 
   // 滑动切换tab
   bindChange: function(e) {
@@ -67,19 +65,6 @@ Page({
     })
   },
 
-  setTabBarBadge: function(count) {
-    if (!app.isBlank(count)) {
-      wx.setTabBarBadge({
-        index: 1,
-        text: count
-      })
-    } else {
-      wx.removeTabBarBadge({
-        index: 1
-      })
-    }
-  },
-
   //获取我扔出去的没有被评论的动态
   getMyMomentList: function() {
     var self = this;
@@ -91,11 +76,9 @@ Page({
         },
         function(res) {
           console.info("获取聊天列表成功！")
-
           self.setData({
             tempMomentList: res.momentList
           });
-
         },
         function(res) {
           console.error("获取聊天列表失败！");
@@ -114,11 +97,9 @@ Page({
         },
         function(res) {
           console.info("获取收藏列表数据成功！")
-
           self.setData({
             tempCollectList: res.collectList
           });
-
         },
         function(res) {
           console.error("获取收藏列表数据失败！");
@@ -140,7 +121,6 @@ Page({
         selectCollectItem: ops.currentTarget.dataset,
         correntSelectItem: 2
       })
-
     this.showModalShare();
   },
 
@@ -174,8 +154,9 @@ Page({
     if (this.data.correntSelectItem == 1) {
       this.deleteAllMoment();
     } else {
-
+      this.deleteAllCollect();
     }
+    this.hideModalShare();
   },
 
   //单个删除
@@ -183,8 +164,9 @@ Page({
     if (this.data.correntSelectItem == 1) {
       this.deleteMoment();
     } else {
-
+      this.deleteCollect();
     }
+    this.hideModalShare();
   },
 
 
@@ -195,12 +177,13 @@ Page({
     } else {
       this.shareCollext();
     }
+    this.hideModalShare();
   },
 
 
   //分享动态
   shareMoment: function() {
-    let momentId = this.data.selectMomentItem.momentId;
+    let momentId = this.data.selectMomentItem.momentid;
     let index = this.data.selectMomentItem.key;
     let list = this.data.tempMomentList;
     let url = "";
@@ -226,7 +209,7 @@ Page({
 
   //分享收藏
   shareCollext: function() {
-    let momentId = this.data.selectCollectItem.momentId;
+    let momentId = this.data.selectCollectItem.momentid;
     let index = this.data.selectCollectItem.key;
     let list = this.data.tempCollectList;
     let url = "";
@@ -321,6 +304,31 @@ Page({
     }
   },
 
+  //删除单个
+  deleteCollect: function() {
+    let self = this;
+    if (app.globalData.apiHeader.UId > 0) {
+      app.httpPost(
+        'api/Letter/DeleteCollect', {
+          "CollectId": self.data.selectCollectItem.collectid
+        },
+        function(res) {
+          console.info("删除动态成功！");
+          let list = self.data.tempCollectList;
+          list.splice(self.data.selectCollectItem.index, 1);
+          self.setData({
+            tempCollectList: list
+          });
+          //重置数据
+          self.resetSelectMomentItem();
+        },
+        function(res) {
+          console.error("删除动态失败！");
+          //重置数据
+          self.resetSelectMomentItem();
+        })
+    }
+  },
 
   //删除所有动态
   deleteAllMoment: function() {
@@ -351,5 +359,68 @@ Page({
         }
       }
     })
-  }
+  },
+
+
+  //删除所有收藏
+  deleteAllCollect: function() {
+    var self = this;
+    wx.showModal({
+      content: '将清空所有收藏的内容！',
+      success(res) {
+        if (app.globalData.apiHeader.UId > 0) {
+          app.httpPost(
+            'api/Letter/DeleteAllCollect', {
+              "UId": app.globalData.apiHeader.UId
+            },
+            function(res) {
+              console.info("删除所有收藏成功！");
+              self.setData({
+                tempCollectList: []
+              });
+              //重置数据
+              self.resetSelectMomentItem();
+            },
+            function(res) {
+              console.error("删除所有动态失败！");
+              //重置数据
+              self.resetSelectMomentItem();
+            })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+
+  //更新未读总条数
+  unReadTotalCount: function() {
+    let self = this;
+    if (app.globalData.apiHeader.UId > 0) {
+      app.httpPost(
+        'api/Letter/UnReadTotalCount', {
+          "UId": app.globalData.apiHeader.UId
+        },
+        function(res) {
+          self.setTabBarBadge(res.unReadCount);
+        },
+        function(res) {
+          console.error("更新未读总条数失败！");
+        })
+    }
+  },
+
+  setTabBarBadge: function(count) {
+    if (!app.isBlank(count)) {
+      wx.setTabBarBadge({
+        index: 1,
+        text: count
+      })
+    } else {
+      wx.removeTabBarBadge({
+        index: 1
+      })
+    }
+  },
+
 })
