@@ -31,12 +31,6 @@
       },
       {
         "text": "消息",
-        "pagePath": "pages/main/main",
-        "iconPath": "content/images/chat.png",
-        "selectedIconPath": "content/images/chat1.png"
-      },
-      {
-        "text": "消息",
         "pagePath": "pages/chat/chat",
         "iconPath": "content/images/chat.png",
         "selectedIconPath": "content/images/chat1.png"
