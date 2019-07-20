@@ -5,12 +5,14 @@ Page({
   data: {
     tempDiscussList: [],
     tempMomentList: [],
+    tempCollectList: [],
     basicUserInfo: {},
     actionHidden: true, //长按action
     deleteMomentHidden: true,
     selectItem: [], //长按后选中的
     selectMomentItem: [],
     pageIndex: 1,
+    pageCollectIndex: 1,
     showModal: false,
     tempHeadImgPath: "",
     currentTab: 0, //当前所在tab
@@ -25,14 +27,8 @@ Page({
   },
 
   onShow: function () {
-    this.getMyMomentList();
-  },
-
-  //tab切换
-  toPublishList: function (e) {
-    this.setData({
-      currentTab: 0
-    });
+    this.getMyMomentList(); 
+    this.getCollectList(); 
   },
 
 
@@ -70,11 +66,20 @@ Page({
     });
   },
 
+  //tab切换
+  toPublishList: function (e) {
+    this.setData({
+      currentTab: 0
+    });
+    this.getMyMomentList();
+  },
+
+
   toCollectList: function (e) {
     this.setData({
       currentTab: 1
     });
-    this.getMyMomentList();
+    this.getCollectList();
   },
 
   //下拉刷新页面数据
@@ -126,6 +131,28 @@ Page({
     }
   },
 
+  //获取收藏列表数据
+  getCollectList: function () {
+    var self = this;
+    if (app.globalData.apiHeader.UId > 0) {
+      app.httpPost(
+        'api/Letter/GetCollectList', {
+          "UId": app.globalData.apiHeader.UId,
+          "PageIndex": self.data.pageCollectIndex
+        },
+        function (res) {
+          console.info("获取收藏列表数据成功！")
+
+          self.setData({
+            tempCollectList: res.collectList
+          });
+
+        },
+        function (res) {
+          console.error("获取收藏列表数据失败！");
+        })
+    }
+  },
 
   //长按删除对话弹框
   bindlongpress: function (ops) {

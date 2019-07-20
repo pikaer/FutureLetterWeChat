@@ -1,5 +1,4 @@
 <view class="indexContainer">
-
   <view class="defaultDescView" wx:if="{{pickUpList.length==0}}">
     <view class="pullImgView">
       <image src="/content/images/pullDown.png" class="pullImg"></image>
@@ -76,9 +75,9 @@
   <view class='shareArea'>
     <view class='dialog_title'>更多</view>
 
-       <view class='dialog_content'>
+    <view class='dialog_content'>
       <view class="shareTo ">
-        <button bindtap="bindGetUserInfo ">
+        <button bindtap="addCollect">
           <image class="shareIcon " src="/content/images/collect.svg "></image>
         </button>
         <view class="shareText ">添加收藏</view>
@@ -90,21 +89,21 @@
         <view class="shareText ">分享好友/群</view>
       </view>
       <view class="shareTo ">
-        <button  bindtap="bindGetUserInfo">
+        <button bindtap="bindGetUserInfo">
           <image class="shareIcon " src="/content/images/baocuntupian.svg "></image>
         </button>
         <view class="shareText ">保存本地</view>
       </view>
     </view>
-     <view class='dialog_content'>
+    <view class='dialog_content'>
       <view class="shareTo ">
         <button bindtap="reportItem">
           <image class="shareIcon " src="/content/images/report.svg "></image>
         </button>
         <view class="shareText ">举报</view>
       </view>
-        <view class="shareTo ">
-        <button   bindtap="allClear">
+      <view class="shareTo ">
+        <button bindtap="allClear">
           <image class="shareIcon " src="/content/images/clear.svg"></image>
         </button>
         <view class="shareText ">全部清空</view>

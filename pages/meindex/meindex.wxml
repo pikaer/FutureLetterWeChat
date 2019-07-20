@@ -59,12 +59,11 @@
     </view>
   </view>
 
-
   <view class="page-body">
     <view class="page-section page-section-spacing swiper">
       <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px" current="{{currentTab}}"
         bindchange="bindChange">
-        <!-- 互动列表 -->
+        <!-- 动态 -->
         <swiper-item>
           <scroll-view scroll-y="true" class="momentArea">
             <view class="momentView" wx:for="{{tempMomentList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-momentId='{{value.momentId}}' bindlongpress="bindlongMomentPress">
@@ -81,16 +80,16 @@
 
         </swiper-item>
 
-        <!-- 扔出去的未回复的瓶子 -->
+        <!-- 收藏 -->
         <swiper-item>
           <scroll-view scroll-y="true" class="momentArea">
-            <view class="momentView" wx:for="{{tempMomentList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-momentId='{{value.momentId}}' bindlongpress="bindlongMomentPress">
+            <view class="momentView" wx:for="{{tempCollectList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-momentId='{{value.momentId}}' data-collectId='{{value.collectId}}' bindlongpress="bindlongMomentPress">
               <view class="content">
                 <view class="textView">{{value.textContent}}</view>
                 <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
                   <image src="{{value.imgContent}}" class="momentImg" bindtap="previewMomentImg" data-imgPath='{{value.imgContent}}' mode="widthFix"></image>
                 </view>
-                <view class="publishTime">{{value.publishTime}}</view>
+                <view class="publishTime">{{value.createTime}}</view>
               </view>
             </view>
             <view class="placeUseView">已经到底部啦</view>

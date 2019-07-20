@@ -234,6 +234,34 @@ Page({
       })
   },
 
+
+  //添加收藏
+  addCollect: function (ops) {
+    var self = this;
+    let momentId = this.data.currentMoment.momentId;
+    app.httpPost(
+      'api/Letter/AddCollect', {
+        "UId": app.globalData.apiHeader.UId,
+        "MomentId": momentId,
+        "FromPage": "discoveryPage"
+      },
+      function (res) {
+        if (res.isExecuteSuccess){
+          console.info("添加收藏成功！");
+          self.resetSelectItem();
+          wx.showToast({
+            title: "收藏成功",
+            icon: 'success',
+            duration: 1500
+          });
+        }
+      },
+      function (res) {
+        console.info("收藏瓶子失败");
+        self.resetSelectItem()
+      })
+  },
+
   //更多
   moreAction: function(ops) {
     let key = ops.currentTarget.dataset.key;
