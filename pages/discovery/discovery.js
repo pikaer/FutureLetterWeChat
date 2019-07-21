@@ -29,21 +29,20 @@ Page({
 
   //分享功能
   onShareAppMessage: function(res) {
-    let pickUpId = this.data.selectItem.pickupid;
-    let index = this.data.selectItem.key;
-    let list = this.data.pickUpList;
+    this.hideModalShare();
+    let momentId = this.data.currentMoment.momentId;
     let url = "";
     let title = "今日份一张图";
-    if (list[index].textContent != "" && list[index].textContent != null) {
-      title = list[index].textContent;
+    if (this.data.currentMoment.textContent != "" && this.data.currentMoment.textContent != null) {
+      title = this.data.currentMoment.textContent;
     }
-    if (list[index].imgContent != "" && list[index].imgContent != null) {
-      url = list[index].imgContent;
+    if (this.data.currentMoment.imgContent != "" && this.data.currentMoment.imgContent != null) {
+      url = this.data.currentMoment.imgContent;
     }
     return {
       title: title,
       imageUrl: url,
-      path: "/pages/startup/startup?pickUpId=" + pickUpId,
+      path: "/pages/startup/startup?momentId=" + momentId,
       success: function(res) {
         // 转发成功
       },
@@ -186,6 +185,9 @@ Page({
 
   //删除瓶子
   deleteItem: function(ops) {
+
+    this.hideModalShare();
+
     var self = this;
     let pickUpId = this.data.currentMoment.pickUpId;
     let index = this.data.selectItem.key;
@@ -209,6 +211,7 @@ Page({
   },
 
   saveLocal: function(){
+    this.hideModalShare();
     wx.showToast({
       title: "功能开发中，敬请期待",
       icon: 'none',
@@ -218,6 +221,9 @@ Page({
 
   //举报瓶子
   reportItem: function(ops) {
+
+    this.hideModalShare();
+
     var self = this;
     let pickUpId = this.data.currentMoment.pickUpId;
     app.httpPost(
@@ -243,12 +249,15 @@ Page({
 
   //添加收藏
   addCollect: function (ops) {
+
+    this.hideModalShare();
+    
     var self = this;
-    let momentId = this.data.currentMoment.momentId;
     app.httpPost(
       'api/Letter/AddCollect', {
         "UId": app.globalData.apiHeader.UId,
-        "MomentId": momentId,
+        "MomentId": self.data.currentMoment.momentId,
+        "PickUpId": self.data.currentMoment.pickUpId,
         "FromPage": "discoveryPage"
       },
       function (res) {

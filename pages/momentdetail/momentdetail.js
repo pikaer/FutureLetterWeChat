@@ -1,8 +1,8 @@
 const app = getApp()
 Page({
   data: {
-    discussDetail: {},
-    pickUpId: "",
+    momentDetail: {},
+    momentId: "",
     inputMarBot: false,
     showModal: false,
     basicUserInfo: {},
@@ -10,8 +10,13 @@ Page({
   },
 
   onLoad: function (options) {
-    this.data.pickUpId = options.pickUpId
-    this.discussDetail();
+    if (options.momentId != null && options.momentId!=""){
+      this.setData({
+        momentId: options.momentId
+      });
+    }
+
+    this.momentDetail();
   },
 
   // 预览图片
@@ -28,20 +33,49 @@ Page({
   },
 
   //获取动态
-  discussDetail: function () {
+  momentDetail: function () {
     var self = this;
     app.httpPost(
-      'api/Letter/DiscussDetail', {
-        "PickUpId": self.data.pickUpId
+      'api/Letter/MomentDetail', {
+        "MomentId": self.data.momentId
       },
       function (res) {
         self.setData({
-          discussDetail: res
+          momentDetail: res
         });
       },
       function (res) {
         console.info("获取数据失败");
       })
   },
+
+
+  //获取用户基础信息
+  toShowModal: function (ops) {
+    var self = this;
+    self.setData({
+      basicUserInfo: {}
+    });
+    app.httpPost(
+      'api/Letter/BasicUserInfo', {
+        "UId": ops.currentTarget.dataset.uid
+      },
+      function (res) {
+        self.setData({
+          basicUserInfo: res,
+          showModal: true
+        });
+      },
+      function (res) {
+        console.error("获取用户基础信息失败");
+      })
+  },
+
+  hideModal: function () {
+    this.setData({
+      showModal: false
+    });
+  },
+
 
 })

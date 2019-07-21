@@ -3,13 +3,13 @@
     <view class="tabView">
       <view class="userView">
         <view class="headPhotoView">
-          <image class="userHead" src="/content/images/pikaer.jpg"></image>
+          <image class="userHead" src="{{basicUserInfo.headPhotoPath}}"></image>
         </view>
         <view class="basicInfoView">
-          <view class="nickNameText">Pikaer</view>
+          <view class="nickNameText">{{basicUserInfo.nickName}}</view>
           <view class="countView">
             <view class="coinCountView">
-              <view class="countText">金币余额:100</view>
+              <view class="countText">金币余额:{{basicUserInfo.totalCoin}}</view>
             </view>
           </view>
         </view>
@@ -66,12 +66,11 @@
         <!-- 动态 -->
         <swiper-item>
           <scroll-view scroll-y="true" class="momentArea">
-            <view class="momentView" wx:for="{{tempMomentList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' bindlongpress="bindlongMomentPress">
+            <view class="momentView" wx:for="{{tempMomentList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' bindtap="toMomentDetailPage" bindlongpress="bindlongMomentPress">
               <view class="content">
                 <view class="textView">{{value.textContent}}</view>
-
                 <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
-                  <image src="{{value.imgContent}}" class="momentImg" bindtap="previewMomentImg" data-imgPath='{{value.imgContent}}' mode="widthFix"></image>
+                  <image src="{{value.imgContent}}" class="momentImg"  mode="widthFix"></image>
                 </view>
                 <view class="publishTime">{{value.publishTime}}</view>
               </view>
@@ -83,11 +82,11 @@
         <!-- 收藏 -->
         <swiper-item>
           <scroll-view scroll-y="true" class="momentArea">
-            <view class="momentView" wx:for="{{tempCollectList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-momentId='{{value.momentId}}' data-collectId='{{value.collectId}}' data-type='2' bindlongpress="bindlongMomentPress">
+            <view class="momentView" wx:for="{{tempCollectList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-collectId='{{value.collectId}}' data-momentId='{{value.momentId}}' data-type='2' bindtap="toDiscussDetailPage" bindlongpress="bindlongMomentPress">
               <view class="content">
                 <view class="textView">{{value.textContent}}</view>
                 <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
-                  <image src="{{value.imgContent}}" class="momentImg" bindtap="previewMomentImg" data-imgPath='{{value.imgContent}}' mode="widthFix"></image>
+                  <image src="{{value.imgContent}}" class="momentImg"  mode="widthFix"></image>
                 </view>
                 <view class="publishTime">{{value.createTime}}</view>
               </view>

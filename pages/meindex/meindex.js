@@ -27,6 +27,7 @@ Page({
     this.getMyMomentList();
     this.getCollectList();
     this.unReadTotalCount();
+    this.basicUserInfo();
   },
 
   // 滑动切换tab
@@ -58,7 +59,15 @@ Page({
   },
 
   //动态详情页面
-  previewMomentDetail: function(e) {
+  toMomentDetailPage: function(e) {
+    let momentId = e.currentTarget.dataset.momentid;
+    wx.navigateTo({
+      url: "../../pages/momentdetail/momentdetail?momentId=" + momentId
+    })
+  },
+
+  //动态详情页面
+  toDiscussDetailPage: function(e) {
     let pickUpId = e.currentTarget.dataset.pickupid;
     wx.navigateTo({
       url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId
@@ -134,6 +143,7 @@ Page({
 
   //保存本地
   saveLocal: function() {
+    this.hideModalShare();
     if (this.data.correntSelectItem == 1) {
       wx.showToast({
         title: "功能开发中，敬请期待",
@@ -151,6 +161,7 @@ Page({
 
   //全部清空
   clearItem: function() {
+    this.hideModalShare();
     if (this.data.correntSelectItem == 1) {
       this.deleteAllMoment();
     } else {
@@ -161,6 +172,7 @@ Page({
 
   //单个删除
   deleteItem: function() {
+    this.hideModalShare();
     if (this.data.correntSelectItem == 1) {
       this.deleteMoment();
     } else {
@@ -172,22 +184,23 @@ Page({
 
   //分享功能
   onShareAppMessage: function(res) {
+    this.hideModalShare();
+    let url = "";
+    let title = "今日份一张图";
+    let momentId = "";
+    let index = 0;
+    let list = {};
     if (this.data.correntSelectItem == 1) {
-      this.shareMoment();
+      momentId = this.data.selectMomentItem.momentid;
+      index = this.data.selectMomentItem.index;
+      list = this.data.tempMomentList;
     } else {
-      this.shareCollext();
+      momentId = this.data.selectCollectItem.momentid;
+      index = this.data.selectCollectItem.index;
+      list = this.data.tempCollectList;
     }
     this.hideModalShare();
-  },
 
-
-  //分享动态
-  shareMoment: function() {
-    let momentId = this.data.selectMomentItem.momentid;
-    let index = this.data.selectMomentItem.key;
-    let list = this.data.tempMomentList;
-    let url = "";
-    let title = "今日份一张图";
     if (list[index].textContent != "" && list[index].textContent != null) {
       title = list[index].textContent;
     }
@@ -206,34 +219,6 @@ Page({
       }
     }
   },
-
-  //分享收藏
-  shareCollext: function() {
-    let momentId = this.data.selectCollectItem.momentid;
-    let index = this.data.selectCollectItem.key;
-    let list = this.data.tempCollectList;
-    let url = "";
-    let title = "今日份一张图";
-    if (list[index].textContent != "" && list[index].textContent != null) {
-      title = list[index].textContent;
-    }
-    if (list[index].imgContent != "" && list[index].imgContent != null) {
-      url = list[index].imgContent;
-    }
-    return {
-      title: title,
-      imageUrl: url,
-      path: "/pages/startup/startup?momentId=" + momentId,
-      success: function(res) {
-        // 转发成功
-      },
-      fail: function(res) {
-        // 转发失败
-      }
-    }
-  },
-
-
 
   //显示遮罩层
   showModalShare: function() {
@@ -423,4 +408,21 @@ Page({
     }
   },
 
+  //获取用户基础信息
+  basicUserInfo: function (ops) {
+    var self = this;
+    app.httpPost(
+      'api/Letter/BasicUserInfo', {
+        "UId": app.globalData.apiHeader.UId,
+        "Type":1
+      },
+      function (res) {
+        self.setData({
+          basicUserInfo: res,
+        });
+      },
+      function (res) {
+        console.error("获取用户基础信息失败");
+      })
+  },
 })
