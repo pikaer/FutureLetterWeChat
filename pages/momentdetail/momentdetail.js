@@ -3,10 +3,10 @@ Page({
   data: {
     momentDetail: {},
     momentId: "",
-    inputMarBot: false,
     showModal: false,
     basicUserInfo: {},
-    showinputarea: false
+    showinputarea: false,
+    showModalStatus: false
   },
 
   onLoad: function (options) {
@@ -77,5 +77,86 @@ Page({
     });
   },
 
+  //更多
+  moreAction: function (ops) {
+    this.showModalShare()
+  },
+
+  saveLocal: function () {
+    this.hideModalShare();
+    wx.showToast({
+      title: "功能开发中，敬请期待",
+      icon: 'none',
+      duration: 1500
+    });
+  },
+
+
+  //显示遮罩层
+  showModalShare: function () {
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+      showModalStatus: true
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export()
+      })
+    }.bind(this), 200)
+  },
+
+  hideModalShare: function () {
+    // 隐藏遮罩层
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export(),
+        showModalStatus: false
+      })
+    }.bind(this), 200)
+  },
+
+  //分享功能
+  onShareAppMessage: function (res) {
+    this.hideModalShare();
+    let momentId = this.data.momentId;
+    let url = "";
+    let title = "今日份一张图";
+    if (this.data.momentDetail.textContent != "" && this.data.momentDetail.textContent != null) {
+      title = this.data.momentDetail.textContent;
+    }
+    if (this.data.momentDetail.imgContent != "" && this.data.momentDetail.imgContent != null) {
+      url = this.data.momentDetail.imgContent;
+    }
+    return {
+      title: title,
+      imageUrl: url,
+      path: "/pages/startup/startup?momentId=" + momentId,
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
+  },
 
 })

@@ -10,6 +10,9 @@
             <view class="nickNameView">{{momentDetail.nickName}}</view>
             <view class="timeView">{{momentDetail.createTime}}</view>
           </view>
+          <view class="rightView" data-uId='{{discussDetail.momentUId}}' data-pickUpId='{{discussDetail.pickUpId}}' data-key='{{key}}' catchtap='moreAction'>
+            <view class="iconfont more" style='font-size:20px'></view>
+          </view>
         </view>
         <view class="bodyView">
           <!-- 文本动态 -->
@@ -48,3 +51,28 @@
     </view>
   </view>
 </view>
+
+
+
+<!--弹出框start-->
+<view class="popupLayer" bindtap="hideModalShare" wx:if="{{showModalStatus}}"></view>
+<view class="dialog_box" animation="{{animationData}}" wx:if="{{showModalStatus}}">
+  <view class='shareArea'>
+    <view class='dialog_title'>更多</view>
+    <view class='dialog_content'>
+      <view class="shareTo" bindtap="saveLocal">
+        <button>
+          <image class="shareIcon" src="/content/images/baocuntupian.svg"></image>
+        </button>
+        <view class="shareText">保存本地</view>
+      </view>
+      <view class="shareTo">
+        <button open-type='share'>
+          <image class="shareIcon" src="/content/images/weixin.svg"></image>
+        </button>
+        <view class="shareText">分享好友/群</view>
+      </view>
+    </view>
+  </view>
+</view>
+<!--弹出框end-->
