@@ -4,7 +4,7 @@ Page({
     showStartUp: true
   },
 
-  onLoad: function (options) {
+  onLoad: function(options) {
     if (options != null && options.momentId != undefined) {
       this.setData({
         showStartUp: false
@@ -18,19 +18,29 @@ Page({
     }
   },
 
-  checkSetting: function () {
+
+  //初始化数据
+  init: function(options) {
+    this.getPickUpList();
+    this.getChatList();
+    this.basicUserInfo();
+    this.getMyMomentList();
+    this.getCollectList();
+  },
+
+  checkSetting: function() {
     var that = this;
     // 查看是否授权
     wx.getSetting({
-      success: function (res) {
+      success: function(res) {
         if (res.authSetting['scope.userInfo']) {
           wx.getUserInfo({
-            success: function (res) {
+            success: function(res) {
               //从数据库获取用户信息
               that.userLogin();
             }
           });
-        }else{
+        } else {
           that.setData({
             showStartUp: false
           })
@@ -39,7 +49,7 @@ Page({
     })
   },
 
-  bindGetUserInfo: function (e) {
+  bindGetUserInfo: function(e) {
     if (e.detail.userInfo) {
       this.setData({
         showStartUp: true
@@ -52,7 +62,7 @@ Page({
         content: '您点击了拒绝授权，将无法进入小程序，请授权之后再进入!!!',
         showCancel: false,
         confirmText: '返回授权',
-        success: function (res) {
+        success: function(res) {
           if (res.confirm) {
             console.log('用户点击了“返回授权”')
           }
@@ -62,7 +72,7 @@ Page({
   },
 
   //用户登录
-  userLogin: function () {
+  userLogin: function() {
     let self = this;
     wx.login({
       success: res => {
@@ -75,25 +85,25 @@ Page({
   },
 
   //获取OpenId
-  getOpenId: function (code) {
+  getOpenId: function(code) {
     let self = this;
     app.httpPost(
       'api/Letter/GetOpenId', {
         "LoginCode": code
       },
-      function (res) {
+      function(res) {
         console.info("获取OpenId成功");
         app.globalData.openid = res.openId;
         app.globalData.session_key = res.session_key;
         self.getUserInfoWX();
       },
-      function (res) {
+      function(res) {
         console.error("获取OpenId信息失败!");
       })
   },
 
   //获取微信用户信息
-  getUserInfoWX: function () {
+  getUserInfoWX: function() {
     let self = this;
     wx.getSetting({
       success: res => {
@@ -117,7 +127,7 @@ Page({
   },
 
   //存入用户信息
-  setUserInfo: function () {
+  setUserInfo: function() {
     let self = this;
     app.httpPost(
       'api/Letter/SetUserInfo', {
@@ -129,18 +139,109 @@ Page({
         "AvatarUrl": app.globalData.userInfoWX.avatarUrl,
         "Gender": app.globalData.userInfoWX.gender
       },
-      function (res) {
+      function(res) {
         console.info("存入用户信息成功");
         app.globalData.apiHeader.UId = res.uId;
-
-        wx.switchTab({
-          url: '/pages/discovery/discovery'
-        })
+        self.init();
       },
-      function (res) {
+      function(res) {
         console.error("存入用户信息失败!");
       })
   },
 
-});
+  //获取动态
+  getPickUpList: function() {
+    var self = this;
+    app.httpPost(
+      'api/Letter/PickUpList', {
+        "UId": app.globalData.apiHeader.UId,
+        "PageIndex": 1
+      },
+      function(res) {
+        app.globalData.pickUpList = res.pickUpList;
+        wx.switchTab({
+          url: '/pages/discovery/discovery'
+        })
+      },
+      function(res) {
+        console.info("获取数据失败");
+        wx.switchTab({
+          url: '/pages/discovery/discovery'
+        })
+      })
+  },
 
+
+  //获取用户数据
+  getChatList: function() {
+    var self = this;
+    if (app.globalData.apiHeader.UId > 0) {
+      app.httpPost(
+        'api/Letter/DiscussList', {
+          "UId": app.globalData.apiHeader.UId,
+          "PageIndex": 1
+        },
+        function(res) {
+          console.info("获取聊天列表成功！")
+          app.globalData.tempDiscussList = res.discussList;
+        },
+        function(res) {
+          console.error("获取聊天列表失败！");
+        })
+    }
+  },
+
+  //获取用户基础信息
+  basicUserInfo: function(ops) {
+    var self = this;
+    app.httpPost(
+      'api/Letter/BasicUserInfo', {
+        "UId": app.globalData.apiHeader.UId,
+        "Type": 1
+      },
+      function(res) {
+        app.globalData.basicUserInfo = res;
+      },
+      function(res) {
+        console.error("获取用户基础信息失败");
+      })
+  },
+
+
+  //获取我扔出去的没有被评论的动态
+  getMyMomentList: function() {
+    var self = this;
+    if (app.globalData.apiHeader.UId > 0) {
+      app.httpPost(
+        'api/Letter/MyMomentList', {
+          "UId": app.globalData.apiHeader.UId,
+          "PageIndex": 1
+        },
+        function(res) {
+          console.info("获取聊天列表成功！")
+          app.globalData.tempMomentList = res.momentList;
+        },
+        function(res) {
+          console.error("获取聊天列表失败！");
+        })
+    }
+  },
+
+  //获取收藏列表数据
+  getCollectList: function() {
+    var self = this;
+    if (app.globalData.apiHeader.UId > 0) {
+      app.httpPost(
+        'api/Letter/GetCollectList', {
+          "UId": app.globalData.apiHeader.UId,
+          "PageIndex": 1
+        },
+        function(res) {
+          app.globalData.tempCollectList = res.collectList;
+        },
+        function(res) {
+          console.error("获取收藏列表数据失败！");
+        })
+    }
+  },
+});

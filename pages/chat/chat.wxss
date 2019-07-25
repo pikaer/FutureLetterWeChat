@@ -96,6 +96,7 @@ button:last-child {
   width: 100%;
   height: 1.5rpx;
   background-color: #e5e5e5;
+  margin-left: 60px;
 }
 
 .chatContainer {

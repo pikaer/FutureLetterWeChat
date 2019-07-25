@@ -39,7 +39,7 @@
 }
 
 .navigator {
-  padding: 5rpx 30rpx;
+  padding: 0rpx 30rpx;
   position: relative;
   display: flex;
   align-items: center;
@@ -64,7 +64,6 @@
   flex: 1;
   font-size: 16px;
   padding-right: 20px;
-  padding-left: 15px;
   color: #4d4d4d;
 }
 

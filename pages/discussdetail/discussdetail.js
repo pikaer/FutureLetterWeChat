@@ -246,7 +246,7 @@ Page({
     let url = "";
     let title = "今日份一张图";
     if (this.data.discussDetail.textContent != "" && this.data.discussDetail.textContent != null) {
-      title = this.data.currentMoment.textContent;
+      title = this.data.discussDetail.textContent;
     }
     if (this.data.discussDetail.imgContent != "" && this.data.discussDetail.imgContent != null) {
       url = this.data.discussDetail.imgContent;

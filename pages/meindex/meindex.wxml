@@ -2,49 +2,28 @@
   <view class="fixedView">
     <view class="tabView">
       <view class="userView">
-        <view class="headPhotoView">
+        <navigator url="../../pages/userinfo/userinfo" class="headPhotoView">
           <image class="userHead" src="{{basicUserInfo.headPhotoPath}}"></image>
-        </view>
-        <view class="basicInfoView">
-          <view class="nickNameText">{{basicUserInfo.nickName}}</view>
+        </navigator>
+        <navigator url="../../pages/userinfo/userinfo" class="basicInfoView">
+          <view class="nickNameText">
+            {{basicUserInfo.nickName}}
+          </view>
+          <view class="editView">
+            <image class="editImg" src="/content/images/edit.svg"></image>
+          </view>
           <view class="countView">
             <view class="coinCountView">
               <view class="countText">金币余额:{{basicUserInfo.totalCoin}}</view>
             </view>
           </view>
-        </view>
+        </navigator>
         <view class="userInfoView">
           <navigator url="../../pages/userinfo/userinfo" class="navigator">
-            <view class="navigator-text" style='color:#9d9d9d;'>我的信息</view>
+            <view class="navigator-text" style='color:#9d9d9d;'>我的钱包</view>
             <view class="navigator-arrow"></view>
           </navigator>
         </view>
-      </view>
-      <view class="labTags">
-        <navigator url="/pages/friendlist/friendlist?type=1&title=我关注的好友" class="attentionView">
-          <view class="iconView-all">
-            <image class="iconImg" src="/content/images/wallet.png"></image>
-          </view>
-          <view class="iconText-all">钱包</view>
-        </navigator>
-        <navigator url="/pages/friendlist/friendlist?type=2&title=我的粉丝" class="fansView">
-          <view class="iconView-all">
-            <image class="iconImg" src="/content/images/share.png"></image>
-          </view>
-          <view class="iconText-all">赚金币</view>
-        </navigator>
-        <navigator url="/pages/friendlist/friendlist?type=3&title=我的访客" class="visitorView">
-          <view class="iconView-all">
-            <image class="iconServiceImg" src="/content/images/service.png"></image>
-          </view>
-          <view class="iconText-all">客服</view>
-        </navigator>
-        <navigator url="/pages/friendlist/friendlist?type=3&title=我的访客" class="visitorView">
-          <view class="iconView-all">
-            <image class="iconServiceImg" src="/content/images/more.png"></image>
-          </view>
-          <view class="iconText-all">更多</view>
-        </navigator>
       </view>
     </view>
     <view class="momentContainer">
@@ -70,7 +49,7 @@
               <view class="content">
                 <view class="textView">{{value.textContent}}</view>
                 <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
-                  <image src="{{value.imgContent}}" class="momentImg"  mode="widthFix"></image>
+                  <image src="{{value.imgContent}}" class="momentImg" mode="widthFix"></image>
                 </view>
                 <view class="publishTime">{{value.publishTime}}</view>
               </view>
@@ -82,11 +61,12 @@
         <!-- 收藏 -->
         <swiper-item>
           <scroll-view scroll-y="true" class="momentArea">
-            <view class="momentView" wx:for="{{tempCollectList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-collectId='{{value.collectId}}' data-momentId='{{value.momentId}}' data-type='2' bindtap="toDiscussDetailPage" bindlongpress="bindlongMomentPress">
+            <view class="momentView" wx:for="{{tempCollectList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-collectId='{{value.collectId}}' data-momentId='{{value.momentId}}' data-type='2' bindtap="toDiscussDetailPage"
+              bindlongpress="bindlongMomentPress">
               <view class="content">
                 <view class="textView">{{value.textContent}}</view>
                 <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
-                  <image src="{{value.imgContent}}" class="momentImg"  mode="widthFix"></image>
+                  <image src="{{value.imgContent}}" class="momentImg" mode="widthFix"></image>
                 </view>
                 <view class="publishTime">{{value.createTime}}</view>
               </view>

@@ -4,15 +4,17 @@ const app = getApp()
 Page({
   data: {
     tempDiscussList: [],
-    tempMomentList: [],
     basicUserInfo: {},
     actionHidden: true, //长按action
-    deleteMomentHidden: true,
     selectItem: [], //长按后选中的
-    selectMomentItem: [],
     pageIndex: 1,
-    showModal: false,
-    tempHeadImgPath: "",
+    showModal: false
+  },
+
+  onLoad: function(){
+    this.setData({
+      tempDiscussList: app.globalData.tempDiscussList
+    });
   },
 
   onShow: function () {

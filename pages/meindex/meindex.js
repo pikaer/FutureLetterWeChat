@@ -23,6 +23,14 @@ Page({
     showModalStatus: false,
   },
 
+  onLoad: function() {
+    this.setData({
+      basicUserInfo: app.globalData.basicUserInfo,
+      tempMomentList: app.globalData.tempMomentList,
+      tempCollectList: app.globalData.tempCollectList
+    });
+  },
+
   onShow: function() {
     this.getMyMomentList();
     this.getCollectList();
@@ -409,19 +417,19 @@ Page({
   },
 
   //获取用户基础信息
-  basicUserInfo: function (ops) {
+  basicUserInfo: function(ops) {
     var self = this;
     app.httpPost(
       'api/Letter/BasicUserInfo', {
         "UId": app.globalData.apiHeader.UId,
-        "Type":1
+        "Type": 1
       },
-      function (res) {
+      function(res) {
         self.setData({
           basicUserInfo: res,
         });
       },
-      function (res) {
+      function(res) {
         console.error("获取用户基础信息失败");
       })
   },

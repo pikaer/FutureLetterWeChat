@@ -13,9 +13,8 @@ Page({
 
   onLoad: function() {
     this.setData({
-      pageIndex: 1
+      pickUpList: app.globalData.pickUpList
     });
-    this.getPickUpList(true);
   },
 
 

@@ -14,11 +14,14 @@ App({
     },
     openid: "",
     session_key: "",
+    pickUpList: [], //discovery页面初始化数据
+    tempDiscussList: [], //chat初始化数据
+    tempMomentList: [], //meindex页面初始化数据
+    tempCollectList: [], //meindex页面初始化数据
+    basicUserInfo: {}, //meindex页面初始化数据
     userInfoWX: {}, //微信提供的用户信息
-    userInfoAPI: {} //从API获取的用户信息
   },
-
- 
+  
   /**
    * HttpPost请求封装
    * @param 请求相对地址 
@@ -52,7 +55,7 @@ App({
   },
 
   //弹框
-  saveToast: function (success) {
+  saveToast: function(success) {
     let title = success ? "保存成功" : "保存失败";
     let img = success ? "" : "../../content/images/warn.png"
     wx.showToast({

@@ -1,6 +1,9 @@
 <view class="container">
   <view class="titleView" bindtap='uploadpic'>
     <image class="userHeadV2" src="{{tempHeadImgPath}}"></image>
+    <view class="editView">
+      <image class="editImg" src="/content/images/edit.svg"></image>
+    </view>
   </view>
   <view class="basicView">
     <view class="radio">
@@ -49,7 +52,18 @@
       <view class="arrow"></view>
     </view>
     <view class="lineView"></view>
+    <view>
+      <navigator url="../../pages/signature/signature?signature={{tempUserInfo.signature}}" class="navigator">
+        <view class="navigatorView">
+          <view class="title">个性签名</view>
+          <view class="desc">{{tempUserInfo.signature}}</view>
+        </view>
+        <view class="navigator-arrow"></view>
+      </navigator>
+    </view>
+    <view class="lineView"></view>
   </view>
+  <view class="explainTxt">以下信息用于提高匹配度，不会出现在简介里</view>
   <view class="blockView">
     <view>
       <navigator url="../../pages/schoolname/schoolname?schoolName={{tempUserInfo.schoolName}}" class="navigator">
@@ -93,16 +107,6 @@
           </label>
         </radio-group>
       </view>
-    </view>
-    <view class="lineView"></view>
-    <view>
-      <navigator url="../../pages/signature/signature?signature={{tempUserInfo.signature}}" class="navigator">
-        <view class="navigatorView">
-          <view class="title">个性签名</view>
-          <view class="desc">{{tempUserInfo.signature}}</view>
-        </view>
-        <view class="navigator-arrow"></view>
-      </navigator>
     </view>
     <view class="lineView"></view>
   </view>
