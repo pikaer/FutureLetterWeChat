@@ -6,6 +6,18 @@
     <lable class="titleView">金币余额 :</lable>
     <lable class="coinCountView">0</lable>
   </view>
-
-  <view class="btnAreaView"></view>
+  <view class="publishMomentView">
+    <view class="btnView">
+      发布动态赚金币
+    </view>
+  </view>
+  <view class="shareView">
+    <view class="btnView">
+      邀请好友赚金币
+    </view>
+  </view>
+  <view class="footerView">
+    <view class="kefuView">联系客服</view>
+    <view class="coinDetailView">金币明细</view>
+  </view>
 </view>

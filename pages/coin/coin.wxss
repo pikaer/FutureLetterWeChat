@@ -1,12 +1,5 @@
-.coinContainer {
-}
-
 .iconView {
   text-align: center;
-  padding-top: 50px;
-}
-
-.titleView {
 }
 
 .coinView {
@@ -17,10 +10,6 @@
 
 .coinCountView {
   padding-left: 10px;
-
-}
-
-.btnAreaView {
 }
 
 page {
@@ -35,3 +24,44 @@ page {
   padding-top: 30px;
 }
 
+.publishMomentView {
+  text-align: center;
+  width: 100%;
+}
+
+.btnView {
+  text-align: center;
+  font-size: 16px;
+  margin-right: 90px;
+  margin-left: 90px;
+  margin-top: 30px;
+  height: 30px;
+  padding-top: 7px;
+  border-radius: 5px;
+  background-color: #0c3;
+  color: white;
+}
+
+.footerView {
+  position: absolute;
+  bottom: 0;
+  font-size: 16px;
+  margin-bottom: 20px;
+  width: 100%;
+  color: #6495ed;
+}
+
+.kefuView {
+  float: left;
+  padding-left: 100px;
+}
+
+.coinDetailView {
+  float: right;
+  padding-right: 100px;
+}
+
+.coinContainer {
+  position: relative;
+  height: 100%;
+}
