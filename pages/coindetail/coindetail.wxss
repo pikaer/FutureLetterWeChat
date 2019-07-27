@@ -1,68 +1,3 @@
-.userView {
-  width: 100%;
-}
-
-.headPhotoView {
-  float: left;
-}
-
-.userHead {
-  width: 140rpx;
-  height: 140rpx;
-  margin-left: 28rpx;
-  border-radius: 100%;
-}
-
-.nickNameText {
-  margin-top: 10rpx;
-  font-size: 18px;
-  float: left;
-}
-
-.coinCountView {
-  float: left;
-  font-size: 13px;
-}
-
-.countText {
-  float: left;
-  font-size: 13px;
-  color: #9d9d9d;
-}
-
-.countView {
-  margin-top: 5px;
-}
-
-.userInfoView {
-  margin-top: 45rpx;
-  float: right;
-}
-
-.tabView {
-  width: 100%;
-  background-color: #f0f4f3;
-}
-
-.basicInfoView {
-  float: left;
-  padding-top: 2px;
-  padding-left: 7px;
-}
-
-.momentContainer {
-  width: 100%;
-}
-
-.collectView {
-  float: left;
-  font-size: 20px;
-  padding-left: 20px;
-  padding-top: 7px;
-  color: #8e8e8e;
-  flex-grow: 1;
-}
-
 .itemTitleView {
   float: left;
   font-size: 17px;
@@ -179,8 +114,8 @@ swiper-item {
 }
 
 .textView {
-  font-size: 14px;
-  margin-bottom: 10px;
+  font-size: 16px;
+  margin-bottom: 5px;
 }
 
 .imgView {
@@ -194,7 +129,7 @@ swiper-item {
   clear: both;
 }
 
-.momentImg {
+.imgContentView {
   width: 100%;
   border-radius: 4px;
 }
@@ -203,12 +138,7 @@ swiper-item {
   width: 100%;
 }
 
-.momentArea {
-  width: 100%;
-  height: 100%;
-}
-
-.momentView {
+.contentItemView {
   background-color: white;
   padding-left: 15px;
   padding-right: 15px;
@@ -220,16 +150,17 @@ swiper-item {
   margin-bottom: 10px;
   border-radius: 5px;
   box-shadow: 0px 0px 1px #837c7c;
+  height: 40px;
 }
 
-.momentTitleCilick {
+.onCilickView {
   width: 40px;
   margin: auto;
   border-bottom: solid 4px #09f;
   color: #09f;
 }
 
-.momentTitle {
+.normalView {
   width: 40px;
   margin: auto;
   color: #9d9d9d;
@@ -238,7 +169,6 @@ swiper-item {
 .placeUseView {
   height: 100px;
   width: 100%;
-  margin-bottom: 70px;
   text-align: center;
   font-size: 14px;
   color: #9d9d9d;
@@ -276,54 +206,6 @@ swiper-item {
   padding-top: 1px;
 }
 
-.dialog_title {
-  font-size: 16px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
-  color: black;
-}
-
-.dialog_content {
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.shareArea {
-  position: relative;
-  overflow: hidden;
-  background-color: white;
-  padding-bottom: 10px;
-}
-
-.shareTo {
-  text-align: center;
-  background: white;
-  font-size: 28rpx;
-  float: left;
-  flex-grow: 1;
-  position: relative;
-  margin-bottom: 10px;
-}
-
-.shareIcon {
-  margin-top: 15px;
-  margin: auto;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  width: 38px;
-  height: 38px;
-}
-
 button::after {
   border: none;
 }
@@ -339,13 +221,25 @@ button {
   margin-bottom: 10px;
 }
 
-.editView {
+.content {
   float: left;
-  padding-left: 10px;
-  padding-top: 12px;
+  height: 70px;
+  width: 90%;
 }
 
-.editImg {
-  width: 16px;
-  height: 16px;
+.addValueView {
+  float: right;
+  font-size: 16px;
+  color: #ffa500;
+  padding-right: 10px;
+}
+
+.deduceValueView {
+  float: right;
+  font-size: 16px;
+  padding-right: 10px;
+}
+
+.scrollView {
+  height: 100%;
 }

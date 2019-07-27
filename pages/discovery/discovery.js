@@ -409,6 +409,11 @@ Page({
       },
       function(res) {
         console.info("获取数据失败");
+        wx.showToast({
+          title: res.resultMessage,
+          icon: 'none',
+          duration: 3000
+        })
         wx.stopPullDownRefresh();
       })
   },

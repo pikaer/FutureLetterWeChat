@@ -1,0 +1,47 @@
+<view class="container">
+  <view class="fixedView">
+    <view class="titleView">
+      <view bindtap="toIncomeDetailList" class="itemTitleView">
+        <view class="{{currentTab==0?'onCilickView':'normalView'}}"> 收入 </view>
+      </view>
+      <view bindtap="toExpendDetailList" class="itemTitleView">
+        <view class="{{currentTab==0?'normalView':'onCilickView'}}"> 支出 </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="page-body">
+    <view class="page-section page-section-spacing swiper">
+      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px" current="{{currentTab}}"
+        bindchange="bindChange">
+        <!-- 收入 -->
+        <swiper-item>
+          <scroll-view scroll-y="true" class="scrollView">
+            <view class="contentItemView" wx:for="{{tempIncomeDetailList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-type='1'>
+              <view class="content">
+                <view class="textView">{{value.description}}</view>
+                <view class="publishTime">{{value.createTime}}</view>
+              </view>
+              <view class="addValueView">{{value.changeValue}}</view>
+            </view>
+            <view class="placeUseView">没有更多啦</view>
+          </scroll-view>
+        </swiper-item>
+
+        <!-- 支出 -->
+        <swiper-item>
+          <scroll-view scroll-y="true" class="scrollView">
+            <view class="contentItemView" wx:for="{{tempExpendDetailList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-type='2'>
+              <view class="content">
+                <view class="textView">{{value.description}}</view>
+                <view class="publishTime">{{value.createTime}}</view>
+              </view>
+              <view class="deduceValueView">{{value.changeValue}}</view>
+            </view>
+            <view class="placeUseView">没有更多啦</view>
+          </scroll-view>
+        </swiper-item>
+      </swiper>
+    </view>
+  </view>
+</view>

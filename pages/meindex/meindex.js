@@ -329,7 +329,7 @@ Page({
     wx.showModal({
       content: '将清空所有发布的动态！',
       success(res) {
-        if (app.globalData.apiHeader.UId > 0) {
+        if (res.confirm && app.globalData.apiHeader.UId > 0) {
           app.httpPost(
             'api/Letter/DeleteAllMoment', {
               "UId": app.globalData.apiHeader.UId
@@ -361,7 +361,7 @@ Page({
     wx.showModal({
       content: '将清空所有收藏的内容！',
       success(res) {
-        if (app.globalData.apiHeader.UId > 0) {
+        if (res.confirm && app.globalData.apiHeader.UId > 0) {
           app.httpPost(
             'api/Letter/DeleteAllCollect', {
               "UId": app.globalData.apiHeader.UId

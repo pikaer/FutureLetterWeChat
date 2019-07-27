@@ -4,6 +4,7 @@
     "pages/discovery/discovery",
     "pages/chat/chat",
     "pages/coin/coin",
+    "pages/coindetail/coindetail",
     "pages/meindex/meindex",
     "pages/userinfo/userinfo",
     "pages/schoolname/schoolname",

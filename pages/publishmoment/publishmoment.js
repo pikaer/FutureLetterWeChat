@@ -79,7 +79,6 @@ Page({
 
 		let pages = getCurrentPages();
 		let prevPage = pages[pages.length - 2];
-		prevPage.getMoments();
 	},
 
 	//选择图片方法

@@ -36,9 +36,9 @@ page {
   margin-left: 90px;
   margin-top: 30px;
   height: 30px;
-  padding-top: 7px;
+  padding-top: 5px;
   border-radius: 5px;
-  background-color: #0c3;
+  background-color: #00cd66;
   color: white;
 }
 
@@ -64,4 +64,22 @@ page {
 .coinContainer {
   position: relative;
   height: 100%;
+}
+
+.kefuAreaView {
+  position: fixed;
+  top: 160px;
+  right: 15%;
+  left: 15%;
+  z-index: 9500;
+  height: 150px;
+  background: #fff;
+  border-radius: 10rpx;
+  margin-top: 20px;
+}
+
+.kefuTitleView {
+  padding-top: 35px;
+  font-size: 16px;
+  text-align: center;
 }

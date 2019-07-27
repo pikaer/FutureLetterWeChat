@@ -4,20 +4,33 @@
   </view>
   <view class="coinView">
     <lable class="titleView">金币余额 :</lable>
-    <lable class="coinCountView">0</lable>
+    <lable class="coinCountView">{{totalCoin}}</lable>
   </view>
   <view class="publishMomentView">
-    <view class="btnView">
+    <view class="btnView" catchtap="publishMoment">
       发布动态赚金币
     </view>
   </view>
   <view class="shareView">
-    <view class="btnView">
+    <view class="btnView" catchtap="toSharePage">
       邀请好友赚金币
     </view>
   </view>
   <view class="footerView">
-    <view class="kefuView">联系客服</view>
-    <view class="coinDetailView">金币明细</view>
+    <view class="kefuView" catchtap="toShowModal">联系客服</view>
+    <view class="coinDetailView" catchtap="toCoinDetail">金币明细</view>
+  </view>
+</view>
+
+<!--custom Modal-->
+<view class="modal-mask-all" bindtap="hideModal" wx:if="{{showModal}}"></view>
+<view wx:if="{{showModal}}">
+  <view class="kefuAreaView">
+    <view class='kefuTitleView'>
+      客服微信：HelloPikaer
+    </view>
+    <view class='kefuTitleView'>
+      客服QQ：1441457008
+    </view>
   </view>
 </view>

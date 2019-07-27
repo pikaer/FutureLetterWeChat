@@ -23,7 +23,7 @@
       <view class="textView">{{value.textContent}}</view>
       <!-- 图片动态 -->
       <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
-        <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}'  class="imgCount" mode="widthFix"></image>
+        <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' class="imgCount" mode="widthFix"></image>
       </view>
     </view>
   </view>
@@ -36,7 +36,11 @@
     </div>
     <div class="txtLoding">加载中</div>
   </view>
-
+  <view class="refreshMomentView">
+    <view class="publishIconView" catchtap="onPullDownRefresh">
+      <image src="/content/images/refresh.svg" class="refreshImg"></image>
+    </view>
+  </view>
   <view class="publishIcon">
     <view class="publishIconView" catchtap="publishMoment">+ </view>
   </view>

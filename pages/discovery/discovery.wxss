@@ -46,10 +46,9 @@
 }
 
 .rightView {
- float: right;
-margin-top: 7px;
-width: 30px;
-
+  float: right;
+  margin-top: 7px;
+  width: 30px;
 }
 
 .nickNameView {
@@ -344,5 +343,15 @@ button {
   padding-right: 0px;
 }
 
-.shareText {
+.refreshMomentView {
+  position: fixed;
+  bottom: 80px;
+  right: 10px;
+}
+
+.refreshImg {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 50px;
+  padding-top: 7px;
 }

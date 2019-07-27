@@ -14,7 +14,7 @@
           </view>
           <view class="countView">
             <view class="coinCountView">
-              <view class="countText">金币余额:{{basicUserInfo.totalCoin}}</view>
+              <view class="countText">金币余额: {{basicUserInfo.totalCoin}}</view>
             </view>
           </view>
         </navigator>
