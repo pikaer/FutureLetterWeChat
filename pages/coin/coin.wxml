@@ -1,0 +1,11 @@
+<view class="coinContainer">
+  <view class="iconView">
+    <image class="coinImg" src="/content/images/coin.svg"></image>
+  </view>
+  <view class="coinView">
+    <lable class="titleView">金币余额 :</lable>
+    <lable class="coinCountView">0</lable>
+  </view>
+
+  <view class="btnAreaView"></view>
+</view>

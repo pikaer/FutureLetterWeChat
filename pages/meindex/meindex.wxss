@@ -15,7 +15,7 @@
 
 .nickNameText {
   margin-top: 10rpx;
-  font-size: 20px;
+  font-size: 18px;
   float: left;
 }
 

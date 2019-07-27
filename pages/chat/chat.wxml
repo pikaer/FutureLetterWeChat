@@ -16,6 +16,7 @@
       </view>
       <view class="chatLineView"></view>
     </navigator>
+    <view class="blackTxtView" wx:if="{{tempDiscussList.length==0}}">空空如也，快去互动吧</view>
   </scroll-view>
 </view>
 

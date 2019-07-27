@@ -1,6 +1,6 @@
 <view class="inputView">
   <!--这个是输入框-->
-  <input class="inputValueView" placeholder="请输入昵称(不超过8个字)" value="{{tempNickName}}" bindinput="nickNameInput" maxlength="8" placeholder-style="color: gray"/>
+  <input class="inputValueView" placeholder="请输入昵称(不超过10个字)" value="{{tempNickName}}" bindinput="nickNameInput" maxlength="10" placeholder-style="color: gray"/>
 
   <view class="btnView">
     <button class="primary" bindtap='updateNickName'>保 存</button>
