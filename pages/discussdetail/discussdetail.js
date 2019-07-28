@@ -217,7 +217,7 @@ Page({
       'api/Letter/AddCollect', {
         "UId": app.globalData.apiHeader.UId,
         "MomentId": self.data.discussDetail.momentId,
-        "PickUpId": self.data.discussDetail.pickUpId,
+        "PickUpId": self.data.pickUpId,
         "FromPage": "discussDetailPage"
       },
       function(res) {
@@ -254,7 +254,7 @@ Page({
     return {
       title: title,
       imageUrl: url,
-      path: "/pages/startup/startup?momentId=" + momentId,
+      path: "/pages/sharepage/sharepage?momentId=" + momentId,
       success: function (res) {
         // 转发成功
       },
@@ -263,4 +263,6 @@ Page({
       }
     }
   },
+
+  
 })

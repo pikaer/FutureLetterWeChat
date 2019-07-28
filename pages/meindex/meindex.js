@@ -218,7 +218,7 @@ Page({
     return {
       title: title,
       imageUrl: url,
-      path: "/pages/startup/startup?momentId=" + momentId,
+      path: "/pages/sharepage/sharepage?momentId=" + momentId,
       success: function(res) {
         // 转发成功
       },

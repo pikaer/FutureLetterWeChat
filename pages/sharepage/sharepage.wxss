@@ -1,0 +1,185 @@
+.indexContainer {
+  padding-bottom: 15px;
+}
+
+.subContainer {
+  margin-left: 14px;
+  margin-right: 14px;
+  margin-top: 14px;
+  background: white;
+  box-shadow: 0px 0px 4px #837c7c;
+  border-radius: 10px;
+}
+
+.mainContainer {
+  margin: 8px;
+}
+
+.contentArea {
+  margin-bottom: 7px;
+  background-color: white;
+  clear: both;
+  width: 100%;
+}
+
+.titleView {
+  width: 100%;
+}
+
+.leftView {
+  float: left;
+}
+
+.userHead {
+  width: 42px;
+  height: 42px;
+  border-radius: 100%;
+  margin-top: 10px;
+  margin-left: 8px;
+}
+
+.centerView {
+  float: left;
+  margin-top: 10px;
+  margin-left: 8px;
+}
+
+.nickNameView {
+  font-size: 14px;
+}
+
+.timeView {
+  font-size: 11px;
+  color: #8e8e8e;
+  padding-top: 5px;
+}
+
+.bodyView {
+  clear: both;
+}
+
+.textView {
+  font-size: 16px;
+  padding-top: 10px;
+  padding-bottom: 7px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.imgView {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.imgCount {
+  width: 100%;
+  border-radius: 4px;
+}
+
+.rightView {
+  float: right;
+  margin-right: 5px;
+  margin-top: 15px;
+}
+
+.popupLayer {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.2;
+  overflow: hidden;
+  z-index: 1000;
+  color: #fff;
+}
+
+.dialog_box {
+  border-top-right-radius: 25rpx;
+  border-top-left-radius: 25rpx;
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 2000;
+  background: whitesmoke;
+  padding-top: 1px;
+}
+
+.dialog_title {
+  font-size: 16px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  color: black;
+}
+
+.dialog_content {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.shareArea {
+  position: relative;
+  overflow: hidden;
+  background-color: white;
+  padding-bottom: 10px;
+}
+
+.shareTo {
+  text-align: center;
+  background: white;
+  font-size: 28rpx;
+  float: left;
+  flex-grow: 1;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.shareIcon {
+  margin-top: 15px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 38px;
+  height: 38px;
+}
+
+button::after {
+  border: none;
+}
+
+button {
+  background-color: white;
+  line-height: 1;
+  overflow: flex;
+  width: 60px;
+  height: 60px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-bottom: 10px;
+}
+
+.moreBtnView {
+  text-align: center;
+  padding-top: 5px;
+  font-size: 18px;
+  background-color: #b9d3ee;
+  margin-top: 20px;
+  margin-left: 15px;
+  margin-right: 15px;
+  border-radius: 5px;
+  color: white;
+  height: 30px;
+}

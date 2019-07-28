@@ -9,8 +9,8 @@ Page({
     showModalStatus: false
   },
 
-  onLoad: function (options) {
-    if (options.momentId != null && options.momentId!=""){
+  onLoad: function(options) {
+    if (options.momentId != null && options.momentId != "") {
       this.setData({
         momentId: options.momentId
       });
@@ -19,8 +19,14 @@ Page({
     this.momentDetail();
   },
 
+  toStartup: function() {
+    wx.navigateTo({
+      url: "../../pages/startup/startup"
+    })
+  },
+
   // 预览图片
-  previewImg: function (e) {
+  previewImg: function(e) {
     let imgContent = e.currentTarget.dataset.imgcontent;
     let imgContents = [];
     imgContents.push(imgContent);
@@ -33,25 +39,25 @@ Page({
   },
 
   //获取动态
-  momentDetail: function () {
+  momentDetail: function() {
     var self = this;
     app.httpPost(
       'api/Letter/MomentDetail', {
         "MomentId": self.data.momentId
       },
-      function (res) {
+      function(res) {
         self.setData({
           momentDetail: res
         });
       },
-      function (res) {
+      function(res) {
         console.info("获取数据失败");
       })
   },
 
 
   //获取用户基础信息
-  toShowModal: function (ops) {
+  toShowModal: function(ops) {
     var self = this;
     self.setData({
       basicUserInfo: {}
@@ -60,29 +66,29 @@ Page({
       'api/Letter/BasicUserInfo', {
         "UId": ops.currentTarget.dataset.uid
       },
-      function (res) {
+      function(res) {
         self.setData({
           basicUserInfo: res,
           showModal: true
         });
       },
-      function (res) {
+      function(res) {
         console.error("获取用户基础信息失败");
       })
   },
 
-  hideModal: function () {
+  hideModal: function() {
     this.setData({
       showModal: false
     });
   },
 
   //更多
-  moreAction: function (ops) {
+  moreAction: function(ops) {
     this.showModalShare()
   },
 
-  saveLocal: function () {
+  saveLocal: function() {
     this.hideModalShare();
     wx.showToast({
       title: "功能开发中，敬请期待",
@@ -93,7 +99,7 @@ Page({
 
 
   //显示遮罩层
-  showModalShare: function () {
+  showModalShare: function() {
     var animation = wx.createAnimation({
       duration: 200,
       timingFunction: "linear",
@@ -105,7 +111,7 @@ Page({
       animationData: animation.export(),
       showModalStatus: true
     })
-    setTimeout(function () {
+    setTimeout(function() {
       animation.translateY(0).step()
       this.setData({
         animationData: animation.export()
@@ -113,7 +119,7 @@ Page({
     }.bind(this), 200)
   },
 
-  hideModalShare: function () {
+  hideModalShare: function() {
     // 隐藏遮罩层
     var animation = wx.createAnimation({
       duration: 200,
@@ -125,7 +131,7 @@ Page({
     this.setData({
       animationData: animation.export(),
     })
-    setTimeout(function () {
+    setTimeout(function() {
       animation.translateY(0).step()
       this.setData({
         animationData: animation.export(),
@@ -135,7 +141,7 @@ Page({
   },
 
   //分享功能
-  onShareAppMessage: function (res) {
+  onShareAppMessage: function(res) {
     this.hideModalShare();
     let momentId = this.data.momentId;
     let url = "";
@@ -150,10 +156,10 @@ Page({
       title: title,
       imageUrl: url,
       path: "/pages/sharepage/sharepage?momentId=" + momentId,
-      success: function (res) {
+      success: function(res) {
         // 转发成功
       },
-      fail: function (res) {
+      fail: function(res) {
         // 转发失败
       }
     }

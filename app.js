@@ -1,3 +1,14 @@
+const auth = require('/utils/auth.js');
+
+/// 获取倍率
+const raterpx = 750.0 / wx.getSystemInfoSync().windowWidth;
+
+/// 获取canvas转化后的rpx
+const rate = function(rpx) {
+  return rpx / raterpx
+};
+
+
 App({
   //全局变量
   globalData: {
@@ -21,7 +32,7 @@ App({
     basicUserInfo: {}, //meindex页面初始化数据
     userInfoWX: {}, //微信提供的用户信息
   },
-  
+
   /**
    * HttpPost请求封装
    * @param 请求相对地址 
@@ -67,6 +78,37 @@ App({
   },
 
 
+  // 加载
+  showLoading: function(title = '加载中') {
+    wx.showLoading({
+      title: title,
+      icon: 'loading',
+      mask: true
+    });
+  },
+
+  // 隐藏加载
+  hideLoading: function() {
+    wx.hideLoading();
+  },
+
+  /// 文字提示弹窗
+  showToast: function(msg) {
+    if (msg == undefined) {
+      wx.showToast({
+        title: '网络繁忙，稍后重试',
+        icon: 'none',
+        mask: true
+      })
+    } else if (typeof msg == 'string') {
+      wx.showToast({
+        title: msg,
+        icon: 'none',
+        mask: true
+      })
+    }
+  },
+
   //判断空指针
   isBlank: function(str) {
     if (Object.prototype.toString.call(str) === '[object Undefined]') { //空
@@ -80,5 +122,7 @@ App({
     } else {
       return true
     }
-  }
+  },
+
+
 })

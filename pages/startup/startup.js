@@ -5,17 +5,7 @@ Page({
   },
 
   onLoad: function(options) {
-    if (options != null && options.momentId != undefined) {
-      this.setData({
-        showStartUp: false
-      })
-      //这个momentId的值存在则证明首页的开启来源于用户点击来首页,同时可以通过获取到的pageId的值跳转导航到对应的详情页
-      wx.navigateTo({
-        url: "../../pages/momentdetail/momentdetail?momentId=" + options.momentId
-      })
-    } else {
-      this.checkSetting();
-    }
+    this.checkSetting();
   },
 
 

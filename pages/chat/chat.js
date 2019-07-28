@@ -11,19 +11,19 @@ Page({
     showModal: false
   },
 
-  onLoad: function(){
+  onLoad: function() {
     this.setData({
       tempDiscussList: app.globalData.tempDiscussList
     });
   },
 
-  onShow: function () {
+  onShow: function() {
     this.unReadTotalCount();
     this.getChatList();
   },
 
   //获取用户基础信息
-  toShowModal: function (ops) {
+  toShowModal: function(ops) {
     var self = this;
     self.setData({
       basicUserInfo: {}
@@ -32,18 +32,18 @@ Page({
       'api/Letter/BasicUserInfo', {
         "UId": ops.currentTarget.dataset.uid
       },
-      function (res) {
+      function(res) {
         self.setData({
           basicUserInfo: res,
           showModal: true
         });
       },
-      function (res) {
+      function(res) {
         console.error("获取用户基础信息失败");
       })
   },
 
-  hideModal: function () {
+  hideModal: function() {
     this.setData({
       showModal: false
     });
@@ -51,14 +51,14 @@ Page({
 
 
   //动态详情页面
-  previewMomentDetail: function (e) {
+  previewMomentDetail: function(e) {
     let pickUpId = e.currentTarget.dataset.pickupid;
     wx.navigateTo({
       url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId
     })
   },
 
-  setTabBarBadge: function (count) {
+  setTabBarBadge: function(count) {
     if (!app.isBlank(count)) {
       wx.setTabBarBadge({
         index: 1,
@@ -72,7 +72,7 @@ Page({
   },
 
   //获取用户数据
-  getChatList: function () {
+  getChatList: function() {
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
@@ -80,7 +80,7 @@ Page({
           "UId": app.globalData.apiHeader.UId,
           "PageIndex": self.data.pageIndex
         },
-        function (res) {
+        function(res) {
           console.info("获取聊天列表成功！")
 
           self.setData({
@@ -91,7 +91,7 @@ Page({
           //获取聊天数据结束后，停止刷新下拉
           wx.stopPullDownRefresh();
         },
-        function (res) {
+        function(res) {
           console.error("获取聊天列表失败！");
           //获取聊天数据结束后，停止刷新下拉
           wx.stopPullDownRefresh();
@@ -100,7 +100,7 @@ Page({
   },
 
   //清除未读消息
-  clearUnReadCount: function (ops) {
+  clearUnReadCount: function(ops) {
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
@@ -108,7 +108,7 @@ Page({
           "UId": app.globalData.apiHeader.UId,
           "PickUpId": ops.currentTarget.dataset.pickupid
         },
-        function (res) {
+        function(res) {
           console.info("清除未读消息成功！")
           self.data.tempDiscussList[ops.currentTarget.dataset.index].unReadCount = '';
           self.setData({
@@ -117,14 +117,14 @@ Page({
 
           self.setTabBarBadge(res.currentTotalUnReadCount);
         },
-        function (res) {
+        function(res) {
           console.info("清除未读消息Http失败！")
         })
     }
   },
 
   //更多动作
-  moreAction: function () {
+  moreAction: function() {
     this.setData({
       moreActionHidden: false
     })
@@ -132,7 +132,7 @@ Page({
 
 
   //长按删除对话弹框
-  bindlongpress: function (ops) {
+  bindlongpress: function(ops) {
     this.setData({
       actionHidden: false,
       selectItem: ops.currentTarget.dataset
@@ -140,7 +140,7 @@ Page({
   },
 
   //重置长按选择项
-  resetSelectItem: function () {
+  resetSelectItem: function() {
     this.setData({
       actionHidden: true,
       selectItem: []
@@ -149,7 +149,7 @@ Page({
 
 
   //标为已读
-  toHasRead: function () {
+  toHasRead: function() {
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
@@ -157,7 +157,7 @@ Page({
           "UId": app.globalData.apiHeader.UId,
           "PickUpId": self.data.selectItem.pickupid
         },
-        function (res) {
+        function(res) {
           console.info("清除未读消息成功！")
           self.data.tempDiscussList[self.data.selectItem.index].unReadCount = '';
           self.setData({
@@ -166,34 +166,62 @@ Page({
           self.unReadTotalCount();
           self.resetSelectItem();
         },
-        function (res) {
+        function(res) {
           self.resetSelectItem();
         })
     }
   },
 
   //全部标为已读
-  toAllHasRead: function () {
+  toAllHasRead: function() {
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
         'api/Letter/ClearAllUnReadCount', {
           "UId": app.globalData.apiHeader.UId
         },
-        function (res) {
+        function(res) {
           self.getChatList();
           self.resetSelectItem();
           self.setTabBarBadge("");
         },
-        function (res) {
+        function(res) {
           self.resetSelectItem();
           console.error("全部标为已读失败！");
         })
     }
   },
 
+
+  //全部清空
+  deleteAllBottle: function() {
+    var self = this;
+    wx.showModal({
+      content: '将清空所有对话！',
+      success(res) {
+        if (res.confirm && app.globalData.apiHeader.UId > 0) {
+          app.httpPost(
+            'api/Letter/DeleteAllBottle', {
+              "UId": app.globalData.apiHeader.UId
+            },
+            function(res) {
+              console.info("删除对话成功！");
+              self.setData({
+                tempDiscussList: []
+              });
+              self.resetSelectItem();
+              self.setTabBarBadge("");
+            },
+            function(res) {
+              console.error("全部清空失败");
+            });
+        }
+      }
+    })
+  },
+
   //删除对话
-  deleteChat: function () {
+  deleteChat: function() {
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
@@ -201,7 +229,7 @@ Page({
           "UId": app.globalData.apiHeader.UId,
           "PickUpId": self.data.selectItem.pickupid
         },
-        function (res) {
+        function(res) {
           console.info("删除对话成功！");
           let list = self.data.tempDiscussList;
           list.splice(self.data.selectItem.index, 1);
@@ -212,7 +240,7 @@ Page({
           //重置数据
           self.resetSelectItem();
         },
-        function (res) {
+        function(res) {
           console.error("删除对话Http失败！");
           //重置数据
           self.resetSelectItem();
@@ -220,40 +248,18 @@ Page({
     }
   },
 
-  //全部清空
-  deleteAllBottle: function () {
-    let self = this;
-    if (app.globalData.apiHeader.UId > 0) {
-      app.httpPost(
-        'api/Letter/DeleteAllBottle', {
-          "UId": app.globalData.apiHeader.UId
-        },
-        function (res) {
-          console.info("删除对话成功！");
-          self.setData({
-            tempDiscussList: []
-          });
-          self.resetSelectItem();
-          self.setTabBarBadge("");
-        },
-        function (res) {
-          console.error("全部清空失败");
-        });
-    }
-  },
-
   //更新未读总条数
-  unReadTotalCount: function () {
+  unReadTotalCount: function() {
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
         'api/Letter/UnReadTotalCount', {
           "UId": app.globalData.apiHeader.UId
         },
-        function (res) {
+        function(res) {
           self.setTabBarBadge(res.unReadCount);
         },
-        function (res) {
+        function(res) {
           console.error("更新未读总条数失败！");
         })
     }
