@@ -13,7 +13,7 @@
   </view>
   <view class="shareView">
     <view class="btnView" catchtap="toSharePage">
-      邀请好友赚金币
+      金币充值
     </view>
   </view>
   <view class="footerView">
@@ -27,10 +27,10 @@
 <view wx:if="{{showModal}}">
   <view class="kefuAreaView">
     <view class='kefuTitleView'>
-      客服微信：HelloPikaer
+      微信：HelloPikaer
     </view>
     <view class='kefuTitleView'>
-      客服QQ：1441457008
+      Q  Q: 1709917776
     </view>
   </view>
 </view>

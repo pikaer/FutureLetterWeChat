@@ -3,21 +3,20 @@
 }
 
 .subContainer {
-  margin-left: 14px;
-  margin-right: 14px;
-  margin-top: 14px;
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-top: 8px;
   background: white;
-  box-shadow: 0px 0px 4px #837c7c;
-  border-radius: 10px;
+  box-shadow: 0px 0px 2px #837c7c;
+  border-radius: 5px;
 }
 
 .mainContainer {
-  margin: 8px;
+  margin: 0px;
 }
 
 .contentArea {
   margin-bottom: 7px;
-  background-color: white;
   clear: both;
   width: 100%;
 }
@@ -52,7 +51,6 @@
   font-size: 11px;
   color: #8e8e8e;
   padding-top: 5px;
-
 }
 
 .bodyView {
@@ -74,16 +72,16 @@
 
 .imgCount {
   width: 100%;
-  border-radius: 4px;
+  margin-bottom: -5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
-
 
 .rightView {
   float: right;
   margin-right: 5px;
   margin-top: 15px;
 }
-
 
 .popupLayer {
   width: 100%;

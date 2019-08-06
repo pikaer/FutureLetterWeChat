@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-  background: #f0f4f3;
+  background: #ededed;
   padding: 0;
   font-size: 14rpx;
   color: #000;
@@ -196,7 +196,7 @@
 
 .primary {
   color: #fff;
-  background-color: #09f;
+  background-color: #00cd66;
 }
 
 
@@ -210,7 +210,7 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  background-color: #13c46f;
+  background-color: #00cd66;
   border-radius: 0;
   border: none;
 }

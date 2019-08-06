@@ -46,6 +46,9 @@
         <swiper-item>
           <scroll-view scroll-y="true" class="momentArea">
             <view class="momentView" wx:for="{{tempMomentList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' bindtap="toMomentDetailPage" bindlongpress="bindlongMomentPress">
+              <view class="iconView"  data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' catchtap='bindlongMomentPress'>
+                <view class="iconfont more2" style='font-size:20px'></view>
+              </view>
               <view class="content">
                 <view class="textView">{{value.textContent}}</view>
                 <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
@@ -63,6 +66,9 @@
           <scroll-view scroll-y="true" class="momentArea">
             <view class="momentView" wx:for="{{tempCollectList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-collectId='{{value.collectId}}' data-momentId='{{value.momentId}}' data-type='2' bindtap="toDiscussDetailPage"
               bindlongpress="bindlongMomentPress">
+               <view class="iconView" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-collectId='{{value.collectId}}' data-momentId='{{value.momentId}}' data-type='2' catchtap='bindlongMomentPress'>
+                <view class="iconfont more2" style='font-size:20px'></view>
+              </view>
               <view class="content">
                 <view class="textView">{{value.textContent}}</view>
                 <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
@@ -91,12 +97,6 @@
           <image class="shareIcon" src="/content/images/weixin.svg"></image>
         </button>
         <view class="shareText">分享好友/群</view>
-      </view>
-      <view class="shareTo">
-        <button bindtap="saveLocal">
-          <image class="shareIcon" src="/content/images/baocuntupian.svg"></image>
-        </button>
-        <view class="shareText">保存本地</view>
       </view>
       <view class="shareTo" bindtap="clearItem">
         <button>

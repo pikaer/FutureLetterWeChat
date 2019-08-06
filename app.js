@@ -25,6 +25,15 @@ App({
     },
     openid: "",
     session_key: "",
+    currentDiscussMoment: {
+      "momentId": "",
+      "momentUId": 0,
+      "headImgPath": "",
+      "nickName": "",
+      "textContent": "",
+      "imgContent": "",
+      "createTime": ""
+    }, //用户当前点击的动态，用以数据传递给动态详情页
     pickUpList: [], //discovery页面初始化数据
     tempDiscussList: [], //chat初始化数据
     tempMomentList: [], //meindex页面初始化数据
@@ -41,6 +50,8 @@ App({
    * @param 请求失败回调函数
    */
   httpPost: function(url, content, successFunc, failFunc) {
+    //只要发起网络请求，就刷新未读数量
+    this.unReadTotalCount();
     wx.request({
       url: this.globalData.baseUrl + url,
       method: "POST",
@@ -111,6 +122,9 @@ App({
 
   //判断空指针
   isBlank: function(str) {
+    if (str == null || str == undefined){
+      return true
+    }
     if (Object.prototype.toString.call(str) === '[object Undefined]') { //空
       return true
     } else if (
@@ -124,5 +138,50 @@ App({
     }
   },
 
+  //更新未读总条数
+  unReadTotalCount: function() {
+    let self = this;
+    if (self.globalData.apiHeader.UId > 0) {
+      wx.request({
+        url: this.globalData.baseUrl + 'api/Letter/UnReadTotalCount',
+        method: "POST",
+        data: {
+          "Head": this.globalData.apiHeader,
+          "Content": {
+            "UId": self.globalData.apiHeader.UId
+          }
+        },
+        header: self.globalData.httpHeader,
+        success: function(res) {
+          if (res.data.success) {
+            self.setTabBarBadge(res.data.content.unReadCount);
+          }
+        },
+        fail: function(res) {}
+      })
+    }
+  },
+
+  setTabBarBadge: function(count) {
+    if (!this.isBlank(count)) {
+      wx.setTabBarBadge({
+        index: 1,
+        text: count
+      })
+    } else {
+      wx.removeTabBarBadge({
+        index: 1
+      })
+    }
+  },
+
+  //存入缓存
+  setCache: function(key, value) {
+    try {
+      wx.setStorageSync(key, value)
+    } catch (e) {
+      console.error("存入缓存失败，key=" + key);
+    }
+  },
 
 })

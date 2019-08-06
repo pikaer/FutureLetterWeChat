@@ -11,7 +11,6 @@ Page({
 
   //初始化数据
   init: function(options) {
-    this.getPickUpList();
     this.getChatList();
     this.basicUserInfo();
     this.getMyMomentList();
@@ -85,15 +84,28 @@ Page({
         console.info("获取OpenId成功");
         app.globalData.openid = res.openId;
         app.globalData.session_key = res.session_key;
-        self.getUserInfoWX();
+        self.checkCache();
       },
       function(res) {
         console.error("获取OpenId信息失败!");
       })
   },
 
+  checkCache: function () {
+    var self = this;
+    let cacheKey = "userInfoByOpenId+" + app.globalData.openid;
+    let cacheValue = wx.getStorageSync(cacheKey);
+    if (cacheValue != null && cacheValue!="" && cacheValue > 0) {
+      app.globalData.apiHeader.UId = cacheValue;
+      self.getPickUpList();
+      self.getUserInfoWX(true);
+    } else{
+      self.getUserInfoWX(false);
+    }
+  },
+
   //获取微信用户信息
-  getUserInfoWX: function() {
+  getUserInfoWX: function(hasToIndex) {
     let self = this;
     wx.getSetting({
       success: res => {
@@ -108,7 +120,7 @@ Page({
               if (self.userInfoReadyCallback) {
                 self.userInfoReadyCallback(res)
               }
-              self.setUserInfo();
+              self.setUserInfo(hasToIndex);
             }
           })
         }
@@ -117,7 +129,7 @@ Page({
   },
 
   //存入用户信息
-  setUserInfo: function() {
+  setUserInfo: function (hasToIndex) {
     let self = this;
     app.httpPost(
       'api/Letter/SetUserInfo', {
@@ -132,7 +144,13 @@ Page({
       function(res) {
         console.info("存入用户信息成功");
         app.globalData.apiHeader.UId = res.uId;
+        if (!hasToIndex){
+          self.getPickUpList();
+        }
         self.init();
+
+        let cacheKey = "userInfoByOpenId+" + app.globalData.openid;
+        app.setCache(cacheKey, res.uId);
       },
       function(res) {
         console.error("存入用户信息失败!");

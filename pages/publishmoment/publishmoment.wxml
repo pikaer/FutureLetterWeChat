@@ -1,6 +1,6 @@
 <view class="containerView">
   <view class='inputArea'>
-    <textarea bindblur="bindTextAreaBlur" bindinput="textContentInput" auto-focus maxlength="100" placeholder="这一刻的想法..." class="textAreas" />
+    <textarea bindblur="bindTextAreaBlur" bindinput="textContentInput" auto-focus maxlength="400" placeholder="这一刻的想法..." class="textAreas" />
   </view>
   <view class="picture_list">
     <view wx:for="{{upload_picture_list}}" class="picture_item" wx:key="{{index}}">

@@ -46,6 +46,15 @@ Page({
   //获取金币明细列表
   getCoinDetailList: function() {
     var self = this;
+    let cacheKey = "incomeDetailList+" + app.globalData.apiHeader.UId;
+    let cacheValue = wx.getStorageSync(cacheKey);
+    if (!app.isBlank(cacheValue)) {
+      self.setData({
+        tempIncomeDetailList: cacheValue.incomeDetailList,
+        tempExpendDetailList: cacheValue.expendDetailList
+      });
+    }
+
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
         'api/Letter/CoinDetail', {
@@ -57,6 +66,7 @@ Page({
             tempIncomeDetailList: res.incomeDetailList,
             tempExpendDetailList: res.expendDetailList
           });
+          app.setCache(cacheKey, res);
         },
         function(res) {
           console.error("获取金币明细列表失败！");

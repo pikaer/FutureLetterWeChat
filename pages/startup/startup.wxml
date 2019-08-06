@@ -7,13 +7,14 @@
 <view wx:else>
   <view class="backView"></view>
   <view class="loginView">
-    <view class='header'>
-      <view class="iconfont face" style="color:#0099ff;font-size:90px;"></view>
-    </view>
+    <!-- <view class='header'>
+      <image class="logoImg" src="../../content/images/bingo.jpg"></image>
+    </view> -->
     <view class='content'>
-      <view>登录后发现更多精彩~</view>
+      <view class="firstContent">因你看见</view>
+      <view class="secondContent">所以存在</view>
     </view>
-    <button class='bottom' type='primary' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo">
+    <button class='bottom' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo">
       微信快捷登录
     </button>
   </view>

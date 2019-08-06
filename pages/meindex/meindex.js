@@ -24,6 +24,7 @@ Page({
   },
 
   onLoad: function() {
+    app.globalData.currentDiscussMoment={};
     this.setData({
       basicUserInfo: app.globalData.basicUserInfo,
       tempMomentList: app.globalData.tempMomentList,
@@ -147,24 +148,6 @@ Page({
       selectMomentItem: [],
       selectCollectItem: []
     })
-  },
-
-  //保存本地
-  saveLocal: function() {
-    this.hideModalShare();
-    if (this.data.correntSelectItem == 1) {
-      wx.showToast({
-        title: "功能开发中，敬请期待",
-        icon: 'none',
-        duration: 1500
-      });
-    } else {
-      wx.showToast({
-        title: "功能开发中，敬请期待",
-        icon: 'none',
-        duration: 1500
-      });
-    }
   },
 
   //全部清空
@@ -419,6 +402,13 @@ Page({
   //获取用户基础信息
   basicUserInfo: function(ops) {
     var self = this;
+    let cacheKey = "basicUserInfo+" + app.globalData.apiHeader.UId;
+    let cacheValue = wx.getStorageSync(cacheKey);
+    if (!app.isBlank(cacheValue)) {
+      self.setData({
+        basicUserInfo: cacheValue,
+      });
+    }
     app.httpPost(
       'api/Letter/BasicUserInfo', {
         "UId": app.globalData.apiHeader.UId,
@@ -428,6 +418,7 @@ Page({
         self.setData({
           basicUserInfo: res,
         });
+        app.setCache(cacheKey, res);
       },
       function(res) {
         console.error("获取用户基础信息失败");

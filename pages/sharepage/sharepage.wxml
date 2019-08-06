@@ -19,7 +19,7 @@
           <view class="textView">{{momentDetail.textContent}}</view>
           <!-- 图片动态 -->
           <view class="imgView" wx:if="{{momentDetail.imgContent!=null&&momentDetail.imgContent!=''}}">
-            <image src="{{momentDetail.imgContent}}" data-imgContent='{{momentDetail.imgContent}}' catchtap="previewImg" class="imgCount" mode="widthFix"></image>
+            <image src="{{momentDetail.imgContent}}" data-imgContent='{{momentDetail.imgContent}}' class="imgCount" mode="widthFix"></image>
           </view>
         </view>
       </view>
@@ -78,3 +78,11 @@
   </view>
 </view>
 <!--弹出框end-->
+
+
+<!-- 生成海报画布 -->
+<view style='width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 999; display: flex; align-items: center; justify-content: center; animation: {{isShow ? "show" : "dismiss"}}Mask 0.3s forwards ease; position: fixed; top: 0; left: {{isCreate ? 0 : "750rpx"}};' catchtap='catchtap' catchtouchmove='blockTouches'>
+  <canvas canvas-id='poster' style='width: 622rpx; height: 882rpx; position: fixed; left: 750rpx;'></canvas>
+  <image style='width: 622rpx; height: 882rpx; margin-bottom: 96rpx;' src='{{poster}}'></image>
+  <button class='maskButton' hover-class='maskButton-hover' hidden='{{!isCreate}}' catchtap='btnCreate'>保存到本地相册</button>
+</view>

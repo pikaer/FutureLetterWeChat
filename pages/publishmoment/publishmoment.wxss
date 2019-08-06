@@ -95,7 +95,7 @@ image {
   text-decoration: none;
   line-height: 2.55555556;
   border-radius: 5px;
-  background-color: #09f;
+  background-color: #00cd66;
 }
 
 .containerView {

@@ -3,16 +3,16 @@
 }
 
 .subContainer {
-  margin-left: 14px;
-  margin-right: 14px;
-  margin-top: 14px;
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-top: 8px;
   background: white;
   box-shadow: 0px 0px 4px #837c7c;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .mainContainer {
-  margin: 8px;
+  margin: 0px;
 }
 
 .contentArea {
@@ -20,6 +20,7 @@
   background-color: white;
   clear: both;
   width: 100%;
+  border-radius: 5px;
 }
 
 .titleView {
@@ -73,7 +74,9 @@
 
 .imgCount {
   width: 100%;
-  border-radius: 4px;
+  margin-bottom: -5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .rightView {
@@ -175,10 +178,10 @@ button {
   text-align: center;
   padding-top: 5px;
   font-size: 18px;
-  background-color: #b9d3ee;
+  background-color: #00cd66;
   margin-top: 20px;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-left: 80px;
+  margin-right: 80px;
   border-radius: 5px;
   color: white;
   height: 30px;

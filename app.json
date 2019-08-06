@@ -2,6 +2,8 @@
   "pages": [
     "pages/startup/startup",
     "pages/discovery/discovery",
+    "pages/discoverytext/discoverytext",
+    "pages/discoveryimg/discoveryimg",
     "pages/chat/chat",
     "pages/coin/coin",
     "pages/coindetail/coindetail",
@@ -17,17 +19,31 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#f0f4f3",
+    "navigationBarBackgroundColor": "#ededed",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   },
   "tabBar": {
-    "backgroundColor": "white",
+    "backgroundColor": "#f0f4f3",
+    "selectedColor": "#000000",
+    "color": "#000000",
     "list": [
       {
         "text": "发现",
         "pagePath": "pages/discovery/discovery",
+        "iconPath": "content/images/index.png",
+        "selectedIconPath": "content/images/index1.png"
+      },
+      {
+        "text": "一张图",
+        "pagePath": "pages/discoveryimg/discoveryimg",
+        "iconPath": "content/images/index.png",
+        "selectedIconPath": "content/images/index1.png"
+      },
+      {
+        "text": "一句话",
+        "pagePath": "pages/discoverytext/discoverytext",
         "iconPath": "content/images/index.png",
         "selectedIconPath": "content/images/index1.png"
       },

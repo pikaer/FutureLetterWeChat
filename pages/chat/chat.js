@@ -12,6 +12,7 @@ Page({
   },
 
   onLoad: function() {
+    app.globalData.currentDiscussMoment = {};
     this.setData({
       tempDiscussList: app.globalData.tempDiscussList
     });
@@ -25,9 +26,21 @@ Page({
   //获取用户基础信息
   toShowModal: function(ops) {
     var self = this;
-    self.setData({
-      basicUserInfo: {}
-    });
+    let cacheKey = "basicUserInfo+" + ops.currentTarget.dataset.uid;
+    let cacheValue = wx.getStorageSync(cacheKey);
+    let isRefreshCache = false;
+    if (!app.isBlank(cacheValue)) {
+      isRefreshCache = true;
+      self.setData({
+        basicUserInfo: cacheValue,
+        showModal: true
+      });
+    } else {
+      self.setData({
+        basicUserInfo: {}
+      });
+    }
+    
     app.httpPost(
       'api/Letter/BasicUserInfo', {
         "UId": ops.currentTarget.dataset.uid
@@ -35,8 +48,13 @@ Page({
       function(res) {
         self.setData({
           basicUserInfo: res,
-          showModal: true
         });
+        if (!isRefreshCache) {
+          self.setData({
+            showModal: true
+          });
+        }
+        app.setCache(cacheKey, res);
       },
       function(res) {
         console.error("获取用户基础信息失败");
@@ -52,6 +70,7 @@ Page({
 
   //动态详情页面
   previewMomentDetail: function(e) {
+    app.globalData.currentDiscussMoment={};
     let pickUpId = e.currentTarget.dataset.pickupid;
     wx.navigateTo({
       url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId
