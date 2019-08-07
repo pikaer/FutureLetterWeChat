@@ -23,7 +23,7 @@
               <view class="textView">{{value.textContent}}</view>
               <!-- 图片动态 -->
               <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
-                <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' class="imgCount" mode="widthFix"></image>
+                <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' class="imgCount"></image>
               </view>
             </view>
           </view>
