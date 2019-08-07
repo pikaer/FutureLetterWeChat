@@ -1,41 +1,37 @@
 <view class="indexContainer">
-  <view class="defaultDescView" wx:if="{{pickUpList.length==0}}">
-    <view class="pullImgView">
-      <image src="/content/images/pullDown.png" class="pullImg"></image>
-    </view>
-    <view class="pullTxtView">下拉获取动态</view>
-  </view>
-  <view class="contentArea" bindtap="previewMomentDetail" bindlongpress="previewMomentDetail" wx:for="{{pickUpList}}" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}' data-key='{{key}}'>
-    <view class="titleView">
-      <view data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' class="leftView" catchtap='toShowModal'>
-        <image src="{{value.headImgPath}}" class="userHead"></image>
-      </view>
-      <view class="centerView">
-        <view class="nickNameView">{{value.nickName}}</view>
-        <view class="timeView">{{value.createTime}}</view>
-      </view>
-      <view class="rightView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-key='{{key}}' catchtap='moreAction'>
-        <view class="iconfont more" style='font-size:20px'></view>
-      </view>
-    </view>
-    <view class="bodyView">
-      <!-- 文本动态 -->
-      <view class="textView">{{value.textContent}}</view>
-      <!-- 图片动态 -->
-      <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
-        <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' class="imgCount" mode="widthFix"></image>
-      </view>
+  <view class="page-body">
+    <view class="page-section page-section-spacing swiper">
+      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px" current="{{currentTab}}"
+        bindchange="bindChange">
+        <!-- 动态 -->
+        <swiper-item bindtap="previewMomentDetail" bindlongpress="previewMomentDetail" wx:for="{{pickUpList}}" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}' data-key='{{key}}' wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
+          <view class="contentArea">
+            <view class="titleView">
+              <view data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' class="leftView" catchtap='toShowModal'>
+                <image src="{{value.headImgPath}}" class="userHead"></image>
+              </view>
+              <view class="centerView">
+                <view class="nickNameView">{{value.nickName}}</view>
+                <view class="timeView">{{value.createTime}}</view>
+              </view>
+              <view class="rightView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-key='{{key}}' catchtap='moreAction'>
+                <view class="iconfont more" style='font-size:20px'></view>
+              </view>
+            </view>
+            <view class="bodyView">
+              <!-- 文本动态 -->
+              <view class="textView">{{value.textContent}}</view>
+              <!-- 图片动态 -->
+              <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
+                <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' class="imgCount" mode="widthFix"></image>
+              </view>
+            </view>
+          </view>
+        </swiper-item>
+      </swiper>
     </view>
   </view>
 
-  <view class="footerSpinner" hidden='{{loadHide}}'>
-    <div class="spinner">
-      <div class="bounce1"></div>
-      <div class="bounce2"></div>
-      <div class="bounce3"></div>
-    </div>
-    <div class="txtLoding">加载中</div>
-  </view>
   <view class="refreshMomentView">
     <view class="publishIconView" catchtap="onPullDownRefresh">
       <image src="/content/images/refresh.svg" class="refreshImg"></image>
@@ -124,7 +120,8 @@
 <!--弹出框end-->
 
 <!-- 生成海报画布 -->
-<view style='width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 999; display: flex; align-items: center; justify-content: center; animation: {{isShow ? "show" : "dismiss"}}Mask 0.3s forwards ease; position: fixed; top: 0; left: {{isCreate ? 0 : "750rpx"}};' catchtap='catchtap' catchtouchmove='blockTouches'>
+<view style='width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 999; display: flex; align-items: center; justify-content: center; animation: {{isShow ? "show" : "dismiss"}}Mask 0.3s forwards ease; position: fixed; top: 0; left: {{isCreate ? 0 : "750rpx"}};'
+  catchtap='catchtap' catchtouchmove='blockTouches'>
   <canvas canvas-id='poster' style='width: 622rpx; height: 882rpx; position: fixed; left: 750rpx;'></canvas>
   <image style='width: 622rpx; height: 882rpx; margin-bottom: 96rpx;' src='{{poster}}'></image>
   <button class='maskButton' hover-class='maskButton-hover' hidden='{{!isCreate}}' catchtap='btnCreate'>保存到本地相册</button>

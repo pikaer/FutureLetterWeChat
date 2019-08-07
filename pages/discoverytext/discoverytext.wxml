@@ -5,7 +5,7 @@
     </view>
     <view class="pullTxtView">下拉获取动态</view>
   </view>
-  <view class="contentArea" bindtap="previewMomentDetail" bindlongpress="previewMomentDetail" wx:for="{{pickUpList}}" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}' data-key='{{key}}'>
+  <view class="contentArea" bindtap="previewMomentDetail" bindlongpress="previewMomentDetail" wx:for="{{pickUpList}}" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}' data-key='{{key}}' wx:if="{{value.imgContent==null||value.imgContent==''}}">
     <view class="titleView">
       <view data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' class="leftView" catchtap='toShowModal'>
         <image src="{{value.headImgPath}}" class="userHead"></image>

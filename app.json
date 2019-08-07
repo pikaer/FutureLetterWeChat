@@ -30,12 +30,6 @@
     "color": "#000000",
     "list": [
       {
-        "text": "发现",
-        "pagePath": "pages/discovery/discovery",
-        "iconPath": "content/images/index.png",
-        "selectedIconPath": "content/images/index1.png"
-      },
-      {
         "text": "一张图",
         "pagePath": "pages/discoveryimg/discoveryimg",
         "iconPath": "content/images/index.png",

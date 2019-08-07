@@ -1,5 +1,5 @@
 {
   "navigationBarTitleText": "Bingo",
-  "enablePullDownRefresh": true,
+  "enablePullDownRefresh": false,
   "backgroundTextStyle": "dark"
 }

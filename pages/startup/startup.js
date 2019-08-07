@@ -168,13 +168,13 @@ Page({
       function(res) {
         app.globalData.pickUpList = res.pickUpList;
         wx.switchTab({
-          url: '/pages/discovery/discovery'
+          url: '/pages/discoveryimg/discoveryimg'
         })
       },
       function(res) {
         console.info("获取数据失败");
         wx.switchTab({
-          url: '/pages/discovery/discovery'
+          url: '/pages/discoveryimg/discoveryimg'
         })
       })
   },
