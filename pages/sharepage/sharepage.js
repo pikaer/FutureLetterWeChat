@@ -207,7 +207,7 @@ Page({
     })
   },
 
-  /// 隐藏
+  //隐藏
   catchtap: function(callback) {
     this.setData({
       isShow: false
@@ -222,44 +222,44 @@ Page({
     }, 400)
   },
 
-  /// 绘制文本
+  // 绘制文本
   drawText: function(options) {
-    /// 获取总行数
+    // 获取总行数
     var allRow = Math.ceil(options.ctx.measureText(options.str).width / options.maxWidth);
-    /// 限制行数
+    // 限制行数
     var count = allRow >= options.maxLine ? options.maxLine : allRow,
-      /// 当前字符串的截断点
+      // 当前字符串的截断点
       endPos = 0;
-    /// 设置文字颜色
+    // 设置文字颜色
     options.ctx.setFillStyle(options.style ? options.style : '#353535');
-    /// 设置字体大小
+    // 设置字体大小
     options.ctx.setFontSize(options.fontSize ? options.fontSize : rate(20));
-    /// 循环截断
+    // 循环截断
     for (var j = 0; j < count; j++) {
-      /// 当前剩余的字符串
+      // 当前剩余的字符串
       var nowStr = options.str.slice(endPos),
-        /// 每一行当前宽度
+        // 每一行当前宽度
         rowWid = 0,
-        /// 每一行顶部距离
+        // 每一行顶部距离
         y = options.y + (count == 1 ? 0 : j * options.height);
-      /// 如果当前的字符串宽度大于最大宽度，然后开始截取
+      // 如果当前的字符串宽度大于最大宽度，然后开始截取
       if (options.ctx.measureText(nowStr).width > options.maxWidth) {
         for (var m = 0; m < nowStr.length; m++) {
-          /// 计算当前字符串总宽度
+          // 计算当前字符串总宽度
           rowWid += options.ctx.measureText(nowStr[m]).width;
           if (rowWid > options.maxWidth) {
-            /// 如果是最后一行
+            // 如果是最后一行
             if (j === options.maxLine - 1) {
               options.ctx.fillText(nowStr.slice(0, m - 1) + '...', options.x, y);
             } else {
               options.ctx.fillText(nowStr.slice(0, m), options.x, y);
             }
-            /// 保留下次截断点
+            // 保留下次截断点
             endPos += m;
             break;
           }
         }
-      } else { /// 如果当前的字符串宽度小于最大宽度就直接输出
+      } else { // 如果当前的字符串宽度小于最大宽度就直接输出
         options.ctx.fillText(nowStr.slice(0), options.x, y);
       }
     }
@@ -303,22 +303,22 @@ Page({
         })
       });
 
-      /// 同步回调
+      // 同步回调
       Promise.all(
         [promise1, promise2]
       ).then(res => {
 
-        /// 绘制底色
+        // 绘制底色
         ctx.setFillStyle('white');
         ctx.fillRect(0, 0, rate(cavW), rate(cavH));
 
-        /// 绘制背景图
+        // 绘制背景图
         ctx.drawImage(res[0], 0, 0, rate(628), rate(710));
 
-        /// 绘制小程序码
+        // 绘制小程序码
         ctx.drawImage(res[1], 0, rate(710), rate(628), rate(175));
 
-        /// 绘制  
+        // 绘制  
         ctx.draw(false, () => {
           wx.canvasToTempFilePath({
             canvasId: 'poster',
@@ -340,7 +340,7 @@ Page({
     })
   },
 
-  /// 保存图片
+  // 保存图片
   btnCreate: function(obj) {
     app.showLoading('正在保存...')
     wx.saveImageToPhotosAlbum({

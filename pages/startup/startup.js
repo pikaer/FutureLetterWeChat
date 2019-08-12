@@ -11,6 +11,7 @@ Page({
 
   //初始化数据
   init: function(options) {
+    this.getPickUpList(1);
     this.getChatList();
     this.basicUserInfo();
     this.getMyMomentList();
@@ -83,6 +84,7 @@ Page({
       function(res) {
         console.info("获取OpenId成功");
         app.globalData.openid = res.openId;
+        //app.globalData.openid ="test9";
         app.globalData.session_key = res.session_key;
         self.checkCache();
       },
@@ -97,7 +99,7 @@ Page({
     let cacheValue = wx.getStorageSync(cacheKey);
     if (cacheValue != null && cacheValue!="" && cacheValue > 0) {
       app.globalData.apiHeader.UId = cacheValue;
-      self.getPickUpList();
+      self.getPickUpList(2);
       self.getUserInfoWX(true);
     } else{
       self.getUserInfoWX(false);
@@ -144,8 +146,9 @@ Page({
       function(res) {
         console.info("存入用户信息成功");
         app.globalData.apiHeader.UId = res.uId;
+        // app.globalData.apiHeader.UId = 20043;
         if (!hasToIndex){
-          self.getPickUpList();
+          self.getPickUpList(2);
         }
         self.init();
 
@@ -158,18 +161,24 @@ Page({
   },
 
   //获取动态
-  getPickUpList: function() {
+  getPickUpList: function(type) {
     var self = this;
     app.httpPost(
       'api/Letter/PickUpList', {
         "UId": app.globalData.apiHeader.UId,
-        "PageIndex": 1
+        "PageIndex": 1,
+        "MomentType": type
       },
       function(res) {
-        app.globalData.pickUpList = res.pickUpList;
-        wx.switchTab({
-          url: '/pages/discoveryimg/discoveryimg'
-        })
+        if (type==2){
+          app.globalData.imgPickUpList = res.pickUpList;
+          wx.switchTab({
+            url: '/pages/discoveryimg/discoveryimg'
+          })
+        }
+        if (type==1){
+          app.globalData.textPickUpList = res.pickUpList;
+        }
       },
       function(res) {
         console.info("获取数据失败");

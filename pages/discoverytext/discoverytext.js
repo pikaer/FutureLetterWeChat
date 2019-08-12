@@ -22,18 +22,21 @@ Page({
   },
 
   onLoad: function () {
-    this.setData({
-      pickUpList: app.globalData.pickUpList
-    });
+    if (app.globalData.textPickUpList != null && app.globalData.textPickUpList.length>0){
+      this.setData({
+        pickUpList: app.globalData.textPickUpList
+      });
+    }else{
+      this.setData({
+        pageIndex: 1
+      });
+      this.getPickUpList(true);
+    }
   },
 
 
   onShow: function () {
-    this.setData({
-      pageIndex: 1
-    });
-    this.getPickUpList(true);
-    this.unReadTotalCount();
+    app.unReadTotalCount();
   },
 
   //分享功能
@@ -58,36 +61,6 @@ Page({
       fail: function (res) {
         // 转发失败
       }
-    }
-  },
-
-  //更新未读总条数
-  unReadTotalCount: function () {
-    let self = this;
-    if (app.globalData.apiHeader.UId > 0) {
-      app.httpPost(
-        'api/Letter/UnReadTotalCount', {
-          "UId": app.globalData.apiHeader.UId
-        },
-        function (res) {
-          self.setTabBarBadge(res.unReadCount);
-        },
-        function (res) {
-          console.error("更新未读总条数失败！");
-        })
-    }
-  },
-
-  setTabBarBadge: function (count) {
-    if (!app.isBlank(count)) {
-      wx.setTabBarBadge({
-        index: 1,
-        text: count
-      })
-    } else {
-      wx.removeTabBarBadge({
-        index: 1
-      })
     }
   },
 
@@ -369,7 +342,7 @@ Page({
   //发布动态
   publishMoment: function () {
     wx.navigateTo({
-      url: '../../pages/publishmoment/publishmoment'
+      url: '../../pages/publishmoment/publishmoment?hasImg=false'
     })
   },
 
@@ -393,7 +366,8 @@ Page({
     app.httpPost(
       'api/Letter/PickUpList', {
         "UId": app.globalData.apiHeader.UId,
-        "PageIndex": this.data.pageIndex
+        "PageIndex": this.data.pageIndex,
+        "MomentType": 1
       },
       function (res) {
         if (onShow) {
@@ -425,7 +399,8 @@ Page({
     let tempPickUpList = self.data.pickUpList;
     app.httpPost(
       'api/Letter/PickUp', {
-        "UId": app.globalData.apiHeader.UId
+        "UId": app.globalData.apiHeader.UId,
+        "MomentType": 1
       },
       function (res) {
         if (res.pickUpList.length != 0) {

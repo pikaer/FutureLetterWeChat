@@ -1,4 +1,4 @@
-<view class="indexContainer">
+<view class="indexContainer" bindtouchstart='touchStart' bindtouchend="touchEnd">
   <view class="page-body">
     <view class="page-section page-section-spacing swiper">
       <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px" current="{{currentTab}}"
@@ -33,8 +33,8 @@
   </view>
 
   <view class="refreshMomentView">
-    <view class="publishIconView" catchtap="onPullDownRefresh">
-      <image src="/content/images/refresh.svg" class="refreshImg"></image>
+    <view class="publishIconView" catchtap="toTop">
+      <image src="/content/images/right.svg" class="refreshImg"></image>
     </view>
   </view>
   <view class="publishIcon">

@@ -50,7 +50,7 @@ Page({
   //发布动态
   publishMoment: function() {
     wx.navigateTo({
-      url: '../../pages/publishmoment/publishmoment'
+      url: '../../pages/publishmoment/publishmoment?hasImg=false'
     })
   },
 

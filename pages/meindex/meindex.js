@@ -35,8 +35,8 @@ Page({
   onShow: function() {
     this.getMyMomentList();
     this.getCollectList();
-    this.unReadTotalCount();
     this.basicUserInfo();
+    app.unReadTotalCount();
   },
 
   // 滑动切换tab
@@ -367,36 +367,6 @@ Page({
         }
       }
     })
-  },
-
-  //更新未读总条数
-  unReadTotalCount: function() {
-    let self = this;
-    if (app.globalData.apiHeader.UId > 0) {
-      app.httpPost(
-        'api/Letter/UnReadTotalCount', {
-          "UId": app.globalData.apiHeader.UId
-        },
-        function(res) {
-          self.setTabBarBadge(res.unReadCount);
-        },
-        function(res) {
-          console.error("更新未读总条数失败！");
-        })
-    }
-  },
-
-  setTabBarBadge: function(count) {
-    if (!app.isBlank(count)) {
-      wx.setTabBarBadge({
-        index: 1,
-        text: count
-      })
-    } else {
-      wx.removeTabBarBadge({
-        index: 1
-      })
-    }
   },
 
   //获取用户基础信息

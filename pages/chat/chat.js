@@ -19,7 +19,7 @@ Page({
   },
 
   onShow: function() {
-    this.unReadTotalCount();
+    app.unReadTotalCount();
     this.getChatList();
   },
 
@@ -80,12 +80,12 @@ Page({
   setTabBarBadge: function(count) {
     if (!app.isBlank(count)) {
       wx.setTabBarBadge({
-        index: 1,
+        index: 2,
         text: count
       })
     } else {
       wx.removeTabBarBadge({
-        index: 1
+        index: 2
       })
     }
   },
@@ -182,7 +182,7 @@ Page({
           self.setData({
             tempDiscussList: self.data.tempDiscussList
           })
-          self.unReadTotalCount();
+          app.unReadTotalCount();
           self.resetSelectItem();
         },
         function(res) {
@@ -267,20 +267,4 @@ Page({
     }
   },
 
-  //更新未读总条数
-  unReadTotalCount: function() {
-    let self = this;
-    if (app.globalData.apiHeader.UId > 0) {
-      app.httpPost(
-        'api/Letter/UnReadTotalCount', {
-          "UId": app.globalData.apiHeader.UId
-        },
-        function(res) {
-          self.setTabBarBadge(res.unReadCount);
-        },
-        function(res) {
-          console.error("更新未读总条数失败！");
-        })
-    }
-  }
 })

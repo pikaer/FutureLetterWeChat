@@ -78,27 +78,6 @@
 <view class="dialog_box" animation="{{animationData}}" wx:if="{{showModalStatus}}">
   <view class='shareArea'>
     <view class='dialog_title'>更多</view>
-
-    <view class='dialog_content'>
-      <view class="shareTo ">
-        <button bindtap="addCollect">
-          <image class="shareIcon" src="/content/images/collect.svg "></image>
-        </button>
-        <view class="shareText">添加收藏</view>
-      </view>
-      <view class="shareTo">
-        <button open-type='share'>
-          <image class="shareIcon" src="/content/images/weixin.svg "></image>
-        </button>
-        <view class="shareText ">分享好友/群</view>
-      </view>
-      <view class="shareTo">
-        <button bindtap="saveLocal">
-          <image class="shareIcon" src="/content/images/baocuntupian.svg "></image>
-        </button>
-        <view class="shareText ">保存图片</view>
-      </view>
-    </view>
     <view class='dialog_content'>
       <view class="shareTo ">
         <button bindtap="reportItem">
@@ -117,6 +96,12 @@
           <image class="shareIcon" src="/content/images/delete.svg "></image>
         </button>
         <view class="shareText">删除</view>
+      </view>
+      <view class="shareTo ">
+        <button bindtap="addCollect">
+          <image class="shareIcon" src="/content/images/collect.svg "></image>
+        </button>
+        <view class="shareText">添加收藏</view>
       </view>
     </view>
   </view>

@@ -34,7 +34,8 @@ App({
       "imgContent": "",
       "createTime": ""
     }, //用户当前点击的动态，用以数据传递给动态详情页
-    pickUpList: [], //discovery页面初始化数据
+    textPickUpList: [], //discovery页面初始化数据
+    imgPickUpList: [], //discovery页面初始化数据
     tempDiscussList: [], //chat初始化数据
     tempMomentList: [], //meindex页面初始化数据
     tempCollectList: [], //meindex页面初始化数据
@@ -165,12 +166,12 @@ App({
   setTabBarBadge: function(count) {
     if (!this.isBlank(count)) {
       wx.setTabBarBadge({
-        index: 1,
+        index: 2,
         text: count
       })
     } else {
       wx.removeTabBarBadge({
-        index: 1
+        index: 2
       })
     }
   },

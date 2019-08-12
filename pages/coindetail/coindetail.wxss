@@ -224,7 +224,6 @@ button {
 .content {
   float: left;
   height: 70px;
-  width: 90%;
 }
 
 .addValueView {

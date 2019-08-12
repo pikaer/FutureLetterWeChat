@@ -144,24 +144,53 @@ Page({
   //发表评论
   insertDiscussContent: function() {
     var self = this;
-    app.httpPost(
-      'api/Letter/Discuss', {
-        "UId": app.globalData.apiHeader.UId,
-        "PickUpId": self.data.pickUpId,
-        "TextContent": self.data.discussContent
-      },
-      function(res) {
-        if (res.isExecuteSuccess) {
+    let content = self.data.discussContent;
+    if (content != null && content != '' && content.length>0){
+      self.insertDiscussContentToList(content);
+      app.httpPost(
+        'api/Letter/Discuss', {
+          "UId": app.globalData.apiHeader.UId,
+          "PickUpId": self.data.pickUpId,
+          "TextContent": content
+        },
+        function (res) {
+          if (res.isExecuteSuccess) {
+            self.discussDetail();
+            self.setData({
+              discussContent: ""
+            });
+            console.info("发表评论成功");
+          }
+        },
+        function (res) {
           self.setData({
             discussContent: ""
           });
-          self.discussDetail();
-          console.info("发表评论成功");
-        }
-      },
-      function(res) {
-        console.error("发表评论失败");
-      })
+          console.error("发表评论失败");
+        })
+    }
+  },
+
+  insertDiscussContentToList: function (textContent) {
+    var self = this;
+    let cacheKey = "basicUserInfo+" + app.globalData.apiHeader.UId;
+    let userinfo = wx.getStorageSync(cacheKey);
+    let detailList = self.data.discussDetailList;
+    if (userinfo!=null){
+      let discuss = {};
+      discuss.nickName = userinfo.nickName;
+      discuss.pickUpUId = app.globalData.apiHeader.UId;
+      discuss.headImgPath = userinfo.headPhotoPath;
+      discuss.recentChatTime ='刚刚';
+      discuss.textContent = textContent;
+      detailList.unshift(discuss);
+      self.setData({
+        discussDetailList: detailList
+      });
+    }
+    self.setData({
+      discussContent: ""
+    });
   },
 
   // 评论输入框聚焦时，设置与底部的距离

@@ -33,23 +33,22 @@ Page({
       self.setData({
         tempHeadImgPath: cacheValue.headPhotoPath,
       });
-    } else {
-      if (app.globalData.apiHeader.UId > 0) {
-        app.httpPost(
-          'api/Letter/BasicUserInfo', {
-            "UId": app.globalData.apiHeader.UId
-          },
-          function(res) {
-            console.info("获取用户头像成功！")
-            self.setData({
-              tempHeadImgPath: res.headPhotoPath
-            });
-            app.setCache(cacheKey, res);
-          },
-          function(res) {
-            console.error("获取用户头像失败！");
-          })
-      }
+    } 
+    if (app.globalData.apiHeader.UId > 0) {
+      app.httpPost(
+        'api/Letter/BasicUserInfo', {
+          "UId": app.globalData.apiHeader.UId
+        },
+        function (res) {
+          console.info("获取用户头像成功！")
+          self.setData({
+            tempHeadImgPath: res.headPhotoPath
+          });
+          app.setCache(cacheKey, res);
+        },
+        function (res) {
+          console.error("获取用户头像失败！");
+        })
     }
   },
 
