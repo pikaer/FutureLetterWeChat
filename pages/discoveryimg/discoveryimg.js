@@ -27,8 +27,8 @@ Page({
     circular: false, //循环播放
     interval: 2000,
     duration: 500, //翻页时间间隔
-    previousMargin: 20, //前边距
-    nextMargin: 20, //后边距
+    previousMargin: 0, //前边距
+    nextMargin: 0, //后边距
     touch:{}
   },
 
@@ -86,7 +86,7 @@ Page({
   touchStart: function(e) {
     let currentTab = this.data.currentTab;
     
-    this.getNewMoment();
+    this.getNewMoment(false);
 
     this.setData({
       "touch.x": e.changedTouches[0].clientX,
@@ -101,13 +101,13 @@ Page({
     let endX = e.changedTouches[0].clientX;
     let tempCurrentTab = this.data.touch.currentTab;
     let pickUpList = this.data.pickUpList;
-    if (startX - endX > 200 && tempCurrentTab >= pickUpList.length - 1){
+    if (startX - endX > 100 && tempCurrentTab >= pickUpList.length - 1){
         //获取动态失败需要弹框
-      this.getNewMoment();
+      this.getNewMoment(true);
     }
   },
 
-  getNewMoment:function() {
+  getNewMoment: function (dialog) {
     if (this.data.pickUpListReposity.length > 0) {
       let pickUpList = this.data.pickUpList;
       let pickUpListReposity = this.data.pickUpListReposity;
@@ -116,6 +116,14 @@ Page({
         pickUpList: pickUpList
       });
       this.data.pickUpListReposity = [];
+    }else{
+      if(dialog){
+        wx.showToast({
+          title: "没有更多动态了，去发布一个吧~",
+          icon: 'none',
+          duration: 2000
+        });
+      }
     }
     this.getPickUp();
   },
@@ -149,7 +157,7 @@ Page({
   showModalShare: function () {
     var animation = wx.createAnimation({
       duration: 200,
-      timingFunction: "linear",
+      timingFunction: "ease",
       delay: 0
     })
     this.animation = animation
@@ -170,7 +178,7 @@ Page({
     // 隐藏遮罩层
     var animation = wx.createAnimation({
       duration: 200,
-      timingFunction: "linear",
+      timingFunction: "ease",
       delay: 0
     })
     this.animation = animation
@@ -458,13 +466,7 @@ Page({
           self.setData({
             pickUpListReposity: tempPickUpList,
           });
-        } else {
-          wx.showToast({
-            title: "没有更多动态了，去发布一个吧~",
-            icon: 'none',
-            duration: 2000
-          });
-        }
+        } 
       },
       function (res) {
         wx.showToast({

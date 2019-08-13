@@ -75,7 +75,7 @@ Page({
   showModalShare: function () {
     var animation = wx.createAnimation({
       duration: 200,
-      timingFunction: "linear",
+      timingFunction: "ease",
       delay: 0
     })
     this.animation = animation
@@ -96,7 +96,7 @@ Page({
     // 隐藏遮罩层
     var animation = wx.createAnimation({
       duration: 200,
-      timingFunction: "linear",
+      timingFunction: "ease",
       delay: 0
     })
     this.animation = animation

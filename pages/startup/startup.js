@@ -84,7 +84,7 @@ Page({
       function(res) {
         console.info("获取OpenId成功");
         app.globalData.openid = res.openId;
-        //app.globalData.openid ="test9";
+        // app.globalData.openid ="test10";
         app.globalData.session_key = res.session_key;
         self.checkCache();
       },
