@@ -1,4 +1,5 @@
-<view class="indexContainer" bindtouchstart='touchStart' bindtouchend="touchEnd">
+<!-- 卡片模式 -->
+<view class="indexContainer" bindtouchstart='touchStart' bindtouchend="touchEnd" wx:if="{{isCardStyle}}">
   <view class="page-body">
     <view class="page-section page-section-spacing swiper">
       <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px" current="{{currentTab}}"
@@ -31,16 +32,69 @@
       </swiper>
     </view>
   </view>
+</view>
 
-  <view class="refreshMomentView">
-    <view class="publishIconView" catchtap="toTop">
-      <image src="/content/images/right.svg" class="refreshImg"></image>
+
+<!-- 列表模式 -->
+<view class="indexContainer" wx:if="{{isCardStyle==false}}">
+  <view class="defaultDescView" wx:if="{{pickUpList.length==0}}">
+    <view class="pullImgView">
+      <image src="/content/images/pullDown.png" class="pullImg"></image>
+    </view>
+    <view class="pullTxtView">下拉获取动态</view>
+  </view>
+  <view class="contentListArea" bindtap="previewMomentDetail" bindlongpress="previewMomentDetail" wx:for="{{pickUpList}}" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}' data-key='{{key}}'>
+    <view class="titleListView">
+      <view data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' class="leftView" catchtap='toShowModal'>
+        <image src="{{value.headImgPath}}" class="userHead"></image>
+      </view>
+      <view class="centerView">
+        <view class="nickNameView">{{value.nickName}}</view>
+        <view class="timeView">{{value.createTime}}</view>
+      </view>
+      <view class="rightView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-key='{{key}}' catchtap='moreAction'>
+        <view class="iconfont more" style='font-size:20px'></view>
+      </view>
+    </view>
+    <view class="bodyListView">
+      <!-- 文本动态 -->
+      <view class="textView">{{value.textContent}}</view>
+      <!-- 图片动态 -->
+      <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
+        <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' class="imgCount" mode="widthFix"></image>
+      </view>
     </view>
   </view>
-  <view class="publishIcon">
-    <view class="publishIconView" catchtap="publishMoment">+ </view>
+  <view class="footerSpinner" hidden='{{loadHide}}'>
+    <div class="spinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+    <div class="txtLoding">加载中</div>
   </view>
 </view>
+
+<view class="styleSwitchView">
+  <view class="publishIconView" catchtap="styleSwitch" wx:if="{{isCardStyle==false}}">
+    <image src="/content/images/cardstyle.svg" class="styleSwitchImg"></image>
+  </view>
+  <view class="publishIconView" catchtap="styleSwitch" wx:if="{{isCardStyle}}">
+    <image src="/content/images/liststyle.svg" class="styleSwitchImg"></image>
+  </view>
+</view>
+<view class="refreshMomentView">
+  <view class="publishIconView" catchtap="onPullDownRefresh" wx:if="{{isCardStyle==false}}">
+    <image src="/content/images/refresh.svg" class="refreshImg"></image>
+  </view>
+  <view class="publishIconView" catchtap="toTop" wx:if="{{isCardStyle}}">
+    <image src="/content/images/right.svg" class="toTopImg"></image>
+  </view>
+</view>
+<view class="publishIcon">
+  <view class="publishIconView" catchtap="publishMoment">+ </view>
+</view>
+
 
 <!--custom Modal-->
 <view class="modal-mask-all" bindtap="hideModal" wx:if="{{showModal}}"></view>

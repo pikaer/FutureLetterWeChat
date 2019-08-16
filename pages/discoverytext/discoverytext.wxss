@@ -203,11 +203,11 @@ image {
   border-radius: 100%;
   width: 55px;
   height: 55px;
-  font-size: 62rpx;
+  font-size: 65rpx;
   text-align: center;
   background-color: white;
   margin-bottom: 20px;
-  line-height: 49px;
+  line-height: 55px;
 }
 
 .modal-content {

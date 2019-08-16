@@ -21,6 +21,17 @@
   height: 95%;
 }
 
+.contentListArea {
+  background-color: white;
+  margin-top: 8px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 6px;
+  box-shadow: 0px 0px 9px #837c7c;
+  width: 95%;
+}
+
 .userHead {
   width: 48px;
   height: 48px;
@@ -32,6 +43,10 @@
 .titleView {
   width: 100%;
   height: 12%;
+}
+
+.titleListView {
+  width: 100%;
 }
 
 .leftView {
@@ -62,6 +77,10 @@
 .bodyView {
   clear: both;
   height: 88%;
+}
+
+.bodyListView {
+  clear: both;
 }
 
 .textView {
@@ -197,11 +216,11 @@ image {
   border-radius: 100%;
   width: 55px;
   height: 55px;
-  font-size: 62rpx;
+  font-size: 65rpx;
   text-align: center;
   background-color: white;
   margin-bottom: 20px;
-  line-height: 49px;
+  line-height: 55px;
 }
 
 .modal-content {
@@ -353,11 +372,20 @@ button {
   right: 10px;
 }
 
-.refreshImg {
+.toTopImg {
   width: 23px;
-  height:23px;
+  height: 23px;
   padding-top: 15px;
 }
+
+
+.refreshImg {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 50px;
+  padding-top: 7px;
+}
+
 
 .page-body {
   height: 100%;
@@ -448,4 +476,16 @@ swiper-item {
   will-change: 'transform';
   width: 80%;
   height: 95%;
+}
+
+.styleSwitchView {
+  position: fixed;
+  bottom: 150px;
+  right: 10px;
+}
+
+.styleSwitchImg {
+  width: 25px;
+  height: 25px;
+  padding-top: 15px;
 }
