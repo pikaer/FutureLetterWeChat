@@ -54,6 +54,11 @@ Page({
     this.getMyMomentList();
   },
 
+  //滚动条滑动
+  bindscrollChange: function (e) {
+    console.info(e)
+  },
+  
   //tab切换至收藏
   toCollectList: function(e) {
     this.setData({

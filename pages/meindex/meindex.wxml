@@ -44,7 +44,7 @@
         bindchange="bindChange">
         <!-- 动态 -->
         <swiper-item>
-          <scroll-view scroll-y="true" class="momentArea">
+          <scroll-view scroll-y="true" class="momentArea" bindscroll="bindscrollChange">
             <view class="momentView" wx:for="{{tempMomentList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' bindtap="toMomentDetailPage" bindlongpress="bindlongMomentPress">
               <view class="iconView"  data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' catchtap='bindlongMomentPress'>
                 <view class="iconfont more2" style='font-size:20px'></view>

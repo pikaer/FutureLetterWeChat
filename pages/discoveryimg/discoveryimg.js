@@ -31,6 +31,8 @@ Page({
     nextMargin: 0, //后边距
     touch: {},
     isCardStyle: true, //卡片模式
+    topLoadHide: true,
+    scrollHeight:0
   },
 
   onLoad: function() {
@@ -68,18 +70,21 @@ Page({
         currentTab: pickUpList.length - 1
       });
       //获取动态失败不需要弹框
-      this.getPickUp();
+      this.getPickUp(false);
     }
     if (currentTab >= pickUpList.length - 1) {
       //获取动态失败需要弹框
-      this.getPickUp();
+      this.getPickUp(false);
     }
   },
 
   //置顶
   onPullDownRefresh: function() {
     this.scrollToTop();
-    this.getPickUp();
+    this.setData({
+      topLoadHide: false
+    });
+    this.getPickUp(true);
   },
 
   //置顶
@@ -89,6 +94,14 @@ Page({
     })
   },
 
+
+  //滚动条滑动
+  bindscrollChange: function (e) {
+    console.info(e.detail.scrollHeight)
+    this.setData({
+      scrollHeight: e.detail.scrollHeight
+    });
+  },
 
   // 滑动切换tab
   bindChange: function(e) {
@@ -104,6 +117,15 @@ Page({
       "touch.y": e.changedTouches[0].clientY,
       "touch.currentTab": this.data.currentTab
     });
+  },
+
+  //列表模式触摸结束
+  touchListEnd: function (e) {
+    let startY = this.data.touch.y;
+    let endY = e.changedTouches[0].clientY;
+    if (endY - startY > 80 && this.data.scrollHeight<11000){
+      this.onPullDownRefresh();
+    }
   },
 
   //滑动结束事件
@@ -156,6 +178,12 @@ Page({
     let title = "";
     if (style) {
       title = "已切换至列表模式"
+
+      this.setData({
+        topLoadHide: false
+      });
+      this.scrollToTop();
+      this.sleepLoading();
     } else {
       title = "已切换至卡片模式"
     }
@@ -165,6 +193,23 @@ Page({
       duration: 1500
     })
   },
+
+  // 加载框休眠3秒
+  sleepLoading: function() {
+    let times = 0;
+    let that = this;
+    var timer = setInterval(function() {
+      times++
+      if (times >=1) {
+        that.setData({
+          topLoadHide: true
+        });
+        clearInterval(timer)
+      }
+    }, 1000)
+
+  },
+
 
   //分享功能
   onShareAppMessage: function(res) {
@@ -485,7 +530,7 @@ Page({
   },
 
   //获取新的瓶子
-  getPickUp: function() {
+  getPickUp: function(needLoading) {
     var self = this;
     let tempPickUpList = self.data.pickUpListReposity;
     app.httpPost(
@@ -503,7 +548,9 @@ Page({
           self.setData({
             pickUpListReposity: tempPickUpList,
           });
-
+        }
+        if (needLoading) {
+          self.sleepLoading();
         }
       },
       function(res) {
@@ -514,6 +561,10 @@ Page({
             icon: 'none',
             duration: 2000
           });
+        }
+
+        if (needLoading) {
+          self.sleepLoading();
         }
         console.info("获取数据失败");
       })
