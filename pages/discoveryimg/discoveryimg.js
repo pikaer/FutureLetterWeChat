@@ -32,7 +32,7 @@ Page({
     touch: {},
     isCardStyle: true, //卡片模式
     topLoadHide: true,
-    scrollHeight:0
+    scrollTop:0
   },
 
   onLoad: function() {
@@ -80,11 +80,12 @@ Page({
 
   //置顶
   onPullDownRefresh: function() {
-    this.scrollToTop();
     this.setData({
-      topLoadHide: false
+      topLoadHide: false,
+      scrollTop:0
     });
-    this.getPickUp(true);
+    this.getNewMoment(true);
+    this.sleepLoading();
   },
 
   //置顶
@@ -97,9 +98,8 @@ Page({
 
   //滚动条滑动
   bindscrollChange: function (e) {
-    console.info(e.detail.scrollHeight)
     this.setData({
-      scrollHeight: e.detail.scrollHeight
+      scrollTop: e.detail.scrollTop
     });
   },
 
@@ -123,7 +123,7 @@ Page({
   touchListEnd: function (e) {
     let startY = this.data.touch.y;
     let endY = e.changedTouches[0].clientY;
-    if (endY - startY > 80 && this.data.scrollHeight<11000){
+    if (endY - startY > 80 && this.data.scrollTop<400){
       this.onPullDownRefresh();
     }
   },
@@ -137,7 +137,7 @@ Page({
     if (pickUpList.length < 3 || pickUpList.length - tempCurrentTab < 3) {
       this.getNewMoment(false);
     }
-    if (startX - endX > 100 && tempCurrentTab >= pickUpList.length - 1) {
+    if (startX - endX > 50 && tempCurrentTab >= pickUpList.length - 1) {
       //获取动态失败需要弹框
       this.getNewMoment(true);
     }
@@ -549,9 +549,6 @@ Page({
             pickUpListReposity: tempPickUpList,
           });
         }
-        if (needLoading) {
-          self.sleepLoading();
-        }
       },
       function(res) {
         if (self.data.currentTabTab >= self.data.pickUpList.length - 1) {
@@ -561,10 +558,6 @@ Page({
             icon: 'none',
             duration: 2000
           });
-        }
-
-        if (needLoading) {
-          self.sleepLoading();
         }
         console.info("获取数据失败");
       })

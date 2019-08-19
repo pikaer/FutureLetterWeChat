@@ -34,8 +34,7 @@ App({
       "imgContent": "",
       "createTime": ""
     }, //用户当前点击的动态，用以数据传递给动态详情页
-    textPickUpList: [], //discovery页面初始化数据
-    imgPickUpList: [], //discovery页面初始化数据
+    pickUpList: [], //discovery页面初始化数据
     tempDiscussList: [], //chat初始化数据
     tempMomentList: [], //meindex页面初始化数据
     tempCollectList: [], //meindex页面初始化数据

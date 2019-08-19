@@ -1,12 +1,10 @@
 <view class="inputarea">
-  <view class="chatLineView"></view>
   <view class="viewinput">
     <input placeholder="输入评论" value='{{discussContent}}' bindinput="discussContentInput" bindfocus='settingMbShow' bindblur='settingMbNoShow' />
   </view>
   <view class="viewSend" data-idx='{{partnerId}}' bindtap="insertDiscussContent">
     <view class="txtSend">发 送</view>
   </view>
-  <view class="chatLineView"></view>
 </view>
 
 <view class="indexContainer">

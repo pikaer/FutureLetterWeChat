@@ -113,7 +113,6 @@
 }
 
 page {
-  background-color: #ededed;
   height: 100%;
   font-size: 32rpx;
   line-height: 1.6;
@@ -396,7 +395,6 @@ button {
 .page-body {
   height: 100%;
   width: 100%;
-  border-top: solid 1px #e4dfdf;
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -494,4 +492,8 @@ swiper-item {
   width: 25px;
   height: 25px;
   padding-top: 15px;
+}
+
+.scrollView {
+  height: 100%;
 }

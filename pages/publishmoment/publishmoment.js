@@ -12,15 +12,6 @@ Page({
     tempTextContent: ""
   },
 
-  onLoad(ops) {
-    if (ops != null && ops.hasImg != null && ops.hasImg == 'false') {
-      this.setData({
-        ishidden: true,
-        hasImg: false
-      })
-    }
-  },
-
   //发布动态
   publishMoment: function() {
     var self = this;
@@ -70,23 +61,9 @@ Page({
   updateBtnState: function() {
     let str = this.data.tempTextContent;
     let localImgs = this.data.localImgs;
-    let disabled = false;
-    if (this.data.hasImg) {
-      if (localImgs != undefined && localImgs.length > 0) {
-        disabled = false
-      } else {
-        disabled = true
-      }
-    } else {
-      if (str != null && str.length > 0) {
-        disabled = false
-      } else {
-        disabled = true
-      }
-    }
-
+    let canUse = (localImgs != undefined && localImgs.length > 0) || (str != null && str.length > 0);
     this.setData({
-      publishDisabled: disabled
+      publishDisabled: !canUse
     })
   },
 

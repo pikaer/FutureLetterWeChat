@@ -61,7 +61,7 @@
 
 .inputarea {
   width: 100%;
-  background-color: #ededed;
+  background-color: white;
   top: 0px;
 }
 
@@ -75,7 +75,7 @@
 
 .viewinput {
   width: 80%;
-  background-color: white;
+  background-color: #ededed;
   float: left;
   margin-top: 10px;
   margin-left: 10px;
@@ -145,7 +145,6 @@ input {
 }
 
 page {
-  background-color: #ededed;
   height: 100%;
   font-size: 32rpx;
   line-height: 1.6;

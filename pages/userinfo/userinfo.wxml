@@ -6,6 +6,7 @@
     </view>
   </view>
   <view class="basicView">
+    <view class="lineView"></view>
     <view class="radio">
       <view class="radioLable">性别</view>
       <view class="radioView">

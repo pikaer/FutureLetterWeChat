@@ -9,7 +9,6 @@
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-  background: #ededed;
   padding: 0;
   font-size: 14rpx;
   color: #000;

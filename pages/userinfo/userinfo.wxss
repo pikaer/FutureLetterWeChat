@@ -61,7 +61,6 @@
 }
 
 .blockView {
-  margin-top: 6px;
   height: 100%;
   width: 100%;
   background-color: white;
@@ -141,7 +140,6 @@ page {
   user-select: none;
   width: 100%;
   overflow-x: hidden;
-  background-color: #f0f4f3;
 }
 
 .explainTxt {
@@ -149,7 +147,9 @@ page {
   font-size: 12px;
   padding-left: 20px;
   padding-top: 6px;
+  padding-bottom: 6px;
   color: #8e8e8e;
+  background-color: #ededed;
 }
 
 .editView {

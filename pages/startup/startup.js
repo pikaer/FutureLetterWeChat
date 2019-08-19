@@ -11,7 +11,6 @@ Page({
 
   //初始化数据
   init: function(options) {
-    this.getPickUpList(1);
     this.getChatList();
     this.basicUserInfo();
     this.getMyMomentList();
@@ -83,8 +82,8 @@ Page({
       },
       function(res) {
         console.info("获取OpenId成功");
-        app.globalData.openid = res.openId;
-        // app.globalData.openid ="test11";
+        //app.globalData.openid = res.openId;
+        app.globalData.openid ="test15";
         app.globalData.session_key = res.session_key;
         self.checkCache();
       },
@@ -99,7 +98,7 @@ Page({
     let cacheValue = wx.getStorageSync(cacheKey);
     if (cacheValue != null && cacheValue!="" && cacheValue > 0) {
       app.globalData.apiHeader.UId = cacheValue;
-      self.getPickUpList(2);
+      self.getPickUpList(false);
       self.getUserInfoWX(true);
     } else{
       self.getUserInfoWX(false);
@@ -148,7 +147,7 @@ Page({
         app.globalData.apiHeader.UId = res.uId;
         // app.globalData.apiHeader.UId = 20043;
         if (!hasToIndex){
-          self.getPickUpList(2);
+          self.getPickUpList(hasToIndex);
         }
         self.init();
 
@@ -161,29 +160,26 @@ Page({
   },
 
   //获取动态
-  getPickUpList: function(type) {
+  getPickUpList: function(hasToIndex) {
     var self = this;
     app.httpPost(
       'api/Letter/PickUpList', {
         "UId": app.globalData.apiHeader.UId,
         "PageIndex": 1,
-        "MomentType": type
+        "MomentType": 0
       },
       function(res) {
-        if (type==2){
-          app.globalData.imgPickUpList = res.pickUpList;
+        app.globalData.pickUpList = res.pickUpList;
+        if (!hasToIndex){
           wx.switchTab({
-            url: '/pages/discoveryimg/discoveryimg'
+            url: '/pages/discovery/discovery'
           })
-        }
-        if (type==1){
-          app.globalData.textPickUpList = res.pickUpList;
         }
       },
       function(res) {
         console.info("获取数据失败");
         wx.switchTab({
-          url: '/pages/discoveryimg/discoveryimg'
+          url: '/pages/discovery/discovery'
         })
       })
   },

@@ -19,27 +19,21 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#ededed",
+    "navigationBarBackgroundColor": "#FFFFFF",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   },
   "tabBar": {
-    "backgroundColor": "#f0f4f3",
+    "backgroundColor": "#FFFFFF",
     "selectedColor": "#000000",
     "color": "#000000",
     "list": [
       {
-        "text": "一张图",
-        "pagePath": "pages/discoveryimg/discoveryimg",
+        "text": "Bingo",
+        "pagePath": "pages/discovery/discovery",
         "iconPath": "content/images/index.png",
         "selectedIconPath": "content/images/index1.png"
-      },
-      {
-        "text": "一句话",
-        "pagePath": "pages/discoverytext/discoverytext",
-        "iconPath": "content/images/discovery.png",
-        "selectedIconPath": "content/images/discovery1.png"
       },
       {
         "text": "消息",
