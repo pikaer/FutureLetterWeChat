@@ -3,10 +3,11 @@
   height: 100%;
   width: 100%;
   position: fixed;
+  background-color: #f0f4f3;
 }
 
 page {
-  background-color: #f8f8f8;
+  background-color: #f0f4f3;
   height: 100%;
   font-size: 32rpx;
   line-height: 1.6;
@@ -30,6 +31,7 @@ button:last-child {
 .chatArea {
   height: 65px;
   width: 100%;
+  background-color: #f0f4f3;
 }
 
 .headPhotoViewV2 {
@@ -97,7 +99,6 @@ button:last-child {
   height: 1.5rpx;
   background-color: #e5e5e5;
   margin-left: 64px;
-  margin-top: 5px;
 }
 
 .chatContainer {
@@ -111,6 +112,7 @@ button:last-child {
   color: #000;
   width: 100%;
   height: 100%;
+  background-color: #f0f4f3;
 }
 
 .blackTxtView {

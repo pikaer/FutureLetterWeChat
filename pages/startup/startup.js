@@ -83,11 +83,14 @@ Page({
       function(res) {
         console.info("获取OpenId成功");
         //app.globalData.openid = res.openId;
-        app.globalData.openid ="test15";
+        app.globalData.openid ="test16";
         app.globalData.session_key = res.session_key;
         self.checkCache();
       },
       function(res) {
+        self.setData({
+          showStartUp: false
+        })
         console.error("获取OpenId信息失败!");
       })
   },

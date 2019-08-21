@@ -63,6 +63,8 @@ page {
 .coinContainer {
   position: relative;
   height: 100%;
+  background-color: #f0f4f3;
+
 }
 
 .kefuAreaView {

@@ -140,6 +140,7 @@ page {
   user-select: none;
   width: 100%;
   overflow-x: hidden;
+  background-color:#f0f4f3
 }
 
 .explainTxt {

@@ -61,8 +61,8 @@
 
 .inputarea {
   width: 100%;
-  background-color: white;
-  top: 0px;
+  background-color: #f0f4f3;
+  height: 50px;
 }
 
 .chatLineView {
@@ -75,7 +75,7 @@
 
 .viewinput {
   width: 80%;
-  background-color: #ededed;
+  background-color: white;
   float: left;
   margin-top: 10px;
   margin-left: 10px;
@@ -148,6 +148,7 @@ page {
   height: 100%;
   font-size: 32rpx;
   line-height: 1.6;
+  background-color: #f0f4f3;
 }
 
 .indexContainer {

@@ -6,9 +6,7 @@
           <image class="userHead" src="{{basicUserInfo.headPhotoPath}}"></image>
         </navigator>
         <navigator url="../../pages/userinfo/userinfo" class="basicInfoView">
-          <view class="nickNameText">
-            {{basicUserInfo.nickName}}
-          </view>
+          <view class="nickNameText">{{basicUserInfo.nickName}}</view>
           <view class="editView">
             <image class="editImg" src="/content/images/edit.svg"></image>
           </view>
@@ -29,24 +27,22 @@
     <view class="momentContainer">
       <view class="titleView">
         <view bindtap="toPublishList" class="itemTitleView">
-          <view class="{{currentTab==0?'momentTitleCilick':'momentTitle'}}"> 动态 </view>
+          <view class="{{currentTab==0?'momentTitleCilick':'momentTitle'}}">动态</view>
         </view>
         <view bindtap="toCollectList" class="itemTitleView">
-          <view class="{{currentTab==0?'momentTitle':'momentTitleCilick'}}"> 收藏 </view>
+          <view class="{{currentTab==0?'momentTitle':'momentTitleCilick'}}">收藏</view>
         </view>
       </view>
     </view>
   </view>
-
   <view class="page-body">
     <view class="page-section page-section-spacing swiper">
-      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px" current="{{currentTab}}"
-        bindchange="bindChange">
+      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px" current="{{currentTab}}" bindchange="bindChange">
         <!-- 动态 -->
         <swiper-item>
           <scroll-view scroll-y="true" class="momentArea" bindscroll="bindscrollChange">
             <view class="momentView" wx:for="{{tempMomentList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' bindtap="toMomentDetailPage" bindlongpress="bindlongMomentPress">
-              <view class="iconView"  data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' catchtap='bindlongMomentPress'>
+              <view class="iconView" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' catchtap='bindlongMomentPress'>
                 <view class="iconfont more2" style='font-size:20px'></view>
               </view>
               <view class="content">
@@ -60,13 +56,11 @@
             <view class="placeUseView">没有更多啦</view>
           </scroll-view>
         </swiper-item>
-
         <!-- 收藏 -->
         <swiper-item>
           <scroll-view scroll-y="true" class="momentArea">
-            <view class="momentView" wx:for="{{tempCollectList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-collectId='{{value.collectId}}' data-momentId='{{value.momentId}}' data-type='2' bindtap="toDiscussDetailPage"
-              bindlongpress="bindlongMomentPress">
-               <view class="iconView" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-collectId='{{value.collectId}}' data-momentId='{{value.momentId}}' data-type='2' catchtap='bindlongMomentPress'>
+            <view class="momentView" wx:for="{{tempCollectList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-collectId='{{value.collectId}}' data-momentId='{{value.momentId}}' data-type='2' bindtap="toDiscussDetailPage" bindlongpress="bindlongMomentPress">
+              <view class="iconView" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-collectId='{{value.collectId}}' data-momentId='{{value.momentId}}' data-type='2' catchtap='bindlongMomentPress'>
                 <view class="iconfont more2" style='font-size:20px'></view>
               </view>
               <view class="content">
@@ -80,14 +74,11 @@
             <view class="placeUseView">没有更多啦</view>
           </scroll-view>
         </swiper-item>
-        
       </swiper>
     </view>
   </view>
 </view>
-
-
-<!--弹出框start-->
+<!-- 弹出框start -->
 <view class="popupLayer" bindtap="hideModalShare" wx:if="{{showModalStatus}}"></view>
 <view class="dialog_box" animation="{{animationData}}" wx:if="{{showModalStatus}}">
   <view class='shareArea'>
@@ -114,4 +105,4 @@
     </view>
   </view>
 </view>
-<!--弹出框end-->
+<!-- 弹出框end -->

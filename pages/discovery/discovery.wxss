@@ -9,6 +9,8 @@
   color: #000;
   padding-left: 12px;
   padding-right: 12px;
+  background-color: #f0f4f3;
+
 }
 
 .contentArea {
@@ -91,11 +93,10 @@
 }
 
 page {
-  background-color: white;
+  background-color: #f0f4f3;
   height: 100%;
   font-size: 32rpx;
   line-height: 1.6;
-  padding-top: 5px;
 }
 
 .spinner {

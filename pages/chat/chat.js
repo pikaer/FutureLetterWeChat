@@ -80,12 +80,12 @@ Page({
   setTabBarBadge: function(count) {
     if (!app.isBlank(count)) {
       wx.setTabBarBadge({
-        index: 2,
+        index: 1,
         text: count
       })
     } else {
       wx.removeTabBarBadge({
-        index: 2
+        index: 1
       })
     }
   },

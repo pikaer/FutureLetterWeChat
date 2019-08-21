@@ -12,6 +12,7 @@
   padding: 0;
   font-size: 14rpx;
   color: #000;
+  background-color: #f0f4f3
 }
 
 .lineView {
