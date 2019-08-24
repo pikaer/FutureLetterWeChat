@@ -12,7 +12,9 @@
   padding: 0;
   font-size: 14rpx;
   color: #000;
-  background-color: #f0f4f3
+  background-color: #f0f4f3;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .lineView {
@@ -199,13 +201,11 @@
   background-color: #00cd66;
 }
 
-
-
 .maskButton {
   color: white;
   font-size: 34rpx;
   line-height: 96rpx;
-  width: 100%; 
+  width: 100%;
   height: 96rpx;
   position: fixed;
   bottom: 0;
@@ -216,19 +216,20 @@
 }
 
 .maskButton::after {
-  border: none
+  border: none;
 }
 
 .maskButton-hover {
-  background-color: #0c8f49; 
+  background-color: #0c8f49;
 }
 
 @keyframes showMask {
   0% {
-    opacity: 0; 
-  }   
+    opacity: 0;
+  }
+
   100% {
-    opacity: 1; 
+    opacity: 1;
   }
 }
 
@@ -236,6 +237,7 @@
   0% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
   }

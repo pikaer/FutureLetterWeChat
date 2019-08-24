@@ -220,9 +220,7 @@ Page({
 
   //举报瓶子
   reportItem: function (ops) {
-
     this.hideModalShare();
-
     var self = this;
     let pickUpId = this.data.currentMoment.pickUpId;
     app.httpPost(
@@ -381,7 +379,6 @@ Page({
             }
           }
         }
-
         self.setData({
           pickUpList: tempPickUpList
         });

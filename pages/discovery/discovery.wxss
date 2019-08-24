@@ -10,7 +10,7 @@
   padding-left: 12px;
   padding-right: 12px;
   background-color: #f0f4f3;
-
+  overflow-x: hidden;
 }
 
 .contentArea {
@@ -44,6 +44,7 @@
   float: left;
   margin-top: 10px;
   margin-left: 8px;
+  width: 70%;
 }
 
 .rightView {
@@ -59,6 +60,8 @@
 .timeView {
   font-size: 12px;
   color: #8e8e8e;
+  padding-left: 5px;
+  float: left;
 }
 
 .bodyView {
@@ -228,14 +231,13 @@ image {
 
 .chatBtnView {
   padding-bottom: 15px;
-  text-align: center;
   width: 80px;
   background-color: #00cd66;
   height: 15px;
-  margin-left: 90px;
   border-radius: 5px;
   color: white;
   padding-top: 5px;
+  display: inline-block;
 }
 
 .shareIcon {
@@ -364,4 +366,40 @@ button {
   height: 40px;
   margin-bottom: 50px;
   padding-top: 7px;
+}
+
+.btnContainer {
+  width: 800px;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.genderView {
+  height: 12px;
+  color: white;
+  float: left;
+  width: 28px;
+  background-color: #1296db;
+  border-radius: 8px;
+  margin-top: 3px;
+}
+
+.genderImgView {
+  float: left;
+  padding-top: 2px;
+  margin-bottom: 2px;
+  padding-left: 4px;
+}
+
+.genderImg {
+  width: 7px;
+  height: 7px;
+}
+
+.ageTextView {
+  float: left;
+  font-size: 8px;
+  padding-top: 0px;
+  padding-left: 4px;
 }

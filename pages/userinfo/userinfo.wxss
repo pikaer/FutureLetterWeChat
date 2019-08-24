@@ -150,7 +150,7 @@ page {
   padding-top: 6px;
   padding-bottom: 6px;
   color: #8e8e8e;
-  background-color: #ededed;
+  background-color: #f0f4f3;
 }
 
 .editView {
