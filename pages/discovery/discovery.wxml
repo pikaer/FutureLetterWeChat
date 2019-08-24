@@ -12,9 +12,10 @@
       </view>
       <view class="centerView">
         <view class="nickNameView">{{value.nickName}}</view>
-        <view class="genderView">
+        <view class="{{value.gender==1?'genderView':'gender_womanView'}}">
           <view class="genderImgView">
-            <image src="/content/images/gender_man.svg" class="genderImg"></image>
+            <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg"></image>
+            <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg"></image>
           </view>
           <view class="ageTextView">25</view>
         </view>

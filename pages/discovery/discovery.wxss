@@ -385,6 +385,16 @@ button {
   margin-top: 3px;
 }
 
+.gender_womanView {
+  height: 12px;
+  color: white;
+  float: left;
+  width: 28px;
+  background-color: #FF0063;
+  border-radius: 8px;
+  margin-top: 3px;
+}
+
 .genderImgView {
   float: left;
   padding-top: 2px;
