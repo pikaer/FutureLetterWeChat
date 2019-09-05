@@ -90,12 +90,13 @@
     <view class='dialog_title'>更多</view>
 
     <view class='dialog_content'>
-      <view class="shareTo ">
-        <button bindtap="addCollect">
-          <image class="shareIcon" src="/content/images/collect.svg "></image>
+      <view class="shareTo">
+        <button bindtap="allClear">
+          <image class="shareIcon" src="/content/images/clear.svg"></image>
         </button>
-        <view class="shareText">添加收藏</view>
+        <view class="shareText">全部清空</view>
       </view>
+     
       <view class="shareTo">
         <button open-type='share'>
           <image class="shareIcon" src="/content/images/weixin.svg "></image>
@@ -116,11 +117,11 @@
         </button>
         <view class="shareText">举报</view>
       </view>
-      <view class="shareTo">
-        <button bindtap="allClear">
-          <image class="shareIcon" src="/content/images/clear.svg"></image>
+      <view class="shareTo ">
+        <button bindtap="addCollect">
+          <image class="shareIcon" src="/content/images/collect.svg "></image>
         </button>
-        <view class="shareText">全部清空</view>
+        <view class="shareText">添加收藏</view>
       </view>
       <view class="shareTo" bindtap="deleteItem">
         <button>

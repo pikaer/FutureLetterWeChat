@@ -437,7 +437,7 @@ Page({
     let that = this;
     var timer = setInterval(function() {
       times++
-      if (times >= 2) {
+      if (times >=1) {
         wx.stopPullDownRefresh();
         clearInterval(timer)
       }

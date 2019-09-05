@@ -4,6 +4,7 @@ Page({
     placeRegion: ['广东省', '广州市', '海珠区'],
     schoolTypeArray: ['其他', '学院/大学', '一本', '211/985/海外院校'],
     tempHeadImgPath: "",
+    cacheUserInfo: {}, //用户缓存信息
     tempUserInfo: {
       "gender": 1,
       "nickName": "",
@@ -20,8 +21,50 @@ Page({
   },
 
   onLoad: function() {
+    this.initData();
     this.getHeadImgPath();
     this.getUserInfo();
+  },
+
+
+  initData: function() {
+    let cacheKey = "userEditInfo+" + app.globalData.apiHeader.UId;
+    let cacheValue = wx.getStorageSync(cacheKey);
+    if (!app.isBlank(cacheValue)) {
+      let gender = 'tempUserInfo.gender';
+      let nickName = 'tempUserInfo.nickName';
+      let birthDate = 'tempUserInfo.birthDate';
+      let province = 'tempUserInfo.province';
+      let city = 'tempUserInfo.city';
+      let area = 'tempUserInfo.area';
+      let schoolName = 'tempUserInfo.schoolName';
+      let entranceDate = 'tempUserInfo.entranceDate';
+      let schoolType = 'tempUserInfo.schoolType';
+      let liveState = 'tempUserInfo.liveState';
+      let signature = 'tempUserInfo.signature';
+
+      var placeRegion0 = "placeRegion[" + 0 + "]";
+      var placeRegion1 = "placeRegion[" + 1 + "]";
+      var placeRegion2 = "placeRegion[" + 2 + "]";
+
+      this.setData({
+        [gender]: cacheValue.gender,
+        [nickName]: cacheValue.nickName,
+        [birthDate]: cacheValue.birthDate,
+        [province]: cacheValue.province,
+        [city]: cacheValue.city,
+        [area]: cacheValue.area,
+        [schoolName]: cacheValue.schoolName,
+        [entranceDate]: cacheValue.entranceDate,
+        [schoolType]: cacheValue.schoolType,
+        [liveState]: cacheValue.liveState,
+        [signature]: cacheValue.signature,
+        //所在地下拉框默认值
+        [placeRegion0]: cacheValue.province,
+        [placeRegion1]: cacheValue.city,
+        [placeRegion2]: cacheValue.area,
+      })
+    }
   },
 
   //获取我扔出去的没有被评论的动态
@@ -33,20 +76,20 @@ Page({
       self.setData({
         tempHeadImgPath: cacheValue.headPhotoPath,
       });
-    } 
+    }
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
         'api/Letter/BasicUserInfo', {
           "UId": app.globalData.apiHeader.UId
         },
-        function (res) {
+        function(res) {
           console.info("获取用户头像成功！")
           self.setData({
             tempHeadImgPath: res.headPhotoPath
           });
           app.setCache(cacheKey, res);
         },
-        function (res) {
+        function(res) {
           console.error("获取用户头像失败！");
         })
     }
@@ -73,6 +116,7 @@ Page({
   //获取我扔出去的没有被评论的动态
   getUserInfo: function() {
     var self = this;
+    let cacheKey = "userEditInfo+" + app.globalData.apiHeader.UId;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
         'api/Letter/GetUserInfo', {
@@ -114,6 +158,8 @@ Page({
               [placeRegion1]: res.city,
               [placeRegion2]: res.area,
             })
+
+            app.setCache(cacheKey, res);
           }
         },
         function(res) {

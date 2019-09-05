@@ -1,5 +1,7 @@
-const auth = require('/utils/auth.js');
 
+const mtjwxsdk = require('/utils/mtj-wx-sdk.js');
+
+const auth = require('/utils/auth.js');
 /// 获取倍率
 const raterpx = 750.0 / wx.getSystemInfoSync().windowWidth;
 
@@ -62,7 +64,7 @@ App({
       header: this.globalData.httpHeader,
       success: function(res) {
         if (res.data.success) {
-          console.info("*******" + url + "成功获取数据*******" + JSON.stringify(res.data.content));
+       //   console.info("*******" + url + "成功获取数据*******" + JSON.stringify(res.data.content));
           return typeof successFunc == "function" && successFunc(res.data.content);
         } else {
           console.warn("*******" + url + "请求返回失败*******" + JSON.stringify(res.data));

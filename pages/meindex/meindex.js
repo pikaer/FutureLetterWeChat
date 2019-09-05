@@ -6,6 +6,7 @@ Page({
     tempMomentList: [],
     tempCollectList: [],
     basicUserInfo: {},
+    totalCoin:0,
     selectMomentItem: [],
     selectCollectItem: [],
     correntSelectItem: 1,
@@ -33,9 +34,9 @@ Page({
   },
 
   onShow: function() {
+    this.basicUserInfo();
     this.getMyMomentList();
     this.getCollectList();
-    this.basicUserInfo();
     app.unReadTotalCount();
   },
 
@@ -381,7 +382,7 @@ Page({
     let cacheValue = wx.getStorageSync(cacheKey);
     if (!app.isBlank(cacheValue)) {
       self.setData({
-        basicUserInfo: cacheValue,
+        basicUserInfo: cacheValue
       });
     }
     app.httpPost(
@@ -392,6 +393,7 @@ Page({
       function(res) {
         self.setData({
           basicUserInfo: res,
+          totalCoin: res.totalCoin
         });
         app.setCache(cacheKey, res);
       },
