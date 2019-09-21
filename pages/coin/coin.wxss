@@ -52,12 +52,12 @@ page {
 
 .kefuView {
   float: left;
-  padding-left: 100px;
+  padding-left: 90px;
 }
 
 .coinDetailView {
   float: right;
-  padding-right: 100px;
+  padding-right: 90px;
 }
 
 .coinContainer {

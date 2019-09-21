@@ -401,4 +401,75 @@ Page({
         console.error("获取用户基础信息失败");
       })
   },
+
+
+  bindGetUserInfo: function (e) {
+    if (e.detail.userInfo) {
+      this.getUserInfoWX();
+    } else {
+      //用户按了拒绝按钮
+      wx.showModal({
+        title: '警告',
+        content: '获取用户信息失败，需要授权才能继续使用',
+        showCancel: false,
+        confirmText: '返回授权',
+        success: function (res) {
+          if (res.confirm) {
+            console.log('用户点击了“返回授权”')
+          }
+        }
+      })
+    }
+  },
+
+  //获取微信用户信息
+  getUserInfoWX: function () {
+    let self = this;
+    wx.getSetting({
+      success: res => {
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          wx.getUserInfo({
+            success: res => {
+              console.info("获取微信用户信息成功!" + JSON.stringify(res));
+              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回所以此处加入 callback 以防止这种情况
+              if (self.userInfoReadyCallback) {
+                self.userInfoReadyCallback(res)
+              }
+              self.setUserInfo(res.userInfo);
+            }
+          })
+        }
+      }
+    })
+  },
+
+  //存入用户信息
+  setUserInfo: function (userInfoWX) {
+    let self = this;
+    let gender = 'basicUserInfo.gender';
+    let nickName = 'basicUserInfo.nickName';
+    let avatarUrl = 'basicUserInfo.headPhotoPath';
+    self.setData({
+      [gender]: userInfoWX.gender,
+      [nickName]: userInfoWX.nickName,
+      [avatarUrl]: userInfoWX.avatarUrl,
+    });
+    app.httpPost(
+      'api/Letter/SetUserInfo', {
+        "UId": app.globalData.apiHeader.UId,
+        "NickName": userInfoWX.nickName,
+        "AvatarUrl": userInfoWX.avatarUrl,
+        "Gender": userInfoWX.gender
+      },
+      function (res) {
+        console.info("存入用户信息成功");
+        self.setData({
+          totalCoin: res.totalCoin
+        });
+      },
+      function (res) {
+        console.error("存入用户信息失败!");
+      })
+  },
 })

@@ -7,9 +7,6 @@
 <view wx:else>
   <view class="backView"></view>
   <view class="loginView">
-    <!-- <view class='header'>
-      <image class="logoImg" src="../../content/images/bingo.jpg"></image>
-    </view> -->
     <view class='content'>
       <view class="firstContent">因你看见</view>
       <view class="secondContent">所以存在</view>

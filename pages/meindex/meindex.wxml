@@ -1,7 +1,7 @@
 <view class="container">
   <view class="fixedView">
     <view class="tabView">
-      <view class="userView">
+      <view class="userView" wx:if="{{basicUserInfo.gender!=0}}">
         <navigator url="../../pages/userinfo/userinfo" class="headPhotoView">
           <image class="userHead" src="{{basicUserInfo.headPhotoPath}}"></image>
         </navigator>
@@ -11,7 +11,7 @@
             <image class="editImg" src="/content/images/edit.svg"></image>
           </view>
           <view class="countView">
-            <view class="coinCountView">
+            <view class="coinCountView" wx:if="{{basicUserInfo.gender!=0}}">
               <view class="countText">金币余额: {{totalCoin}}</view>
             </view>
           </view>
@@ -21,6 +21,14 @@
             <view class="navigator-text" style='color:#9d9d9d;'>我的钱包</view>
             <view class="navigator-arrow"></view>
           </navigator>
+        </view>
+      </view>
+      <view class="userView" wx:else>
+        <view class="headPhotoView">
+          <image class="loginHead" src="/content/images/smile.svg"></image>
+        </view>
+        <view class="loginInfoView">
+          <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo" class="loginBtn">点击登录</button>
         </view>
       </view>
     </view>
@@ -37,7 +45,8 @@
   </view>
   <view class="page-body">
     <view class="page-section page-section-spacing swiper">
-      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px" current="{{currentTab}}" bindchange="bindChange">
+      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px" current="{{currentTab}}"
+        bindchange="bindChange">
         <!-- 动态 -->
         <swiper-item>
           <scroll-view scroll-y="true" class="momentArea" bindscroll="bindscrollChange">
@@ -59,7 +68,8 @@
         <!-- 收藏 -->
         <swiper-item>
           <scroll-view scroll-y="true" class="momentArea">
-            <view class="momentView" wx:for="{{tempCollectList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-collectId='{{value.collectId}}' data-momentId='{{value.momentId}}' data-type='2' bindtap="toDiscussDetailPage" bindlongpress="bindlongMomentPress">
+            <view class="momentView" wx:for="{{tempCollectList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-collectId='{{value.collectId}}' data-momentId='{{value.momentId}}' data-type='2' bindtap="toDiscussDetailPage"
+              bindlongpress="bindlongMomentPress">
               <view class="iconView" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-collectId='{{value.collectId}}' data-momentId='{{value.momentId}}' data-type='2' catchtap='bindlongMomentPress'>
                 <view class="iconfont more2" style='font-size:20px'></view>
               </view>

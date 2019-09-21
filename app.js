@@ -1,4 +1,3 @@
-
 const mtjwxsdk = require('/utils/mtj-wx-sdk.js');
 
 const auth = require('/utils/auth.js');
@@ -14,8 +13,8 @@ const rate = function(rpx) {
 App({
   //全局变量
   globalData: {
-    baseUrl: "https://www.pikaer.com/todayapi/",
-    // baseUrl: "https://localhost:44386/",
+    // baseUrl: "https://www.pikaer.com/todayapi/",
+    baseUrl: "https://localhost:44386/",
 
     httpHeader: {
       "Content-Type": "application/json"
@@ -64,7 +63,7 @@ App({
       header: this.globalData.httpHeader,
       success: function(res) {
         if (res.data.success) {
-       //   console.info("*******" + url + "成功获取数据*******" + JSON.stringify(res.data.content));
+          //   console.info("*******" + url + "成功获取数据*******" + JSON.stringify(res.data.content));
           return typeof successFunc == "function" && successFunc(res.data.content);
         } else {
           console.warn("*******" + url + "请求返回失败*******" + JSON.stringify(res.data));
@@ -124,7 +123,7 @@ App({
 
   //判断空指针
   isBlank: function(str) {
-    if (str == null || str == undefined){
+    if (str == null || str == undefined) {
       return true
     }
     if (Object.prototype.toString.call(str) === '[object Undefined]') { //空
