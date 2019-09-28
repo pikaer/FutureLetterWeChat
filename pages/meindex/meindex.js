@@ -6,7 +6,7 @@ Page({
     tempMomentList: [],
     tempCollectList: [],
     basicUserInfo: {},
-    totalCoin:0,
+    totalCoin: 0,
     selectMomentItem: [],
     selectCollectItem: [],
     correntSelectItem: 1,
@@ -25,7 +25,7 @@ Page({
   },
 
   onLoad: function() {
-    app.globalData.currentDiscussMoment={};
+    app.globalData.currentDiscussMoment = {};
     this.setData({
       basicUserInfo: app.globalData.basicUserInfo,
       tempMomentList: app.globalData.tempMomentList,
@@ -56,10 +56,10 @@ Page({
   },
 
   //滚动条滑动
-  bindscrollChange: function (e) {
+  bindscrollChange: function(e) {
     console.info(e)
   },
-  
+
   //tab切换至收藏
   toCollectList: function(e) {
     this.setData({
@@ -403,49 +403,31 @@ Page({
   },
 
 
-  bindGetUserInfo: function (e) {
+  bindGetUserInfo: function(e) {
+    let self = this;
     if (e.detail.userInfo) {
-      this.getUserInfoWX();
-    } else {
-      //用户按了拒绝按钮
-      wx.showModal({
-        title: '警告',
-        content: '获取用户信息失败，需要授权才能继续使用',
-        showCancel: false,
-        confirmText: '返回授权',
-        success: function (res) {
-          if (res.confirm) {
-            console.log('用户点击了“返回授权”')
+      wx.getSetting({
+        success: res => {
+          if (res.authSetting['scope.userInfo']) {
+            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+            wx.getUserInfo({
+              success: res => {
+                console.info("获取微信用户信息成功!" + JSON.stringify(res));
+                // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回所以此处加入 callback 以防止这种情况
+                if (self.userInfoReadyCallback) {
+                  self.userInfoReadyCallback(res)
+                }
+                self.setUserInfo(res.userInfo);
+              }
+            })
           }
         }
       })
     }
   },
 
-  //获取微信用户信息
-  getUserInfoWX: function () {
-    let self = this;
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              console.info("获取微信用户信息成功!" + JSON.stringify(res));
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回所以此处加入 callback 以防止这种情况
-              if (self.userInfoReadyCallback) {
-                self.userInfoReadyCallback(res)
-              }
-              self.setUserInfo(res.userInfo);
-            }
-          })
-        }
-      }
-    })
-  },
-
   //存入用户信息
-  setUserInfo: function (userInfoWX) {
+  setUserInfo: function(userInfoWX) {
     let self = this;
     let gender = 'basicUserInfo.gender';
     let nickName = 'basicUserInfo.nickName';
@@ -462,13 +444,13 @@ Page({
         "AvatarUrl": userInfoWX.avatarUrl,
         "Gender": userInfoWX.gender
       },
-      function (res) {
+      function(res) {
         console.info("存入用户信息成功");
         self.setData({
           totalCoin: res.totalCoin
         });
       },
-      function (res) {
+      function(res) {
         console.error("存入用户信息失败!");
       })
   },

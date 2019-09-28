@@ -74,7 +74,7 @@
 }
 
 .viewinput {
-  width:75%;
+  width: 75%;
   background-color: white;
   float: left;
   margin-top: 10px;
@@ -262,4 +262,45 @@ button {
   padding-left: 0px;
   padding-right: 0px;
   margin-bottom: 10px;
+}
+
+.modal-content-login {
+  position: fixed;
+  top: 160px;
+  right: 15%;
+  left: 15%;
+  z-index: 9500;
+  height: 120px;
+  background: white;
+  border-radius: 10rpx;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.cancelBtn {
+  float: left;
+  height: 35px;
+  width: 95px;
+  padding-top: 10px;
+  font-size: 15px;
+   background: #f0f4f3
+}
+
+.loginBtn {
+  float: right;
+  height: 35px;
+  width: 95px;
+  font-size: 15px;
+  padding-top: 10px;
+  background: #00cd66;
+  color: white;
+}
+
+.titleTxtView {
+  text-align: center;
+  margin-top: 15px;
+  float: left;
+  margin-left: 10px;
+  margin-bottom: 30px;
+  font-size: 15px;
 }

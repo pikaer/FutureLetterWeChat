@@ -15,8 +15,11 @@ Page({
     discussContent: "",
     inputMarBot: false,
     showModal: false,
-    basicUserInfo: {},
     showModalStatus: false,
+    showLoginModal: false,
+    showLoginModalStatus: false,
+    basicUserInfo: {},
+
     isCreate: false,
     isShow: false
   },
@@ -32,7 +35,7 @@ Page({
 
   //数据初始化
   initData: function() {
-    try{
+    try {
       let cacheValue = wx.getStorageSync(this.data.pickUpId);
       if (!app.isBlank(cacheValue)) {
         this.setData({
@@ -40,7 +43,7 @@ Page({
           discussDetailList: cacheValue.discussDetailList
         })
       }
-    }catch(e){
+    } catch (e) {
       console.error("discussDetailPage:数据初始化异常");
     }
   },
@@ -57,7 +60,7 @@ Page({
         basicUserInfo: cacheValue,
         showModal: true
       });
-    }else{
+    } else {
       self.setData({
         basicUserInfo: {}
       });
@@ -67,7 +70,7 @@ Page({
         "UId": ops.currentTarget.dataset.uid
       },
       function(res) {
-        if (!app.isBlank(res)){
+        if (!app.isBlank(res)) {
           self.setData({
             basicUserInfo: res
           });
@@ -141,11 +144,80 @@ Page({
       })
   },
 
+  cancelLogin: function() {
+    this.setData({
+      showLoginModal: false
+    });
+  },
+
+
+  bindGetUserInfo: function(e) {
+    let self = this;
+    if (e.detail.userInfo) {
+      wx.getSetting({
+        success: res => {
+          if (res.authSetting['scope.userInfo']) {
+            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+            wx.getUserInfo({
+              success: res => {
+                console.info("获取微信用户信息成功!" + JSON.stringify(res));
+                // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回所以此处加入 callback 以防止这种情况
+                if (self.userInfoReadyCallback) {
+                  self.userInfoReadyCallback(res)
+                }
+                self.setUserInfo(res.userInfo);
+              }
+            })
+          }
+        }
+      })
+    }
+  },
+
+  //存入用户信息
+  setUserInfo: function(userInfoWX) {
+    let self = this;
+    app.globalData.basicUserInfo.headPhotoPath = userInfoWX.avatarUrl;
+    app.globalData.basicUserInfo.nickName = userInfoWX.nickName;
+    app.globalData.basicUserInfo.gender = userInfoWX.gender;
+    if (userInfoWX.gender != 0) {
+      self.insertDiscussContent();
+      self.cancelLogin();
+    }
+    app.httpPost(
+      'api/Letter/SetUserInfo', {
+        "UId": app.globalData.apiHeader.UId,
+        "NickName": userInfoWX.nickName,
+        "AvatarUrl": userInfoWX.avatarUrl,
+        "Gender": userInfoWX.gender
+      },
+      function(res) {
+        console.info("存入用户信息成功");
+        self.setData({
+          totalCoin: res.totalCoin
+        });
+      },
+      function(res) {
+        console.error("存入用户信息失败!");
+      })
+  },
+
   //发表评论
   insertDiscussContent: function() {
     var self = this;
+    let userinfo = app.globalData.basicUserInfo;
+    if (userinfo == null || userinfo == '') {
+      return;
+    }
+    if (userinfo.gender == 0) {
+      self.setData({
+        showLoginModal: true
+      });
+      return;
+    }
+
     let content = self.data.discussContent;
-    if (content != null && content != '' && content.length>0){
+    if (content != null && content != '' && content.length > 0) {
       self.insertDiscussContentToList(content);
       app.httpPost(
         'api/Letter/Discuss', {
@@ -153,7 +225,7 @@ Page({
           "PickUpId": self.data.pickUpId,
           "TextContent": content
         },
-        function (res) {
+        function(res) {
           if (res.isExecuteSuccess) {
             self.discussDetail();
             self.setData({
@@ -162,7 +234,7 @@ Page({
             console.info("发表评论成功");
           }
         },
-        function (res) {
+        function(res) {
           self.setData({
             discussContent: ""
           });
@@ -171,17 +243,16 @@ Page({
     }
   },
 
-  insertDiscussContentToList: function (textContent) {
+  insertDiscussContentToList: function(textContent) {
     var self = this;
-    let cacheKey = "basicUserInfo+" + app.globalData.apiHeader.UId;
-    let userinfo = wx.getStorageSync(cacheKey);
+    let userinfo = app.globalData.basicUserInfo;
     let detailList = self.data.discussDetailList;
-    if (userinfo!=null){
+    if (userinfo != null && userinfo != "") {
       let discuss = {};
       discuss.nickName = userinfo.nickName;
       discuss.pickUpUId = app.globalData.apiHeader.UId;
       discuss.headImgPath = userinfo.headPhotoPath;
-      discuss.recentChatTime ='刚刚';
+      discuss.recentChatTime = '刚刚';
       discuss.textContent = textContent;
       detailList.unshift(discuss);
       self.setData({
@@ -529,5 +600,5 @@ Page({
         });
       }
     });
-  }
+  },
 })

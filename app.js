@@ -13,8 +13,8 @@ const rate = function(rpx) {
 App({
   //全局变量
   globalData: {
-    // baseUrl: "https://www.pikaer.com/todayapi/",
-    baseUrl: "https://localhost:44386/",
+    baseUrl: "https://www.pikaer.com/todayapi/",
+    // baseUrl: "https://localhost:44386/",
 
     httpHeader: {
       "Content-Type": "application/json"
