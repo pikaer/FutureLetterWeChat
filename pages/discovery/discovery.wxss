@@ -7,15 +7,15 @@
   padding: 0;
   font-size: 14rpx;
   color: #000;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-left: 7px;
+  padding-right: 7px;
   background-color: #f0f4f3;
   overflow-x: hidden;
 }
 
 .contentArea {
   margin-top: 2px;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
   background-color: white;
   clear: both;
   width: 100%;
@@ -55,6 +55,7 @@
 
 .nickNameView {
   font-size: 15px;
+  font-weight: 650;
 }
 
 .timeView {
@@ -238,6 +239,7 @@ image {
   color: white;
   padding-top: 5px;
   display: inline-block;
+  font-weight: 650;
 }
 
 .shareIcon {
@@ -390,7 +392,7 @@ button {
   color: white;
   float: left;
   width: 28px;
-  background-color: #FF0063;
+  background-color: #ff0063;
   border-radius: 8px;
   margin-top: 3px;
 }

@@ -9,7 +9,77 @@ Page({
     ishidden: false,
     hasImg: true,
     publishDisabled: true,
-    tempTextContent: ""
+    isRegister: true,
+    tempTextContent: "",
+    showLoginModal: false,
+    showLoginModalStatus: false,
+  },
+
+  onLoad: function() {
+    this.setData({
+      isRegister: app.globalData.basicUserInfo.isRegister
+    })
+  },
+
+  cancelLogin: function() {
+    this.setData({
+      showLoginModal: false
+    });
+  },
+
+  toLogin: function() {
+    this.setData({
+      showLoginModal: true
+    });
+  },
+
+  bindGetUserInfo: function(e) {
+    let self = this;
+    if (e.detail.userInfo) {
+      wx.getSetting({
+        success: res => {
+          if (res.authSetting['scope.userInfo']) {
+            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+            wx.getUserInfo({
+              success: res => {
+                console.info("获取微信用户信息成功!" + JSON.stringify(res));
+                // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回所以此处加入 callback 以防止这种情况
+                if (self.userInfoReadyCallback) {
+                  self.userInfoReadyCallback(res)
+                }
+                self.setUserInfo(res.userInfo);
+              }
+            })
+          }
+        }
+      })
+    }
+  },
+
+  //存入用户信息
+  setUserInfo: function(userInfoWX) {
+    let self = this;
+    app.globalData.basicUserInfo.headPhotoPath = userInfoWX.avatarUrl;
+    app.globalData.basicUserInfo.nickName = userInfoWX.nickName;
+    app.globalData.basicUserInfo.gender = userInfoWX.gender;
+    app.globalData.basicUserInfo.isRegister = true;
+    self.isRegister = true;
+    if (app.globalData.basicUserInfo.isRegister) {
+      self.publishMoment();
+    }
+    app.httpPost(
+      'api/Letter/SetUserInfo', {
+        "UId": app.globalData.apiHeader.UId,
+        "NickName": userInfoWX.nickName,
+        "AvatarUrl": userInfoWX.avatarUrl,
+        "Gender": userInfoWX.gender
+      },
+      function(res) {
+        console.info("存入用户信息成功");
+      },
+      function(res) {
+        console.error("存入用户信息失败!");
+      })
   },
 
   //发布动态
@@ -24,7 +94,6 @@ Page({
       function(res) {
         if (res.isExecuteSuccess) {
           self.publishToast(true);
-          self.backPage()
         } else {
           self.publishToast(false);
         }
@@ -38,15 +107,45 @@ Page({
 
   //弹框
   publishToast: function(success) {
+    let self = this;
     let title = success ? "发布成功" : "发布失败";
     let img = success ? "" : "../../content/images/warn.png"
     wx.showToast({
       title: title,
       icon: 'success',
       image: img,
-      duration: 2500
+      duration: 2500,
+      complete() {
+        if (success) {
+          self.sleepAfterBack();
+        }
+      }
     })
+
   },
+
+  sleepAfterBack: function () {
+    let times = 0;
+    let self = this;
+    var timer = setInterval(function () {
+      times++
+      if (times >= 2) {
+        self.backPage();
+        clearInterval(timer)
+      }
+    }, 1000)
+  },
+
+  //返回上一级页面。
+  backPage: function () {
+    wx.navigateBack({
+      delta: 1
+    })
+
+    let pages = getCurrentPages();
+    let prevPage = pages[pages.length - 2];
+  },
+
 
   //获取用户输入的文本
   textContentInput: function(e) {
@@ -65,16 +164,6 @@ Page({
     this.setData({
       publishDisabled: !canUse
     })
-  },
-
-  //返回上一级页面。
-  backPage: function() {
-    wx.navigateBack({
-      delta: 1
-    })
-
-    let pages = getCurrentPages();
-    let prevPage = pages[pages.length - 2];
   },
 
   //选择图片方法

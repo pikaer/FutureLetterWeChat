@@ -6,6 +6,7 @@
   text-align: center;
   font-size: 20px;
   padding-top: 10px;
+  font-weight: 650;
 }
 
 .coinCountView {
@@ -39,6 +40,7 @@ page {
   border-radius: 5px;
   background-color: #00cd66;
   color: white;
+  font-weight: 650;
 }
 
 .footerView {
@@ -64,7 +66,6 @@ page {
   position: relative;
   height: 100%;
   background-color: #f0f4f3;
-
 }
 
 .kefuAreaView {

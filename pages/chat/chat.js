@@ -246,7 +246,8 @@ Page({
       app.httpPost(
         'api/Letter/DeleteBottle', {
           "UId": app.globalData.apiHeader.UId,
-          "PickUpId": self.data.selectItem.pickupid
+          "PickUpId": self.data.selectItem.pickupid,
+          "DeleteType":1
         },
         function(res) {
           console.info("删除对话成功！");

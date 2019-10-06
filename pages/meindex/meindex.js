@@ -55,10 +55,6 @@ Page({
     this.getMyMomentList();
   },
 
-  //滚动条滑动
-  bindscrollChange: function(e) {
-    console.info(e)
-  },
 
   //tab切换至收藏
   toCollectList: function(e) {
@@ -391,6 +387,7 @@ Page({
         "Type": 1
       },
       function(res) {
+        app.globalData.basicUserInfo = res;
         self.setData({
           basicUserInfo: res,
           totalCoin: res.totalCoin
@@ -432,11 +429,19 @@ Page({
     let gender = 'basicUserInfo.gender';
     let nickName = 'basicUserInfo.nickName';
     let avatarUrl = 'basicUserInfo.headPhotoPath';
+    let isRegister = 'basicUserInfo.isRegister';
     self.setData({
       [gender]: userInfoWX.gender,
       [nickName]: userInfoWX.nickName,
       [avatarUrl]: userInfoWX.avatarUrl,
+      [isRegister]:true
     });
+
+    app.globalData.basicUserInfo.headPhotoPath = userInfoWX.avatarUrl;
+    app.globalData.basicUserInfo.nickName = userInfoWX.nickName;
+    app.globalData.basicUserInfo.gender = userInfoWX.gender;
+    app.globalData.basicUserInfo.isRegister = true;
+
     app.httpPost(
       'api/Letter/SetUserInfo', {
         "UId": app.globalData.apiHeader.UId,

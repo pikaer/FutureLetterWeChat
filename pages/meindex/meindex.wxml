@@ -1,7 +1,7 @@
 <view class="container">
   <view class="fixedView">
     <view class="tabView">
-      <view class="userView" wx:if="{{basicUserInfo.gender!=0}}">
+      <view class="userView" wx:if="{{basicUserInfo.isRegister}}">
         <navigator url="../../pages/userinfo/userinfo" class="headPhotoView">
           <image class="userHead" src="{{basicUserInfo.headPhotoPath}}"></image>
         </navigator>
@@ -35,10 +35,10 @@
     <view class="momentContainer">
       <view class="titleView">
         <view bindtap="toPublishList" class="itemTitleView">
-          <view class="{{currentTab==0?'momentTitleCilick':'momentTitle'}}">动态</view>
+          <view class="{{currentTab==0?'momentTitleCilick':'momentTitle'}}">扔出的瓶子</view>
         </view>
         <view bindtap="toCollectList" class="itemTitleView">
-          <view class="{{currentTab==0?'momentTitle':'momentTitleCilick'}}">收藏</view>
+          <view class="{{currentTab==0?'momentTitle':'momentTitleCilick'}}">收藏的瓶子</view>
         </view>
       </view>
     </view>
@@ -49,7 +49,7 @@
         bindchange="bindChange">
         <!-- 动态 -->
         <swiper-item>
-          <scroll-view scroll-y="true" class="momentArea" bindscroll="bindscrollChange">
+          <scroll-view scroll-y="true" class="momentArea">
             <view class="momentView" wx:for="{{tempMomentList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' bindtap="toMomentDetailPage" bindlongpress="bindlongMomentPress">
               <view class="iconView" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' catchtap='bindlongMomentPress'>
                 <view class="iconfont more2" style='font-size:20px'></view>
@@ -94,12 +94,6 @@
   <view class='shareArea'>
     <view class='dialog_title'>更多</view>
     <view class='dialog_content'>
-      <view class="shareTo ">
-        <button open-type='share'>
-          <image class="shareIcon" src="/content/images/weixin.svg"></image>
-        </button>
-        <view class="shareText">分享好友/群</view>
-      </view>
       <view class="shareTo" bindtap="clearItem">
         <button>
           <image class="shareIcon" src="/content/images/clear.svg"></image>
@@ -111,6 +105,12 @@
           <image class="shareIcon" src="/content/images/delete.svg"></image>
         </button>
         <view class="shareText ">删除</view>
+      </view>
+      <view class="shareTo ">
+        <button open-type='share'>
+          <image class="shareIcon" src="/content/images/weixin.svg"></image>
+        </button>
+        <view class="shareText">分享好友/群</view>
       </view>
     </view>
   </view>

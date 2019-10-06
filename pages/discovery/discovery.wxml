@@ -2,8 +2,8 @@
   <view class="defaultDescView" wx:if="{{pickUpList.length==0}}">
     <view class="pullImgView">
       <image src="/content/images/pullDown.png" class="pullImg"></image>
-    </view>
-    <view class="pullTxtView">下拉获取动态</view>
+    </view> 
+    <view class="pullTxtView">下拉试一试</view>
   </view>
   <view class="contentArea" bindtap="previewMomentDetail" bindlongpress="previewMomentDetail" wx:for="{{pickUpList}}" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}' data-key='{{key}}'>
     <view class="titleView">
@@ -69,7 +69,7 @@
           {{basicUserInfo.basicUserInfo}}
         </view>
         <view class='placeInfoView-all'>
-          <view class="iconfont dingwei" style='font-size:12px'> {{basicUserInfo.placeInfo}}</view>
+          <view class="iconfont dingwei" style='font-size:12px'>{{basicUserInfo.placeInfo}}</view>
         </view>
       </view>
       <view class='signatrueView-all' wx:if="{{basicUserInfo.signature!=null&&basicUserInfo.signature!=''}}">

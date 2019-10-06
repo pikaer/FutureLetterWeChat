@@ -180,7 +180,8 @@ Page({
     app.globalData.basicUserInfo.headPhotoPath = userInfoWX.avatarUrl;
     app.globalData.basicUserInfo.nickName = userInfoWX.nickName;
     app.globalData.basicUserInfo.gender = userInfoWX.gender;
-    if (userInfoWX.gender != 0) {
+    app.globalData.basicUserInfo.isRegister =true;
+    if (app.globalData.basicUserInfo.isRegister) {
       self.insertDiscussContent();
       self.cancelLogin();
     }
@@ -209,7 +210,7 @@ Page({
     if (userinfo == null || userinfo == '') {
       return;
     }
-    if (userinfo.gender == 0) {
+    if (!userinfo.isRegister) {
       self.setData({
         showLoginModal: true
       });

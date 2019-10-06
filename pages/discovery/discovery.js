@@ -195,7 +195,9 @@ Page({
     let index = this.data.selectItem.key;
     app.httpPost(
       'api/Letter/DeleteBottle', {
-        "PickUpId": pickUpId
+        "UId": app.globalData.apiHeader.UId,
+        "PickUpId": pickUpId,
+        "DeleteType": 0
       },
       function(res) {
         console.info("删除瓶子成功！");
@@ -434,7 +436,6 @@ Page({
   //休眠2秒，防止数据获取太快看不到加载动图
   stopPullDownRefresh: function() {
     let times = 0;
-    let that = this;
     var timer = setInterval(function() {
       times++
       if (times >=1) {

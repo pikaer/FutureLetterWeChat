@@ -29,7 +29,7 @@
     "color": "#000000",
     "list": [
       {
-        "text": "Bingo",
+        "text": "漂流瓶",
         "pagePath": "pages/discovery/discovery",
         "iconPath": "content/images/index.png",
         "selectedIconPath": "content/images/index1.png"
