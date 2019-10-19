@@ -1,159 +1,173 @@
-<view wx:if="{{showStartUp}}" class="checkoutView">
-  <view class="startImgView">
-    <image class="imgView" src="../../content/images/start.jpg"></image>
-  </view>
-</view>
+<view class="indexContainer">
+	<view class="defaultDescView" wx:if="{{pickUpList.length==0}}">
+		<view class="pullImgView">
+			<image src="/content/images/pullDown.png" class="pullImg" />
+		</view>
+		<view class="pullTxtView">下拉获取动态</view>
+	</view>
+	<view
+	 class="contentArea"
+	 bindtap="previewMomentDetail"
+	 bindlongpress="previewMomentDetail"
+	 wx:for="{{pickUpList}}"
+	 wx:for-index="key"
+	 wx:for-item="value"
+	 data-pickUpId='{{value.pickUpId}}'
+	 data-key='{{key}}'
+	>
+		<view class="titleView">
+			<view
+			 data-uId='{{value.uId}}'
+			 data-pickUpId='{{value.pickUpId}}'
+			 class="leftView"
+			 catchtap='toShowModal'
+			>
+				<image src="{{value.headImgPath}}" class="userHead" />
+			</view>
+			<view class="centerView">
+				<view class="nickNameView">{{value.nickName}}</view>
+				<view class="{{value.gender==1?'genderView':'gender_womanView'}}">
+					<view class="genderImgView">
+						<image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
+						<image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
+					</view>
+					<view class="ageTextView">25</view>
+				</view>
+				<view class="timeView">{{value.createTime}}</view>
+			</view>
+			<view
+			 class="rightView"
+			 data-uId='{{value.uId}}'
+			 data-pickUpId='{{value.pickUpId}}'
+			 data-key='{{key}}'
+			 catchtap='moreAction'
+			>
+				<view class="iconfont more" style='font-size:20px' />
+			</view>
+		</view>
+		<view class="bodyView">
+			<!-- 文本动态 -->
+			<view class="textView">{{value.textContent}}</view>
+			<!-- 图片动态 -->
+			<view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
+				<image
+				 src="{{value.imgContent}}"
+				 data-imgContent='{{value.imgContent}}'
+				 class="imgCount"
+				 mode="widthFix"
+				/>
+			</view>
+		</view>
+	</view>
 
-<view wx:else class="indexContainer">
-  <view class="defaultDescView" wx:if="{{pickUpList.length==0}}">
-    <view class="pullImgView">
-      <image src="/content/images/pullDown.png" class="pullImg"></image>
-    </view>
-    <view class="pullTxtView">下拉试一试</view>
-  </view>
-  <view class="contentArea" bindtap="previewMomentDetail" bindlongpress="previewMomentDetail" wx:for="{{pickUpList}}" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}' data-key='{{key}}'>
-    <view class="titleView">
-      <view data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' class="leftView" catchtap='toShowModal'>
-        <image src="{{value.headImgPath}}" class="userHead"></image>
-      </view>
-      <view class="centerView">
-        <view class="nickNameView">{{value.nickName}}</view>
-        <view class="{{value.gender==1?'genderView':'gender_womanView'}}">
-          <view class="genderImgView">
-            <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg"></image>
-            <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg"></image>
-          </view>
-          <view class="ageTextView">25</view>
-        </view>
-        <view class="timeView">{{value.createTime}}</view>
-      </view>
-      <view class="rightView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-key='{{key}}' catchtap='moreAction'>
-        <view class="iconfont more" style='font-size:20px'></view>
-      </view>
-    </view>
-    <view class="bodyView">
-      <!-- 文本动态 -->
-      <view class="textView">{{value.textContent}}</view>
-      <!-- 图片动态 -->
-      <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
-        <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' class="imgCount" mode="widthFix"></image>
-      </view>
-    </view>
-  </view>
-
-  <view class="footerSpinner" hidden='{{loadHide}}'>
-    <div class="spinner">
-      <div class="bounce1"></div>
-      <div class="bounce2"></div>
-      <div class="bounce3"></div>
-    </div>
-    <div class="txtLoding">加载中</div>
-  </view>
-  <view class="userPageView" catchtap="toUserPage">
-    <image src="/content/images/pikaer.jpg" class="userHeaderImg"></image>
-  </view>
-  <view class="toChatPage">
-    <view class="publishIconView" catchtap="toChatPage">
-      <image src="/content/images/discuss.svg" class="toChatImg"></image>
-    </view>
-  </view>
-  <view class="unreadCount">
-    <view class="countTxtView">20</view>
-  </view>
-  <view class="refreshMomentView">
-    <view class="publishIconView" catchtap="onPullDownRefresh">
-      <image src="/content/images/refresh.svg" class="refreshImg"></image>
-    </view>
-  </view>
-  <view class="publishIcon">
-    <view class="publishIconView" catchtap="publishMoment">+ </view>
-  </view>
+	<view class="footerSpinner" hidden='{{loadHide}}'>
+		<div class="spinner">
+			<div class="bounce1" />
+			<div class="bounce2" />
+			<div class="bounce3" />
+		</div>
+		<div class="txtLoding">加载中</div>
+	</view>
+	<view class="refreshMomentView">
+		<view class="publishIconView" catchtap="onPullDownRefresh">
+			<image src="/content/images/refresh.svg" class="refreshImg" />
+		</view>
+	</view>
+	<view class="publishIcon">
+		<view class="publishIconView" catchtap="publishMoment">+ </view>
+	</view>
 </view>
 
 <!--custom Modal-->
-<view class="modal-mask-all" bindtap="hideModal" wx:if="{{showModal}}"></view>
+<view class="modal-mask-all" bindtap="hideModal" wx:if="{{showModal}}" />
 <view wx:if="{{showModal}}">
-  <view class="modal-content">
-    <view class="basicInfoAreaView">
-      <view class="headView-all">
-        <image class="userHead-all" src="{{basicUserInfo.headPhotoPath}}"></image>
-      </view>
-      <view class="rightUserInfo-all">
-        <view class='nickNameView-all'>
-          {{basicUserInfo.nickName}}
-        </view>
-        <view class='basicInfoView-all'>
-          {{basicUserInfo.basicUserInfo}}
-        </view>
-        <view class='placeInfoView-all'>
-          <view class="iconfont dingwei" style='font-size:12px'>{{basicUserInfo.placeInfo}}</view>
-        </view>
-      </view>
-      <view class='signatrueView-all' wx:if="{{basicUserInfo.signature!=null&&basicUserInfo.signature!=''}}">
-        个性签名：{{basicUserInfo.signature}}
-      </view>
-    </view>
-    <!-- <view class="btnContainer">
-      <view class="chatBtnView" catchtap='toChat'>聊一聊</view>
-    </view> -->
-  </view>
+	<view class="modal-content">
+		<view class="basicInfoAreaView">
+			<view class="headView-all">
+				<image class="userHead-all" src="{{basicUserInfo.headPhotoPath}}" />
+			</view>
+			<view class="rightUserInfo-all">
+				<view class='nickNameView-all'>
+					{{basicUserInfo.nickName}}
+				</view>
+				<view class='basicInfoView-all'>
+					{{basicUserInfo.basicUserInfo}}
+				</view>
+				<view class='placeInfoView-all'>
+					<view class="iconfont dingwei" style='font-size:12px'> {{basicUserInfo.placeInfo}}</view>
+				</view>
+			</view>
+			<view class='signatrueView-all' wx:if="{{basicUserInfo.signature!=null&&basicUserInfo.signature!=''}}">
+				个性签名：{{basicUserInfo.signature}}
+			</view>
+		</view>
+		<view class="btnContainer">
+			<view class="chatBtnView" catchtap='toChat'>聊一聊</view>
+		</view>
+
+	</view>
 </view>
 
 <!--弹出框start-->
-<view class="popupLayer" bindtap="hideModalShare" wx:if="{{showModalStatus}}"></view>
+<view class="popupLayer" bindtap="hideModalShare" wx:if="{{showModalStatus}}" />
 <view class="dialog_box" animation="{{animationData}}" wx:if="{{showModalStatus}}">
-  <view class='shareArea'>
-    <view class='dialog_title'>更多</view>
+	<view class='shareArea'>
+		<view class='dialog_title'>更多</view>
 
-    <view class='dialog_content'>
-      <view class="shareTo">
-        <button bindtap="allClear">
-          <image class="shareIcon" src="/content/images/clear.svg"></image>
-        </button>
-        <view class="shareText">全部清空</view>
-      </view>
+		<view class='dialog_content'>
+			<view class="shareTo">
+				<button bindtap="allClear">
+					<image class="shareIcon" src="/content/images/clear.svg" />
+				</button>
+				<view class="shareText">全部清空</view>
+			</view>
 
-      <view class="shareTo">
-        <button open-type='share'>
-          <image class="shareIcon" src="/content/images/weixin.svg "></image>
-        </button>
-        <view class="shareText ">分享好友/群</view>
-      </view>
-      <view class="shareTo">
-        <button bindtap="saveLocal">
-          <image class="shareIcon" src="/content/images/baocuntupian.svg "></image>
-        </button>
-        <view class="shareText ">保存图片</view>
-      </view>
-    </view>
-    <view class='dialog_content'>
-      <view class="shareTo ">
-        <button bindtap="reportItem">
-          <image class="shareIcon" src="/content/images/report.svg "></image>
-        </button>
-        <view class="shareText">举报</view>
-      </view>
-      <view class="shareTo ">
-        <button bindtap="addCollect">
-          <image class="shareIcon" src="/content/images/collect.svg "></image>
-        </button>
-        <view class="shareText">添加收藏</view>
-      </view>
-      <view class="shareTo" bindtap="deleteItem">
-        <button>
-          <image class="shareIcon" src="/content/images/delete.svg "></image>
-        </button>
-        <view class="shareText">删除</view>
-      </view>
-    </view>
-  </view>
+			<view class="shareTo">
+				<button open-type='share'>
+					<image class="shareIcon" src="/content/images/weixin.svg " />
+				</button>
+				<view class="shareText ">分享好友/群</view>
+			</view>
+			<view class="shareTo">
+				<button bindtap="saveLocal">
+					<image class="shareIcon" src="/content/images/baocuntupian.svg " />
+				</button>
+				<view class="shareText ">保存图片</view>
+			</view>
+		</view>
+		<view class='dialog_content'>
+			<view class="shareTo ">
+				<button bindtap="reportItem">
+					<image class="shareIcon" src="/content/images/report.svg " />
+				</button>
+				<view class="shareText">举报</view>
+			</view>
+			<view class="shareTo ">
+				<button bindtap="addCollect">
+					<image class="shareIcon" src="/content/images/collect.svg " />
+				</button>
+				<view class="shareText">添加收藏</view>
+			</view>
+			<view class="shareTo" bindtap="deleteItem">
+				<button>
+					<image class="shareIcon" src="/content/images/delete.svg " />
+				</button>
+				<view class="shareText">删除</view>
+			</view>
+		</view>
+	</view>
 </view>
 <!--弹出框end-->
-
 <!-- 生成海报画布 -->
-<view style='width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 999; display: flex; align-items: center; justify-content: center; animation: {{isShow ? "show" : "dismiss"}}Mask 0.3s forwards ease; position: fixed; top: 0; left: {{isCreate ? 0 : "750rpx"}};'
-  catchtap='catchtap' catchtouchmove='blockTouches'>
-  <canvas canvas-id='poster' style='width: 622rpx; height: 882rpx; position: fixed; left: 750rpx;'></canvas>
-  <image style='width: 622rpx; height: 882rpx; margin-bottom: 96rpx;' src='{{poster}}'></image>
-  <button class='maskButton' hover-class='maskButton-hover' hidden='{{!isCreate}}' catchtap='btnCreate'>保存到本地相册</button>
+<view style='width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 999; display: flex; align-items: center; justify-content: center; animation: {{isShow ? "show" : "dismiss"}}Mask 0.3s forwards ease; position: fixed; top: 0; left: {{isCreate ? 0 : "750rpx"}};' catchtap='catchtap' catchtouchmove='blockTouches'>
+	<canvas canvas-id='poster' style='width: 622rpx; height: 882rpx; position: fixed; left: 750rpx;' />
+	<image style='width: 622rpx; height: 882rpx; margin-bottom: 96rpx;' src='{{poster}}' />
+	<button
+	 class='maskButton'
+	 hover-class='maskButton-hover'
+	 hidden='{{!isCreate}}'
+	 catchtap='btnCreate'
+	>保存到本地相册
+	</button>
 </view>
+
