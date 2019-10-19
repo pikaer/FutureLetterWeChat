@@ -205,7 +205,7 @@ Page({
     /// 绘制的内容
     const writing = {
       bigImage: '',
-      code: 'https://www.pikaer.com/common/image/20190728_171477_315c8a6b-de1e-4090-99df-ae0b02c020fd.jpg'
+      code: 'https://www.pikaer.com/common/image/20191008_21841_86ce3d6c-7662-405c-8f4e-041782050225.jpg'
     };
     writing.bigImage = backImg;
     /// 绘制

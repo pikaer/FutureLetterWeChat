@@ -18,7 +18,7 @@
         </navigator>
         <view class="userInfoView">
           <navigator url="../../pages/coin/coin" class="navigator">
-            <view class="navigator-text" style='color:#9d9d9d;'>我的钱包</view>
+            <view class="navigator-text" style='color:#9d9d9d;'>我的金币</view>
             <view class="navigator-arrow"></view>
           </navigator>
         </view>

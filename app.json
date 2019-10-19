@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/startup/startup",
     "pages/discovery/discovery",
+    "pages/startup/startup",
     "pages/chat/chat",
     "pages/coin/coin",
     "pages/coindetail/coindetail",
@@ -23,31 +23,7 @@
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   },
-  "tabBar": {
-    "backgroundColor": "#f0f4f3",
-    "selectedColor": "#000000",
-    "color": "#000000",
-    "list": [
-      {
-        "text": "漂流瓶",
-        "pagePath": "pages/discovery/discovery",
-        "iconPath": "content/images/index.png",
-        "selectedIconPath": "content/images/index1.png"
-      },
-      {
-        "text": "消息",
-        "pagePath": "pages/chat/chat",
-        "iconPath": "content/images/chat.png",
-        "selectedIconPath": "content/images/chat1.png"
-      },
-      {
-        "text": "我",
-        "pagePath": "pages/meindex/meindex",
-        "iconPath": "content/images/mine.png",
-        "selectedIconPath": "content/images/mine1.png"
-      }
-    ]
-  },
+ 
   "networkTimeout": {
     "request": 20000,
     "downloadFile": 20000

@@ -11,11 +11,11 @@
       发布动态赚金币
     </view>
   </view>
-  <view class="shareView">
+  <!-- <view class="shareView">
     <view class="btnView" catchtap="toSharePage">
-      金币充值
+      金币
     </view>
-  </view>
+  </view> -->
   <view class="footerView">
     <view class="kefuView" catchtap="toShowModal">联系客服</view>
     <view class="coinDetailView" catchtap="toCoinDetail">金币明细</view>

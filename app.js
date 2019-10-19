@@ -22,7 +22,7 @@ App({
     apiHeader: {
       "Token": "",
       "UId": 0,
-      "Platform": "miniApp"
+      "Platform": 0
     },
     openid: "",
     session_key: "",
@@ -35,7 +35,6 @@ App({
       "imgContent": "",
       "createTime": ""
     }, //用户当前点击的动态，用以数据传递给动态详情页
-    pickUpList: [], //discovery页面初始化数据
     tempDiscussList: [], //chat初始化数据
     tempMomentList: [], //meindex页面初始化数据
     tempCollectList: [], //meindex页面初始化数据

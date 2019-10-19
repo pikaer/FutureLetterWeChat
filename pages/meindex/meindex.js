@@ -408,6 +408,7 @@ Page({
           if (res.authSetting['scope.userInfo']) {
             // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
             wx.getUserInfo({
+              lang:"zh_CN",
               success: res => {
                 console.info("获取微信用户信息成功!" + JSON.stringify(res));
                 // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回所以此处加入 callback 以防止这种情况
@@ -447,7 +448,10 @@ Page({
         "UId": app.globalData.apiHeader.UId,
         "NickName": userInfoWX.nickName,
         "AvatarUrl": userInfoWX.avatarUrl,
-        "Gender": userInfoWX.gender
+        "Gender": userInfoWX.gender,
+        "Country": userInfoWX.country,
+        "Province": userInfoWX.province,
+        "City": userInfoWX.city
       },
       function(res) {
         console.info("存入用户信息成功");
