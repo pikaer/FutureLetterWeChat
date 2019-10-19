@@ -18,19 +18,138 @@ Page({
     showModal: false,
     showModalStatus: false,
     isCreate: false,
-    isShow: false
+    isShow: false,
+    showStartUp: true
   },
 
   onLoad: function() {
-    if (app.globalData.pickUpList != null && app.globalData.pickUpList.length > 0) {
-      this.setData({
-        pickUpList: app.globalData.pickUpList
-      });
-    } else {
-      this.setData({
-        pageIndex: 1
-      });
-      this.getPickUpList(true);
+    this.userLogin();
+  },
+
+  //用户登录
+  userLogin: function() {
+    let self = this;
+    wx.login({
+      success: res => {
+        console.log(JSON.stringify(res));
+        if (res.code) {
+          self.getLoginInfo(res.code);
+        }
+      }
+    })
+  },
+
+  //获取OpenId
+  getLoginInfo: function (code) {
+    let self = this;
+    app.httpPost(
+      'api/Letter/UserLogin', {
+        "LoginCode": code
+      },
+      function (res) {
+        if (res != null && res.uId > 0) {
+          console.info("登录成功");
+          app.globalData.basicUserInfo = res;
+          app.globalData.apiHeader.UId = res.uId;
+          self.init();
+        } else {
+          console.error("登录失败!");
+        }
+      },
+      function (res) {
+        console.error("登录失败!");
+      })
+  },
+
+  //初始化数据
+  init: function () {
+    this.getGolobalPickUpList();
+    this.getChatList();
+    this.getMyMomentList();
+    this.getCollectList();
+  },
+
+  //获取动态
+  getGolobalPickUpList: function () {
+    var self = this;
+    app.httpPost(
+      'api/Letter/PickUpList', {
+        "UId": app.globalData.apiHeader.UId,
+        "PageIndex": 1,
+        "MomentType": 0
+      },
+      function (res) {
+        self.setData({
+          pickUpList: res.pickUpList,
+          showStartUp: false
+        });
+      },
+      function (res) {
+        console.info("获取数据失败");
+        self.setData({
+          showStartUp: false
+        });
+      })
+  },
+
+
+  //获取用户数据
+  getChatList: function () {
+    var self = this;
+    if (app.globalData.apiHeader.UId > 0) {
+      app.httpPost(
+        'api/Letter/DiscussList', {
+          "UId": app.globalData.apiHeader.UId,
+          "PageIndex": 1
+        },
+        function (res) {
+          console.info("获取聊天列表成功！")
+          app.globalData.tempDiscussList = res.discussList;
+        },
+        function (res) {
+          console.error("获取聊天列表失败！");
+          self.setData({
+            showStartUp: false
+          });
+        })
+    }
+  },
+
+
+  //获取我扔出去的没有被评论的动态
+  getMyMomentList: function () {
+    var self = this;
+    if (app.globalData.apiHeader.UId > 0) {
+      app.httpPost(
+        'api/Letter/MyMomentList', {
+          "UId": app.globalData.apiHeader.UId,
+          "PageIndex": 1
+        },
+        function (res) {
+          console.info("获取聊天列表成功！")
+          app.globalData.tempMomentList = res.momentList;
+        },
+        function (res) {
+          console.error("获取聊天列表失败！");
+        })
+    }
+  },
+
+  //获取收藏列表数据
+  getCollectList: function () {
+    var self = this;
+    if (app.globalData.apiHeader.UId > 0) {
+      app.httpPost(
+        'api/Letter/GetCollectList', {
+          "UId": app.globalData.apiHeader.UId,
+          "PageIndex": 1
+        },
+        function (res) {
+          app.globalData.tempCollectList = res.collectList;
+        },
+        function (res) {
+          console.error("获取收藏列表数据失败！");
+        })
     }
   },
 
@@ -168,6 +287,15 @@ Page({
     let pickUpId = this.data.currentTargetPickUpId;
     wx.navigateTo({
       url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId
+    })
+  },
+
+  //用户主页
+  toUserPage: function () {
+    this.hideModal();
+    let pickUpId = this.data.currentTargetPickUpId;
+    wx.navigateTo({
+      url: "../../pages/meindex/meindex"
     })
   },
 
@@ -346,6 +474,12 @@ Page({
     })
   },
 
+  toChatPage: function () {
+    wx.navigateTo({
+      url: '../../pages/chat/chat'
+    })
+  },
+
   // 预览图片
   previewImg: function(e) {
     let imgContent = e.currentTarget.dataset.imgcontent;
@@ -490,7 +624,7 @@ Page({
     /// 绘制的内容
     const writing = {
       bigImage: '',
-      code: 'https://www.pikaer.com/common/image/20190728_171477_315c8a6b-de1e-4090-99df-ae0b02c020fd.jpg'
+      code: 'https://www.pikaer.com/common/image/20191008_21841_86ce3d6c-7662-405c-8f4e-041782050225.jpg'
     };
     writing.bigImage = backImg;
     /// 绘制
