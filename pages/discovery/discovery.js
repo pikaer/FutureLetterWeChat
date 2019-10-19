@@ -1,5 +1,5 @@
 const app = getApp()
-const auth = require('../../utils/auth.js');
+import auth from '../../utils/auth.js';
 // 获取倍率
 const raterpx = 750.0 / wx.getSystemInfoSync().windowWidth;
 // 获取canvas转化后的rpx
@@ -181,13 +181,6 @@ Page({
         // 转发失败
       }
     }
-  },
-
-  sharebtn: function () {
-    this.setData({
-      pageIndex: 1
-    });
-    this.getPickUpList(true);
   },
 
   //显示遮罩层

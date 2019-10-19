@@ -109,7 +109,7 @@ page {
   text-align: center;
 }
 
-.spinner > div {
+.spinner>div {
   width: 8px;
   height: 8px;
   background-color: #09f;
@@ -149,7 +149,10 @@ page {
 }
 
 @-webkit-keyframes bouncedelay {
-  0%, 80%, 100% {
+
+  0%,
+  80%,
+  100% {
     -webkit-transform: scale(0.0);
   }
 
@@ -159,7 +162,10 @@ page {
 }
 
 @keyframes bouncedelay {
-  0%, 80%, 100% {
+
+  0%,
+  80%,
+  100% {
     transform: scale(0.0);
     -webkit-transform: scale(0.0);
   }
