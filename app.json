@@ -1,7 +1,6 @@
 {
   "pages": [
     "pages/discovery/discovery",
-    "pages/startup/startup",
     "pages/chat/chat",
     "pages/coin/coin",
     "pages/coindetail/coindetail",
