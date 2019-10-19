@@ -1,4 +1,10 @@
-<view class="indexContainer">
+<view wx:if="{{showStartUp}}" class="checkoutView"> 
+  <view class="startImgView"> 
+    <image class="imgView" src="../../content/images/start.jpg"></image> 
+  </view> 
+</view> 
+
+<view wx:else class="indexContainer"> 
 	<view class="defaultDescView" wx:if="{{pickUpList.length==0}}">
 		<view class="pullImgView">
 			<image src="/content/images/pullDown.png" class="pullImg" />
@@ -68,6 +74,17 @@
 		</div>
 		<div class="txtLoding">加载中</div>
 	</view>
+    <view class="userPageView" catchtap="toUserPage"> 
+    <image src="/content/images/pikaer.jpg" class="userHeaderImg"></image> 
+  </view> 
+  <view class="toChatPage"> 
+    <view class="publishIconView" catchtap="toChatPage"> 
+      <image src="/content/images/discuss.svg" class="toChatImg"></image> 
+    </view> 
+  </view> 
+  <view class="unreadCount"> 
+    <view class="countTxtView">20</view> 
+  </view> 
 	<view class="refreshMomentView">
 		<view class="publishIconView" catchtap="onPullDownRefresh">
 			<image src="/content/images/refresh.svg" class="refreshImg" />

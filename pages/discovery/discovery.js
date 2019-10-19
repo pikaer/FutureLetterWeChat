@@ -3,7 +3,7 @@ const auth = require('../../utils/auth.js');
 // 获取倍率
 const raterpx = 750.0 / wx.getSystemInfoSync().windowWidth;
 // 获取canvas转化后的rpx
-const rate = function(rpx) {
+const rate = function (rpx) {
   return rpx / raterpx
 };
 
@@ -22,12 +22,12 @@ Page({
     showStartUp: true
   },
 
-  onLoad: function() {
+  onLoad: function () {
     this.userLogin();
   },
 
   //用户登录
-  userLogin: function() {
+  userLogin: function () {
     let self = this;
     wx.login({
       success: res => {
@@ -154,12 +154,12 @@ Page({
   },
 
 
-  onShow: function() {
+  onShow: function () {
     app.unReadTotalCount();
   },
 
   //分享功能
-  onShareAppMessage: function(res) {
+  onShareAppMessage: function (res) {
     this.hideModalShare();
     let momentId = this.data.currentMoment.momentId;
     let url = "";
@@ -174,16 +174,16 @@ Page({
       title: title,
       imageUrl: url,
       path: "/pages/sharepage/sharepage?momentId=" + momentId,
-      success: function(res) {
+      success: function (res) {
         // 转发成功
       },
-      fail: function(res) {
+      fail: function (res) {
         // 转发失败
       }
     }
   },
 
-  sharebtn: function() {
+  sharebtn: function () {
     this.setData({
       pageIndex: 1
     });
@@ -191,7 +191,7 @@ Page({
   },
 
   //显示遮罩层
-  showModalShare: function() {
+  showModalShare: function () {
     var animation = wx.createAnimation({
       duration: 200,
       timingFunction: "ease",
@@ -203,7 +203,7 @@ Page({
       animationData: animation.export(),
       showModalStatus: true
     })
-    setTimeout(function() {
+    setTimeout(function () {
       animation.translateY(0).step()
       this.setData({
         animationData: animation.export()
@@ -211,7 +211,7 @@ Page({
     }.bind(this), 200)
   },
 
-  hideModalShare: function() {
+  hideModalShare: function () {
     // 隐藏遮罩层
     var animation = wx.createAnimation({
       duration: 200,
@@ -223,7 +223,7 @@ Page({
     this.setData({
       animationData: animation.export(),
     })
-    setTimeout(function() {
+    setTimeout(function () {
       animation.translateY(0).step()
       this.setData({
         animationData: animation.export(),
@@ -234,7 +234,7 @@ Page({
 
 
   //获取用户基础信息
-  toShowModal: function(ops) {
+  toShowModal: function (ops) {
     var self = this;
     let cacheKey = "basicUserInfo+" + ops.currentTarget.dataset.uid;
     let cacheValue = wx.getStorageSync(cacheKey);
@@ -258,7 +258,7 @@ Page({
       'api/Letter/BasicUserInfo', {
         "UId": ops.currentTarget.dataset.uid
       },
-      function(res) {
+      function (res) {
         self.setData({
           basicUserInfo: res,
         });
@@ -269,20 +269,20 @@ Page({
         }
         app.setCache(cacheKey, res);
       },
-      function(res) {
+      function (res) {
         console.error("获取用户基础信息失败");
       })
   },
 
   //隐藏弹框
-  hideModal: function() {
+  hideModal: function () {
     this.setData({
       showModal: false
     });
   },
 
   //聊一聊
-  toChat: function() {
+  toChat: function () {
     this.hideModal();
     let pickUpId = this.data.currentTargetPickUpId;
     wx.navigateTo({
@@ -301,20 +301,20 @@ Page({
 
 
   //下拉刷新页面数据
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
     this.toTop();
     this.getPickUp();
   },
 
   //停止刷新
-  stopRefresh: function() {
+  stopRefresh: function () {
     this.setData({
       loadHide: true
     });
   },
 
   //删除瓶子
-  deleteItem: function(ops) {
+  deleteItem: function (ops) {
 
     this.hideModalShare();
 
@@ -327,7 +327,7 @@ Page({
         "PickUpId": pickUpId,
         "DeleteType": 0
       },
-      function(res) {
+      function (res) {
         console.info("删除瓶子成功！");
         let list = self.data.pickUpList;
         list.splice(index, 1);
@@ -337,19 +337,19 @@ Page({
 
         self.resetSelectItem()
       },
-      function(res) {
+      function (res) {
         console.info("删除瓶子失败");
       })
   },
 
-  saveLocal: function() {
+  saveLocal: function () {
     this.hideModalShare();
 
     this.createPoster(this.data.currentMoment.imgContent);
   },
 
   //举报瓶子
-  reportItem: function(ops) {
+  reportItem: function (ops) {
     this.hideModalShare();
     var self = this;
     let pickUpId = this.data.currentMoment.pickUpId;
@@ -357,7 +357,7 @@ Page({
       'api/Letter/ReportBottle', {
         "PickUpId": pickUpId
       },
-      function(res) {
+      function (res) {
         console.info("举报瓶子成功！");
         self.resetSelectItem();
 
@@ -367,7 +367,7 @@ Page({
           duration: 1500
         });
       },
-      function(res) {
+      function (res) {
         console.info("举报瓶子失败");
         self.resetSelectItem()
       })
@@ -375,7 +375,7 @@ Page({
 
 
   //添加收藏
-  addCollect: function(ops) {
+  addCollect: function (ops) {
     this.hideModalShare();
     var self = this;
     app.httpPost(
@@ -385,7 +385,7 @@ Page({
         "PickUpId": self.data.currentMoment.pickUpId,
         "FromPage": "discoveryPage"
       },
-      function(res) {
+      function (res) {
         if (res.isExecuteSuccess) {
           console.info("添加收藏成功！");
           self.resetSelectItem();
@@ -396,14 +396,14 @@ Page({
           });
         }
       },
-      function(res) {
+      function (res) {
         console.info("收藏瓶子失败");
         self.resetSelectItem()
       })
   },
 
   //更多
-  moreAction: function(ops) {
+  moreAction: function (ops) {
     let key = ops.currentTarget.dataset.key;
     let pickUpId = ops.currentTarget.dataset.pickUpId;
     let pickUpList = this.data.pickUpList;
@@ -423,12 +423,12 @@ Page({
   },
 
   //重置
-  resetSelectItem: function() {
+  resetSelectItem: function () {
     this.hideModalShare();
   },
 
   //触底加载更多数据
-  onReachBottom: function() {
+  onReachBottom: function () {
     let page = this.data.pageIndex + 1;
     this.setData({
       loadHide: false,
@@ -437,21 +437,21 @@ Page({
 
     let self = this;
     //loading动画加载1.5秒后执行
-    setTimeout(function() {
+    setTimeout(function () {
       self.getPickUpList(false);
     }, 1000)
 
   },
 
   //置顶
-  toTop: function() {
+  toTop: function () {
     wx.pageScrollTo({
       scrollTop: 0
     })
   },
 
   //动态详情页面
-  previewMomentDetail: function(e) {
+  previewMomentDetail: function (e) {
     let pickUpId = e.currentTarget.dataset.pickupid;
     let key = e.currentTarget.dataset.key;
     let pickUpList = this.data.pickUpList;
@@ -468,7 +468,7 @@ Page({
   },
 
   //发布动态
-  publishMoment: function() {
+  publishMoment: function () {
     wx.navigateTo({
       url: '../../pages/publishmoment/publishmoment'
     })
@@ -481,7 +481,7 @@ Page({
   },
 
   // 预览图片
-  previewImg: function(e) {
+  previewImg: function (e) {
     let imgContent = e.currentTarget.dataset.imgcontent;
     let imgContents = [];
     imgContents.push(imgContent);
@@ -494,7 +494,7 @@ Page({
   },
 
   //获取动态
-  getPickUpList: function(onShow) {
+  getPickUpList: function (onShow) {
     var self = this;
     let tempPickUpList = self.data.pickUpList;
     app.httpPost(
@@ -503,7 +503,7 @@ Page({
         "PageIndex": this.data.pageIndex,
         "MomentType": 0
       },
-      function(res) {
+      function (res) {
         if (onShow) {
           tempPickUpList = res.pickUpList
         } else {
@@ -520,14 +520,14 @@ Page({
         });
         self.stopRefresh();
       },
-      function(res) {
+      function (res) {
         console.info("获取数据失败");
         self.stopRefresh();
       })
   },
 
   //下拉获取新的瓶子
-  getPickUp: function() {
+  getPickUp: function () {
     var self = this;
     let tempPickUpList = self.data.pickUpList;
     app.httpPost(
@@ -535,7 +535,7 @@ Page({
         "UId": app.globalData.apiHeader.UId,
         "MomentType": 0
       },
-      function(res) {
+      function (res) {
         if (res.pickUpList.length != 0) {
           if (tempPickUpList.length == 0) {
             tempPickUpList = res.pickUpList
@@ -556,7 +556,7 @@ Page({
         }
         self.stopPullDownRefresh();
       },
-      function(res) {
+      function (res) {
         console.info("获取数据失败");
         wx.showToast({
           title: res.resultMessage,
@@ -568,11 +568,11 @@ Page({
   },
 
   //休眠2秒，防止数据获取太快看不到加载动图
-  stopPullDownRefresh: function() {
+  stopPullDownRefresh: function () {
     let times = 0;
-    var timer = setInterval(function() {
+    var timer = setInterval(function () {
       times++
-      if (times >=1) {
+      if (times >= 1) {
         wx.stopPullDownRefresh();
         clearInterval(timer)
       }
@@ -580,7 +580,7 @@ Page({
   },
 
   //清空所有未回复过的瓶子
-  allClear: function() {
+  allClear: function () {
     var self = this;
     wx.showModal({
       content: '将清空所有消息！',
@@ -590,14 +590,14 @@ Page({
             'api/Letter/ClearAllBottle', {
               "UId": app.globalData.apiHeader.UId
             },
-            function(res) {
+            function (res) {
               console.info("清空所有未回复过的瓶子成功");
               self.setData({
                 pickUpList: []
               });
               self.resetSelectItem()
             },
-            function(res) {
+            function (res) {
               console.warn("清空所有未回复过的瓶子失败");
               self.resetSelectItem()
             })
@@ -610,7 +610,7 @@ Page({
 
 
   /// 创建海报
-  createPoster: function(backImg) {
+  createPoster: function (backImg) {
     if (backImg == null || backImg == "" || backImg.length == 0) {
       wx.showToast({
         title: "动态无图片，不支持保存本地",
@@ -645,7 +645,7 @@ Page({
   },
 
   /// 隐藏
-  catchtap: function(callback) {
+  catchtap: function (callback) {
     this.setData({
       isShow: false
     })
@@ -660,7 +660,7 @@ Page({
   },
 
   /// 绘制文本
-  drawText: function(options) {
+  drawText: function (options) {
     /// 获取总行数
     var allRow = Math.ceil(options.ctx.measureText(options.str).width / options.maxWidth);
     /// 限制行数
@@ -703,7 +703,7 @@ Page({
   },
 
   /// 绘制海报 1、canvas对象 2、canvas宽 3、canvas高 4、绘制的内容
-  draw: function(canvas, cavW, cavH, writing) {
+  draw: function (canvas, cavW, cavH, writing) {
     return new Promise((resolve, reject) => {
       if (!writing || !canvas) {
         reject();
@@ -715,26 +715,26 @@ Page({
       ctx.clearRect(0, 0, rate(cavW), rate(cavH));
 
       /// 获取大的背景图
-      let promise1 = new Promise(function(resolve, reject) {
+      let promise1 = new Promise(function (resolve, reject) {
         wx.getImageInfo({
           src: writing.bigImage,
-          success: function(res) {
+          success: function (res) {
             resolve(res.path);
           },
-          fail: function(err) {
+          fail: function (err) {
             reject(err);
           }
         })
       });
 
       /// 获取小程序码图片
-      let promise2 = new Promise(function(resolve, reject) {
+      let promise2 = new Promise(function (resolve, reject) {
         wx.getImageInfo({
           src: writing.code,
-          success: function(res) {
+          success: function (res) {
             resolve(res.path);
           },
-          fail: function(err) {
+          fail: function (err) {
             reject(err);
           }
         })
@@ -778,7 +778,7 @@ Page({
   },
 
   /// 保存图片
-  btnCreate: function(obj) {
+  btnCreate: function (obj) {
     app.showLoading('正在保存...')
     wx.saveImageToPhotosAlbum({
       filePath: this.data.poster,
