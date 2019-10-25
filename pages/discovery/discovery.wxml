@@ -82,8 +82,8 @@
 			<image src="/content/images/discuss.svg" class="toChatImg" />
 		</view>
 	</view>
-	<view class="unreadCount">
-		<view class="countTxtView">20</view>
+	<view class="unreadCount" wx:if="{{unReadCount!=''}}">
+		<view class="countTxtView">{{unReadCount}}</view>
 	</view>
 	<view class="refreshMomentView">
 		<view class="publishIconView" catchtap="onPullDownRefresh">
@@ -118,9 +118,9 @@
 				个性签名：{{basicUserInfo.signature}}
 			</view>
 		</view>
-		<view class="btnContainer">
+		<!-- <view class="btnContainer">
 			<view class="chatBtnView" catchtap='toChat'>聊一聊</view>
-		</view>
+		</view> -->
 
 	</view>
 </view>

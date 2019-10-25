@@ -1,7 +1,7 @@
 const mtjwxsdk = require('/utils/mtj-wx-sdk.js');
 
 const auth = require('/utils/auth.js');
-/// 获取倍率
+// 获取倍率
 const raterpx = 750.0 / wx.getSystemInfoSync().windowWidth;
 
 /// 获取canvas转化后的rpx
@@ -50,8 +50,6 @@ App({
    * @param 请求失败回调函数
    */
   httpPost: function(url, content, successFunc, failFunc) {
-    //只要发起网络请求，就刷新未读数量
-    this.unReadTotalCount();
     wx.request({
       url: this.globalData.baseUrl + url,
       method: "POST",
@@ -135,43 +133,6 @@ App({
       return JSON.stringify(str) == '{}' ? true : false
     } else {
       return true
-    }
-  },
-
-  //更新未读总条数
-  unReadTotalCount: function() {
-    let self = this;
-    if (self.globalData.apiHeader.UId > 0) {
-      wx.request({
-        url: this.globalData.baseUrl + 'api/Letter/UnReadTotalCount',
-        method: "POST",
-        data: {
-          "Head": this.globalData.apiHeader,
-          "Content": {
-            "UId": self.globalData.apiHeader.UId
-          }
-        },
-        header: self.globalData.httpHeader,
-        success: function(res) {
-          if (res.data.success) {
-            self.setTabBarBadge(res.data.content.unReadCount);
-          }
-        },
-        fail: function(res) {}
-      })
-    }
-  },
-
-  setTabBarBadge: function(count) {
-    if (!this.isBlank(count)) {
-      wx.setTabBarBadge({
-        index: 1,
-        text: count
-      })
-    } else {
-      wx.removeTabBarBadge({
-        index: 1
-      })
     }
   },
 

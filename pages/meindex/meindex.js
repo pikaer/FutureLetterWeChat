@@ -37,7 +37,6 @@ Page({
     this.basicUserInfo();
     this.getMyMomentList();
     this.getCollectList();
-    app.unReadTotalCount();
   },
 
   // 滑动切换tab

@@ -87,7 +87,7 @@ export class HubConnection {
     });
 
     this.connection.onError(res => {
-      console.error(`websocket error msg: ${msg}`);
+      console.error(`websocket error msg: ${res.errormsg}`);
       this.close({
         reason: msg
       });
@@ -170,10 +170,7 @@ export class HubConnection {
       default:
         console.warn("Invalid message type: " + message.type);
     }
-
-
   }
-
 
   send(functionName) {
 

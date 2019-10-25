@@ -1,5 +1,8 @@
 const app = getApp()
 const auth = require('../../utils/auth.js');
+import {
+  HubConnection
+} from "../../utils/signalR.js";
 // 获取倍率
 const raterpx = 750.0 / wx.getSystemInfoSync().windowWidth;
 // 获取canvas转化后的rpx
@@ -19,7 +22,6 @@ Page({
     showLoginModal: false,
     showLoginModalStatus: false,
     basicUserInfo: {},
-
     isCreate: false,
     isShow: false
   },
@@ -31,6 +33,80 @@ Page({
     this.data.pickUpId = options.pickUpId
     this.discussDetail();
     this.initData();
+    this.onChatConnected();
+    this.onChatListConnected();
+    this.onLineConnected();
+  },
+
+  //通知对方刷新聊天页面
+  sendMessage: function() {
+    this.onChatConnect.send("subScribeMessage", app.globalData.apiHeader.UId,this.data.pickUpId);
+    this.chatListHub.send("subScribeMessage", app.globalData.apiHeader.UId, this.data.pickUpId);
+    this.onLineHub.send("subScribeMessage", app.globalData.apiHeader.UId, this.data.pickUpId);
+  },
+
+  //连接WebSocket
+  onChatConnected: function() {
+    this.onChatConnect = new HubConnection();
+    var url = app.globalData.baseUrl + "onChatHub";
+
+    this.onChatConnect.start(url, {
+      UId: app.globalData.apiHeader.UId,
+      PickUpId: this.data.pickUpId
+    });
+
+    this.onChatConnect.onOpen = res => {
+      console.info("成功开启连接");
+    };
+
+    //订阅对方发来的消息
+    this.onChatConnect.on("receive", res => {
+      console.info("成功订阅消息");
+      this.discussDetail();
+    })
+  },
+
+  onChatListConnected: function() {
+    this.chatListHub = new HubConnection();
+    var url = app.globalData.baseUrl + "chatListHub";
+
+    this.chatListHub.start(url, {
+      UId: app.globalData.apiHeader.UId,
+      PickUpId: this.data.pickUpId
+    });
+
+    this.chatListHub.onOpen = res => {
+      console.info("成功开启连接");
+    };
+  },
+
+  onLineConnected: function() {
+    this.onLineHub = new HubConnection();
+    var url = app.globalData.baseUrl + "onLineHub";
+
+    this.onLineHub.start(url, {
+      UId: app.globalData.apiHeader.UId,
+      PickUpId: this.data.pickUpId
+    });
+
+    this.onLineHub.onOpen = res => {
+      console.info("成功开启连接");
+    };
+  },
+
+  //卸载页面，中断webSocket
+  onUnload: function() {
+    this.onChatConnect.close({
+      UId: app.globalData.apiHeader.UId
+    })
+
+    this.chatListHub.close({
+      UId: app.globalData.apiHeader.UId
+    })
+
+    this.onLineHub.close({
+      UId: app.globalData.apiHeader.UId
+    })
   },
 
   //数据初始化
@@ -181,7 +257,7 @@ Page({
     app.globalData.basicUserInfo.headPhotoPath = userInfoWX.avatarUrl;
     app.globalData.basicUserInfo.nickName = userInfoWX.nickName;
     app.globalData.basicUserInfo.gender = userInfoWX.gender;
-    app.globalData.basicUserInfo.isRegister =true;
+    app.globalData.basicUserInfo.isRegister = true;
     if (app.globalData.basicUserInfo.isRegister) {
       self.insertDiscussContent();
       self.cancelLogin();
@@ -236,6 +312,7 @@ Page({
             self.setData({
               discussContent: ""
             });
+            self.sendMessage();
             console.info("发表评论成功");
           }
         },

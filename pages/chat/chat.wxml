@@ -1,6 +1,6 @@
 <view class="container">
   <scroll-view scroll-y="true" class="chatContainer">
-    <navigator url="/pages/discussdetail/discussdetail?pickUpId={{value.pickUpId}}" wx:for="{{tempDiscussList}}" wx:for-item="value" wx:for-index="key" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' bindtap="clearUnReadCount" bindlongpress="bindlongpress">
+    <view wx:for="{{tempDiscussList}}" catchtap='previewMomentDetail' wx:for-item="value" wx:for-index="key" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' bindlongpress="bindlongpress">
       <view class="chatArea">
         <view data-uId='{{value.uId}}' class="headPhotoViewV2" catchtap='toShowModal'>
           <image class="userHeadV2" src="{{value.headImgPath}}"></image>
@@ -15,7 +15,7 @@
         </view>
       </view>
       <view class="chatLineView"></view>
-    </navigator>
+    </view>
     <view class="blackTxtView" wx:if="{{tempDiscussList.length==0}}">空空如也，快去互动吧</view>
   </scroll-view>
 </view>

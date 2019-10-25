@@ -1,5 +1,6 @@
 //获取应用实例
 const app = getApp()
+import { HubConnection } from "../../utils/signalR.js";
 
 Page({
   data: {
@@ -19,8 +20,40 @@ Page({
   },
 
   onShow: function() {
-    app.unReadTotalCount();
     this.getChatList();
+    this.onConnected();
+  },
+
+  //卸载页面，中断webSocket
+  onUnload: function () {
+    this.onDisconnected();
+  },
+  
+  //卸载页面，中断webSocket
+  onDisconnected: function () {
+    this.hubConnect.close({
+      UId: app.globalData.apiHeader.UId
+    })
+  },
+
+  //连接WebSocket
+  onConnected: function () {
+    this.hubConnect = new HubConnection();
+    var url = app.globalData.baseUrl + "chatListHub";
+
+    this.hubConnect.start(url, {
+      UId: app.globalData.apiHeader.UId
+    });
+
+    this.hubConnect.onOpen = res => {
+      console.info("成功开启连接");
+    };
+
+    //订阅对方发来的消息
+    this.hubConnect.on("receive", res => {
+      console.info("成功订阅消息");
+      this.getChatList();
+    })
   },
 
   //获取用户基础信息
@@ -70,7 +103,8 @@ Page({
 
   //动态详情页面
   previewMomentDetail: function(e) {
-    app.globalData.currentDiscussMoment={};
+    this.onDisconnected();
+    this.clearUnReadCount(e);
     let pickUpId = e.currentTarget.dataset.pickupid;
     wx.navigateTo({
       url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId
@@ -182,7 +216,6 @@ Page({
           self.setData({
             tempDiscussList: self.data.tempDiscussList
           })
-          app.unReadTotalCount();
           self.resetSelectItem();
         },
         function(res) {
