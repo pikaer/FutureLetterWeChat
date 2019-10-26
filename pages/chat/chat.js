@@ -39,7 +39,7 @@ Page({
   //连接WebSocket
   onConnected: function () {
     this.hubConnect = new HubConnection();
-    var url = app.globalData.baseUrl + "chatListHub";
+    var url = app.globalData.socket + "chatListHub";
 
     this.hubConnect.start(url, {
       UId: app.globalData.apiHeader.UId

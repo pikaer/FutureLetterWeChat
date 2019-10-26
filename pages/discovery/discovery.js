@@ -115,7 +115,7 @@ Page({
       return;
     }
     this.hubConnect = new HubConnection();
-    var url = app.globalData.baseUrl + "onLineHub";
+    var url = app.globalData.socket + "onLineHub";
 
     this.hubConnect.start(url, {
       UId: app.globalData.apiHeader.UId

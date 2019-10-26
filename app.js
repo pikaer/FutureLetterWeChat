@@ -14,6 +14,7 @@ App({
   //全局变量
   globalData: {
     baseUrl: "https://www.pikaer.com/todayapi/",
+    socket: "https://www.pikaer.com/signalR/",
     // baseUrl: "https://localhost:44386/",
 
     httpHeader: {

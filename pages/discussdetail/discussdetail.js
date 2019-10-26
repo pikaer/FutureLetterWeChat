@@ -48,7 +48,7 @@ Page({
   //连接WebSocket
   onChatConnected: function() {
     this.onChatConnect = new HubConnection();
-    var url = app.globalData.baseUrl + "onChatHub";
+    var url = app.globalData.socket + "onChatHub";
 
     this.onChatConnect.start(url, {
       UId: app.globalData.apiHeader.UId,
