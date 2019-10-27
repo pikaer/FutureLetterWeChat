@@ -75,7 +75,8 @@
 		<div class="txtLoding">加载中</div>
 	</view>
 	<view class="userPageView" catchtap="toUserPage">
-		<image src="/content/images/pikaer.jpg" class="userHeaderImg" />
+		<image wx:if="{{currentBasicUserInfo!=null&&currentBasicUserInfo.isRegister}}" src="{{currentBasicUserInfo.headPhotoPath}}" class="userHeaderImg" />
+  	<image wx:else src="/content/images/bingo.jpg" class="userHeaderImg" />
 	</view>
 	<view class="toChatPage">
 		<view class="publishIconView" catchtap="toChatPage">

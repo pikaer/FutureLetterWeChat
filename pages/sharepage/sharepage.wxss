@@ -179,10 +179,10 @@ button {
   padding-top: 5px;
   font-size: 18px;
   background-color: #00cd66;
-  margin-top: 20px;
+  margin-top: 23px;
   margin-left: 80px;
   margin-right: 80px;
   border-radius: 5px;
   color: white;
-  height: 30px;
+  height: 35px;
 }

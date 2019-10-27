@@ -39,7 +39,7 @@ Page({
   //连接WebSocket
   onConnected: function () {
     this.hubConnect = new HubConnection();
-    var url = app.globalData.socket + "chatListHub";
+    var url = app.globalData.socketUrl + "chatListHub";
 
     this.hubConnect.start(url, {
       UId: app.globalData.apiHeader.UId
@@ -139,7 +139,7 @@ Page({
           self.setData({
             tempDiscussList: res.discussList
           });
-
+          app.globalData.tempDiscussList = res.discussList;
           self.setTabBarBadge(res.currentTotalUnReadCount);
           //获取聊天数据结束后，停止刷新下拉
           wx.stopPullDownRefresh();
@@ -167,7 +167,7 @@ Page({
           self.setData({
             tempDiscussList: self.data.tempDiscussList
           })
-
+          app.globalData.tempDiscussList = self.data.tempDiscussList
           self.setTabBarBadge(res.currentTotalUnReadCount);
         },
         function(res) {
@@ -216,6 +216,7 @@ Page({
           self.setData({
             tempDiscussList: self.data.tempDiscussList
           })
+          app.globalData.tempDiscussList = self.data.tempDiscussList;
           self.resetSelectItem();
         },
         function(res) {
@@ -261,6 +262,7 @@ Page({
               self.setData({
                 tempDiscussList: []
               });
+              app.globalData.tempDiscussList = [];
               self.resetSelectItem();
               self.setTabBarBadge("");
             },
@@ -289,6 +291,7 @@ Page({
           self.setData({
             tempDiscussList: list
           });
+          app.globalData.tempDiscussList = list;
           self.setTabBarBadge(res.currentTotalUnReadCount);
           //重置数据
           self.resetSelectItem();

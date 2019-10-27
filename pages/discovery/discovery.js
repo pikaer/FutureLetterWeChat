@@ -12,6 +12,7 @@ Page({
   data: {
     currentMoment: {},
     basicUserInfo: {},
+    currentBasicUserInfo: {},
     pickUpList: [],
     currentTargetPickUpId: "",
     pageIndex: 1,
@@ -31,6 +32,7 @@ Page({
   onShow: function () {
     this.unReadCountRefresh();
     this.onConnected();
+    this.checkRegister();
   },
 
   //卸载页面
@@ -47,6 +49,7 @@ Page({
 
   //初始化数据
   init: function () {
+    this.unReadCountRefresh();
     this.getGolobalPickUpList();
     this.getChatList();
     this.getMyMomentList();
@@ -54,6 +57,23 @@ Page({
     this.onConnected();
   },
 
+  checkRegister: function () {
+    let self=this;
+    if (!app.isBlank(self.data.currentBasicUserInfo) && !self.data.currentBasicUserInfo.isRegister){
+      app.httpPost(
+        'api/Letter/BasicUserInfo', {
+          "UId": app.globalData.apiHeader.UId
+        },
+        function (res) {
+          self.setData({
+            currentBasicUserInfo: res,
+          });
+        },
+        function (res) {
+          console.error("获取用户基础信息失败");
+        })
+    }
+  },
 
   //用户登录
   userLogin: function() {
@@ -79,7 +99,7 @@ Page({
       },
       function (res) {
         self.setData({
-          showStartUp: res.unReadCount
+          unReadCount: res.unReadCount
         });
       },
       function (res) {
@@ -99,6 +119,9 @@ Page({
           console.info("登录成功");
           app.globalData.basicUserInfo = res;
           app.globalData.apiHeader.UId = res.uId;
+          self.setData({
+            currentBasicUserInfo: res
+          });
           self.init();
         } else {
           console.error("登录失败!");
@@ -115,7 +138,7 @@ Page({
       return;
     }
     this.hubConnect = new HubConnection();
-    var url = app.globalData.socket + "onLineHub";
+    var url = app.globalData.socketUrl + "onLineHub";
 
     this.hubConnect.start(url, {
       UId: app.globalData.apiHeader.UId

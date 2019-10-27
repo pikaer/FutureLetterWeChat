@@ -2,7 +2,7 @@ const protocal = {
   protocol: "json",
   version: 1
 };
-
+const app = getApp();
 const MessageType = {
   /** Indicates the message is an Invocation message and implements the {@link InvocationMessage} interface. */
   Invocation: 1,
@@ -150,25 +150,32 @@ export class HubConnection {
         this.invokeClientMethod(message);
         break;
       case MessageType.StreamItem:
+        this.invokeClientMethod(message);
         break;
       case MessageType.Completion:
-        var callback = this.callbacks[message.invocationId];
-        if (callback != null) {
-          delete this.callbacks[message.invocationId];
-          callback(message);
+        this.invokeClientMethod(message);
+        if (!app.isBlank(message)) {
+          var callback = this.callbacks[message.invocationId];
+          if (callback != null) {
+            delete this.callbacks[message.invocationId];
+            callback(message);
+          }
         }
         break;
       case MessageType.Ping:
         // Don't care about pings
         break;
       case MessageType.Close:
+        this.invokeClientMethod(message);
         console.log("Close message received from server.");
         this.close({
           reason: "Server returned an error on close"
         });
         break;
       default:
+        this.invokeClientMethod(message);
         console.warn("Invalid message type: " + message.type);
+        
     }
   }
 
@@ -223,6 +230,9 @@ export class HubConnection {
   }
 
   invokeClientMethod(message) {
+    if (app.isBlank(message)){
+      return;
+    }
     var methods = this.methods[message.target.toLowerCase()];
     if (methods) {
       methods.forEach(m => m.apply(this, message.arguments));

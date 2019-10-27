@@ -98,6 +98,7 @@ Page({
           self.setData({
             tempMomentList: res.momentList
           });
+          app.globalData.tempMomentList = res.momentList;
         },
         function(res) {
           console.error("获取聊天列表失败！");
@@ -119,6 +120,7 @@ Page({
           self.setData({
             tempCollectList: res.collectList
           });
+          app.globalData.tempCollectList = res.collectList;
         },
         function(res) {
           console.error("获取收藏列表数据失败！");
@@ -272,6 +274,7 @@ Page({
           });
           //重置数据
           self.resetSelectMomentItem();
+          app.globalData.tempMomentList = list;
         },
         function(res) {
           console.error("删除动态失败！");
@@ -298,6 +301,7 @@ Page({
           });
           //重置数据
           self.resetSelectMomentItem();
+          app.globalData.tempCollectList = list;
         },
         function(res) {
           console.error("删除动态失败！");
@@ -323,6 +327,7 @@ Page({
               self.setData({
                 tempMomentList: []
               });
+              app.globalData.tempMomentList = [];
               //重置数据
               self.resetSelectMomentItem();
             },
@@ -357,6 +362,7 @@ Page({
               });
               //重置数据
               self.resetSelectMomentItem();
+              app.globalData.tempCollectList = [];
             },
             function(res) {
               console.error("删除所有动态失败！");

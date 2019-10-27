@@ -149,10 +149,7 @@ page {
 }
 
 @-webkit-keyframes bouncedelay {
-
-  0%,
-  80%,
-  100% {
+  0%, 80%, 100% {
     -webkit-transform: scale(0.0);
   }
 
@@ -162,10 +159,7 @@ page {
 }
 
 @keyframes bouncedelay {
-
-  0%,
-  80%,
-  100% {
+  0%, 80%, 100% {
     transform: scale(0.0);
     -webkit-transform: scale(0.0);
   }
@@ -449,9 +443,13 @@ button {
 }
 
 .userPageView {
+  width: 55px;
+  height: 55px;
   position: fixed;
   bottom: 250px;
   right: 10px;
+  border-radius: 100%;
+  box-shadow: 0px 0px 9px #837c7c;
 }
 
 .userHeaderImg {
@@ -480,6 +478,7 @@ button {
   width: 25px;
   height: 25px;
   border-radius: 100%;
-  padding-top: 4px;
+  padding-top: 2px;
   font-weight: 1000;
+  font-size: 13px;
 }
