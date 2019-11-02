@@ -30,6 +30,7 @@
 </view>
 
 
+
 <!--custom Modal-->
 <view class="modal-mask-all" bindtap="hideModal" wx:if="{{showModal}}"></view>
 <view wx:if="{{showModal}}">
@@ -56,11 +57,10 @@
 
 
 
+
 <!--弹出框start-->
-<view class="popupLayer" bindtap="hideModalShare" wx:if="{{showModalStatus}}"></view>
-<view class="dialog_box" animation="{{animationData}}" wx:if="{{showModalStatus}}">
-  <view class='shareArea'>
-    <view class='dialog_title'>更多</view>
+<mp-halfScreenDialog show="{{showModalStatus}}" closabled="{{false}}">
+  <view slot="footer" class='shareArea'>
     <view class='dialog_content'>
       <view class="shareTo" bindtap="saveLocal">
         <button>
@@ -76,9 +76,8 @@
       </view>
     </view>
   </view>
-</view>
+</mp-halfScreenDialog>
 <!--弹出框end-->
-
 
 <!-- 生成海报画布 -->
 <view style='width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 999; display: flex; align-items: center; justify-content: center; animation: {{isShow ? "show" : "dismiss"}}Mask 0.3s forwards ease; position: fixed; top: 0; left: {{isCreate ? 0 : "750rpx"}};' catchtap='catchtap' catchtouchmove='blockTouches'>

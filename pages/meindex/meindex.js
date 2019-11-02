@@ -154,6 +154,13 @@ Page({
     })
   },
 
+  hideModalShare: function () {
+    this.setData({
+      showModalStatus: false
+    })
+  },
+
+
   //全部清空
   clearItem: function () {
     this.hideModalShare();

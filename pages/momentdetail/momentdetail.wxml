@@ -54,10 +54,8 @@
 
 
 <!--弹出框start-->
-<view class="popupLayer" bindtap="hideModalShare" wx:if="{{showModalStatus}}"></view>
-<view class="dialog_box" animation="{{animationData}}" wx:if="{{showModalStatus}}">
-  <view class='shareArea'>
-    <view class='dialog_title'>更多</view>
+<mp-halfScreenDialog show="{{showModalStatus}}" closabled="{{false}}">
+  <view slot="footer" class='shareArea'>
     <view class='dialog_content'>
       <view class="shareTo" bindtap="saveLocal">
         <button>
@@ -73,7 +71,7 @@
       </view>
     </view>
   </view>
-</view>
+</mp-halfScreenDialog>
 <!--弹出框end-->
 
 <!-- 生成海报画布 -->

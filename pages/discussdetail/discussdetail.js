@@ -285,7 +285,10 @@ Page({
   },
 
   //发表评论
-  insertDiscussContent: function() {
+  insertDiscussContent: function(ops) {
+
+    console.info(JSON.stringify(ops));
+
     var self = this;
     let userinfo = app.globalData.basicUserInfo;
     if (userinfo == null || userinfo == '') {
@@ -305,7 +308,8 @@ Page({
         'api/Letter/Discuss', {
           "UId": app.globalData.apiHeader.UId,
           "PickUpId": self.data.pickUpId,
-          "TextContent": content
+          "TextContent": content,
+          "FormId": ops.detail.formId
         },
         function(res) {
           if (res.isExecuteSuccess) {
@@ -439,6 +443,11 @@ Page({
     this.hideModalShare();
   },
 
+  hideModalShare: function () {
+    this.setData({
+      showModalStatus: false
+    })
+  },
 
   //分享功能
   onShareAppMessage: function(res) {
