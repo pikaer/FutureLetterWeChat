@@ -63,6 +63,7 @@ Page({
     this.onChatConnect.on("receive", res => {
       console.info("成功订阅消息");
       this.discussDetail();
+      this.clearUnReadCount();
     })
   },
 
@@ -362,52 +363,28 @@ Page({
 
   //更多
   moreAction: function(ops) {
-    this.showModalShare()
-  },
-
-
-  //显示遮罩层
-  showModalShare: function() {
-    var animation = wx.createAnimation({
-      duration: 200,
-      timingFunction: "ease",
-      delay: 0
-    })
-    this.animation = animation
-    animation.translateY(300).step()
     this.setData({
-      animationData: animation.export(),
       showModalStatus: true
     })
-    setTimeout(function() {
-      animation.translateY(0).step()
-      this.setData({
-        animationData: animation.export()
-      })
-    }.bind(this), 200)
   },
 
-  hideModalShare: function() {
-    // 隐藏遮罩层
-    var animation = wx.createAnimation({
-      duration: 200,
-      timingFunction: "ease",
-      delay: 0
-    })
-    this.animation = animation
-    animation.translateY(300).step()
-    this.setData({
-      animationData: animation.export(),
-    })
-    setTimeout(function() {
-      animation.translateY(0).step()
-      this.setData({
-        animationData: animation.export(),
-        showModalStatus: false
-      })
-    }.bind(this), 200)
+  //清除未读消息
+  clearUnReadCount: function () {
+    let self = this;
+    if (app.globalData.apiHeader.UId > 0) {
+      app.httpPost(
+        'api/Letter/ClearUnReadCount', {
+          "UId": app.globalData.apiHeader.UId,
+          "PickUpId": self.data.pickUpId 
+        },
+        function (res) {
+          console.info("清除未读消息成功！")
+        },
+        function (res) {
+          console.info("清除未读消息Http失败！")
+        })
+    }
   },
-
 
   //举报瓶子
   reportItem: function(ops) {

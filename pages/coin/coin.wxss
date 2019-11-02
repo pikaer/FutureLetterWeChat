@@ -35,12 +35,13 @@ page {
   margin-right: 90px;
   margin-left: 90px;
   margin-top: 30px;
-  height: 30px;
-  padding-top: 5px;
+  height: 40px;
+  padding-top: 9px;
   border-radius: 5px;
   background-color: #00cd66;
   color: white;
   font-weight: 650;
+  box-sizing: border-box;
 }
 
 .footerView {

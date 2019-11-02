@@ -1,5 +1,8 @@
 {
-  "navigationBarTitleText": "互动消息",
+  "navigationBarTitleText": "评论列表",
   "enablePullDownRefresh": false,
-  "backgroundTextStyle": "dark"
+  "backgroundTextStyle": "dark",
+  "usingComponents": {
+    "mp-slideview": "../../components/slideview/slideview"
+  }
 }

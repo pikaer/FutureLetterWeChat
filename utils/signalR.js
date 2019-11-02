@@ -230,7 +230,7 @@ export class HubConnection {
   }
 
   invokeClientMethod(message) {
-    if (app.isBlank(message)){
+    if (app.isBlank(message) || app.isBlank(message.target) || app.isBlank(message.arguments)){
       return;
     }
     var methods = this.methods[message.target.toLowerCase()];

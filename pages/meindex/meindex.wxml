@@ -88,11 +88,11 @@
     </view>
   </view>
 </view>
-<!-- 弹出框start -->
-<view class="popupLayer" bindtap="hideModalShare" wx:if="{{showModalStatus}}"></view>
-<view class="dialog_box" animation="{{animationData}}" wx:if="{{showModalStatus}}">
-  <view class='shareArea'>
-    <view class='dialog_title'>更多</view>
+
+
+<!--弹出框start-->
+<mp-halfScreenDialog show="{{showModalStatus}}" closabled="{{false}}">
+  <view slot="footer" class='shareArea'>
     <view class='dialog_content'>
       <view class="shareTo" bindtap="clearItem">
         <button>
@@ -114,5 +114,5 @@
       </view>
     </view>
   </view>
-</view>
-<!-- 弹出框end -->
+</mp-halfScreenDialog>
+<!--弹出框end-->

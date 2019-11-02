@@ -1,5 +1,7 @@
 const app = getApp()
-import {HubConnection} from "../../utils/signalR.js";
+import {
+  HubConnection
+} from "../../utils/signalR.js";
 import auth from '../../utils/auth.js';
 // 获取倍率
 const raterpx = 750.0 / wx.getSystemInfoSync().windowWidth;
@@ -22,33 +24,33 @@ Page({
     isCreate: false,
     isShow: false,
     showStartUp: true,
-    unReadCount: ""
+    unReadCount: "",
   },
 
   onLoad: function() {
     this.userLogin();
   },
 
-  onShow: function () {
+  onShow: function() {
     this.unReadCountRefresh();
     this.onConnected();
     this.checkRegister();
   },
 
   //卸载页面
-  onUnload: function () {
+  onUnload: function() {
     this.onDisconnected();
   },
 
   //卸载页面，中断webSocket
-  onDisconnected: function () {
+  onDisconnected: function() {
     this.hubConnect.close({
       UId: app.globalData.apiHeader.UId
     })
   },
 
   //初始化数据
-  init: function () {
+  init: function() {
     this.unReadCountRefresh();
     this.getGolobalPickUpList();
     this.getChatList();
@@ -57,19 +59,19 @@ Page({
     this.onConnected();
   },
 
-  checkRegister: function () {
-    let self=this;
-    if (!app.isBlank(self.data.currentBasicUserInfo) && !self.data.currentBasicUserInfo.isRegister){
+  checkRegister: function() {
+    let self = this;
+    if (!app.isBlank(self.data.currentBasicUserInfo) && !self.data.currentBasicUserInfo.isRegister) {
       app.httpPost(
         'api/Letter/BasicUserInfo', {
           "UId": app.globalData.apiHeader.UId
         },
-        function (res) {
+        function(res) {
           self.setData({
             currentBasicUserInfo: res,
           });
         },
-        function (res) {
+        function(res) {
           console.error("获取用户基础信息失败");
         })
     }
@@ -88,8 +90,8 @@ Page({
     })
   },
 
-  unReadCountRefresh: function () {
-    if (app.globalData.apiHeader.UId<=0){
+  unReadCountRefresh: function() {
+    if (app.globalData.apiHeader.UId <= 0) {
       return;
     }
     let self = this;
@@ -97,12 +99,12 @@ Page({
       'api/Letter/UnReadTotalCount', {
         "UId": app.globalData.apiHeader.UId
       },
-      function (res) {
+      function(res) {
         self.setData({
           unReadCount: res.unReadCount
         });
       },
-      function (res) {
+      function(res) {
         console.error("刷新未读数量失败!");
       })
   },
@@ -134,7 +136,7 @@ Page({
 
   //连接WebSocket
   onConnected: function() {
-    if (app.globalData.apiHeader.UId<=0){
+    if (app.globalData.apiHeader.UId <= 0) {
       return;
     }
     this.hubConnect = new HubConnection();
@@ -264,46 +266,10 @@ Page({
     }
   },
 
-  //显示遮罩层
-  showModalShare: function() {
-    var animation = wx.createAnimation({
-      duration: 200,
-      timingFunction: "ease",
-      delay: 0
-    })
-    this.animation = animation
-    animation.translateY(300).step()
-    this.setData({
-      animationData: animation.export(),
-      showModalStatus: true
-    })
-    setTimeout(function() {
-      animation.translateY(0).step()
-      this.setData({
-        animationData: animation.export()
-      })
-    }.bind(this), 200)
-  },
-
   hideModalShare: function() {
-    // 隐藏遮罩层
-    var animation = wx.createAnimation({
-      duration: 200,
-      timingFunction: "ease",
-      delay: 0
-    })
-    this.animation = animation
-    animation.translateY(300).step()
     this.setData({
-      animationData: animation.export(),
+      showModalStatus: false
     })
-    setTimeout(function() {
-      animation.translateY(0).step()
-      this.setData({
-        animationData: animation.export(),
-        showModalStatus: false
-      })
-    }.bind(this), 200)
   },
 
 
@@ -481,14 +447,12 @@ Page({
   //更多
   moreAction: function(ops) {
     let key = ops.currentTarget.dataset.key;
-    let pickUpId = ops.currentTarget.dataset.pickUpId;
     let pickUpList = this.data.pickUpList;
     this.setData({
       selectItem: ops.currentTarget.dataset,
-      currentMoment: pickUpList[key]
+      currentMoment: pickUpList[key],
+      showModalStatus: true
     })
-    this.showModalShare()
-
     app.globalData.currentDiscussMoment.momentId = pickUpList[key].momentId;
     app.globalData.currentDiscussMoment.momentUId = pickUpList[key].uId;
     app.globalData.currentDiscussMoment.headImgPath = pickUpList[key].headImgPath;

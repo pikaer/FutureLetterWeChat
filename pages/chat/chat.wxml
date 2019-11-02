@@ -1,6 +1,31 @@
 <view class="container">
   <scroll-view scroll-y="true" class="chatContainer">
     <view wx:for="{{tempDiscussList}}" catchtap='previewMomentDetail' wx:for-item="value" wx:for-index="key" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' bindlongpress="bindlongpress">
+      <mp-slideview show="{{false}}" buttons="{{slideButtons}}" bindbuttontap="slideButtonTap" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}'>
+        <view class="chatArea">
+            <view data-uId='{{value.uId}}' class="headPhotoViewV2" catchtap='toShowModal'>
+              <image class="userHeadV2" src="{{value.headImgPath}}"></image>
+            </view>
+            <view class="centerView">
+              <view class="dispalyNameTxt">{{value.nickName}}</view>
+              <view class="chatContentTxt">{{value.textContent}}</view>
+            </view>
+            <view class="rightView">
+              <view class="chatTime">{{value.recentChatTime}}</view>
+              <view class="unreadCount" hidden='{{value.unReadCount==""||value.unReadCount==null}}'>{{value.unReadCount}}</view>
+            </view>
+          </view>
+      </mp-slideview>
+      <view class="chatLineView"></view>
+    </view>
+    <view class="blackTxtView" wx:if="{{tempDiscussList.length==0}}">空空如也，快去互动吧</view>
+  </scroll-view>
+</view>
+
+<!-- 
+<view class="container">
+  <scroll-view scroll-y="true" class="chatContainer">
+    <view wx:for="{{tempDiscussList}}" catchtap='previewMomentDetail' wx:for-item="value" wx:for-index="key" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' bindlongpress="bindlongpress">
       <view class="chatArea">
         <view data-uId='{{value.uId}}' class="headPhotoViewV2" catchtap='toShowModal'>
           <image class="userHeadV2" src="{{value.headImgPath}}"></image>
@@ -18,7 +43,7 @@
     </view>
     <view class="blackTxtView" wx:if="{{tempDiscussList.length==0}}">空空如也，快去互动吧</view>
   </scroll-view>
-</view>
+</view> -->
 
 
 <!--custom Modal-->

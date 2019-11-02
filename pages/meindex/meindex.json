@@ -1,5 +1,8 @@
 {
   "navigationBarTitleText": "",
   "enablePullDownRefresh": false,
-  "backgroundTextStyle": "dark"
+  "backgroundTextStyle": "dark",
+  "usingComponents": {
+    "mp-halfScreenDialog": "../components/half-screen-dialog/half-screen-dialog"
+  }
 }

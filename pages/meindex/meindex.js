@@ -24,7 +24,7 @@ Page({
     showModalStatus: false,
   },
 
-  onLoad: function() {
+  onLoad: function () {
     app.globalData.currentDiscussMoment = {};
     this.setData({
       basicUserInfo: app.globalData.basicUserInfo,
@@ -33,21 +33,21 @@ Page({
     });
   },
 
-  onShow: function() {
+  onShow: function () {
     this.basicUserInfo();
     this.getMyMomentList();
     this.getCollectList();
   },
 
   // 滑动切换tab
-  bindChange: function(e) {
+  bindChange: function (e) {
     this.setData({
       currentTab: e.detail.current
     });
   },
 
   //tab切换至动态
-  toPublishList: function(e) {
+  toPublishList: function (e) {
     this.setData({
       currentTab: 0
     });
@@ -56,7 +56,7 @@ Page({
 
 
   //tab切换至收藏
-  toCollectList: function(e) {
+  toCollectList: function (e) {
     this.setData({
       currentTab: 1
     });
@@ -64,12 +64,12 @@ Page({
   },
 
   //下拉刷新页面数据
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
     this.getChatList();
   },
 
   //动态详情页面
-  toMomentDetailPage: function(e) {
+  toMomentDetailPage: function (e) {
     let momentId = e.currentTarget.dataset.momentid;
     wx.navigateTo({
       url: "../../pages/momentdetail/momentdetail?momentId=" + momentId
@@ -77,7 +77,7 @@ Page({
   },
 
   //动态详情页面
-  toDiscussDetailPage: function(e) {
+  toDiscussDetailPage: function (e) {
     let pickUpId = e.currentTarget.dataset.pickupid;
     wx.navigateTo({
       url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId
@@ -85,7 +85,7 @@ Page({
   },
 
   //获取我扔出去的没有被评论的动态
-  getMyMomentList: function() {
+  getMyMomentList: function () {
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
@@ -93,21 +93,21 @@ Page({
           "UId": app.globalData.apiHeader.UId,
           "PageIndex": self.data.pageIndex
         },
-        function(res) {
+        function (res) {
           console.info("获取聊天列表成功！")
           self.setData({
             tempMomentList: res.momentList
           });
           app.globalData.tempMomentList = res.momentList;
         },
-        function(res) {
+        function (res) {
           console.error("获取聊天列表失败！");
         })
     }
   },
 
   //获取收藏列表数据
-  getCollectList: function() {
+  getCollectList: function () {
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
@@ -115,38 +115,39 @@ Page({
           "UId": app.globalData.apiHeader.UId,
           "PageIndex": self.data.pageCollectIndex
         },
-        function(res) {
+        function (res) {
           console.info("获取收藏列表数据成功！")
           self.setData({
             tempCollectList: res.collectList
           });
           app.globalData.tempCollectList = res.collectList;
         },
-        function(res) {
+        function (res) {
           console.error("获取收藏列表数据失败！");
         })
     }
   },
 
   //长按删除对话弹框
-  bindlongMomentPress: function(ops) {
+  bindlongMomentPress: function (ops) {
     let type = ops.currentTarget.dataset.type;
     if (type == 1) {
       this.setData({
         selectMomentItem: ops.currentTarget.dataset,
-        correntSelectItem: 1
+        correntSelectItem: 1,
+        showModalStatus: true
       })
     }
     if (type == 2)
       this.setData({
         selectCollectItem: ops.currentTarget.dataset,
-        correntSelectItem: 2
+        correntSelectItem: 2,
+        showModalStatus: true
       })
-    this.showModalShare();
   },
 
   //重置长按选择项
-  resetSelectMomentItem: function() {
+  resetSelectMomentItem: function () {
     this.setData({
       selectMomentItem: [],
       selectCollectItem: []
@@ -154,7 +155,7 @@ Page({
   },
 
   //全部清空
-  clearItem: function() {
+  clearItem: function () {
     this.hideModalShare();
     if (this.data.correntSelectItem == 1) {
       this.deleteAllMoment();
@@ -165,7 +166,7 @@ Page({
   },
 
   //单个删除
-  deleteItem: function() {
+  deleteItem: function () {
     this.hideModalShare();
     if (this.data.correntSelectItem == 1) {
       this.deleteMoment();
@@ -177,7 +178,7 @@ Page({
 
 
   //分享功能
-  onShareAppMessage: function(res) {
+  onShareAppMessage: function (res) {
     this.hideModalShare();
     let url = "";
     let title = "今日份一张图";
@@ -205,67 +206,24 @@ Page({
       title: title,
       imageUrl: url,
       path: "/pages/sharepage/sharepage?momentId=" + momentId,
-      success: function(res) {
+      success: function (res) {
         // 转发成功
       },
-      fail: function(res) {
+      fail: function (res) {
         // 转发失败
       }
     }
   },
 
-  //显示遮罩层
-  showModalShare: function() {
-    var animation = wx.createAnimation({
-      duration: 200,
-      timingFunction: "ease",
-      delay: 0
-    })
-    this.animation = animation
-    animation.translateY(300).step()
-    this.setData({
-      animationData: animation.export(),
-      showModalStatus: true
-    })
-    setTimeout(function() {
-      animation.translateY(0).step()
-      this.setData({
-        animationData: animation.export()
-      })
-    }.bind(this), 200)
-  },
-
-  //隐藏底部弹框
-  hideModalShare: function() {
-    // 隐藏遮罩层
-    var animation = wx.createAnimation({
-      duration: 200,
-      timingFunction: "ease",
-      delay: 0
-    })
-    this.animation = animation
-    animation.translateY(300).step()
-    this.setData({
-      animationData: animation.export(),
-    })
-    setTimeout(function() {
-      animation.translateY(0).step()
-      this.setData({
-        animationData: animation.export(),
-        showModalStatus: false
-      })
-    }.bind(this), 200)
-  },
-
   //删除单个
-  deleteMoment: function() {
+  deleteMoment: function () {
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
         'api/Letter/DeleteMoment', {
           "MomentId": self.data.selectMomentItem.momentid
         },
-        function(res) {
+        function (res) {
           console.info("删除动态成功！");
           let list = self.data.tempMomentList;
           list.splice(self.data.selectMomentItem.index, 1);
@@ -276,7 +234,7 @@ Page({
           self.resetSelectMomentItem();
           app.globalData.tempMomentList = list;
         },
-        function(res) {
+        function (res) {
           console.error("删除动态失败！");
           //重置数据
           self.resetSelectMomentItem();
@@ -285,14 +243,14 @@ Page({
   },
 
   //删除单个
-  deleteCollect: function() {
+  deleteCollect: function () {
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
         'api/Letter/DeleteCollect', {
           "CollectId": self.data.selectCollectItem.collectid
         },
-        function(res) {
+        function (res) {
           console.info("删除动态成功！");
           let list = self.data.tempCollectList;
           list.splice(self.data.selectCollectItem.index, 1);
@@ -303,7 +261,7 @@ Page({
           self.resetSelectMomentItem();
           app.globalData.tempCollectList = list;
         },
-        function(res) {
+        function (res) {
           console.error("删除动态失败！");
           //重置数据
           self.resetSelectMomentItem();
@@ -312,7 +270,7 @@ Page({
   },
 
   //删除所有动态
-  deleteAllMoment: function() {
+  deleteAllMoment: function () {
     var self = this;
     wx.showModal({
       content: '将清空所有发布的动态！',
@@ -322,7 +280,7 @@ Page({
             'api/Letter/DeleteAllMoment', {
               "UId": app.globalData.apiHeader.UId
             },
-            function(res) {
+            function (res) {
               console.info("删除所有动态成功！");
               self.setData({
                 tempMomentList: []
@@ -331,7 +289,7 @@ Page({
               //重置数据
               self.resetSelectMomentItem();
             },
-            function(res) {
+            function (res) {
               console.error("删除所有动态失败！");
               //重置数据
               self.resetSelectMomentItem();
@@ -345,7 +303,7 @@ Page({
 
 
   //删除所有收藏
-  deleteAllCollect: function() {
+  deleteAllCollect: function () {
     var self = this;
     wx.showModal({
       content: '将清空所有收藏的内容！',
@@ -355,7 +313,7 @@ Page({
             'api/Letter/DeleteAllCollect', {
               "UId": app.globalData.apiHeader.UId
             },
-            function(res) {
+            function (res) {
               console.info("删除所有收藏成功！");
               self.setData({
                 tempCollectList: []
@@ -364,7 +322,7 @@ Page({
               self.resetSelectMomentItem();
               app.globalData.tempCollectList = [];
             },
-            function(res) {
+            function (res) {
               console.error("删除所有动态失败！");
               //重置数据
               self.resetSelectMomentItem();
@@ -377,7 +335,7 @@ Page({
   },
 
   //获取用户基础信息
-  basicUserInfo: function(ops) {
+  basicUserInfo: function (ops) {
     var self = this;
     let cacheKey = "basicUserInfo+" + app.globalData.apiHeader.UId;
     let cacheValue = wx.getStorageSync(cacheKey);
@@ -391,7 +349,7 @@ Page({
         "UId": app.globalData.apiHeader.UId,
         "Type": 1
       },
-      function(res) {
+      function (res) {
         app.globalData.basicUserInfo = res;
         self.setData({
           basicUserInfo: res,
@@ -399,13 +357,13 @@ Page({
         });
         app.setCache(cacheKey, res);
       },
-      function(res) {
+      function (res) {
         console.error("获取用户基础信息失败");
       })
   },
 
 
-  bindGetUserInfo: function(e) {
+  bindGetUserInfo: function (e) {
     let self = this;
     if (e.detail.userInfo) {
       wx.getSetting({
@@ -413,7 +371,7 @@ Page({
           if (res.authSetting['scope.userInfo']) {
             // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
             wx.getUserInfo({
-              lang:"zh_CN",
+              lang: "zh_CN",
               success: res => {
                 console.info("获取微信用户信息成功!" + JSON.stringify(res));
                 // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回所以此处加入 callback 以防止这种情况
@@ -430,7 +388,7 @@ Page({
   },
 
   //存入用户信息
-  setUserInfo: function(userInfoWX) {
+  setUserInfo: function (userInfoWX) {
     let self = this;
     let gender = 'basicUserInfo.gender';
     let nickName = 'basicUserInfo.nickName';
@@ -440,7 +398,7 @@ Page({
       [gender]: userInfoWX.gender,
       [nickName]: userInfoWX.nickName,
       [avatarUrl]: userInfoWX.avatarUrl,
-      [isRegister]:true
+      [isRegister]: true
     });
 
     app.globalData.basicUserInfo.headPhotoPath = userInfoWX.avatarUrl;
@@ -458,13 +416,13 @@ Page({
         "Province": userInfoWX.province,
         "City": userInfoWX.city
       },
-      function(res) {
+      function (res) {
         console.info("存入用户信息成功");
         self.setData({
           totalCoin: res.totalCoin
         });
       },
-      function(res) {
+      function (res) {
         console.error("存入用户信息失败!");
       })
   },

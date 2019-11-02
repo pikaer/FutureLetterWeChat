@@ -49,6 +49,7 @@ Page({
     let cacheKey = "incomeDetailList+" + app.globalData.apiHeader.UId;
     let cacheValue = wx.getStorageSync(cacheKey);
     if (!app.isBlank(cacheValue)) {
+      console.info("金币明细缓存获取成功" + JSON.stringify(cacheValue))
       self.setData({
         tempIncomeDetailList: cacheValue.incomeDetailList,
         tempExpendDetailList: cacheValue.expendDetailList

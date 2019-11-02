@@ -86,8 +86,37 @@ Page({
       })
   },
 
-  //发布动态
   publishMoment: function() {
+    var self = this;
+    if (app.isBlank(self.data.tempTextContent)) {
+      return true;
+    }
+
+    //文本安全性校验
+    app.httpPost(
+      'api/Letter/MsgSecCheck', {
+        "TextContent": self.data.tempTextContent
+      },
+      function(res) {
+        if (!res.isOK) {
+          wx.showToast({
+            title: "内容不合法",
+            icon: 'none',
+            duration: 2500,
+          })
+          return;
+        } else {
+          self.publishMomentContent();
+        }
+      },
+      function(res) {
+        self.publishMomentContent();
+      }
+    )
+  },
+
+  //发布动态
+  publishMomentContent: function () {
     var self = this;
     app.httpPost(
       'api/Letter/PublishMoment', {
@@ -95,14 +124,14 @@ Page({
         "TextContent": self.data.tempTextContent,
         "ImgContent": self.data.serverImgs[0]
       },
-      function(res) {
+      function (res) {
         if (res.isExecuteSuccess) {
           self.publishToast(true);
         } else {
           self.publishToast(false);
         }
       },
-      function(res) {
+      function (res) {
         console.error("发布动态失败");
         self.publishToast(false);
       },
@@ -128,10 +157,10 @@ Page({
 
   },
 
-  sleepAfterBack: function () {
+  sleepAfterBack: function() {
     let times = 0;
     let self = this;
-    var timer = setInterval(function () {
+    var timer = setInterval(function() {
       times++
       if (times >= 1) {
         self.backPage();
@@ -141,7 +170,7 @@ Page({
   },
 
   //返回上一级页面。
-  backPage: function () {
+  backPage: function() {
     wx.navigateBack({
       delta: 1
     })

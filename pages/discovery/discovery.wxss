@@ -387,13 +387,12 @@ button {
   position: fixed;
   bottom: 210px;
   right: 10px;
-  width: 25px;
-  height: 25px;
   border-radius: 100%;
   color: white;
   font-size: 10px;
   text-align: center;
-  font-weight: 650;
+  min-width: 8px;
+
 }
 
 .btnContainer {
@@ -481,4 +480,22 @@ button {
   padding-top: 2px;
   font-weight: 1000;
   font-size: 13px;
+}
+
+.weui-badge {
+  display: inline-block;
+  padding: 0.15em 0.4em;
+  min-width: 8px;
+  border-radius: 18px;
+  background-color: #fa5151;
+  color: #fff;
+  line-height: 1.2;
+  text-align: center;
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+.weui-badge_dot {
+  padding: 0.4em;
+  min-width: 0;
 }
