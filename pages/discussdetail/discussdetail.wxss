@@ -95,16 +95,17 @@
 }
 
 .txtSend {
-  width: 40px;
-  height: 35px;
+  width: 60px;
+  height: 32px;
   background: #00cd66;
   padding-left: 4px;
   padding-right: 3px;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 15px;
   text-align: center;
-  padding-top: 10px;
+  padding-top: 8px;
   color: white;
+  margin-top: 11px;
 }
 
 input {
@@ -268,4 +269,10 @@ button {
   margin-left: 10px;
   margin-bottom: 30px;
   font-size: 15px;
+}
+
+.btnAreaView {
+  width: 60px;
+  float: right;
+  padding-right: 10px;
 }

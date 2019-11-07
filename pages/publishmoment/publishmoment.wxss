@@ -87,8 +87,6 @@ image {
 
 .yes-upload {
   color: #fff;
-  margin-left: 25px;
-  margin-right: 25px;
   box-sizing: border-box;
   font-size: 18px;
   text-align: center;

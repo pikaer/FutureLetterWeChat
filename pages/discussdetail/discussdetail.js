@@ -40,7 +40,7 @@ Page({
 
   //通知对方刷新聊天页面
   sendMessage: function() {
-    this.onChatConnect.send("subScribeMessage", app.globalData.apiHeader.UId,this.data.pickUpId);
+    this.onChatConnect.send("subScribeMessage", app.globalData.apiHeader.UId, this.data.pickUpId);
     this.chatListHub.send("subScribeMessage", app.globalData.apiHeader.UId, this.data.pickUpId);
     this.onLineHub.send("subScribeMessage", app.globalData.apiHeader.UId, this.data.pickUpId);
   },
@@ -284,11 +284,8 @@ Page({
       })
   },
 
-  //发表评论
-  insertDiscussContent: function(ops) {
 
-    console.info(JSON.stringify(ops));
-
+  appendDiscussContent: function(ops) {
     var self = this;
     let userinfo = app.globalData.basicUserInfo;
     if (userinfo == null || userinfo == '') {
@@ -301,6 +298,37 @@ Page({
       return;
     }
 
+    //文本安全性校验
+    app.httpPost(
+      'api/Letter/MsgSecCheck', {
+        "TextContent": self.data.discussContent
+      },
+      function(res) {
+        if (!res.isOK) {
+          wx.showToast({
+            title: "内容不合法",
+            icon: 'none',
+            duration: 2500,
+          })
+          return;
+        } else {
+          self.insertDiscussContent(ops);
+        }
+      },
+      function(res) {
+        self.insertDiscussContent(ops);
+      }
+    )
+  },
+
+
+  //发表评论
+  insertDiscussContent: function(ops) {
+    let token = "";
+    if (ops != undefined) {
+      token = ops.detail.formId;
+    }
+    let self = this;
     let content = self.data.discussContent;
     if (content != null && content != '' && content.length > 0) {
       self.insertDiscussContentToList(content);
@@ -309,7 +337,7 @@ Page({
           "UId": app.globalData.apiHeader.UId,
           "PickUpId": self.data.pickUpId,
           "TextContent": content,
-          "FormId": ops.detail.formId
+          "FormId": token
         },
         function(res) {
           if (res.isExecuteSuccess) {
@@ -329,6 +357,7 @@ Page({
         })
     }
   },
+
 
   insertDiscussContentToList: function(textContent) {
     var self = this;
@@ -373,18 +402,18 @@ Page({
   },
 
   //清除未读消息
-  clearUnReadCount: function () {
+  clearUnReadCount: function() {
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
         'api/Letter/ClearUnReadCount', {
           "UId": app.globalData.apiHeader.UId,
-          "PickUpId": self.data.pickUpId 
+          "PickUpId": self.data.pickUpId
         },
-        function (res) {
+        function(res) {
           console.info("清除未读消息成功！")
         },
-        function (res) {
+        function(res) {
           console.info("清除未读消息Http失败！")
         })
     }
@@ -443,7 +472,7 @@ Page({
     this.hideModalShare();
   },
 
-  hideModalShare: function () {
+  hideModalShare: function() {
     this.setData({
       showModalStatus: false
     })

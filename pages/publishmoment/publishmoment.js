@@ -86,8 +86,12 @@ Page({
       })
   },
 
-  publishMoment: function() {
+  publishMoment: function(ops) {
     var self = this;
+    if (ops != undefined){
+      self.collectPushToken(ops.detail.formId);
+    }
+   
     if (app.isBlank(self.data.tempTextContent)) {
       return true;
     }
@@ -137,6 +141,25 @@ Page({
       },
     )
   },
+
+  //发布动态
+  collectPushToken: function (token) {
+    var self = this;
+    app.httpPost(
+      'api/Letter/CollectPushToken', {
+        "UId": app.globalData.apiHeader.UId,
+        "PushToken": token,
+        "FromPage":"publishMomentPage"
+      },
+      function (res) {
+        console.info("收集token成功");
+      },
+      function (res) {
+        console.error("收集token失败");
+      },
+    )
+  },
+
 
   //弹框
   publishToast: function(success) {

@@ -2,12 +2,11 @@
   <view class="viewinput">
     <input placeholder="输入评论" value='{{discussContent}}' bindinput="discussContentInput" bindfocus='settingMbShow' bindblur='settingMbNoShow' />
   </view>
-  <form bindsubmit="insertDiscussContent" report-submit='true'>
-    <button form-type="submit" type="default" size="mini" class="txtSend">提交</button>
-  </form>
-  <!-- <view class="viewSend" data-idx='{{partnerId}}' bindtap="insertDiscussContent">
-    <view class="txtSend">发 送</view>
-  </view> -->
+  <view class="btnAreaView">
+    <form bindsubmit="appendDiscussContent" report-submit='true'>
+      <button form-type="submit" class="txtSend">提交</button>
+    </form>
+  </view>
 </view>
 
 <view class="indexContainer">

@@ -16,9 +16,18 @@
       </view>
     </view>
   </view>
-   
-  <button wx:if="{{isRegister}}" bindtap='publishMoment' disabled='{{publishDisabled}}' class='yes-upload'>发布动态</button>
-  <button wx:else   bindtap='toLogin' disabled='{{publishDisabled}}' class="yes-upload">发布动态</button>
+
+  <form wx:if="{{isRegister}}" bindsubmit="publishMoment" report-submit='true'>
+    <button form-type="submit" disabled='{{publishDisabled}}' class='yes-upload'>发布动态</button>
+  </form>
+
+  <form wx:else bindsubmit="toLogin" report-submit='true'>
+    <button form-type="submit" disabled='{{publishDisabled}}' class="yes-upload">发布动态</button>
+  </form>
+
+
+  <!-- <button wx:if="{{isRegister}}" bindtap='publishMoment' disabled='{{publishDisabled}}' class='yes-upload'>发布动态</button>
+  <button wx:else bindtap='toLogin' disabled='{{publishDisabled}}' class="yes-upload">发布动态</button> -->
 </view>
 
 
@@ -27,7 +36,7 @@
 <view wx:if="{{showLoginModal}}">
   <view class="modal-content-login">
     <view class="titleTxtView">
-      你还未登录，登录后才能评论~
+      你还未登录，登录后才能发布动态~
     </view>
     <button lang="zh_CN" bindtap="cancelLogin" class="cancelBtn">取消</button>
     <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo" class="loginBtn">登录</button>
