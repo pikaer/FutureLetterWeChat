@@ -123,8 +123,3 @@ button:last-child {
   padding-top: 10px;
   color: #9d9d9d;
 }
-
-
-.btnDelete{
-  
-}

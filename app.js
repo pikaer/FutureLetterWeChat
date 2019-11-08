@@ -15,7 +15,7 @@ App({
   globalData: {
     baseUrl: "https://www.pikaer.com/todayapi/",
     socketUrl: "https://www.pikaer.com/signalR/",
-    // baseUrl: "https://localhost:44386/",
+    //baseUrl: "https://localhost:44386/",
     // socket: "https://localhost:44375/",
 
     httpHeader: {

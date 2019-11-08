@@ -10,6 +10,7 @@ Page({
       [temp]: options.signature
     })
   },
+  
   //获取用户输入的用户名
   signatureInput: function (e) {
     let pages = getCurrentPages();
