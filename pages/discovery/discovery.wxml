@@ -1,3 +1,25 @@
+<!-- 自定义的导航栏 -->
+<view wx:if="{{!showStartUp}}" class="custom flex_center" style="padding-top:{{statusBarHeight}}px">
+  <view catchtap="toUserPage">
+    <image class='nav_logo' wx:if="{{currentBasicUserInfo!=null&&currentBasicUserInfo.isRegister}}" src="{{currentBasicUserInfo.headPhotoPath}}"></image>
+    <image class='nav_logo' wx:else src="/content/images/bingo.jpg"></image>
+  </view>
+  <view class="chatListView" catchtap="toChatPage">
+    <view class="chatBackgroundView">
+      <view class="discussListView">
+        评论列表
+      </view>
+      <view class="unreadCount" wx:if="{{unReadCount!=''}}">
+        <view class="weui-badge">{{unReadCount}}</view>
+      </view>
+      <view class="navigatorView"></view>
+    </view>
+
+  </view>
+</view>
+<view class="empty_custom" style="padding-top:{{statusBarHeight}}px"></view>
+<!-- 自定义的导航栏 -->
+
 <view wx:if="{{showStartUp}}" class="checkoutView">
   <view class="startImgView">
     <image class="imgView" src="../../content/images/start.jpg" />
@@ -11,34 +33,48 @@
     </view>
     <view class="pullTxtView">下拉获取动态</view>
   </view>
-  <view class="contentArea" bindtap="previewMomentDetail" bindlongpress="previewMomentDetail" wx:for="{{pickUpList}}" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}' data-key='{{key}}'>
-    <view class="titleView">
-      <view data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' class="leftView" catchtap='toShowModal'>
-        <image src="{{value.headImgPath}}" class="userHead" />
-      </view>
-      <view class="centerView">
-        <view class="nickNameView">{{value.nickName}}</view>
-        <view class="{{value.gender==1?'genderView':'gender_womanView'}}">
-          <view class="genderImgView">
-            <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
-            <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
+  <view class="contentAreaView" bindtap="previewMomentDetail" bindlongpress="previewMomentDetail" wx:for="{{pickUpList}}" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}' data-key='{{key}}'>
+    <view data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' class="leftView" catchtap='toShowModal'>
+      <image src="{{value.headImgPath}}" class="userHead" />
+    </view>
+    <view class="contentArea">
+      <view class="titleView">
+        <view class="centerTitleView">
+          <view class="topHeadView">
+            <view class="nickNameView">
+              {{value.nickName}}
+            </view>
+            <view class="onlineView" wx:if="{{value.onLineDesc!=''}}">
+              <mp-badge style="margin-left: 5px;margin-right: 5px;float:left;padding-top:1rpx;" ext-class="blue" />
+              <view class="onlineTextView">{{value.onLineDesc}}</view>
+            </view>
           </view>
-          <view class="ageTextView">25</view>
+          <view class="centerView">
+            <view class="{{value.gender==1?'genderView':'gender_womanView'}}">
+              <view class="genderImgView">
+                <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
+                <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
+              </view>
+              <view class="ageTextView">{{value.age}}</view>
+            </view>
+            <view class="timeView">{{value.createTime}}</view>
+          </view>
+
         </view>
-        <view class="timeView">{{value.createTime}}</view>
+        <view class="rightView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-key='{{key}}' catchtap='moreAction'>
+          <view class="iconfont more" style='font-size:20px' />
+        </view>
       </view>
-      <view class="rightView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-key='{{key}}' catchtap='moreAction'>
-        <view class="iconfont more" style='font-size:20px' />
+      <view class="bodyView">
+        <!-- 文本动态 -->
+        <view class="textView">{{value.textContent}}</view>
+        <!-- 图片动态 -->
+        <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
+          <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' class="imgCount" mode="widthFix" />
+        </view>
       </view>
     </view>
-    <view class="bodyView">
-      <!-- 文本动态 -->
-      <view class="textView">{{value.textContent}}</view>
-      <!-- 图片动态 -->
-      <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
-        <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' class="imgCount" mode="widthFix" />
-      </view>
-    </view>
+
   </view>
 
   <view class="footerSpinner" hidden='{{loadHide}}'>
@@ -49,25 +85,21 @@
     </div>
     <div class="txtLoding">加载中</div>
   </view>
-  <view class="userPageView" catchtap="toUserPage">
-    <image wx:if="{{currentBasicUserInfo!=null&&currentBasicUserInfo.isRegister}}" src="{{currentBasicUserInfo.headPhotoPath}}" class="userHeaderImg" />
-    <image wx:else src="/content/images/bingo.jpg" class="userHeaderImg" />
-  </view>
-  <view class="toChatPage">
-    <view class="publishIconView" catchtap="toChatPage">
-      <image src="/content/images/discuss.svg" class="toChatImg" />
-    </view>
-  </view>
-  <view class="unreadCount" wx:if="{{unReadCount!=''}}">
-    <view class="weui-badge">{{unReadCount}}</view>
-  </view>
   <view class="refreshMomentView">
     <view class="publishIconView" catchtap="onPullDownRefresh">
-      <image src="/content/images/refresh.svg" class="refreshImg" />
+      <view class="getBottleImg">
+        <image src="/content/images/refresh.svg" class="refreshImg" />
+      </view>
+      <view class="getBottleView">捡一个</view>
     </view>
   </view>
   <view class="publishIcon">
-    <view class="publishIconView" catchtap="publishMoment">+ </view>
+    <view class="publishBottleImg">
+      <view class="publishIconView" catchtap="publishMoment">
+        <view class="publishIconImg">+</view>
+        <view class="publishBottleView">扔一个</view>
+      </view>
+    </view>
   </view>
 </view>
 

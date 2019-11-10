@@ -42,6 +42,7 @@ App({
     tempCollectList: [], //meindex页面初始化数据
     basicUserInfo: {}, //meindex页面初始化数据
     userInfoWX: {}, //微信提供的用户信息
+    statusBarHeight: wx.getSystemInfoSync()['statusBarHeight'],
   },
 
   /**

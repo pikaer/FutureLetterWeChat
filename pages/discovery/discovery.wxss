@@ -15,21 +15,19 @@
 
 .contentArea {
   margin-top: 2px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   background-color: white;
-  clear: both;
-  width: 100%;
+  width: 80%;
   height: 100%;
-  border-radius: 6px;
-  box-shadow: 0px 0px 3px #837c7c;
+  border-radius: 12px;
+  float: right;
+  margin-right: 7px;
 }
 
 .userHead {
   width: 48px;
   height: 48px;
   border-radius: 100%;
-  margin-top: 10px;
-  margin-left: 8px;
 }
 
 .titleView {
@@ -42,9 +40,8 @@
 
 .centerView {
   float: left;
-  margin-top: 10px;
   margin-left: 8px;
-  width: 60%;
+  width: 100%;
 }
 
 .rightView {
@@ -56,6 +53,8 @@
 .nickNameView {
   font-size: 15px;
   font-weight: 650;
+  float: left;
+  margin-top: 4px;
 }
 
 .timeView {
@@ -85,15 +84,15 @@
 .imgCount {
   max-width: 100%;
   margin-bottom: -3px;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
   height: auto;
 }
 
 .publishIcon {
   position: fixed;
   bottom: 10px;
-  right: 10px;
+  left: 30px;
 }
 
 page {
@@ -205,14 +204,18 @@ image {
 
 .publishIconView {
   box-shadow: 0px 0px 9px #837c7c;
-  border-radius: 100%;
-  width: 55px;
-  height: 55px;
+  border-radius: 20%;
+  width: 120px;
+  height: 52px;
   font-size: 65rpx;
   text-align: center;
   background-color: white;
   margin-bottom: 20px;
   line-height: 50px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
 
 .modal-content {
@@ -359,14 +362,8 @@ button {
 
 .refreshMomentView {
   position: fixed;
-  bottom: 80px;
-  right: 10px;
-}
-
-.toChatPage {
-  position: fixed;
-  bottom: 150px;
-  right: 10px;
+  bottom: 10px;
+  right: 30px;
 }
 
 .refreshImg {
@@ -383,16 +380,8 @@ button {
 }
 
 .unreadCount {
-  background-color: red;
-  position: fixed;
-  bottom: 210px;
-  right: 10px;
-  border-radius: 100%;
-  color: white;
-  font-size: 10px;
-  text-align: center;
-  min-width: 8px;
-
+  float: left;
+  padding-left: 5px;
 }
 
 .btnContainer {
@@ -441,22 +430,6 @@ button {
   padding-left: 4px;
 }
 
-.userPageView {
-  width: 55px;
-  height: 55px;
-  position: fixed;
-  bottom: 250px;
-  right: 10px;
-  border-radius: 100%;
-  box-shadow: 0px 0px 9px #837c7c;
-}
-
-.userHeaderImg {
-  width: 55px;
-  height: 55px;
-  border-radius: 100%;
-}
-
 .startImgView {
   width: 100%;
   height: 100%;
@@ -498,4 +471,147 @@ button {
 .weui-badge_dot {
   padding: 0.4em;
   min-width: 0;
+}
+
+.contentAreaView {
+  width: 100%;
+}
+
+.onlineView {
+  float: left;
+  width: 65px;
+  font-size: 8px;
+  padding-top: 9px;
+}
+
+.onlineTextView {
+  color: #8e8e8e;
+  font-size: 8px;
+  padding-top: 2rpx;
+}
+
+.topHeadView {
+  margin-left: 6px;
+}
+
+.centerTitleView {
+  width: 80%;
+  float: left;
+}
+
+/* 自定义导航栏开始 */
+
+.custom {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 52px;
+  z-index: 999;
+  background: #f0f4f3;
+}
+
+.nav_logo {
+  float: left;
+  margin-left: 7px;
+  margin-right: 15rpx;
+  display: block;
+  width: 48px;
+  height: 48px;
+  border-radius: 100%;
+}
+
+.navHeadImg {
+  float: left;
+  margin-top: 16rpx;
+  width: 90rpx;
+  height: 90rpx;
+  overflow: hidden;
+  padding-left: 60rpx;
+  border-radius: 40rpx;
+  position: relative;
+}
+
+.empty_custom {
+  height: 52px;
+  width: 100%;
+}
+
+.chatListView {
+  float: left;
+  padding-top: 11px;
+  padding-left: 9px;
+}
+
+.discussListView {
+  font-weight: 650;
+  float: left;
+  padding-top: 2px;
+}
+
+.navigatorView {
+  padding-right: 28px;
+  position: relative;
+  float: left;
+  padding-top: 25px;
+}
+
+.navigatorView:after {
+  content: " ";
+  display: inline-block;
+  height: 18rpx;
+  width: 18rpx;
+  border-width: 2rpx 2rpx 0 0;
+  border-style: solid;
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+  position: absolute;
+  top: 50%;
+  margin-top: -8rpx;
+  right: 32rpx;
+}
+
+.chatBackgroundView {
+  background-color: white;
+  float: left;
+  border-radius: 15px;
+  padding-left: 11px;
+  height: 30px;
+  padding-top: 3px;
+}
+
+/* 自定义导航栏结束 */
+
+.getBottleView {
+  float: left;
+  font-size: 16px;
+  font-weight: 650;
+
+}
+
+.publishBottleView {
+  float: left;
+  font-size: 16px;
+  padding-right: 6px;
+  font-weight: 650;
+
+}
+
+.getBottleImg {
+  float: left;
+  height: 100%;
+  padding-left: 10px;
+  padding-right: 4px;
+}
+
+.publishBottleImg {
+  float: left;
+  height: 100%;
+  padding-left: 10px;
+}
+
+.publishIconImg {
+  float: left;
+  padding-left: 17px;
+  padding-right: 13px;
+  font-size: 36px;
 }

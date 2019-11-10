@@ -2,7 +2,9 @@
   "navigationBarTitleText": "Bingo",
   "enablePullDownRefresh": true,
   "backgroundTextStyle": "dark",
-   "usingComponents": {
-    "mp-halfScreenDialog": "../components/half-screen-dialog/half-screen-dialog"
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "mp-halfScreenDialog": "../components/half-screen-dialog/half-screen-dialog",
+    "mp-badge": "../components/badge/badge"
   }
 }

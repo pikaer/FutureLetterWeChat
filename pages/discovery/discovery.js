@@ -25,6 +25,7 @@ Page({
     isShow: false,
     showStartUp: true,
     unReadCount: "",
+    statusBarHeight: app.globalData.statusBarHeight,
   },
 
   onLoad: function() {
@@ -592,7 +593,7 @@ Page({
           });
         } else {
           wx.showToast({
-            title: '没有更多动态啦，去发布一个吧！',
+            title: '没有更多动态啦，去发布一个吧~',
             icon: 'none',
             duration: 3000
           })
@@ -626,7 +627,7 @@ Page({
   allClear: function() {
     var self = this;
     wx.showModal({
-      content: '将清空所有消息！',
+      content: '将清空所有消息!',
       success(res) {
         if (res.confirm) {
           app.httpPost(
