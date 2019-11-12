@@ -96,7 +96,9 @@
   <view class="publishIcon">
     <view class="publishBottleImg">
       <view class="publishIconView" catchtap="publishMoment">
-        <view class="publishIconImg">+</view>
+        <view class="getBottleImg">
+          <image src="/content/images/publishicon.svg" class="publishIconImg" />
+        </view>
         <view class="publishBottleView">扔一个</view>
       </view>
     </view>

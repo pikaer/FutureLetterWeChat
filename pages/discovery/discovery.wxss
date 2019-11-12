@@ -479,7 +479,7 @@ button {
 
 .onlineView {
   float: left;
-  width: 65px;
+  width: 100px;
   font-size: 8px;
   padding-top: 9px;
 }
@@ -585,7 +585,6 @@ button {
   float: left;
   font-size: 16px;
   font-weight: 650;
-
 }
 
 .publishBottleView {
@@ -593,7 +592,6 @@ button {
   font-size: 16px;
   padding-right: 6px;
   font-weight: 650;
-
 }
 
 .getBottleImg {
@@ -610,8 +608,9 @@ button {
 }
 
 .publishIconImg {
-  float: left;
-  padding-left: 17px;
-  padding-right: 13px;
-  font-size: 36px;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 50px;
+  padding-top: 10px;
+  padding-left: 5px;
 }

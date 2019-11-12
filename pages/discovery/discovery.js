@@ -36,11 +36,30 @@ Page({
     this.unReadCountRefresh();
     this.onConnected();
     this.checkRegister();
+    this.refreshMomentListData();
+  },
+
+  //初始化数据
+  init: function () {
+    this.unReadCountRefresh();
+    this.getGolobalPickUpList();
+    this.getChatList();
+    this.getMyMomentList();
+    this.getCollectList();
+    this.onConnected();
   },
 
   //卸载页面
   onUnload: function() {
     this.onDisconnected();
+  },
+
+  //卸载页面
+  refreshMomentListData: function () {
+    if (!app.isBlank(this.data.currentBasicUserInfo)){
+      this.data.pageIndex=1;
+      this.getPickUpList(true);
+    }
   },
 
   //卸载页面，中断webSocket
@@ -50,19 +69,10 @@ Page({
     })
   },
 
-  //初始化数据
-  init: function() {
-    this.unReadCountRefresh();
-    this.getGolobalPickUpList();
-    this.getChatList();
-    this.getMyMomentList();
-    this.getCollectList();
-    this.onConnected();
-  },
-
   checkRegister: function() {
     let self = this;
-    if (!app.isBlank(self.data.currentBasicUserInfo) && !self.data.currentBasicUserInfo.isRegister) {
+    if ((!app.isBlank(self.data.currentBasicUserInfo) && !self.data.currentBasicUserInfo.isRegister) ||          
+        app.globalData.needCheckUseInfo) {
       app.httpPost(
         'api/Letter/BasicUserInfo', {
           "UId": app.globalData.apiHeader.UId
@@ -468,6 +478,26 @@ Page({
     this.hideModalShare();
   },
 
+
+  //清除未读消息
+  clearUnReadCount: function (pickUpId) {
+    let self = this;
+    if (app.globalData.apiHeader.UId > 0) {
+      app.httpPost(
+        'api/Letter/ClearUnReadCount', {
+          "UId": app.globalData.apiHeader.UId,
+          "PickUpId": pickUpId
+        },
+        function (res) {
+          console.info("清除未读消息成功！")
+          self.unReadCountRefresh();
+        },
+        function (res) {
+          console.info("清除未读消息Http失败！")
+        })
+    }
+  },
+
   //触底加载更多数据
   onReachBottom: function() {
     let page = this.data.pageIndex + 1;
@@ -497,6 +527,7 @@ Page({
     let pickUpId = e.currentTarget.dataset.pickupid;
     let key = e.currentTarget.dataset.key;
     let pickUpList = this.data.pickUpList;
+    this.clearUnReadCount(pickUpId);
     app.globalData.currentDiscussMoment.momentId = pickUpList[key].momentId;
     app.globalData.currentDiscussMoment.momentUId = pickUpList[key].uId;
     app.globalData.currentDiscussMoment.headImgPath = pickUpList[key].headImgPath;
@@ -563,6 +594,8 @@ Page({
           pickUpList: tempPickUpList
         });
         self.stopRefresh();
+
+        console.info("获取动态成功");
       },
       function(res) {
         console.info("获取数据失败");

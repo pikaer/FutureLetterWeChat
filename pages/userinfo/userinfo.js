@@ -88,6 +88,7 @@ Page({
             tempHeadImgPath: res.headPhotoPath
           });
           app.setCache(cacheKey, res);
+          app.globalData.needCheckUseInfo=true;
         },
         function(res) {
           console.error("获取用户头像失败！");
@@ -95,7 +96,7 @@ Page({
     }
   },
 
-  //获取我扔出去的没有被评论的动态
+  //更新头像
   updateImgPath: function(path) {
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
@@ -298,5 +299,4 @@ Page({
       }
     })
   },
-
 })
