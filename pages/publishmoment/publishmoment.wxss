@@ -86,12 +86,13 @@ image {
 }
 
 .yes-upload {
+  font-weight: 550;
   color: #fff;
   box-sizing: border-box;
   font-size: 18px;
   text-align: center;
   text-decoration: none;
-  line-height: 2.55555556;
+  line-height: 2.3;
   border-radius: 5px;
   background-color: #00cd66;
   margin-top: 20px;
@@ -122,7 +123,7 @@ page {
   right: 15%;
   left: 15%;
   z-index: 9500;
-  height: 120px;
+  height: 150px;
   background: white;
   border-radius: 10rpx;
   padding-left: 15px;
@@ -170,4 +171,21 @@ button {
   padding-left: 0px;
   padding-right: 0px;
   margin-bottom: 10px;
+}
+
+.notifyView {
+  padding-top: 20px;
+}
+
+.notifyText {
+  float: left;
+  padding-top: 14px;
+  height: 40px;
+  padding-left: 5px;
+  padding-right: 10px;
+}
+
+.notifyBtnView {
+  float: left;
+  padding-top: 10px;
 }

@@ -19,12 +19,14 @@ Page({
     currentTargetPickUpId: "",
     pageIndex: 1,
     loadHide: true,
+    loadTopHide: true,
     showModal: false,
     showModalStatus: false,
     isCreate: false,
     isShow: false,
     showStartUp: true,
     unReadCount: "",
+    onPullDownRefreshDisabled: false,
     statusBarHeight: app.globalData.statusBarHeight,
   },
 
@@ -40,7 +42,7 @@ Page({
   },
 
   //初始化数据
-  init: function () {
+  init: function() {
     this.unReadCountRefresh();
     this.getGolobalPickUpList();
     this.getChatList();
@@ -55,24 +57,28 @@ Page({
   },
 
   //卸载页面
-  refreshMomentListData: function () {
-    if (!app.isBlank(this.data.currentBasicUserInfo)){
-      this.data.pageIndex=1;
+  refreshMomentListData: function() {
+    if (!app.isBlank(this.data.currentBasicUserInfo)) {
+      this.data.pageIndex = 1;
       this.getPickUpList(true);
     }
   },
 
   //卸载页面，中断webSocket
   onDisconnected: function() {
-    this.hubConnect.close({
-      UId: app.globalData.apiHeader.UId
-    })
+    try {
+      this.hubConnect.close({
+        UId: app.globalData.apiHeader.UId
+      })
+    } catch (e) {
+      console.error(JSON.stringify(e));
+    }
   },
 
   checkRegister: function() {
     let self = this;
-    if ((!app.isBlank(self.data.currentBasicUserInfo) && !self.data.currentBasicUserInfo.isRegister) ||          
-        app.globalData.needCheckUseInfo) {
+    if ((!app.isBlank(self.data.currentBasicUserInfo) && !self.data.currentBasicUserInfo.isRegister) ||
+      app.globalData.needCheckUseInfo) {
       app.httpPost(
         'api/Letter/BasicUserInfo', {
           "UId": app.globalData.apiHeader.UId
@@ -355,6 +361,14 @@ Page({
 
   //下拉刷新页面数据
   onPullDownRefresh: function() {
+    if (!this.data.loadTopHide) {
+      //防止并发请求
+      return;
+    }
+
+    this.setData({
+      loadTopHide: false
+    });
     this.toTop();
     this.getPickUp();
   },
@@ -368,9 +382,7 @@ Page({
 
   //删除瓶子
   deleteItem: function(ops) {
-
     this.hideModalShare();
-
     var self = this;
     let pickUpId = this.data.currentMoment.pickUpId;
     let index = this.data.selectItem.key;
@@ -388,12 +400,113 @@ Page({
           pickUpList: list
         });
 
+        wx.showToast({
+          title: "删除成功",
+          icon: 'success',
+          duration: 1500
+        });
         self.resetSelectItem()
       },
       function(res) {
+        wx.showToast({
+          title: "删除失败",
+          icon: 'none',
+          duration: 1500
+        });
         console.info("删除瓶子失败");
       })
   },
+
+  //删除瓶子
+  forwardMoment: function(ops) {
+    this.hideModalShare();
+    let momentId = this.data.currentMoment.momentId;
+    app.httpPost(
+      'api/Letter/ForwardMoment', {
+        "UId": app.globalData.apiHeader.UId,
+        "MomentId": momentId
+      },
+      function(res) {
+        wx.showToast({
+          title: "转发成功",
+          icon: 'success',
+          duration: 1500
+        });
+      },
+      function(res) {
+        wx.showToast({
+          title: "转发失败",
+          icon: 'none',
+          duration: 1500
+        });
+      })
+  },
+
+
+  //发表评论
+  insertDiscussContent: function(ops) {
+    this.hideModalShare();
+    var self = this;
+    let pickUpId = this.data.currentMoment.pickUpId;
+    app.httpPost(
+      'api/Letter/Discuss', {
+        "UId": app.globalData.apiHeader.UId,
+        "PickUpId": pickUpId,
+        "TextContent": "Hi~"
+      },
+      function(res) {
+        if (res.isExecuteSuccess) {
+          wx.showToast({
+            title: "打招呼成功",
+            icon: 'success',
+            duration: 1500
+          });
+          self.sendMessage();
+          console.info("打招呼成功");
+        }
+      },
+      function(res) {
+        wx.showToast({
+          title: "打招呼失败",
+          icon: 'none',
+          duration: 1500
+        });
+        console.error("打招呼失败");
+      })
+  },
+
+
+  //发表评论
+  onlineNotify: function(ops) {
+    this.hideModalShare();
+    var self = this;
+    let uid = this.data.currentMoment.uId;
+    app.httpPost(
+      'api/Letter/OnlineNotify', {
+        "UId": app.globalData.apiHeader.UId,
+        "PartnerUId": uid
+      },
+      function(res) {
+        if (res.success) {
+          wx.showToast({
+            title: "设置成功",
+            icon: 'success',
+            duration: 1500
+          });
+          self.sendMessage();
+          console.info("设置成功");
+        }
+      },
+      function(res) {
+        wx.showToast({
+          title: "设置失败",
+          icon: 'none',
+          duration: 1500
+        });
+        console.error("设置失败");
+      })
+  },
+
 
   saveLocal: function() {
     this.hideModalShare();
@@ -479,8 +592,20 @@ Page({
   },
 
 
+  handletouchtart: function(event) {
+    this.data.lastY = event.touches[0].pageY
+  },
+
+  handletouchmove: function(event) {
+    let currentY = event.touches[0].pageY
+    let ty = currentY - this.data.lastY
+    if (ty > 30 && currentY < 700) {
+      this.onPullDownRefresh();
+    }
+  },
+
   //清除未读消息
-  clearUnReadCount: function (pickUpId) {
+  clearUnReadCount: function(pickUpId) {
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
@@ -488,11 +613,11 @@ Page({
           "UId": app.globalData.apiHeader.UId,
           "PickUpId": pickUpId
         },
-        function (res) {
+        function(res) {
           console.info("清除未读消息成功！")
           self.unReadCountRefresh();
         },
-        function (res) {
+        function(res) {
           console.info("清除未读消息Http失败！")
         })
     }
@@ -647,10 +772,13 @@ Page({
   //休眠2秒，防止数据获取太快看不到加载动图
   stopPullDownRefresh: function() {
     let times = 0;
+    let self = this;
     var timer = setInterval(function() {
       times++
       if (times >= 1) {
-        wx.stopPullDownRefresh();
+        self.setData({
+          loadTopHide: true
+        });
         clearInterval(timer)
       }
     }, 1000)

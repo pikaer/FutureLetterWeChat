@@ -11,6 +11,7 @@ Page({
     publishDisabled: true,
     isRegister: true,
     tempTextContent: "",
+    subscribeMessageOpen: false,
     showLoginModal: false,
     showLoginModalStatus: false,
   },
@@ -88,78 +89,56 @@ Page({
 
   publishMoment: function(ops) {
     var self = this;
-    if (ops != undefined){
-      self.collectPushToken(ops.detail.formId);
-    }
-   
     if (app.isBlank(self.data.tempTextContent)) {
-      return true;
-    }
-
-    //文本安全性校验
-    app.httpPost(
-      'api/Letter/MsgSecCheck', {
-        "TextContent": self.data.tempTextContent
-      },
-      function(res) {
-        if (!res.isOK) {
-          wx.showToast({
-            title: "内容不合法",
-            icon: 'none',
-            duration: 2500,
-          })
-          return;
-        } else {
+      self.publishMomentContent();
+    }else{
+      //文本安全性校验
+      app.httpPost(
+        'api/Letter/MsgSecCheck', {
+          "TextContent": self.data.tempTextContent
+        },
+        function (res) {
+          if (!res.isOK) {
+            wx.showToast({
+              title: "内容不合法",
+              icon: 'none',
+              duration: 2500,
+            })
+            return;
+          } else {
+            self.publishMomentContent();
+          }
+        },
+        function (res) {
           self.publishMomentContent();
         }
-      },
-      function(res) {
-        self.publishMomentContent();
-      }
-    )
+      )
+    }
   },
 
   //发布动态
-  publishMomentContent: function () {
+  publishMomentContent: function() {
     var self = this;
     app.httpPost(
       'api/Letter/PublishMoment', {
         "UId": app.globalData.apiHeader.UId,
         "TextContent": self.data.tempTextContent,
-        "ImgContent": self.data.serverImgs[0]
+        "ImgContent": self.data.serverImgs[0],
+        "SubscribeMessageOpen": self.data.subscribeMessageOpen
       },
-      function (res) {
+      function(res) {
         if (res.isExecuteSuccess) {
           self.publishToast(true);
         } else {
           self.publishToast(false);
         }
       },
-      function (res) {
+      function(res) {
         console.error("发布动态失败");
         self.publishToast(false);
       },
     )
   },
-
-  //发布动态
-  collectPushToken: function (token) {
-    var self = this;
-    app.httpPost(
-      'api/Letter/CollectPushToken', {
-        "UId": app.globalData.apiHeader.UId,
-        "PushToken": token,
-        "FromPage":"publishMomentPage"
-      },
-      function (res) {
-        console.info("收集token成功");
-      },
-      function (res) {
-        console.error("收集token失败");
-      },
-    )
-  },
-
 
   //弹框
   publishToast: function(success) {
@@ -202,6 +181,13 @@ Page({
     let prevPage = pages[pages.length - 2];
   },
 
+
+  //获取用户输入的文本
+  subscribeMessage: function(e) {
+    this.setData({
+      subscribeMessageOpen: e.detail.value
+    })
+  },
 
   //获取用户输入的文本
   textContentInput: function(e) {
@@ -311,6 +297,38 @@ Page({
       deleteImg(imgPath);
     }
   },
+
+  // login.js
+  requestMsg(ops) {
+    let self = this;
+    if (this.data.subscribeMessageOpen) {
+      return new Promise((resolve, reject) => {
+        wx.requestSubscribeMessage({
+          tmplIds: ["GytyYcEW0BqLnACK9hFZMMXbvOZc2oq5DQjdJ65sRFI"],
+          success: (res) => {
+            if (res['GytyYcEW0BqLnACK9hFZMMXbvOZc2oq5DQjdJ65sRFI'] === 'accept') {
+              console.info("订阅成功");
+              self.setData({
+                subscribeMessageOpen: true
+              })
+            } else {
+              self.setData({
+                subscribeMessageOpen: false
+              })
+            }
+          },
+          fail(err) {
+            //失败
+            console.error(err);
+            self.setData({
+              subscribeMessageOpen: false
+            })
+          }
+        })
+      })
+    }
+  },
+
 
   // 预览图片
   previewImg(e) {

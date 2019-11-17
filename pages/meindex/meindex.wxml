@@ -35,10 +35,10 @@
     <view class="momentContainer">
       <view class="titleView">
         <view bindtap="toPublishList" class="itemTitleView">
-          <view class="{{currentTab==0?'momentTitleCilick':'momentTitle'}}">扔出的瓶子</view>
+          <view class="{{currentTab==0?'momentTitleCilick':'momentTitle'}}">发布的动态</view>
         </view>
         <view bindtap="toCollectList" class="itemTitleView">
-          <view class="{{currentTab==0?'momentTitle':'momentTitleCilick'}}">收藏的瓶子</view>
+          <view class="{{currentTab==0?'momentTitle':'momentTitleCilick'}}">收藏的动态</view>
         </view>
       </view>
     </view>

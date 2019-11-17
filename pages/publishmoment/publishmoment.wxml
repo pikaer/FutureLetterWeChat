@@ -15,19 +15,22 @@
         <text>+</text>
       </view>
     </view>
+    <view class="notifyView">
+      <view class="notifyText">有人评论时通知我</view>
+      <view class="notifyBtnView">
+        <switch checked='{{subscribeMessageOpen}}' bindtap="requestMsg" bindchange="subscribeMessage"/>
+      </view>
+    </view>
   </view>
 
-  <form wx:if="{{isRegister}}" bindsubmit="publishMoment" report-submit='true'>
-    <button form-type="submit" disabled='{{publishDisabled}}' class='yes-upload'>发布动态</button>
-  </form>
+  <view wx:if="{{isRegister}}" bindtap="publishMoment">
+    <button disabled='{{publishDisabled}}' class='yes-upload'>发布动态</button>
+  </view>
 
-  <form wx:else bindsubmit="toLogin" report-submit='true'>
-    <button form-type="submit" disabled='{{publishDisabled}}' class="yes-upload">发布动态</button>
-  </form>
+  <view wx:else bindtap="toLogin">
+    <button disabled='{{publishDisabled}}' class="yes-upload">发布动态</button>
+  </view>
 
-
-  <!-- <button wx:if="{{isRegister}}" bindtap='publishMoment' disabled='{{publishDisabled}}' class='yes-upload'>发布动态</button>
-  <button wx:else bindtap='toLogin' disabled='{{publishDisabled}}' class="yes-upload">发布动态</button> -->
 </view>
 
 

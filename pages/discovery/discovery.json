@@ -1,6 +1,6 @@
 {
   "navigationBarTitleText": "Bingo",
-  "enablePullDownRefresh": true,
+  "enablePullDownRefresh": false,
   "backgroundTextStyle": "dark",
   "navigationStyle": "custom",
   "usingComponents": {
