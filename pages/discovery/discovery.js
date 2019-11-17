@@ -26,6 +26,7 @@ Page({
     isShow: false,
     showStartUp: true,
     unReadCount: "",
+    showPublishMomentModal:false,
     onPullDownRefreshDisabled: false,
     statusBarHeight: app.globalData.statusBarHeight,
   },
@@ -289,6 +290,13 @@ Page({
     })
   },
 
+
+  hidePublishMomentModal: function () {
+    this.setData({
+      showPublishMomentModal: false
+    })
+  },
+  
 
   //获取用户基础信息
   toShowModal: function(ops) {
@@ -671,6 +679,7 @@ Page({
     wx.navigateTo({
       url: '../../pages/publishmoment/publishmoment'
     })
+    this.hidePublishMomentModal();
   },
 
   toChatPage: function() {
@@ -760,11 +769,19 @@ Page({
       },
       function(res) {
         console.info("获取数据失败");
-        wx.showToast({
-          title: res.resultMessage,
-          icon: 'none',
-          duration: 3000
-        })
+        //金币余额不足
+        if (res.code==80002){
+          self.setData({
+            showPublishMomentModal: true
+          });
+        }else{
+          wx.showToast({
+            title: res.resultMessage,
+            icon: 'none',
+            duration: 3000
+          })
+        }
+        
         self.stopPullDownRefresh();
       })
   },

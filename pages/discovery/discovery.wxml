@@ -216,3 +216,16 @@
   <button class='maskButton' hover-class='maskButton-hover' hidden='{{!isCreate}}' catchtap='btnCreate'>保存到本地相册
   </button>
 </view>
+
+
+<!--提示金余额不足弹框-->
+<view class="modal-mask-all" bindtap="hidePublishMomentModal" wx:if="{{showPublishMomentModal}}"></view>
+<view wx:if="{{showPublishMomentModal}}">
+  <view class="modal-content-publishMoment">
+    <view class="titleTxtView">
+      金币余额不足，发布动态可以赚金币哦~
+    </view>
+    <button bindtap="publishMoment" type="primary" role="button" class="publishMomentBtn">发布动态</button>
+    <button bindtap="hidePublishMomentModal" role="button" class="cancelPublishMomentBtn">取消</button>
+  </view>
+</view>

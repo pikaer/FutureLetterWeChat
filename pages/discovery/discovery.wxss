@@ -543,14 +543,14 @@ button {
 .discussListView {
   font-weight: 650;
   float: left;
-  padding-top: 2px;
+  padding-top: 1px;
 }
 
 .navigatorView {
   padding-right: 28px;
   position: relative;
   float: left;
-  padding-top: 25px;
+  padding-top: 23px;
 }
 
 .navigatorView:after {
@@ -568,11 +568,12 @@ button {
 }
 
 .chatBackgroundView {
-  background-color: white;
+  background-color: #f7f7f7;
+  border: 1rpx solid #dedede;
   float: left;
-  border-radius: 15px;
+  border-radius: 100px;
   padding-left: 11px;
-  height: 29px;
+  height: 28px;
   padding-top: 3px;
 }
 
@@ -611,4 +612,55 @@ button {
   margin-bottom: 50px;
   padding-top: 7px;
   padding-left: 5px;
+}
+
+.modal-content-publishMoment {
+  position: fixed;
+  top: 160px;
+  right: 15%;
+  left: 15%;
+  z-index: 9500;
+  height: 220px;
+  background: white;
+  border-radius: 12px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.titleTxtView {
+  text-align: center;
+  margin-top: 20px;
+  float: left;
+  margin-left: 10px;
+  margin-bottom: 30px;
+  font-size: 18px;
+}
+
+.publishMomentBtn {
+  width: 150px;
+  height: 40px;
+  padding-top: 10px;
+  background: #00cd66;
+  color: white;
+  font-weight: 650;
+}
+
+.cancelPublishMomentBtn {
+  width: 150px;
+  height: 40px;
+  padding-top: 10px;
+  background: #e3e3e3;
+  margin-top: 15px;
+  font-weight: 650;
+}
+
+.publishMomentView {
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.cancelPublishMomentView {
+  margin-left: 30px;
+  margin-right: 30px;
+  box-shadow: 0px 0px 1px #00cd66;
 }
