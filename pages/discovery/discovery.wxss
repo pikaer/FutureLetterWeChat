@@ -9,6 +9,7 @@
   color: #000;
   padding-left: 7px;
   padding-right: 7px;
+  padding-top: 5px;
   background-color: #f0f4f3;
   overflow-x: hidden;
 }
@@ -17,16 +18,16 @@
   margin-top: 2px;
   margin-bottom: 15px;
   background-color: white;
-  width: 80%;
+  width: 84%;
   height: 100%;
   border-radius: 12px;
   float: right;
-  margin-right: 7px;
+  margin-right: 3px;
 }
 
 .userHead {
-  width: 48px;
-  height: 48px;
+  width: 45px;
+  height: 45px;
   border-radius: 100%;
 }
 
@@ -86,7 +87,7 @@
   margin-bottom: -3px;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
-  height: auto;
+  max-height: 350px；;
 }
 
 .publishIcon {
@@ -500,12 +501,14 @@ button {
 
 .custom {
   position: fixed;
+  text-align: center;
   width: 100%;
   top: 0;
   left: 0;
-  height: 52px;
+  height: 80px;
   z-index: 999;
   background: #f0f4f3;
+  border-bottom: solid 1px #e4dfdf;
 }
 
 .nav_logo {
@@ -513,8 +516,8 @@ button {
   margin-left: 7px;
   margin-right: 15rpx;
   display: block;
-  width: 48px;
-  height: 48px;
+  width: 45px;
+  height: 45px;
   border-radius: 100%;
 }
 
@@ -530,27 +533,29 @@ button {
 }
 
 .empty_custom {
-  height: 52px;
+  height: 80px;
   width: 100%;
 }
 
 .chatListView {
-  float: left;
-  padding-top: 8px;
-  padding-left: 9px;
+  top: 35px;
+  left: 8px;
+  position: fixed;
 }
 
 .discussListView {
-  font-weight: 650;
+  line-height: 1.2;
+  font-size: 14px;
   float: left;
-  padding-top: 1px;
+  margin-top: 7px;
+  font-weight: 650;
 }
 
 .navigatorView {
   padding-right: 28px;
   position: relative;
   float: left;
-  padding-top: 23px;
+  padding-top: 28px;
 }
 
 .navigatorView:after {
@@ -573,8 +578,7 @@ button {
   float: left;
   border-radius: 100px;
   padding-left: 11px;
-  height: 28px;
-  padding-top: 3px;
+  height: 30px;
 }
 
 /* 自定义导航栏结束 */
@@ -663,4 +667,24 @@ button {
   margin-left: 30px;
   margin-right: 30px;
   box-shadow: 0px 0px 1px #00cd66;
+}
+
+.leftTitleView {
+  float: left;
+  font-size: 17px;
+  padding-left: 120px;
+  color: #09f;
+  flex-grow: 1;
+}
+
+.rightTitleView {
+  float: right;
+  font-size: 17px;
+  padding-right: 120px;
+  color: #09f;
+  flex-grow: 1;
+}
+
+.toUserPage {
+  display: inline-block;
 }

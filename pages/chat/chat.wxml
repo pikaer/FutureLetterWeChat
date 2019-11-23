@@ -3,18 +3,18 @@
     <view wx:for="{{tempDiscussList}}" catchtap='previewMomentDetail' wx:for-item="value" wx:for-index="key" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' bindlongpress="bindlongpress">
       <mp-slideview show="{{false}}" buttons="{{slideButtons}}" bindbuttontap="slideButtonTap" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}'>
         <view class="chatArea">
-            <view data-uId='{{value.uId}}' class="headPhotoViewV2" catchtap='toShowModal'>
-              <image class="userHeadV2" src="{{value.headImgPath}}"></image>
-            </view>
-            <view class="centerView">
-              <view class="dispalyNameTxt">{{value.nickName}}</view>
-              <view class="chatContentTxt">{{value.textContent}}</view>
-            </view>
-            <view class="rightView">
-              <view class="chatTime">{{value.recentChatTime}}</view>
-              <view class="unreadCount" hidden='{{value.unReadCount==""||value.unReadCount==null}}'>{{value.unReadCount}}</view>
-            </view>
+          <view data-uId='{{value.uId}}' class="headPhotoViewV2" catchtap='toShowModal'>
+            <image class="userHeadV2" src="{{value.headImgPath}}"></image>
           </view>
+          <view class="centerView">
+            <view class="dispalyNameTxt">{{value.nickName}}</view>
+            <view class="chatContentTxt">{{value.textContent}}</view>
+          </view>
+          <view class="rightView">
+            <view class="chatTime">{{value.recentChatTime}}</view>
+            <view class="unreadCount" hidden='{{value.unReadCount==""||value.unReadCount==null}}'>{{value.unReadCount}}</view>
+          </view>
+        </view>
       </mp-slideview>
       <view class="chatLineView"></view>
     </view>
@@ -47,8 +47,11 @@
 </view>
 
 
+
+<mp-actionSheet bindactiontap="btnClick" show="{{showDialog}}" actions="{{groups}}"></mp-actionSheet>
+
 <!-- 底部弹出菜单 -->
-<action-sheet hidden="{{actionHidden}}">
+<action-sheet hidden="true">
   <action-sheet-item bindtap="toHasRead">标为已读</action-sheet-item>
   <action-sheet-item bindtap="deleteChat">删除会话</action-sheet-item>
   <action-sheet-item bindtap="toAllHasRead">全部已读</action-sheet-item>

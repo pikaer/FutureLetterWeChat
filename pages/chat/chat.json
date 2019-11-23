@@ -3,6 +3,7 @@
   "enablePullDownRefresh": false,
   "backgroundTextStyle": "dark",
   "usingComponents": {
-    "mp-slideview": "../../components/slideview/slideview"
+    "mp-slideview": "../../components/slideview/slideview",
+    "mp-actionSheet": "../components/actionsheet/actionsheet"
   }
 }

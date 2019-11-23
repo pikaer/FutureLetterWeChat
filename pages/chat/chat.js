@@ -1,18 +1,39 @@
 //获取应用实例
 const app = getApp()
-import { HubConnection } from "../../utils/signalR.js";
+import {
+  HubConnection
+} from "../../utils/signalR.js";
 
 Page({
   data: {
     tempDiscussList: [],
     basicUserInfo: {},
-    actionHidden: true, //长按action
     selectItem: [], //长按后选中的
     pageIndex: 1,
-    showModal: false
+    showModal: false,
+    showDialog: false,
+    groups: [{
+        text: '标为已读',
+        value: 1
+      },
+      {
+        text: '全部已读',
+        value: 2
+      },
+      {
+        text: '删除会话',
+        type: 'warn',
+        value: 3
+      },
+      {
+        text: '全部清空',
+        type: 'warn',
+        value: 4
+      }
+    ]
   },
 
-  onLoad: function () {
+  onLoad: function() {
     app.globalData.currentDiscussMoment = {};
     this.setData({
       tempDiscussList: app.globalData.tempDiscussList
@@ -20,12 +41,12 @@ Page({
     this.setBtnData();
   },
 
-  setBtnData: function () {
+  setBtnData: function() {
     this.setData({
       icon: '/content/images/baocuntupian.svg',
       slideButtons: [{
         text: '已读'
-      },{
+      }, {
         type: 'warn',
         text: '删除',
         extClass: 'btnDelete'
@@ -37,32 +58,32 @@ Page({
     this.setData({
       selectItem: ops.currentTarget.dataset
     })
-    if (ops.detail.index==1){
+    if (ops.detail.index == 1) {
       this.deleteChat();
-    }else{
+    } else {
       this.clearUnReadCount(ops);
     }
   },
 
-  onShow: function () {
+  onShow: function() {
     this.getChatList();
     this.onConnected();
   },
 
   //卸载页面，中断webSocket
-  onUnload: function () {
+  onUnload: function() {
     this.onDisconnected();
   },
 
   //卸载页面，中断webSocket
-  onDisconnected: function () {
+  onDisconnected: function() {
     this.hubConnect.close({
       UId: app.globalData.apiHeader.UId
     })
   },
 
   //连接WebSocket
-  onConnected: function () {
+  onConnected: function() {
     this.hubConnect = new HubConnection();
     var url = app.globalData.socketUrl + "chatListHub";
 
@@ -82,7 +103,7 @@ Page({
   },
 
   //获取用户基础信息
-  toShowModal: function (ops) {
+  toShowModal: function(ops) {
     var self = this;
     let cacheKey = "basicUserInfo+" + ops.currentTarget.dataset.uid;
     let cacheValue = wx.getStorageSync(cacheKey);
@@ -103,7 +124,7 @@ Page({
       'api/Letter/BasicUserInfo', {
         "UId": ops.currentTarget.dataset.uid
       },
-      function (res) {
+      function(res) {
         self.setData({
           basicUserInfo: res,
         });
@@ -114,12 +135,12 @@ Page({
         }
         app.setCache(cacheKey, res);
       },
-      function (res) {
+      function(res) {
         console.error("获取用户基础信息失败");
       })
   },
 
-  hideModal: function () {
+  hideModal: function() {
     this.setData({
       showModal: false
     });
@@ -127,7 +148,7 @@ Page({
 
 
   //动态详情页面
-  previewMomentDetail: function (e) {
+  previewMomentDetail: function(e) {
     this.onDisconnected();
     this.clearUnReadCount(e);
     let pickUpId = e.currentTarget.dataset.pickupid;
@@ -137,7 +158,7 @@ Page({
   },
 
   //获取用户数据
-  getChatList: function () {
+  getChatList: function() {
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
@@ -145,7 +166,7 @@ Page({
           "UId": app.globalData.apiHeader.UId,
           "PageIndex": self.data.pageIndex
         },
-        function (res) {
+        function(res) {
           console.info("获取聊天列表成功！")
 
           self.setData({
@@ -155,7 +176,7 @@ Page({
           //获取聊天数据结束后，停止刷新下拉
           wx.stopPullDownRefresh();
         },
-        function (res) {
+        function(res) {
           console.error("获取聊天列表失败！");
           //获取聊天数据结束后，停止刷新下拉
           wx.stopPullDownRefresh();
@@ -164,7 +185,7 @@ Page({
   },
 
   //清除未读消息
-  clearUnReadCount: function (ops) {
+  clearUnReadCount: function(ops) {
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
@@ -172,7 +193,7 @@ Page({
           "UId": app.globalData.apiHeader.UId,
           "PickUpId": ops.currentTarget.dataset.pickupid
         },
-        function (res) {
+        function(res) {
           console.info("清除未读消息成功！")
           self.data.tempDiscussList[ops.currentTarget.dataset.index].unReadCount = '';
           self.setData({
@@ -180,14 +201,14 @@ Page({
           })
           app.globalData.tempDiscussList = self.data.tempDiscussList
         },
-        function (res) {
+        function(res) {
           console.info("清除未读消息Http失败！")
         })
     }
   },
 
   //更多动作
-  moreAction: function () {
+  moreAction: function() {
     this.setData({
       moreActionHidden: false
     })
@@ -195,24 +216,38 @@ Page({
 
 
   //长按删除对话弹框
-  bindlongpress: function (ops) {
+  bindlongpress: function(ops) {
     this.setData({
-      actionHidden: false,
+      showDialog: true,
       selectItem: ops.currentTarget.dataset
     })
   },
 
+  btnClick(e) {
+    if (e.detail.value == 1) {
+      this.toHasRead();
+    } else if (e.detail.value == 2) {
+      this.toAllHasRead();
+    } else if (e.detail.value == 3) {
+      this.deleteChat();
+    } else if (e.detail.value == 4) {
+      this.deleteAllBottle();
+    } else {
+      console.log(e)
+    }
+  },
+
   //重置长按选择项
-  resetSelectItem: function () {
+  resetSelectItem: function() {
     this.setData({
-      actionHidden: true,
+      showDialog: false,
       selectItem: []
     })
   },
 
 
   //标为已读
-  toHasRead: function () {
+  toHasRead: function() {
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
@@ -220,7 +255,7 @@ Page({
           "UId": app.globalData.apiHeader.UId,
           "PickUpId": self.data.selectItem.pickupid
         },
-        function (res) {
+        function(res) {
           console.info("清除未读消息成功！")
           self.data.tempDiscussList[self.data.selectItem.index].unReadCount = '';
           self.setData({
@@ -229,25 +264,25 @@ Page({
           app.globalData.tempDiscussList = self.data.tempDiscussList;
           self.resetSelectItem();
         },
-        function (res) {
+        function(res) {
           self.resetSelectItem();
         })
     }
   },
 
   //全部标为已读
-  toAllHasRead: function () {
+  toAllHasRead: function() {
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
         'api/Letter/ClearAllUnReadCount', {
           "UId": app.globalData.apiHeader.UId
         },
-        function (res) {
+        function(res) {
           self.getChatList();
           self.resetSelectItem();
         },
-        function (res) {
+        function(res) {
           self.resetSelectItem();
           console.error("全部标为已读失败！");
         })
@@ -256,7 +291,7 @@ Page({
 
 
   //全部清空
-  deleteAllBottle: function () {
+  deleteAllBottle: function() {
     var self = this;
     wx.showModal({
       content: '将清空所有对话！',
@@ -266,7 +301,7 @@ Page({
             'api/Letter/DeleteAllBottle', {
               "UId": app.globalData.apiHeader.UId
             },
-            function (res) {
+            function(res) {
               console.info("删除对话成功！");
               self.setData({
                 tempDiscussList: []
@@ -274,7 +309,7 @@ Page({
               app.globalData.tempDiscussList = [];
               self.resetSelectItem();
             },
-            function (res) {
+            function(res) {
               console.error("全部清空失败");
             });
         }
@@ -283,7 +318,7 @@ Page({
   },
 
   //删除对话
-  deleteChat: function () {
+  deleteChat: function() {
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
@@ -292,7 +327,7 @@ Page({
           "PickUpId": self.data.selectItem.pickupid,
           "DeleteType": 1
         },
-        function (res) {
+        function(res) {
           console.info("删除对话成功！");
           let list = self.data.tempDiscussList;
           list.splice(self.data.selectItem.index, 1);
@@ -303,7 +338,7 @@ Page({
           //重置数据
           self.resetSelectItem();
         },
-        function (res) {
+        function(res) {
           console.error("删除对话Http失败！");
           //重置数据
           self.resetSelectItem();

@@ -29,6 +29,15 @@ Page({
     showPublishMomentModal:false,
     onPullDownRefreshDisabled: false,
     statusBarHeight: app.globalData.statusBarHeight,
+    currentTab: 0, //当前所在tab
+    indicatorDots: false, //底部不展示小点
+    vertical: false, //水平翻页
+    autoplay: false, //自动翻页
+    circular: false, //循环播放
+    interval: 2000,
+    duration: 500, //翻页时间间隔
+    previousMargin: 0, //前边距
+    nextMargin: 0, //后边距
   },
 
   onLoad: function() {
@@ -136,6 +145,7 @@ Page({
       },
       function(res) {
         if (res != null && res.uId > 0) {
+          //res.uId=30094;
           console.info("登录成功");
           app.globalData.basicUserInfo = res;
           app.globalData.apiHeader.UId = res.uId;
@@ -173,6 +183,11 @@ Page({
       console.info("成功订阅消息");
       this.unReadCountRefresh();
     })
+  },
+
+  //通知对方刷新聊天页面
+  sendMessage: function () {
+    this.hubConnect.send("subScribeMessage", app.globalData.apiHeader.UId, this.data.pickUpId);
   },
 
   //获取动态

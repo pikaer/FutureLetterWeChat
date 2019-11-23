@@ -23,7 +23,8 @@ Page({
     showLoginModalStatus: false,
     basicUserInfo: {},
     isCreate: false,
-    isShow: false
+    isShow: false,
+
   },
 
   onLoad: function(options) {

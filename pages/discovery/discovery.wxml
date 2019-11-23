@@ -1,9 +1,5 @@
 <!-- 自定义的导航栏 -->
 <view wx:if="{{!showStartUp}}" class="custom flex_center" style="padding-top:{{statusBarHeight}}px">
-  <view catchtap="toUserPage">
-    <image class='nav_logo' wx:if="{{currentBasicUserInfo!=null&&currentBasicUserInfo.isRegister}}" src="{{currentBasicUserInfo.headPhotoPath}}"></image>
-    <image class='nav_logo' wx:else src="/content/images/bingo.jpg"></image>
-  </view>
   <view class="chatListView" catchtap="toChatPage">
     <view class="chatBackgroundView">
       <view class="discussListView">
@@ -15,7 +11,23 @@
       <view class="navigatorView"></view>
     </view>
   </view>
+  <view catchtap="toUserPage" class="toUserPage">
+    <!-- <image class='nav_logo' wx:if="{{currentBasicUserInfo!=null&&currentBasicUserInfo.isRegister}}" src="{{currentBasicUserInfo.headPhotoPath}}"></image> -->
+    <image class='nav_logo' src="/content/images/bingo.jpg"></image>
+  </view>
+
+  <view class="momentContainer">
+    <view bindtap="toPublishList" class="leftTitleView">
+      <view>探索</view>
+    </view>
+    <view bindtap="toCollectList" class="rightTitleView">
+      <view>关注</view>
+    </view>
+  </view>
 </view>
+
+
+
 <view wx:if="{{!showStartUp}}" class="empty_custom" style="padding-top:{{statusBarHeight}}px"></view>
 <!-- 自定义的导航栏 -->
 
@@ -78,7 +90,7 @@
         <view class="textView">{{value.textContent}}</view>
         <!-- 图片动态 -->
         <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
-          <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' class="imgCount" mode="widthFix" />
+          <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' class="imgCount" />
         </view>
       </view>
     </view>
