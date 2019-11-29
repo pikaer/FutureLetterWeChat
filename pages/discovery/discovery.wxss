@@ -1,3 +1,11 @@
+page {
+  -webkit-user-select: none;
+  user-select: none;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
 .indexContainer {
   display: flex;
   flex-direction: column;
@@ -9,15 +17,16 @@
   color: #000;
   padding-left: 7px;
   padding-right: 7px;
-  padding-top: 5px;
   background-color: #f0f4f3;
-  overflow-x: hidden;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 .contentArea {
   margin-top: 2px;
   margin-bottom: 15px;
-  background-color: white;
+  background-color: #FFFFFF;
   width: 84%;
   height: 100%;
   border-radius: 12px;
@@ -126,6 +135,7 @@ page {
   width: 100%;
   text-align: center;
   font-size: 14px;
+  padding-top: 7px;
 }
 
 .footerSpinner {
@@ -207,7 +217,7 @@ image {
   height: 45px;
   font-size: 65rpx;
   text-align: center;
-  background-color: white;
+  background-color: #FFFFFF;
   margin-bottom: 20px;
   line-height: 44px;
   border-top-left-radius: 25px;
@@ -473,6 +483,7 @@ button {
 
 .contentAreaView {
   width: 100%;
+  clear: both;
 }
 
 .onlineView {
@@ -493,7 +504,6 @@ button {
 }
 
 .centerTitleView {
-  width: 80%;
   float: left;
 }
 
@@ -538,7 +548,6 @@ button {
 }
 
 .chatListView {
-  top: 35px;
   left: 8px;
   position: fixed;
 }
@@ -573,8 +582,8 @@ button {
 }
 
 .chatBackgroundView {
-  background-color: #f7f7f7;
-  border: 1rpx solid #dedede;
+  background-color: #F9FBFA;
+  border: 1rpx solid #C1CFDB;
   float: left;
   border-radius: 100px;
   padding-left: 11px;
@@ -672,19 +681,163 @@ button {
 .leftTitleView {
   float: left;
   font-size: 17px;
-  padding-left: 120px;
-  color: #09f;
+  padding-left: 20px;
+  padding-right: 20px;
   flex-grow: 1;
 }
 
 .rightTitleView {
-  float: right;
+  float: left;
   font-size: 17px;
-  padding-right: 120px;
-  color: #09f;
+  padding-right: 10px;
   flex-grow: 1;
 }
 
 .toUserPage {
   display: inline-block;
+}
+
+.page-body {
+  height: 100%;
+  width: 100%;
+}
+
+.page-section {
+  width: 100%;
+  margin-bottom: 60rpx;
+}
+
+.page-section_center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page-section:last-child {
+  margin-bottom: 0;
+}
+
+.page-section-gap {
+  box-sizing: border-box;
+  padding: 0 30rpx;
+}
+
+.page-section-spacing {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+
+.page-section-title {
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 10rpx;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+}
+
+.page-section-gap .page-section-title {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+button:last-child {
+  margin-bottom: 0;
+}
+
+.page-section-title {
+  margin-top: 60rpx;
+  position: relative;
+}
+
+.info {
+  position: absolute;
+  right: 0;
+  color: #353535;
+  font-size: 30rpx;
+}
+
+.page-foot {
+  margin-top: 50rpx;
+}
+
+swiper {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+swiper-item {
+  display: block;
+  overflow: hidden;
+  will-change: 'transform';
+  height: 100%;
+  width: 100%;
+}
+
+.momentArea {
+  width: 100%;
+  height: 100%;
+}
+
+.momentTitleCilick {
+  border-bottom: solid 3px #09f;
+  color: #09f;
+}
+
+.momentTitle {
+  color: #9d9d9d;
+}
+
+.empty_topArea {
+  width: 100%;
+  height: 5px;
+}
+
+.placeUseview {
+  width: 100%;
+  height: 220px;
+  clear: both;
+}
+
+.seeMore {
+  clear: both;
+  width: 100%;
+  text-align: center;
+  height: 30px;
+  font-size: 14px;
+  color: #09f;
+}
+
+.coinDetailView {
+  float: right;
+  font-size: 17px;
+  padding-right: 10px;
+  flex-grow: 1;
+  height: 28px;
+}
+
+.coin_logo {
+  height: 100%;
+  width: 100%;
+}
+
+.userset_logo {
+  height: 100%;
+  width: 100%;
+}
+
+.coinTextView {
+  float: left;
+  padding-right: 5px;
+  color: #ffa500;
+  font-size: 20px;
+  font-weight: 650;
+}
+
+.coinIconView {
+  float: left;
+  width: 20px;
+  height: 20px;
+  padding-top: 5px;
 }

@@ -90,7 +90,7 @@ Page({
   publishMoment: function(ops) {
     var self = this;
     if (app.isBlank(self.data.tempTextContent)) {
-      self.publishMomentContent();
+      self.requestMsgAndPublisgh();
     }else{
       //文本安全性校验
       app.httpPost(
@@ -106,11 +106,11 @@ Page({
             })
             return;
           } else {
-            self.publishMomentContent();
+            self.requestMsgAndPublisgh();
           }
         },
         function (res) {
-          self.publishMomentContent();
+          self.requestMsgAndPublisgh();
         }
       )
     }
@@ -299,9 +299,45 @@ Page({
   },
 
   // login.js
-  requestMsg(ops) {
+  requestMsgAndPublisgh() {
     let self = this;
-    if (this.data.subscribeMessageOpen) {
+    if (!self.data.subscribeMessageOpen){
+      return new Promise((resolve, reject) => {
+        wx.requestSubscribeMessage({
+          tmplIds: ["GytyYcEW0BqLnACK9hFZMMXbvOZc2oq5DQjdJ65sRFI"],
+          success: (res) => {
+            if (res['GytyYcEW0BqLnACK9hFZMMXbvOZc2oq5DQjdJ65sRFI'] === 'accept') {
+              console.info("订阅成功");
+              self.setData({
+                subscribeMessageOpen: true
+              })
+            } else {
+              self.setData({
+                subscribeMessageOpen: false
+              })
+            }
+            self.publishMomentContent();
+          },
+          fail(err) {
+            //失败
+            console.error(err);
+            self.setData({
+              subscribeMessageOpen: false
+            })
+            self.publishMomentContent();
+          }
+        })
+      })
+    }else{
+      self.publishMomentContent();
+    }
+  },
+
+
+  // login.js
+  requestMsg() {
+    let self = this;
+    if (self.data.subscribeMessageOpen){
       return new Promise((resolve, reject) => {
         wx.requestSubscribeMessage({
           tmplIds: ["GytyYcEW0BqLnACK9hFZMMXbvOZc2oq5DQjdJ65sRFI"],
@@ -328,7 +364,6 @@ Page({
       })
     }
   },
-
 
   // 预览图片
   previewImg(e) {

@@ -16,17 +16,20 @@ Page({
     basicUserInfo: {},
     currentBasicUserInfo: {},
     pickUpList: [],
+    attentionList: [],
     currentTargetPickUpId: "",
     pageIndex: 1,
-    loadHide: true,
+    attentionPageIndex: 1,
     loadTopHide: true,
     showModal: false,
     showModalStatus: false,
+    showModalStatusAttention: false,
     isCreate: false,
     isShow: false,
     showStartUp: true,
     unReadCount: "",
-    showPublishMomentModal:false,
+    onloadText: "查看更多>>",
+    showPublishMomentModal: false,
     onPullDownRefreshDisabled: false,
     statusBarHeight: app.globalData.statusBarHeight,
     currentTab: 0, //当前所在tab
@@ -38,6 +41,8 @@ Page({
     duration: 500, //翻页时间间隔
     previousMargin: 0, //前边距
     nextMargin: 0, //后边距
+    topNum: 0,
+    totalCoin: 0, //金币余额
   },
 
   onLoad: function() {
@@ -49,6 +54,7 @@ Page({
     this.onConnected();
     this.checkRegister();
     this.refreshMomentListData();
+    this.getTotalCoin();
   },
 
   //初始化数据
@@ -59,6 +65,8 @@ Page({
     this.getMyMomentList();
     this.getCollectList();
     this.onConnected();
+    this.getAttentionList(true);
+    this.getTotalCoin();
   },
 
   //卸载页面
@@ -66,7 +74,7 @@ Page({
     this.onDisconnected();
   },
 
-  //卸载页面
+  //刷新页面
   refreshMomentListData: function() {
     if (!app.isBlank(this.data.currentBasicUserInfo)) {
       this.data.pageIndex = 1;
@@ -85,17 +93,40 @@ Page({
     }
   },
 
+
+  //获取我扔出去的没有被评论的动态
+  getTotalCoin: function () {
+    var self = this;
+    if (app.globalData.apiHeader.UId > 0) {
+      app.httpPost(
+        'api/Letter/UserCoinInfo', {
+          "UId": app.globalData.apiHeader.UId
+        },
+        function (res) {
+          console.info("获取用户金币信息成功！")
+          self.setData({
+            totalCoin: res.totalCoin
+          });
+        },
+        function (res) {
+          console.error("获取用户金币信息失败！");
+        })
+    }
+  },
+
   checkRegister: function() {
     let self = this;
     if ((!app.isBlank(self.data.currentBasicUserInfo) && !self.data.currentBasicUserInfo.isRegister) ||
       app.globalData.needCheckUseInfo) {
       app.httpPost(
         'api/Letter/BasicUserInfo', {
-          "UId": app.globalData.apiHeader.UId
+          "UId": app.globalData.apiHeader.UId,
+          "Type":1
         },
         function(res) {
           self.setData({
             currentBasicUserInfo: res,
+            totalCoin: res.totalCoin
           });
         },
         function(res) {
@@ -186,8 +217,9 @@ Page({
   },
 
   //通知对方刷新聊天页面
-  sendMessage: function () {
-    this.hubConnect.send("subScribeMessage", app.globalData.apiHeader.UId, this.data.pickUpId);
+  sendMessage: function() {
+    //todo 待优化
+    this.hubConnect.send("subScribeMessage", app.globalData.apiHeader.UId, 0);
   },
 
   //获取动态
@@ -196,8 +228,7 @@ Page({
     app.httpPost(
       'api/Letter/PickUpList', {
         "UId": app.globalData.apiHeader.UId,
-        "PageIndex": 1,
-        "MomentType": 0
+        "PageIndex": 1
       },
       function(res) {
         self.setData({
@@ -301,17 +332,19 @@ Page({
 
   hideModalShare: function() {
     this.setData({
-      showModalStatus: false
+      showModalStatus: false,
+      showModalStatusAttention: false
     })
   },
 
 
-  hidePublishMomentModal: function () {
+
+  hidePublishMomentModal: function() {
     this.setData({
       showPublishMomentModal: false
     })
   },
-  
+
 
   //获取用户基础信息
   toShowModal: function(ops) {
@@ -381,27 +414,31 @@ Page({
     })
   },
 
+  toTop: function() {
+    this.setData({
+      topNum: 0
+    });
+  },
+
 
   //下拉刷新页面数据
   onPullDownRefresh: function() {
+    this.toTop();
     if (!this.data.loadTopHide) {
       //防止并发请求
       return;
     }
-
     this.setData({
       loadTopHide: false
     });
-    this.toTop();
+    if (this.data.currentTab == 1) {
+      this.setData({
+        currentTab: 0
+      });
+    }
     this.getPickUp();
   },
 
-  //停止刷新
-  stopRefresh: function() {
-    this.setData({
-      loadHide: true
-    });
-  },
 
   //删除瓶子
   deleteItem: function(ops) {
@@ -500,6 +537,101 @@ Page({
 
 
   //发表评论
+  insertAttentionDiscussContent: function (ops) {
+    this.hideModalShare();
+    var self = this;
+    app.httpPost(
+      'api/Letter/Discuss', {
+        "UId": app.globalData.apiHeader.UId,
+        "MomentId": this.data.currentMoment.momentId,
+        "PartnerUId": this.data.currentMoment.uId,
+        "TextContent": "Hi~"
+      },
+      function (res) {
+        if (res.isExecuteSuccess) {
+          wx.showToast({
+            title: "打招呼成功",
+            icon: 'success',
+            duration: 1500
+          });
+          self.sendMessage();
+          console.info("打招呼成功");
+        }
+      },
+      function (res) {
+        wx.showToast({
+          title: "打招呼失败",
+          icon: 'none',
+          duration: 1500
+        });
+        console.error("打招呼失败");
+      })
+  },
+
+  //添加关注
+  addAttention: function(ops) {
+    this.hideModalShare();
+    var self = this;
+    let uid = this.data.currentMoment.uId;
+    app.httpPost(
+      'api/Letter/AddAttention', {
+        "UId": app.globalData.apiHeader.UId,
+        "PartnerUId": uid
+      },
+      function(res) {
+        if (res.isExecuteSuccess) {
+          wx.showToast({
+            title: "关注成功",
+            icon: 'success',
+            duration: 1500
+          });
+          self.sendMessage();
+          console.info("关注成功");
+        }
+      },
+      function(res) {
+        wx.showToast({
+          title: "关注失败",
+          icon: 'none',
+          duration: 1500
+        });
+        console.error("关注失败");
+      })
+  },
+
+  //取消关注
+  cancelAttention: function(ops) {
+    this.hideModalShare();
+    var self = this;
+    let uid = this.data.currentMoment.uId;
+    app.httpPost(
+      'api/Letter/CancelAttention', {
+        "UId": app.globalData.apiHeader.UId,
+        "PartnerUId": uid
+      },
+      function(res) {
+        if (res.isExecuteSuccess) {
+          wx.showToast({
+            title: "取消成功",
+            icon: 'success',
+            duration: 1500
+          });
+          self.sendMessage();
+          self.toAttentionList();
+          console.info("取消成功");
+        }
+      },
+      function(res) {
+        wx.showToast({
+          title: "取消失败",
+          icon: 'none',
+          duration: 1500
+        });
+        console.error("关注失败");
+      })
+  },
+
+
   onlineNotify: function(ops) {
     this.hideModalShare();
     var self = this;
@@ -609,6 +741,24 @@ Page({
     app.globalData.currentDiscussMoment.createTime = pickUpList[key].createTime;
   },
 
+  //更多
+  moreAtteitionAction: function(ops) {
+    let key = ops.currentTarget.dataset.key;
+    let attentionList = this.data.attentionList;
+    this.setData({
+      selectItem: ops.currentTarget.dataset,
+      currentMoment: attentionList[key],
+      showModalStatusAttention: true
+    })
+    app.globalData.currentDiscussMoment.momentId = attentionList[key].momentId;
+    app.globalData.currentDiscussMoment.momentUId = attentionList[key].uId;
+    app.globalData.currentDiscussMoment.headImgPath = attentionList[key].headImgPath;
+    app.globalData.currentDiscussMoment.nickName = attentionList[key].nickName;
+    app.globalData.currentDiscussMoment.textContent = attentionList[key].textContent;
+    app.globalData.currentDiscussMoment.imgContent = attentionList[key].imgContent;
+    app.globalData.currentDiscussMoment.createTime = attentionList[key].createTime;
+  },
+
   //重置
   resetSelectItem: function() {
     this.hideModalShare();
@@ -622,7 +772,7 @@ Page({
   handletouchmove: function(event) {
     let currentY = event.touches[0].pageY
     let ty = currentY - this.data.lastY
-    if (ty > 30 && currentY < 700) {
+    if (ty > 30 && currentY < 700 && this.data.currentTab == 0) {
       this.onPullDownRefresh();
     }
   },
@@ -648,26 +798,63 @@ Page({
 
   //触底加载更多数据
   onReachBottom: function() {
-    let page = this.data.pageIndex + 1;
+    if (this.data.currentTab == 0) {
+      let page = this.data.pageIndex + 1;
+      this.setData({
+        pageIndex: page,
+        onloadText: "加载中..."
+      });
+      let self = this;
+      //loading动画加载1.5秒后执行
+      setTimeout(function() {
+        self.getPickUpList(false);
+      }, 1000)
+    } else {
+      let page = this.data.attentionPageIndex + 1;
+      this.setData({
+        attentionPageIndex: page,
+        onloadText: "加载中..."
+      });
+      let self = this;
+      //loading动画加载1.5秒后执行
+      setTimeout(function() {
+        self.getAttentionList(false);
+      }, 1000)
+    }
+  },
+
+  //tab切换至动态
+  bindChange: function(e) {
+    if (e.detail.current == 1) {
+      this.setData({
+        loadTopHide: false,
+        currentTab: 1,
+        attentionPageIndex: 1
+      });
+      this.toTop();
+      this.getAttentionList(true);
+    } else {
+      this.setData({
+        currentTab: 0,
+        pageIndex: 1
+      });
+    }
+  },
+
+  toDiscoryList: function(e) {
     this.setData({
-      loadHide: false,
-      pageIndex: page
+      currentTab: 0,
+      pageIndex: 1
     });
-
-    let self = this;
-    //loading动画加载1.5秒后执行
-    setTimeout(function() {
-      self.getPickUpList(false);
-    }, 1000)
-
   },
 
-  //置顶
-  toTop: function() {
-    wx.pageScrollTo({
-      scrollTop: 0
-    })
+  toAttentionList: function(e) {
+    this.setData({
+      currentTab: 1
+    });
+    this.getAttentionList(true);
   },
+
 
   //动态详情页面
   previewMomentDetail: function(e) {
@@ -684,7 +871,25 @@ Page({
     app.globalData.currentDiscussMoment.imgContent = pickUpList[key].imgContent;
     app.globalData.currentDiscussMoment.createTime = pickUpList[key].createTime;
     wx.navigateTo({
-      url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId
+      url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId + "&partnerUId=" + pickUpList[key].uId
+    })
+  },
+
+
+  //动态详情页面
+  previewAtentionMomentDetail: function (e) {
+    this.onDisconnected();
+    let key = e.currentTarget.dataset.key;
+    let attentionList = this.data.attentionList;
+    app.globalData.currentDiscussMoment.momentId = attentionList[key].momentId;
+    app.globalData.currentDiscussMoment.momentUId = attentionList[key].uId;
+    app.globalData.currentDiscussMoment.headImgPath = attentionList[key].headImgPath;
+    app.globalData.currentDiscussMoment.nickName = attentionList[key].nickName;
+    app.globalData.currentDiscussMoment.textContent = attentionList[key].textContent;
+    app.globalData.currentDiscussMoment.imgContent = attentionList[key].imgContent;
+    app.globalData.currentDiscussMoment.createTime = attentionList[key].createTime;
+    wx.navigateTo({
+      url: "../../pages/discussdetail/discussdetail?partnerUId=" + attentionList[key].uId
     })
   },
 
@@ -695,6 +900,14 @@ Page({
       url: '../../pages/publishmoment/publishmoment'
     })
     this.hidePublishMomentModal();
+  },
+
+  //金币余额
+  toCoinDetailPage: function() {
+    this.onDisconnected();
+    wx.navigateTo({
+      url: '../../pages/coin/coin'
+    })
   },
 
   toChatPage: function() {
@@ -724,8 +937,7 @@ Page({
     app.httpPost(
       'api/Letter/PickUpList', {
         "UId": app.globalData.apiHeader.UId,
-        "PageIndex": this.data.pageIndex,
-        "MomentType": 0
+        "PageIndex": this.data.pageIndex
       },
       function(res) {
         if (onShow) {
@@ -740,15 +952,60 @@ Page({
           }
         }
         self.setData({
-          pickUpList: tempPickUpList
+          pickUpList: tempPickUpList,
+          onloadText: "查看更多>>"
         });
-        self.stopRefresh();
 
         console.info("获取动态成功");
       },
       function(res) {
         console.info("获取数据失败");
-        self.stopRefresh();
+        self.setData({
+          onloadText: "查看更多>>"
+        });
+      })
+  },
+
+  //获取关注用户的动态
+  getAttentionList: function(onShow) {
+    var self = this;
+    if (onShow) {
+      self.setData({
+        attentionPageIndex: 1
+      });
+    }
+    let tempAttentionList = self.data.attentionList;
+    app.httpPost(
+      'api/Letter/AttentionList', {
+        "UId": app.globalData.apiHeader.UId,
+        "PageIndex": this.data.attentionPageIndex
+      },
+      function(res) {
+        if (onShow) {
+          tempAttentionList = res.attentionList
+        } else {
+          if (tempAttentionList.length == 0) {
+            tempAttentionList = res.attentionList
+          } else {
+            if (res.attentionList != null && res.attentionList.length > 0) {
+              tempAttentionList = tempAttentionList.concat(res.attentionList);
+            }
+          }
+        }
+        self.setData({
+          attentionList: tempAttentionList,
+          onloadText: "查看更多>>"
+        });
+
+        self.stopPullDownRefresh();
+        console.info("获取关注用户的动态成功");
+      },
+      function(res) {
+        console.info("获取关注用户的动态失败");
+        self.stopPullDownRefresh();
+        self.setData({
+          onloadText: "查看更多>>"
+        });
       })
   },
 
@@ -758,8 +1015,7 @@ Page({
     let tempPickUpList = self.data.pickUpList;
     app.httpPost(
       'api/Letter/PickUp', {
-        "UId": app.globalData.apiHeader.UId,
-        "MomentType": 0
+        "UId": app.globalData.apiHeader.UId
       },
       function(res) {
         if (res.pickUpList.length != 0) {
@@ -781,22 +1037,23 @@ Page({
           })
         }
         self.stopPullDownRefresh();
+        self.getTotalCoin();
       },
       function(res) {
         console.info("获取数据失败");
         //金币余额不足
-        if (res.code==80002){
+        if (res.code == 80002) {
           self.setData({
             showPublishMomentModal: true
           });
-        }else{
+        } else {
           wx.showToast({
             title: res.resultMessage,
             icon: 'none',
             duration: 3000
           })
         }
-        
+
         self.stopPullDownRefresh();
       })
   },

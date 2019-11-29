@@ -152,8 +152,9 @@ Page({
     this.onDisconnected();
     this.clearUnReadCount(e);
     let pickUpId = e.currentTarget.dataset.pickupid;
+    let uId = e.currentTarget.dataset.uid;
     wx.navigateTo({
-      url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId
+      url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId + "&partnerUId=" +uId
     })
   },
 

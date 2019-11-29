@@ -24,14 +24,22 @@ Page({
     basicUserInfo: {},
     isCreate: false,
     isShow: false,
-
+    partnerUId:0
   },
 
   onLoad: function(options) {
     this.setData({
       discussDetail: app.globalData.currentDiscussMoment
     })
-    this.data.pickUpId = options.pickUpId
+
+    if (options.pickUpId != "undefined" && options.pickUpId!=""){
+      this.data.pickUpId = options.pickUpId
+    }
+
+    if (options.partnerUId != "undefined" && options.partnerUId>0){
+      this.data.partnerUId = options.partnerUId
+    }
+
     this.discussDetail();
     this.initData();
     this.onChatConnected();
@@ -41,9 +49,9 @@ Page({
 
   //通知对方刷新聊天页面
   sendMessage: function() {
-    this.onChatConnect.send("subScribeMessage", app.globalData.apiHeader.UId, this.data.pickUpId);
-    this.chatListHub.send("subScribeMessage", app.globalData.apiHeader.UId, this.data.pickUpId);
-    this.onLineHub.send("subScribeMessage", app.globalData.apiHeader.UId, this.data.pickUpId);
+    this.onChatConnect.send("subScribeMessage", app.globalData.apiHeader.UId, this.data.partnerUId);
+    this.chatListHub.send("subScribeMessage", app.globalData.apiHeader.UId, this.data.partnerUId);
+    this.onLineHub.send("subScribeMessage", app.globalData.apiHeader.UId, this.data.partnerUId);
   },
 
   //连接WebSocket
@@ -53,7 +61,7 @@ Page({
 
     this.onChatConnect.start(url, {
       UId: app.globalData.apiHeader.UId,
-      PickUpId: this.data.pickUpId
+      PartnerUId: this.data.partnerUId
     });
 
     this.onChatConnect.onOpen = res => {
@@ -73,8 +81,7 @@ Page({
     var url = app.globalData.socketUrl + "chatListHub";
 
     this.chatListHub.start(url, {
-      UId: app.globalData.apiHeader.UId,
-      PickUpId: this.data.pickUpId
+      UId: app.globalData.apiHeader.UId
     });
 
     this.chatListHub.onOpen = res => {
@@ -87,8 +94,7 @@ Page({
     var url = app.globalData.socketUrl + "onLineHub";
 
     this.onLineHub.start(url, {
-      UId: app.globalData.apiHeader.UId,
-      PickUpId: this.data.pickUpId
+      UId: app.globalData.apiHeader.UId
     });
 
     this.onLineHub.onOpen = res => {
@@ -114,12 +120,23 @@ Page({
   //数据初始化
   initData: function() {
     try {
-      let cacheValue = wx.getStorageSync(this.data.pickUpId);
-      if (!app.isBlank(cacheValue)) {
-        this.setData({
-          discussDetail: cacheValue,
-          discussDetailList: cacheValue.discussDetailList
-        })
+      if (!app.isBlank(this.data.pickUpId)){
+        let cacheValue = wx.getStorageSync(this.data.pickUpId);
+        if (!app.isBlank(cacheValue)) {
+          this.setData({
+            discussDetail: cacheValue,
+            discussDetailList: cacheValue.discussDetailList
+          })
+        }
+      }else{
+        let cacheKey = "momentId_" + this.data.discussDetail.momentId + "uId" + app.globalData.apiHeader.UId + "partnerUId" + this.data.partnerUId;
+        let cacheValue = wx.getStorageSync(cacheKey);
+        if (!app.isBlank(cacheValue)) {
+          this.setData({
+            discussDetail: cacheValue,
+            discussDetailList: cacheValue.discussDetailList
+          })
+        }
       }
     } catch (e) {
       console.error("discussDetailPage:数据初始化异常");
@@ -202,16 +219,22 @@ Page({
     var self = this;
     app.httpPost(
       'api/Letter/DiscussDetail', {
-        "PickUpId": self.data.pickUpId
+        "UId": app.globalData.apiHeader.UId,
+        "MomentId": self.data.discussDetail.momentId,
+        "PartnerUId": self.data.partnerUId,
+        "PickUpId": self.data.pickUpId,
       },
       function(res) {
         if (!app.isBlank(res)) {
           let tempDetailList = res.discussDetailList;
           self.setData({
             discussDetail: res,
+            pickUpId: res.pickUpId,
             discussDetailList: tempDetailList
           });
-          app.setCache(self.data.pickUpId, res);
+          app.setCache(res.pickUpId, res);
+          let cacheKey = "momentId_" + self.data.discussDetail.momentId + "uId" + app.globalData.apiHeader.UId+ "partnerUId" + self.data.partnerUId;
+          app.setCache(cacheKey, res);
         }
         app.globalData.currentDiscussMoment = {};
         wx.stopPullDownRefresh();
@@ -286,7 +309,7 @@ Page({
   },
 
 
-  appendDiscussContent: function(ops) {
+  appendDiscussContent: function() {
     var self = this;
     let userinfo = app.globalData.basicUserInfo;
     if (userinfo == null || userinfo == '') {
@@ -313,22 +336,18 @@ Page({
           })
           return;
         } else {
-          self.insertDiscussContent(ops);
+          self.insertDiscussContent();
         }
       },
       function(res) {
-        self.insertDiscussContent(ops);
+        self.insertDiscussContent();
       }
     )
   },
 
 
   //发表评论
-  insertDiscussContent: function(ops) {
-    let token = "";
-    if (ops != undefined) {
-      token = ops.detail.formId;
-    }
+  insertDiscussContent: function() {
     let self = this;
     let content = self.data.discussContent;
     if (content != null && content != '' && content.length > 0) {
@@ -336,9 +355,10 @@ Page({
       app.httpPost(
         'api/Letter/Discuss', {
           "UId": app.globalData.apiHeader.UId,
+          "MomentId": self.data.discussDetail.momentId,
+          "PartnerUId": self.data.partnerUId,
           "PickUpId": self.data.pickUpId,
-          "TextContent": content,
-          "FormId": token
+          "TextContent": content
         },
         function(res) {
           if (res.isExecuteSuccess) {

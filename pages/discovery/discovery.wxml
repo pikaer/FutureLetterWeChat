@@ -1,6 +1,6 @@
 <!-- 自定义的导航栏 -->
 <view wx:if="{{!showStartUp}}" class="custom flex_center" style="padding-top:{{statusBarHeight}}px">
-  <view class="chatListView" catchtap="toChatPage">
+  <view class="chatListView" style="top:{{statusBarHeight+6}}px" catchtap="toChatPage">
     <view class="chatBackgroundView">
       <view class="discussListView">
         评论列表
@@ -12,16 +12,22 @@
     </view>
   </view>
   <view catchtap="toUserPage" class="toUserPage">
-    <!-- <image class='nav_logo' wx:if="{{currentBasicUserInfo!=null&&currentBasicUserInfo.isRegister}}" src="{{currentBasicUserInfo.headPhotoPath}}"></image> -->
-    <image class='nav_logo' src="/content/images/bingo.jpg"></image>
+    <image class='nav_logo' wx:if="{{currentBasicUserInfo!=null&&currentBasicUserInfo.isRegister}}" src="{{currentBasicUserInfo.headPhotoPath}}"></image>
+    <image class='nav_logo' wx:else src="/content/images/bingo.jpg"></image>
   </view>
-
   <view class="momentContainer">
-    <view bindtap="toPublishList" class="leftTitleView">
-      <view>探索</view>
+    <view bindtap="toDiscoryList" class="leftTitleView">
+      <view class="{{currentTab==0?'momentTitleCilick':'momentTitle'}}">探索 </view>
     </view>
-    <view bindtap="toCollectList" class="rightTitleView">
-      <view>关注</view>
+    <view bindtap="toAttentionList" class="rightTitleView">
+      <view class="{{currentTab==0?'momentTitle':'momentTitleCilick'}}"> 关注</view>
+    </view>
+    <view bindtap="toCoinDetailPage" class="coinDetailView">
+      <view class="coinTextView">{{totalCoin}}</view>
+      <view class="coinIconView">
+        <image class='coin_logo' src="/content/images/coin.svg"></image>
+      </view>
+
     </view>
   </view>
 </view>
@@ -46,65 +52,123 @@
     </div>
     <div class="txtLoding">加载中</div>
   </view>
-
-  <view class="defaultDescView" wx:if="{{pickUpList.length==0}}">
-    <view class="pullImgView">
-      <image src="/content/images/pullDown.png" class="pullImg" />
-    </view>
-    <view class="pullTxtView">下拉获取动态</view>
-  </view>
-  <view class="contentAreaView" bindtap="previewMomentDetail" bindlongpress="previewMomentDetail" wx:for="{{pickUpList}}" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}' data-key='{{key}}'>
-    <view data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' class="leftView" catchtap='toShowModal'>
-      <image src="{{value.headImgPath}}" class="userHead" />
-    </view>
-    <view class="contentArea">
-      <view class="titleView">
-        <view class="centerTitleView">
-          <view class="topHeadView">
-            <view class="nickNameView">
-              {{value.nickName}}
+  <view class="page-body">
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px" current="{{currentTab}}"
+      bindchange="bindChange">
+      <swiper-item>
+        <scroll-view scroll-y="true" scroll-top='{{topNum}}' class="momentArea">
+          <view class="defaultDescView" wx:if="{{pickUpList.length==0}}">
+            <view class="pullImgView">
+              <image src="/content/images/pullDown.png" class="pullImg" />
             </view>
-            <view class="onlineView" wx:if="{{value.onLineDesc!=''}}">
-              <mp-badge style="margin-left: 5px;margin-right: 5px;float:left;padding-top:1rpx;" ext-class="blue" />
-              <view class="onlineTextView">{{value.onLineDesc}}</view>
-            </view>
+            <view class="pullTxtView">下拉获取动态</view>
           </view>
-          <view class="centerView">
-            <view class="{{value.gender==1?'genderView':'gender_womanView'}}">
-              <view class="genderImgView">
-                <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
-                <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
+          <!-- 占位 -->
+          <view class="empty_topArea"></view>
+          <view class="contentAreaView" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList}}" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}' data-key='{{key}}'>
+            <view data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' class="leftView" catchtap='toShowModal'>
+              <image src="{{value.headImgPath}}" class="userHead" />
+            </view>
+            <view class="contentArea">
+              <view class="titleView">
+                <view class="centerTitleView">
+                  <view class="topHeadView">
+                    <view class="nickNameView">
+                      {{value.nickName}}
+                    </view>
+                    <view class="onlineView" wx:if="{{value.onLineDesc!=''}}">
+                      <mp-badge style="margin-left: 5px;margin-right: 5px;float:left;padding-top:1rpx;" ext-class="blue" />
+                      <view class="onlineTextView">{{value.onLineDesc}}</view>
+                    </view>
+                  </view>
+                  <view class="centerView">
+                    <view class="{{value.gender==1?'genderView':'gender_womanView'}}">
+                      <view class="genderImgView">
+                        <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
+                        <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
+                      </view>
+                      <view class="ageTextView">{{value.age}}</view>
+                    </view>
+                    <view class="timeView">{{value.createTime}}</view>
+                  </view>
+                </view>
+                <view class="rightView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-key='{{key}}' catchtap='moreAction'>
+                  <view class="iconfont more" style='font-size:20px' />
+                </view>
               </view>
-              <view class="ageTextView">{{value.age}}</view>
+              <view class="bodyView">
+                <!-- 文本动态 -->
+                <view class="textView">{{value.textContent}}</view>
+                <!-- 图片动态 -->
+                <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
+                  <image src="{{value.imgContent}}" catchtap="previewImg"  data-imgContent='{{value.imgContent}}' class="imgCount" />
+                </view>
+              </view>
             </view>
-            <view class="timeView">{{value.createTime}}</view>
           </view>
+          <!-- 占位 -->
+          <view class="seeMore" hidden='{{pickUpList.length<50}}' bindtap="onReachBottom">{{onloadText}}</view>
+          <view class="placeUseview"></view>
+        </scroll-view>
 
-        </view>
-        <view class="rightView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-key='{{key}}' catchtap='moreAction'>
-          <view class="iconfont more" style='font-size:20px' />
-        </view>
-      </view>
-      <view class="bodyView">
-        <!-- 文本动态 -->
-        <view class="textView">{{value.textContent}}</view>
-        <!-- 图片动态 -->
-        <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
-          <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' class="imgCount" />
-        </view>
-      </view>
-    </view>
+      </swiper-item>
+      <swiper-item>
+        <scroll-view scroll-y="true" scroll-top='{{topNum}}' class="momentArea">
+          <view class="defaultDescView" wx:if="{{attentionList.length==0}}">
+            <view class="pullTxtView">空空如也，快去关注好友吧~</view>
+          </view>
+          <!-- 占位 -->
+          <view class="empty_topArea"></view>
+          <view class="contentAreaView" bindtap="previewAtentionMomentDetail" bindlongpress="moreAtteitionAction" wx:for="{{attentionList}}" wx:for-index="key" wx:for-item="value" data-momentId='{{value.momentId}}' data-key='{{key}}'>
+            <view data-uId='{{value.uId}}' data-momentId='{{value.momentId}}' class="leftView" catchtap='toShowModal'>
+              <image src="{{value.headImgPath}}" class="userHead" />
+            </view>
+            <view class="contentArea">
+              <view class="titleView">
+                <view class="centerTitleView">
+                  <view class="topHeadView">
+                    <view class="nickNameView">
+                      {{value.nickName}}
+                    </view>
+                    <view class="onlineView" wx:if="{{value.onLineDesc!=''}}">
+                      <mp-badge style="margin-left: 5px;margin-right: 5px;float:left;padding-top:1rpx;" ext-class="blue" />
+                      <view class="onlineTextView">{{value.onLineDesc}}</view>
+                    </view>
+                  </view>
+                  <view class="centerView">
+                    <view class="{{value.gender==1?'genderView':'gender_womanView'}}">
+                      <view class="genderImgView">
+                        <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
+                        <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
+                      </view>
+                      <view class="ageTextView">{{value.age}}</view>
+                    </view>
+                    <view class="timeView">{{value.createTime}}</view>
+                  </view>
+                </view>
+                <view class="rightView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-key='{{key}}' catchtap='moreAtteitionAction'>
+                  <view class="iconfont more" style='font-size:20px' />
+                </view>
+              </view>
+              <view class="bodyView">
+                <!-- 文本动态 -->
+                <view class="textView">{{value.textContent}}</view>
+                <!-- 图片动态 -->
+                <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
+                  <image src="{{value.imgContent}}"  catchtap="previewImg" data-imgContent='{{value.imgContent}}' class="imgCount" />
+                </view>
+              </view>
+            </view>
+          </view>
+          <!-- 占位 -->
+          <view class="seeMore" hidden='{{attentionList.length<50}}' bindtap="onReachBottom">{{onloadText}}</view>
+          <view class="placeUseview"></view>
+        </scroll-view>
+      </swiper-item>
+    </swiper>
 
   </view>
 
-  <view class="footerSpinner" hidden='{{loadHide}}'>
-    <div class="spinner">
-      <div class="bounce1" />
-      <div class="bounce2" />
-      <div class="bounce3" />
-    </div>
-    <div class="txtLoding">加载中</div>
-  </view>
   <view class="refreshMomentView">
     <view class="publishIconView" catchtap="onPullDownRefresh" disabled='{{onPullDownRefreshDisabled}}'>
       <view class="getBottleImg">
@@ -156,10 +220,10 @@
   <view slot="footer" class='shareArea'>
     <view class='dialog_content'>
       <view class="shareTo ">
-        <button bindtap="onlineNotify">
-          <image class="shareIcon" src="/content/images/message.svg" />
+        <button bindtap="reportItem">
+          <image class="shareIcon" src="/content/images/report.svg " />
         </button>
-        <view class="shareText">上线时通知我</view>
+        <view class="shareText">举报</view>
       </view>
       <view class="shareTo" bindtap="forwardMoment">
         <button>
@@ -175,11 +239,11 @@
       </view>
     </view>
     <view class='dialog_content'>
-      <view class="shareTo ">
-        <button bindtap="reportItem">
-          <image class="shareIcon" src="/content/images/report.svg " />
+      <view class="shareTo">
+        <button bindtap="allClear">
+          <image class="shareIcon" src="/content/images/clear.svg" />
         </button>
-        <view class="shareText">举报</view>
+        <view class="shareText">全部清空</view>
       </view>
       <view class="shareTo">
         <button open-type='share'>
@@ -195,27 +259,72 @@
       </view>
     </view>
     <view class='dialog_content'>
-      <view class="shareTo">
-        <button bindtap="allClear">
-          <image class="shareIcon" src="/content/images/clear.svg" />
-        </button>
-        <view class="shareText">全部清空</view>
-      </view>
-
-      <view class="shareTo ">
-        <button bindtap="saveLocal">
-          <image class="shareIcon" src="/content/images/baocuntupian.svg" />
-        </button>
-        <view class="shareText ">保存图片</view>
-      </view>
       <view class="shareTo" bindtap="deleteItem">
         <button>
           <image class="shareIcon" src="/content/images/delete.svg " />
         </button>
         <view class="shareText">删除</view>
       </view>
+      <view class="shareTo ">
+        <button bindtap="saveLocal">
+          <image class="shareIcon" src="/content/images/baocuntupian.svg" />
+        </button>
+        <view class="shareText ">保存图片</view>
+      </view>
+      <view class="shareTo" bindtap="addAttention">
+        <button>
+          <image class="shareIcon" src="/content/images/addattention.svg " />
+        </button>
+        <view class="shareText">关注Ta</view>
+      </view>
     </view>
+  </view>
+</mp-halfScreenDialog>
+<!--弹出框end-->
 
+<!--弹出框start-->
+<mp-halfScreenDialog show="{{showModalStatusAttention}}" closabled="{{false}}">
+  <view slot="footer" class='shareArea'>
+    <view class='dialog_content'>
+      <view class="shareTo ">
+        <button bindtap="reportItem">
+          <image class="shareIcon" src="/content/images/report.svg " />
+        </button>
+        <view class="shareText">举报</view>
+      </view>
+      <view class="shareTo" bindtap="forwardMoment">
+        <button>
+          <image class="shareIcon" src="/content/images/share.svg" />
+        </button>
+        <view class="shareText">一键转发</view>
+      </view>
+      <view class="shareTo" bindtap="insertAttentionDiscussContent">
+        <button>
+          <image class="shareIcon" src="/content/images/greet.svg" />
+        </button>
+        <view class="shareText">打招呼</view>
+      </view>
+    </view>
+    <view class='dialog_content'>
+      <view class="shareTo">
+        <button open-type='share'>
+          <image class="shareIcon" src="/content/images/weixin.svg " />
+        </button>
+        <view class="shareText ">分享好友/群</view>
+      </view>
+      <view class="shareTo" bindtap="cancelAttention">
+        <button>
+          <image class="shareIcon" src="/content/images/cancelattention.svg " />
+        </button>
+        <view class="shareText">取消关注</view>
+      </view>
+      <view class="shareTo">
+        <button bindtap="addCollect">
+          <image class="shareIcon" src="/content/images/collect.svg " />
+        </button>
+        <view class="shareText">添加收藏</view>
+      </view>
+    </view>
   </view>
 </mp-halfScreenDialog>
 <!--弹出框end-->

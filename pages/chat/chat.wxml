@@ -1,6 +1,6 @@
 <view class="container">
   <scroll-view scroll-y="true" class="chatContainer">
-    <view wx:for="{{tempDiscussList}}" catchtap='previewMomentDetail' wx:for-item="value" wx:for-index="key" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' bindlongpress="bindlongpress">
+    <view wx:for="{{tempDiscussList}}" catchtap='previewMomentDetail' wx:for-item="value" wx:for-index="key" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-uId='{{value.uId}}'  bindlongpress="bindlongpress">
       <mp-slideview show="{{false}}" buttons="{{slideButtons}}" bindbuttontap="slideButtonTap" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}'>
         <view class="chatArea">
           <view data-uId='{{value.uId}}' class="headPhotoViewV2" catchtap='toShowModal'>
