@@ -17,7 +17,7 @@ page {
   color: #000;
   padding-left: 7px;
   padding-right: 7px;
-  background-color: #EFF2FB;
+  background-color: #eff2fb;
   overflow: hidden;
   width: 100%;
   height: 100%;
@@ -106,7 +106,7 @@ page {
 }
 
 page {
-  background-color: #EFF2FB;
+  background-color: #eff2fb;
   height: 100%;
   font-size: 32rpx;
   line-height: 1.6;
@@ -517,8 +517,8 @@ button {
   left: 0;
   height: 80px;
   z-index: 999;
-  background: #EFF2FB
-  border-bottom: solid 1px #e4dfdf;
+  background: #eff2fb;
+  border-bottom: 1px solid #e4dfdf;
 }
 
 .nav_logo {

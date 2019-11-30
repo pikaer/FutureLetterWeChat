@@ -85,12 +85,16 @@
 <!--custom Modal-->
 <view class="modal-mask-all" bindtap="hideLoginModal" wx:if="{{showLoginModal}}"></view>
 <view wx:if="{{showLoginModal}}">
-  <view class="modal-content-login">
+ <view class="modal-content-login">
     <view class="titleTxtView">
       你还未登录，登录后才能评论~
     </view>
-    <button lang="zh_CN" bindtap="cancelLogin" class="cancelBtn">取消</button>
-    <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo" class="loginBtn">登录</button>
+    <view class="cancelBtnView">
+     <button lang="zh_CN" bindtap="cancelLogin" class="cancelBtn">取消</button>
+    </view>
+    <view class="loginBtnView">
+      <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo" class="loginBtn">登录</button>
+    </view>
   </view>
 </view>
 
