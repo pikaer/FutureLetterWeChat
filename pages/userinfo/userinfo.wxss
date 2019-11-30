@@ -140,7 +140,7 @@ page {
   user-select: none;
   width: 100%;
   overflow-x: hidden;
-  background-color:#f0f4f3
+  background-color:#EFF2FB
 }
 
 .explainTxt {
@@ -150,7 +150,7 @@ page {
   padding-top: 6px;
   padding-bottom: 6px;
   color: #8e8e8e;
-  background-color: #f0f4f3;
+  background-color: #EFF2FB;
 }
 
 .editView {

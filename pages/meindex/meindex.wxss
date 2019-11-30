@@ -33,7 +33,7 @@
   float: left;
   width: 90px;
   height: 30px;
-  background-color: #f0f4f3
+  background-color: #EFF2FB
 }
 
 .coinCountView {

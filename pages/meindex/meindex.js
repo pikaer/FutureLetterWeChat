@@ -107,6 +107,19 @@ Page({
     }
   },
 
+  // 预览图片
+  previewImg: function (e) {
+    let imgContent = e.currentTarget.dataset.imgcontent;
+    let imgContents = [];
+    imgContents.push(imgContent);
+    wx.previewImage({
+      //当前显示图片
+      current: imgContent,
+      //所有图片
+      urls: imgContents
+    })
+  },
+
   //获取收藏列表数据
   getCollectList: function () {
     var self = this;

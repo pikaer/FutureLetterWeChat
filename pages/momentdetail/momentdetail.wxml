@@ -19,7 +19,7 @@
           <view class="textView">{{momentDetail.textContent}}</view>
           <!-- 图片动态 -->
           <view class="imgView" wx:if="{{momentDetail.imgContent!=null&&momentDetail.imgContent!=''}}">
-            <image src="{{momentDetail.imgContent}}" data-imgContent='{{momentDetail.imgContent}}' class="imgCount" mode="widthFix"></image>
+            <image src="{{momentDetail.imgContent}}"  catchtap="previewImg" data-imgContent='{{momentDetail.imgContent}}' class="imgCount" mode="widthFix"></image>
           </view>
         </view>
       </view>

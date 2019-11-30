@@ -5,6 +5,7 @@
   "navigationStyle": "custom",
   "usingComponents": {
     "mp-halfScreenDialog": "../components/half-screen-dialog/half-screen-dialog",
-    "mp-badge": "../components/badge/badge"
+    "mp-badge": "../components/badge/badge",
+    "mp-dialog": "../components/dialog/dialog"
   }
 }
