@@ -21,7 +21,7 @@
       </view>
     </view>
     <view class="lineView"></view>
-    <view>
+    <view class="basicTextView">
       <navigator url="../../pages/nickname/nickname?nickName={{tempUserInfo.nickName}}" class="navigator">
         <view class="navigatorView">
           <view class="title">昵称</view>
@@ -53,7 +53,7 @@
       <view class="arrow"></view>
     </view>
     <view class="lineView"></view>
-    <view>
+    <view class="basicTextView">
       <navigator url="../../pages/signature/signature?signature={{tempUserInfo.signature}}" class="navigator">
         <view class="navigatorView">
           <view class="title">个性签名</view>
@@ -66,7 +66,7 @@
   </view>
   <view class="explainTxt">以下信息用于提高匹配度，不会出现在简介里</view>
   <view class="blockView">
-    <view>
+    <view class="basicTextView">
       <navigator url="../../pages/schoolname/schoolname?schoolName={{tempUserInfo.schoolName}}" class="navigator">
         <view class="navigatorView">
           <view class="title">学校名称</view>

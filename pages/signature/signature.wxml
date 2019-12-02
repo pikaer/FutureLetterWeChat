@@ -1,8 +1,9 @@
-<view class="textView">
-  <!--这个是输入框-->
-  <textarea class="textValueView" placeholder="请输入个性签名" value="{{tempSignature}}" bindinput="signatureInput" placeholder-style="color: gray" maxlength="50" ></textarea>
-
-  <view class="btnView">
-    <button class="primary" bindtap='updateSignature'>保 存</button>
+<view class="pageView">
+  <view class="textView">
+    <!--这个是输入框-->
+    <textarea class="textValueView" placeholder="请输入个性签名" value="{{tempSignature}}" bindinput="signatureInput" placeholder-style="color: gray" maxlength="50"></textarea>
+    <view class="btnView">
+      <button class="primary" bindtap='updateSignature'>保 存</button>
+    </view>
   </view>
 </view>

@@ -43,7 +43,6 @@ Page({
     nextMargin: 0, //后边距
     topNum: 0,
     totalCoin: 0, //金币余额
-    coinNotifyBtns: [{ text: '取消' }, { text: '发布动态' }]
   },
 
   onLoad: function() {

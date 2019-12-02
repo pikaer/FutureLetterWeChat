@@ -45,6 +45,8 @@
   position: relative;
   display: flex;
   align-items: center;
+  background-color: #EFF2FB;
+
 }
 
 .navigator:before {
@@ -106,7 +108,7 @@
 
 .modal-content-all {
   position: fixed;
-  top: 160px;
+  top: 40%;
   right: 15%;
   left: 15%;
   z-index: 9500;

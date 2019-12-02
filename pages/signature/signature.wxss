@@ -14,3 +14,12 @@
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+.pageView {
+  background-color: #eff2fb;
+  height: 100%;
+}
+
+page {
+  height: 100%;
+}

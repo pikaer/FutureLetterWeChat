@@ -12,7 +12,7 @@
 .basicView {
   height: 100%;
   width: 100%;
-  background-color: white;
+  background-color: #eff2fb;
   margin-top: 10px;
 }
 
@@ -63,7 +63,7 @@
 .blockView {
   height: 100%;
   width: 100%;
-  background-color: white;
+  background-color: #eff2fb;
 }
 
 .btnView {
@@ -140,7 +140,7 @@ page {
   user-select: none;
   width: 100%;
   overflow-x: hidden;
-  background-color:#EFF2FB
+  background-color: #eff2fb;
 }
 
 .explainTxt {
@@ -150,7 +150,7 @@ page {
   padding-top: 6px;
   padding-bottom: 6px;
   color: #8e8e8e;
-  background-color: #EFF2FB;
+  background-color: #eff2fb;
 }
 
 .editView {
@@ -162,4 +162,8 @@ page {
 .editImg {
   width: 20px;
   height: 20px;
+}
+
+.basicTextView {
+  background-color: #eff2fb;
 }
