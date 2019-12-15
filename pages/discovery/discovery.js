@@ -51,7 +51,6 @@ Page({
 
   onShow: function() {
     this.unReadCountRefresh();
-    this.onConnected();
     this.checkRegister();
     this.refreshMomentListData();
     this.getTotalCoin();
@@ -71,6 +70,7 @@ Page({
 
   //卸载页面
   onUnload: function() {
+    console.info("卸载页面，断开连接")
     this.onDisconnected();
   },
 
@@ -86,7 +86,8 @@ Page({
   onDisconnected: function() {
     try {
       this.hubConnect.close({
-        UId: app.globalData.apiHeader.UId
+        UId: app.globalData.apiHeader.UId,
+        ConnetType:0
       })
     } catch (e) {
       console.error(JSON.stringify(e));
@@ -176,7 +177,7 @@ Page({
       },
       function(res) {
         if (res != null && res.uId > 0) {
-          //res.uId=30094;
+          //res.uId = 40204;
           console.info("登录成功");
           app.globalData.basicUserInfo = res;
           app.globalData.apiHeader.UId = res.uId;
@@ -202,7 +203,8 @@ Page({
     var url = app.globalData.socketUrl + "onLineHub";
 
     this.hubConnect.start(url, {
-      UId: app.globalData.apiHeader.UId
+      UId: app.globalData.apiHeader.UId,
+      ConnetType:0
     });
 
     this.hubConnect.onOpen = res => {
@@ -217,14 +219,22 @@ Page({
   },
 
   //通知对方刷新聊天页面
-  sendMessage: function() {
-    //todo 待优化
-    this.hubConnect.send("subScribeMessage", app.globalData.apiHeader.UId, 0);
+  sendMessage: function(partnerUId) {
+    this.hubConnect.send("subScribeMessage",partnerUId);
   },
 
   //获取动态
   getGolobalPickUpList: function() {
     var self = this;
+    let cacheKey = "userPickUpListCache+" + app.globalData.apiHeader.UId;
+    let cacheValue = wx.getStorageSync(cacheKey);
+    if (!app.isBlank(cacheValue)) {
+      self.setData({
+        pickUpList: cacheValue, 
+        showStartUp: false
+      });
+      console.info("获取全局瓶子列表缓存成功");
+    }
     app.httpPost(
       'api/Letter/PickUpList', {
         "UId": app.globalData.apiHeader.UId,
@@ -235,12 +245,16 @@ Page({
           pickUpList: res.pickUpList,
           showStartUp: false
         });
+        app.setCache(cacheKey, res.pickUpList);
+        console.info("获取全局瓶子列表成功");
+        self.getUserLocation();
       },
       function(res) {
-        console.info("获取数据失败");
+        console.info("获取全局瓶子列表数据失败");
         self.setData({
           showStartUp: false
         });
+        self.getUserLocation();
       })
   },
 
@@ -395,7 +409,6 @@ Page({
 
   //聊一聊
   toChat: function() {
-    this.onDisconnected();
     this.hideModal();
     let pickUpId = this.data.currentTargetPickUpId;
     wx.navigateTo({
@@ -405,7 +418,6 @@ Page({
 
   //用户主页
   toUserPage: function() {
-    this.onDisconnected();
     this.hideModal();
     let pickUpId = this.data.currentTargetPickUpId;
     wx.navigateTo({
@@ -520,7 +532,7 @@ Page({
             icon: 'success',
             duration: 1500
           });
-          self.sendMessage();
+          self.sendMessage(self.data.currentMoment.uId);
           console.info("打招呼成功");
         }
       },
@@ -553,7 +565,7 @@ Page({
             icon: 'success',
             duration: 1500
           });
-          self.sendMessage();
+          self.sendMessage(self.data.currentMoment.uId);
           console.info("打招呼成功");
         }
       },
@@ -584,7 +596,7 @@ Page({
             icon: 'success',
             duration: 1500
           });
-          self.sendMessage();
+          self.sendMessage(self.data.currentMoment.uId);
           console.info("关注成功");
         }
       },
@@ -615,7 +627,6 @@ Page({
             icon: 'success',
             duration: 1500
           });
-          self.sendMessage();
           self.toAttentionList();
           console.info("取消成功");
         }
@@ -647,7 +658,6 @@ Page({
             icon: 'success',
             duration: 1500
           });
-          self.sendMessage();
           console.info("设置成功");
         }
       },
@@ -857,7 +867,6 @@ Page({
 
   //动态详情页面
   previewMomentDetail: function(e) {
-    this.onDisconnected();
     let pickUpId = e.currentTarget.dataset.pickupid;
     let key = e.currentTarget.dataset.key;
     let pickUpList = this.data.pickUpList;
@@ -877,7 +886,6 @@ Page({
 
   //动态详情页面
   previewAtentionMomentDetail: function (e) {
-    this.onDisconnected();
     let key = e.currentTarget.dataset.key;
     let attentionList = this.data.attentionList;
     app.globalData.currentDiscussMoment.momentId = attentionList[key].momentId;
@@ -894,7 +902,6 @@ Page({
 
   //发布动态
   publishMoment: function() {
-    this.onDisconnected();
     wx.navigateTo({
       url: '../../pages/publishmoment/publishmoment'
     })
@@ -903,14 +910,12 @@ Page({
 
   //金币余额
   toCoinDetailPage: function() {
-    this.onDisconnected();
     wx.navigateTo({
       url: '../../pages/coin/coin'
     })
   },
 
   toChatPage: function() {
-    this.onDisconnected();
     wx.navigateTo({
       url: '../../pages/chat/chat'
     })
@@ -956,6 +961,9 @@ Page({
         });
 
         console.info("获取动态成功");
+
+        let cacheKey = "userPickUpListCache+" + app.globalData.apiHeader.UId;
+        app.setCache(cacheKey, tempPickUpList);
       },
       function(res) {
         console.info("获取数据失败");
@@ -1028,6 +1036,9 @@ Page({
           self.setData({
             pickUpList: tempPickUpList
           });
+
+          let cacheKey = "userPickUpListCache+" + app.globalData.apiHeader.UId;
+          app.setCache(cacheKey, tempPickUpList);
         } else {
           wx.showToast({
             title: '没有更多动态啦，去发布一个吧~',
@@ -1267,6 +1278,115 @@ Page({
       }, err => {
         reject();
       })
+    })
+  },
+
+  getUserLocation: function () {
+    let self = this
+    wx.getSetting({
+      success: (res) => {
+        // res.authSetting['scope.userLocation'] == undefined    表示 初始化进入该页面
+        // res.authSetting['scope.userLocation'] == false    表示 非初始化进入该页面,且未授权
+        // res.authSetting['scope.userLocation'] == true    表示 地理位置授权
+        // 拒绝授权后再次进入重新授权
+        if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) {
+          // console.log('authSetting:status:拒绝授权后再次进入重新授权', res.authSetting['scope.userLocation'])
+          wx.showModal({
+            title: '',
+            content: '【Bingo聊天室】需要获取你的地理位置，请确认授权',
+            success: function (res) {
+              if (res.cancel) {
+                wx.showToast({
+                  title: '拒绝授权',
+                  icon: 'none'
+                })
+                setTimeout(() => {
+                  wx.navigateBack()
+                }, 1500)
+              } else if (res.confirm) {
+                wx.openSetting({
+                  success: function (dataAu) {
+                    // console.log('dataAu:success', dataAu)
+                    if (dataAu.authSetting["scope.userLocation"] == true) {
+                      //再次授权，调用wx.getLocation的API
+                      self.getLocation(dataAu)
+                    } else {
+                      wx.showToast({
+                        title: '授权失败',
+                        icon: 'none'
+                      })
+                      setTimeout(() => {
+                        wx.navigateBack()
+                      }, 1500)
+                    }
+                  }
+                })
+              }
+            }
+          })
+        }
+        // 初始化进入，未授权
+        else if (res.authSetting['scope.userLocation'] == undefined) {
+          // console.log('authSetting:status:初始化进入，未授权', res.authSetting['scope.userLocation'])
+          //调用wx.getLocation的API
+          self.getLocation(res)
+        }
+        // 已授权
+        else if (res.authSetting['scope.userLocation']) {
+          // console.log('authSetting:status:已授权', res.authSetting['scope.userLocation'])
+          //调用wx.getLocation的API
+          self.getLocation(res)
+        }
+      }
+    })
+  },
+  // 微信获得经纬度
+  getLocation: function (userLocation) {
+    let self = this
+    wx.getLocation({
+      type: "wgs84",
+      success: function (res) {
+        console.log('getLocation:success', res)
+        var latitude = res.latitude
+        var longitude = res.longitude
+        //self.getDaiShu(latitude, longitude)
+      },
+      fail: function (res) {
+        console.log('getLocation:fail', res)
+        if (res.errMsg === 'getLocation:fail:auth denied') {
+          wx.showToast({
+            title: '拒绝授权',
+            icon: 'none'
+          })
+          setTimeout(() => {
+            wx.navigateBack()
+          }, 1500)
+          return
+        }
+        if (!userLocation || !userLocation.authSetting['scope.userLocation']) {
+          console.log('getLocation:fail', res)
+          self.getUserLocation()
+        } else if (userLocation.authSetting['scope.userLocation']) {
+          wx.showModal({
+            title: '',
+            content: '请在系统设置中打开定位服务',
+            showCancel: false,
+            success: result => {
+              if (result.confirm) {
+                wx.navigateBack()
+              }
+            }
+          })
+        } else {
+          wx.showToast({
+            title: '授权失败',
+            icon: 'none'
+          })
+          setTimeout(() => {
+            wx.navigateBack()
+          }, 1500)
+        }
+      }
     })
   },
 

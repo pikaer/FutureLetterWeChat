@@ -22,7 +22,11 @@
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   },
- 
+  "permission": {
+    "scope.userLocation": {
+      "desc": "请确认授权"
+    }
+  },
   "networkTimeout": {
     "request": 20000,
     "downloadFile": 20000

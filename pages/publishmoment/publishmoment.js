@@ -165,8 +165,8 @@ Page({
     var timer = setInterval(function() {
       times++
       if (times >= 1) {
+        clearInterval(timer); 
         self.backPage();
-        clearInterval(timer)
       }
     }, 1000)
   },

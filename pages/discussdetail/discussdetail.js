@@ -37,83 +37,47 @@ Page({
     }
 
     if (options.partnerUId != "undefined" && options.partnerUId>0){
-      this.data.partnerUId = options.partnerUId
+      this.data.partnerUId = parseInt(options.partnerUId);
     }
 
     this.discussDetail();
     this.initData();
-    this.onChatConnected();
-    this.onChatListConnected();
     this.onLineConnected();
   },
 
   //通知对方刷新聊天页面
   sendMessage: function() {
-    this.onChatConnect.send("subScribeMessage", app.globalData.apiHeader.UId, this.data.partnerUId);
-    this.chatListHub.send("subScribeMessage", app.globalData.apiHeader.UId, this.data.partnerUId);
-    this.onLineHub.send("subScribeMessage", app.globalData.apiHeader.UId, this.data.partnerUId);
+    this.onLineHub.send("subScribeMessage",this.data.partnerUId);
   },
 
-  //连接WebSocket
-  onChatConnected: function() {
-    this.onChatConnect = new HubConnection();
-    var url = app.globalData.socketUrl + "onChatHub";
-
-    this.onChatConnect.start(url, {
-      UId: app.globalData.apiHeader.UId,
-      PartnerUId: this.data.partnerUId
-    });
-
-    this.onChatConnect.onOpen = res => {
-      console.info("成功开启连接");
-    };
-
-    //订阅对方发来的消息
-    this.onChatConnect.on("receive", res => {
-      console.info("成功订阅消息");
-      this.discussDetail();
-      this.clearUnReadCount();
-    })
-  },
-
-  onChatListConnected: function() {
-    this.chatListHub = new HubConnection();
-    var url = app.globalData.socketUrl + "chatListHub";
-
-    this.chatListHub.start(url, {
-      UId: app.globalData.apiHeader.UId
-    });
-
-    this.chatListHub.onOpen = res => {
-      console.info("成功开启连接");
-    };
-  },
 
   onLineConnected: function() {
     this.onLineHub = new HubConnection();
     var url = app.globalData.socketUrl + "onLineHub";
 
     this.onLineHub.start(url, {
-      UId: app.globalData.apiHeader.UId
+      UId: app.globalData.apiHeader.UId,
+      PartnerUId: this.data.partnerUId,
+      ConnetType:2
     });
 
     this.onLineHub.onOpen = res => {
       console.info("成功开启连接");
     };
+
+    //订阅对方发来的消息
+    this.onLineHub.on("receive", res => {
+      console.info("成功订阅消息");
+      this.discussDetail();
+      this.clearUnReadCount();
+    })
   },
 
   //卸载页面，中断webSocket
   onUnload: function() {
-    this.onChatConnect.close({
-      UId: app.globalData.apiHeader.UId
-    })
-
-    this.chatListHub.close({
-      UId: app.globalData.apiHeader.UId
-    })
-
     this.onLineHub.close({
-      UId: app.globalData.apiHeader.UId
+      UId: app.globalData.apiHeader.UId,
+      ConnetType: 1
     })
   },
 

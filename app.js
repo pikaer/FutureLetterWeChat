@@ -15,7 +15,7 @@ App({
   globalData: {
     baseUrl: "https://www.pikaer.com/todayapi/",
     socketUrl: "https://www.pikaer.com/signalR/",
-    // baseUrl: "https://localhost:44386/",
+   //baseUrl: "https://localhost:44386/",
     // socketUrl: "https://localhost:44375/",
 
     httpHeader: {
@@ -78,7 +78,6 @@ App({
     })
   },
 
- 
 
   //弹框
   saveToast: function(success) {

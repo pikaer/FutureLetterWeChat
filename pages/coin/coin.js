@@ -6,8 +6,11 @@ Page({
     showModal: false
   },
 
-  onShow: function(options) {
+  onLoad: function(options) {
     this.initData();
+  },
+
+  onShow: function (options) {
     this.getTotalCoin();
   },
 

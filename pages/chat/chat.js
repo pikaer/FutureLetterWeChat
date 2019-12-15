@@ -78,17 +78,19 @@ Page({
   //卸载页面，中断webSocket
   onDisconnected: function() {
     this.hubConnect.close({
-      UId: app.globalData.apiHeader.UId
+      UId: app.globalData.apiHeader.UId,
+      ConnetType: 1
     })
   },
 
   //连接WebSocket
   onConnected: function() {
     this.hubConnect = new HubConnection();
-    var url = app.globalData.socketUrl + "chatListHub";
+    var url = app.globalData.socketUrl + "onLineHub";
 
     this.hubConnect.start(url, {
-      UId: app.globalData.apiHeader.UId
+      UId: app.globalData.apiHeader.UId,
+      ConnetType:1
     });
 
     this.hubConnect.onOpen = res => {
