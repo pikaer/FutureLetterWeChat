@@ -22,8 +22,10 @@ Page({
     attentionPageIndex: 1,
     loadTopHide: true,
     showModal: false,
+    showChatModal: false,
     showModalStatus: false,
     showModalStatusAttention: false,
+    showLoginModal: false,
     isCreate: false,
     isShow: false,
     showStartUp: true,
@@ -43,6 +45,7 @@ Page({
     nextMargin: 0, //后边距
     topNum: 0,
     totalCoin: 0, //金币余额
+    insertDialogDiscussVlaue: "" //快速评论内容
   },
 
   onLoad: function() {
@@ -87,7 +90,7 @@ Page({
     try {
       this.hubConnect.close({
         UId: app.globalData.apiHeader.UId,
-        ConnetType:0
+        ConnetType: 0
       })
     } catch (e) {
       console.error(JSON.stringify(e));
@@ -96,20 +99,20 @@ Page({
 
 
   //获取我扔出去的没有被评论的动态
-  getTotalCoin: function () {
+  getTotalCoin: function() {
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
         'api/Letter/UserCoinInfo', {
           "UId": app.globalData.apiHeader.UId
         },
-        function (res) {
+        function(res) {
           console.info("获取用户金币信息成功！")
           self.setData({
             totalCoin: res.totalCoin
           });
         },
-        function (res) {
+        function(res) {
           console.error("获取用户金币信息失败！");
         })
     }
@@ -122,7 +125,7 @@ Page({
       app.httpPost(
         'api/Letter/BasicUserInfo', {
           "UId": app.globalData.apiHeader.UId,
-          "Type":1
+          "Type": 1
         },
         function(res) {
           self.setData({
@@ -177,7 +180,7 @@ Page({
       },
       function(res) {
         if (res != null && res.uId > 0) {
-          //res.uId = 40204;
+          //res.uId = 40230;
           console.info("登录成功");
           app.globalData.basicUserInfo = res;
           app.globalData.apiHeader.UId = res.uId;
@@ -204,7 +207,7 @@ Page({
 
     this.hubConnect.start(url, {
       UId: app.globalData.apiHeader.UId,
-      ConnetType:0
+      ConnetType: 0
     });
 
     this.hubConnect.onOpen = res => {
@@ -220,7 +223,11 @@ Page({
 
   //通知对方刷新聊天页面
   sendMessage: function(partnerUId) {
-    this.hubConnect.send("subScribeMessage",partnerUId);
+    try{
+      this.hubConnect.send("subScribeMessage", partnerUId);
+    }catch(e){
+      console.error(JSON.stringify(e));
+    }
   },
 
   //获取动态
@@ -230,7 +237,7 @@ Page({
     let cacheValue = wx.getStorageSync(cacheKey);
     if (!app.isBlank(cacheValue)) {
       self.setData({
-        pickUpList: cacheValue, 
+        pickUpList: cacheValue,
         showStartUp: false
       });
       console.info("获取全局瓶子列表缓存成功");
@@ -351,6 +358,35 @@ Page({
     })
   },
 
+  hideChatModal: function() {
+    this.setData({
+      showChatModal: false
+    })
+  },
+
+  showChatModal: function(ops) {
+    if (!app.globalData.basicUserInfo.isRegister) {
+      this.showLoginModal();
+      return;
+    }
+
+    this.setMoreContent(ops);
+    this.setData({
+      showChatModal: true
+    })
+  },
+
+  showAttentionChatModal: function(ops) {
+    if (!app.globalData.basicUserInfo.isRegister) {
+      this.showLoginModal();
+      return;
+    }
+
+    this.setMoreAtteitionContent(ops);
+    this.setData({
+      showChatModal: true
+    })
+  },
 
   hidePublishMomentModal: function() {
     this.setData({
@@ -358,6 +394,13 @@ Page({
     })
   },
 
+  showLoginModal: function () {
+    this.setData({
+      showLoginModal: true
+    })
+  },
+
+  
 
   //获取用户基础信息
   toShowModal: function(ops) {
@@ -547,8 +590,62 @@ Page({
   },
 
 
+  //获取用户输入的用户名
+  insertDialogDiscussInput: function(e) {
+    this.data.insertDialogDiscussVlaue = e.detail.value
+  },
+
+  insertDialogContent: function() {
+    if (this.data.selectItem.type == 1) {
+      this.insertDialogDiscussContent();
+    } else {
+      this.insertDialogAttentionDiscussContent();
+    }
+  },
+
   //发表评论
-  insertAttentionDiscussContent: function (ops) {
+  insertDialogDiscussContent: function() {
+    if (this.data.insertDialogDiscussVlaue.length == 0) {
+      wx.showToast({
+        title: "内容不能为空",
+        icon: 'none',
+        duration: 1500
+      });
+      return;
+    }
+    this.hideChatModal();
+    var self = this;
+    let pickUpId = this.data.currentMoment.pickUpId;
+    app.httpPost(
+      'api/Letter/Discuss', {
+        "UId": app.globalData.apiHeader.UId,
+        "PickUpId": pickUpId,
+        "TextContent": this.data.insertDialogDiscussVlaue
+      },
+      function(res) {
+        if (res.isExecuteSuccess) {
+          wx.showToast({
+            title: "评论成功",
+            icon: 'success',
+            duration: 1500
+          });
+          self.sendMessage(self.data.currentMoment.uId);
+          console.info("快速评论成功");
+        }
+      },
+      function(res) {
+        wx.showToast({
+          title: "评论失败",
+          icon: 'none',
+          duration: 1500
+        });
+        console.error("快速评论失败");
+      })
+  },
+
+
+  //发表评论
+  insertAttentionDiscussContent: function(ops) {
     this.hideModalShare();
     var self = this;
     app.httpPost(
@@ -558,7 +655,7 @@ Page({
         "PartnerUId": this.data.currentMoment.uId,
         "TextContent": "Hi~"
       },
-      function (res) {
+      function(res) {
         if (res.isExecuteSuccess) {
           wx.showToast({
             title: "打招呼成功",
@@ -569,13 +666,52 @@ Page({
           console.info("打招呼成功");
         }
       },
-      function (res) {
+      function(res) {
         wx.showToast({
           title: "打招呼失败",
           icon: 'none',
           duration: 1500
         });
         console.error("打招呼失败");
+      })
+  },
+
+
+  //发表评论
+  insertDialogAttentionDiscussContent: function(ops) {
+    if (this.data.insertDialogDiscussVlaue.length == 0) {
+      wx.showToast({
+        title: "内容不能为空",
+        icon: 'none',
+        duration: 1500
+      });
+      return;
+    }
+    this.hideChatModal();
+    var self = this;
+    app.httpPost(
+      'api/Letter/Discuss', {
+        "UId": app.globalData.apiHeader.UId,
+        "MomentId": this.data.currentMoment.momentId,
+        "PartnerUId": this.data.currentMoment.uId,
+        "TextContent": this.data.insertDialogDiscussVlaue
+      },
+      function(res) {
+        if (res.isExecuteSuccess) {
+          wx.showToast({
+            title: "评论成功",
+            icon: 'success',
+            duration: 1500
+          });
+          self.sendMessage(self.data.currentMoment.uId);
+        }
+      },
+      function(res) {
+        wx.showToast({
+          title: "评论失败",
+          icon: 'none',
+          duration: 1500
+        });
       })
   },
 
@@ -734,12 +870,23 @@ Page({
 
   //更多
   moreAction: function(ops) {
+    if (!app.globalData.basicUserInfo.isRegister) {
+      this.showLoginModal();
+      return;
+    }
+
+    this.setMoreContent(ops);
+    this.setData({
+      showModalStatus: true
+    })
+  },
+
+  setMoreContent: function(ops) {
     let key = ops.currentTarget.dataset.key;
     let pickUpList = this.data.pickUpList;
     this.setData({
       selectItem: ops.currentTarget.dataset,
-      currentMoment: pickUpList[key],
-      showModalStatus: true
+      currentMoment: pickUpList[key]
     })
     app.globalData.currentDiscussMoment.momentId = pickUpList[key].momentId;
     app.globalData.currentDiscussMoment.momentUId = pickUpList[key].uId;
@@ -750,14 +897,26 @@ Page({
     app.globalData.currentDiscussMoment.createTime = pickUpList[key].createTime;
   },
 
+
   //更多
   moreAtteitionAction: function(ops) {
+    if (!app.globalData.basicUserInfo.isRegister) {
+      this.showLoginModal();
+      return;
+    }
+
+    this.setMoreAtteitionContent(ops);
+    this.setData({
+      showModalStatusAttention: true
+    })
+  },
+
+  setMoreAtteitionContent: function(ops) {
     let key = ops.currentTarget.dataset.key;
     let attentionList = this.data.attentionList;
     this.setData({
       selectItem: ops.currentTarget.dataset,
-      currentMoment: attentionList[key],
-      showModalStatusAttention: true
+      currentMoment: attentionList[key]
     })
     app.globalData.currentDiscussMoment.momentId = attentionList[key].momentId;
     app.globalData.currentDiscussMoment.momentUId = attentionList[key].uId;
@@ -767,6 +926,7 @@ Page({
     app.globalData.currentDiscussMoment.imgContent = attentionList[key].imgContent;
     app.globalData.currentDiscussMoment.createTime = attentionList[key].createTime;
   },
+
 
   //重置
   resetSelectItem: function() {
@@ -885,7 +1045,7 @@ Page({
 
 
   //动态详情页面
-  previewAtentionMomentDetail: function (e) {
+  previewAtentionMomentDetail: function(e) {
     let key = e.currentTarget.dataset.key;
     let attentionList = this.data.attentionList;
     app.globalData.currentDiscussMoment.momentId = attentionList[key].momentId;
@@ -1281,7 +1441,7 @@ Page({
     })
   },
 
-  getUserLocation: function () {
+  getUserLocation: function() {
     let self = this
     wx.getSetting({
       success: (res) => {
@@ -1294,7 +1454,7 @@ Page({
           wx.showModal({
             title: '',
             content: '【Bingo聊天室】需要获取你的地理位置，请确认授权',
-            success: function (res) {
+            success: function(res) {
               if (res.cancel) {
                 wx.showToast({
                   title: '拒绝授权',
@@ -1305,7 +1465,7 @@ Page({
                 }, 1500)
               } else if (res.confirm) {
                 wx.openSetting({
-                  success: function (dataAu) {
+                  success: function(dataAu) {
                     // console.log('dataAu:success', dataAu)
                     if (dataAu.authSetting["scope.userLocation"] == true) {
                       //再次授权，调用wx.getLocation的API
@@ -1341,17 +1501,15 @@ Page({
     })
   },
   // 微信获得经纬度
-  getLocation: function (userLocation) {
+  getLocation: function(userLocation) {
     let self = this
     wx.getLocation({
       type: "wgs84",
-      success: function (res) {
+      success: function(res) {
         console.log('getLocation:success', res)
-        var latitude = res.latitude
-        var longitude = res.longitude
-        //self.getDaiShu(latitude, longitude)
+        self.updateUserLocation(res.latitude, res.longitude)
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log('getLocation:fail', res)
         if (res.errMsg === 'getLocation:fail:auth denied') {
           wx.showToast({
@@ -1388,6 +1546,86 @@ Page({
         }
       }
     })
+  },
+
+  updateUserLocation: function(latitude, longitude) {
+    let self = this;
+    if (app.globalData.apiHeader.UId > 0) {
+      app.httpPost(
+        'api/Letter/UpdateUserLocation', {
+          "UId": app.globalData.apiHeader.UId,
+          "Latitude": latitude,
+          "Longitude": longitude
+        },
+        function(res) {
+          console.info("更新位置信息成功！")
+        },
+        function(res) {
+          console.info("更新位置信息失败！")
+        })
+    }
+  },
+
+  cancelLogin: function() {
+    this.setData({
+      showLoginModal: false
+    });
+  },
+
+
+
+  bindGetUserInfo: function(e) {
+    let self = this;
+    if (e.detail.userInfo) {
+      wx.getSetting({
+        success: res => {
+          if (res.authSetting['scope.userInfo']) {
+            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+            wx.getUserInfo({
+              lang: "zh_CN",
+              success: res => {
+                console.info("获取微信用户信息成功!" + JSON.stringify(res));
+                // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回所以此处加入 callback 以防止这种情况
+                if (self.userInfoReadyCallback) {
+                  self.userInfoReadyCallback(res)
+                }
+                self.setUserInfo(res.userInfo);
+              }
+            })
+          }
+        }
+      })
+    }
+  },
+
+
+  //存入用户信息
+  setUserInfo: function(userInfoWX) {
+    let self = this;
+    app.globalData.basicUserInfo.headPhotoPath = userInfoWX.avatarUrl;
+    app.globalData.basicUserInfo.nickName = userInfoWX.nickName;
+    app.globalData.basicUserInfo.gender = userInfoWX.gender;
+    app.globalData.basicUserInfo.isRegister = true;
+    self.cancelLogin();
+    app.httpPost(
+      'api/Letter/SetUserInfo', {
+        "UId": app.globalData.apiHeader.UId,
+        "NickName": userInfoWX.nickName,
+        "AvatarUrl": userInfoWX.avatarUrl,
+        "Gender": userInfoWX.gender,
+        "Country": userInfoWX.country,
+        "Province": userInfoWX.province,
+        "City": userInfoWX.city
+      },
+      function(res) {
+        console.info("存入用户信息成功");
+        self.setData({
+          totalCoin: res.totalCoin
+        });
+      },
+      function(res) {
+        console.error("存入用户信息失败!");
+      })
   },
 
   /// 保存图片

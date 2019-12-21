@@ -53,7 +53,7 @@
             <view class="momentView" wx:for="{{tempMomentList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' bindtap="toMomentDetailPage" bindlongpress="bindlongMomentPress">
               <view class="publishTime">{{value.publishTime}}</view>
               <view class="iconView" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' catchtap='bindlongMomentPress'>
-                <view class="iconfont more2" style='font-size:20px'></view>
+                <view class="iconfont more" style='font-size:20px'></view>
               </view>
               <view class="content">
                 <view class="textView">{{value.textContent}}</view>
@@ -73,7 +73,7 @@
               bindtap="toDiscussDetailPage" bindlongpress="bindlongMomentPress">
               <view class="publishTime">{{value.createTime}}</view>
               <view class="iconView" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-collectId='{{value.collectId}}' data-momentId='{{value.momentId}}' data-type='2' catchtap='bindlongMomentPress'>
-                <view class="iconfont more2" style='font-size:20px'></view>
+                <view class="iconfont more" style='font-size:20px'></view>
               </view>
               <view class="content">
                 <view class="textView">{{value.textContent}}</view>

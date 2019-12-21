@@ -24,7 +24,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.8.0",
+	"libVersion": "2.9.4",
 	"appid": "wxa905da2fe69fbc47",
 	"projectname": "FutureLetter",
 	"debugOptions": {

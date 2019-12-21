@@ -56,8 +56,8 @@ page {
 
 .rightView {
   float: right;
-  margin-top: 7px;
-  width: 30px;
+  width: 20px;
+  padding-right: 4px;
 }
 
 .nickNameView {
@@ -237,8 +237,46 @@ image {
   border-radius: 10rpx;
 }
 
+.modal-commontContent {
+  position: fixed;
+  top: 20%;
+  z-index: 9500;
+  height: 205px;
+  background: #fff;
+  width: 100%;
+}
+
 .basicInfoAreaView {
   height: 200px;
+}
+
+.btnDialogView {
+  width: 100%;
+  height: 40px;
+  padding-top: 10px;
+}
+
+.cancelBtnDialogView {
+  float: left;
+  width: 40px;
+  padding-left: 20px;
+  margin-top: 5px;
+}
+
+.sendBtnDialogView {
+  float: right;
+  margin-right: 15px;
+  width: 60px;
+  height: 29px;
+  background: #00cd66;
+  padding-left: 4px;
+  padding-right: 3px;
+  border-radius: 5px;
+  font-size: 15px;
+  text-align: center;
+  padding-top: 4px;
+  color: white;
+  font-weight: 650;
 }
 
 .chatBtnView {
@@ -404,7 +442,7 @@ button {
   color: white;
   float: left;
   width: 28px;
-  background-color: #1296db;
+  background-color: #85d0ed;
   border-radius: 8px;
   margin-top: 3px;
 }
@@ -414,7 +452,7 @@ button {
   color: white;
   float: left;
   width: 28px;
-  background-color: #ff0063;
+  background-color: #fda3e6;
   border-radius: 8px;
   margin-top: 3px;
 }
@@ -436,6 +474,7 @@ button {
   font-size: 8px;
   padding-top: 0px;
   padding-left: 4px;
+  font-weight: 300;
 }
 
 .startImgView {
@@ -494,15 +533,36 @@ button {
 
 .onlineView {
   float: left;
-  width: 100px;
+  width: 80px;
   font-size: 8px;
   padding-top: 9px;
+}
+
+.commentView {
+  font-size: 13px;
+  width: 100%;
+}
+
+.toCommentView {
+  font-size: 12px;
+  float: right;
+  color: #8e8e8e;
+  width: 37px;
+  padding-top: 4px;
+  padding-left: 3px;
+  padding-right: 5px;
+}
+
+.rightCommentView {
+  float: right;
+  width: 15px;
+  padding-right: 7px;
 }
 
 .onlineTextView {
   color: #8e8e8e;
   font-size: 8px;
-  padding-top: 4rpx;
+  padding-top: 5rpx;
 }
 
 .topHeadView {
@@ -652,6 +712,17 @@ button {
   float: left;
   margin-left: 10px;
   font-size: 20px;
+  width: 100%;
+  font-weight: 700;
+}
+
+.loginTitleTxtView {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  float: left;
+  margin-left: 10px;
+  font-size: 18px;
   width: 100%;
   font-weight: 700;
 }
@@ -878,4 +949,109 @@ swiper-item {
   margin-top: 30px;
   font-size: 22px;
   color: #fff;
+}
+
+.distanceDescView {
+  font-size: 12px;
+  color: #8e8e8e;
+  padding-left: 5px;
+  float: left;
+}
+
+.rightBtnView {
+  border: 1rpx solid #f0f0f0;
+  border-radius: 100px;
+  height: 25px;
+  width: 68px;
+  float: right;
+  margin-top: 7px;
+  margin-right: 10px;
+}
+
+.shuxianView {
+  font-size: 14px;
+  color: #f0f0f0;
+  float: right;
+  width: 10px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.textValueView {
+  font-size: 16px;
+  padding-top: 10px;
+  width: 100%;
+  box-shadow: 0px 0px 2px #837c7c;
+  height: 80px;
+  border-radius: 4px;
+  padding-left: 4px;
+}
+
+.textCommontView {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.cancelBtn {
+  width: 110px;
+  height: 40px;
+  padding-top: 10px;
+  background: #e3e3e3;
+  font-weight: 650;
+}
+
+.loginBtn {
+  width: 110px;
+  height: 40px;
+  padding-top: 10px;
+  background: #00cd66;
+  color: white;
+  font-weight: 650;
+}
+
+.cancelBtnView {
+  float: left;
+  padding-left: 5px;
+  width: 110px;
+  margin-top: 40px;
+}
+
+.loginBtnView {
+  float: right;
+  padding-right: 5px;
+  width: 110px;
+  margin-top: 40px;
+}
+
+.modal-content-login {
+  position: fixed;
+  top: 40%;
+  right: 10%;
+  left: 10%;
+  z-index: 9500;
+  height: 180px;
+  background: white;
+  border-radius: 12px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.notifyText {
+  float: left;
+  padding-top: 5px;
+  height: 40px;
+  padding-left:13px;
+  padding-right: 10px;
+}
+
+.notifyBtnView {
+  float: right;
+  padding-right: 15px;
+}
+
+.notifyView {
+  width: 100%;
+  padding-left: 5px;
 }

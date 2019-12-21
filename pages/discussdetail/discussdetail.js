@@ -75,10 +75,14 @@ Page({
 
   //卸载页面，中断webSocket
   onUnload: function() {
-    this.onLineHub.close({
-      UId: app.globalData.apiHeader.UId,
-      ConnetType: 1
-    })
+    try{
+      this.onLineHub.close({
+        UId: app.globalData.apiHeader.UId,
+        ConnetType: 1
+      })
+    }catch (e) {
+      console.error(JSON.stringify(e));
+    }
   },
 
   //数据初始化

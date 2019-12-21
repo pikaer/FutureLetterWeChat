@@ -95,11 +95,22 @@
                       <view class="ageTextView">{{value.age}}</view>
                     </view>
                     <view class="timeView">{{value.createTime}}</view>
+                    <view class="distanceDescView">{{value.distanceDesc}}</view>
                   </view>
                 </view>
-                <view class="rightView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-key='{{key}}' catchtap='moreAction'>
-                  <view class="iconfont more" style='font-size:20px' />
+                <view class="rightBtnView">
+                  <view class="rightView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-key='{{key}}' data-type='1' catchtap='showChatModal'>
+                    <view class="iconfont comment" style='font-size:17px;float:left;font-weight: 650' />
+                  </view>
+                  <view class="shuxianView">|</view>
+                  <view class="rightCommentView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-key='{{key}}' catchtap='moreAction'>
+                    <view class="commentView">
+                      <view class="iconfont more2" style='font-size:17px;font-weight: 650' />
+                      <!-- <view class="toCommentView">说说话</view> -->
+                    </view>
+                  </view>
                 </view>
+
               </view>
               <view class="bodyView">
                 <!-- 文本动态 -->
@@ -149,10 +160,20 @@
                       <view class="ageTextView">{{value.age}}</view>
                     </view>
                     <view class="timeView">{{value.createTime}}</view>
+                    <view class="distanceDescView">{{value.distanceDesc}}</view>
                   </view>
                 </view>
-                <view class="rightView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-key='{{key}}' catchtap='moreAtteitionAction'>
-                  <view class="iconfont more" style='font-size:20px' />
+                <view class="rightBtnView">
+                  <view class="rightView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-type='2' data-key='{{key}}' catchtap='showAttentionChatModal'>
+                    <view class="iconfont comment" style='font-size:17px;float:left;font-weight: 650' />
+                  </view>
+                  <view class="shuxianView">|</view>
+                  <view class="rightCommentView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-key='{{key}}' catchtap='moreAtteitionAction'>
+                    <view class="commentView">
+                      <view class="iconfont more2" style='font-size:17px;font-weight: 650' />
+                      <!-- <view class="toCommentView">说说话</view> -->
+                    </view>
+                  </view>
                 </view>
               </view>
               <view class="bodyView">
@@ -200,7 +221,7 @@
   <view class="modal-content">
     <view class="basicInfoAreaView">
       <view class="headView-all">
-        <image class="userHead-all" src="{{basicUserInfo.headPhotoPath}}" />
+        <image class="userHead-all" src="{{basicUserInfo.headPhotoPath}}" catchtap="previewImg" data-imgContent='{{basicUserInfo.headPhotoPath}}' />
       </view>
       <view class="rightUserInfo-all">
         <view class='nickNameView-all'>
@@ -219,6 +240,28 @@
     </view>
   </view>
 </view>
+
+<!--custom Modal-->
+<view class="modal-mask-all" bindtap="hideChatModal" wx:if="{{showChatModal}}" />
+<view class="modal-commontContent" wx:if="{{showChatModal}}">
+  <view class="btnDialogView">
+    <view class="cancelBtnDialogView" bindtap="hideChatModal">取消</view>
+
+    <view class="sendBtnDialogView" bindtap="insertDialogContent">发送</view>
+  </view>
+
+  <view class="textCommontView">
+    <!--这个是输入框-->
+    <textarea class="textValueView" placeholder="请输入评论内容" bindinput="insertDialogDiscussInput" placeholder-style="color: gray" maxlength="50" focus="true"></textarea>
+  </view>
+  <view class="notifyView">
+    <view class="notifyText">对方回复时通知我</view>
+    <view class="notifyBtnView">
+      <switch checked='{{subscribeMessageOpen}}' bindtap="requestMsg" bindchange="subscribeMessage" />
+    </view>
+  </view>
+</view>
+
 
 <!--弹出框start-->
 <mp-halfScreenDialog show="{{showModalStatus}}" closabled="{{false}}">
@@ -359,6 +402,23 @@
     </view>
     <view class="cancelPublishMomentBtnView">
       <button bindtap="hidePublishMomentModal" role="button" class="cancelPublishMomentBtn">取消</button>
+    </view>
+  </view>
+</view>
+
+
+<!--custom Modal-->
+<view class="modal-mask-all" wx:if="{{showLoginModal}}"></view>
+<view wx:if="{{showLoginModal}}">
+  <view class="modal-content-login">
+    <view class="loginTitleTxtView">
+      你还未登录，是否立即登录？
+    </view>
+    <view class="cancelBtnView">
+      <button lang="zh_CN" bindtap="cancelLogin" class="cancelBtn">取消</button>
+    </view>
+    <view class="loginBtnView">
+      <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo" class="loginBtn">登录</button>
     </view>
   </view>
 </view>

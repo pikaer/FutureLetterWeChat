@@ -77,10 +77,15 @@ Page({
 
   //卸载页面，中断webSocket
   onDisconnected: function() {
-    this.hubConnect.close({
-      UId: app.globalData.apiHeader.UId,
-      ConnetType: 1
-    })
+    try{
+      this.hubConnect.close({
+        UId: app.globalData.apiHeader.UId,
+        ConnetType: 1
+      })
+    }catch(e){
+      console.error(JSON.stringify(e));
+    }
+   
   },
 
   //连接WebSocket

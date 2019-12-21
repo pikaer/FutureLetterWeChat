@@ -27,7 +27,7 @@
 <view wx:if="{{showModal}}">
   <view class="modal-content-all">
     <view class="headView-all">
-      <image class="userHead-all" src="{{basicUserInfo.headPhotoPath}}"></image>
+      <image class="userHead-all" src="{{basicUserInfo.headPhotoPath}}"  catchtap="previewImg" data-imgContent='{{basicUserInfo.headPhotoPath}}'></image>
     </view>
     <view class="rightUserInfo-all">
       <view class='nickNameView-all'>
