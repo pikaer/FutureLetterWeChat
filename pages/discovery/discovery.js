@@ -45,7 +45,10 @@ Page({
     nextMargin: 0, //后边距
     topNum: 0,
     totalCoin: 0, //金币余额
-    insertDialogDiscussVlaue: "" //快速评论内容
+    insertDialogDiscussVlaue: "", //快速评论内容
+    subscribeMessageOpen:false,
+    messageReplyNotifyId: "-zecjwuk6Z0uN1txUSwvgXKmaek081c1Y9t6mqAn6ck",
+    momentTextContent:""
   },
 
   onLoad: function() {
@@ -371,6 +374,15 @@ Page({
     }
 
     this.setMoreContent(ops);
+    if (this.data.currentMoment.textContent != null && this.data.currentMoment.textContent.length>=18){
+      this.setData({
+        momentTextContent: this.data.currentMoment.textContent.substring(0, 18)+"..."
+      })
+    }else{
+      this.setData({
+        momentTextContent: this.data.currentMoment.textContent
+      })
+    }
     this.setData({
       showChatModal: true
     })
@@ -1626,6 +1638,35 @@ Page({
       function(res) {
         console.error("存入用户信息失败!");
       })
+  },
+
+  subscribeMessage:function (ops) {
+    this.setData({
+      subscribeMessageOpen: ops.detail.value
+    });
+  },
+
+  // 订阅模板消息
+  requestOpenMssageNotify() {
+    let self = this;
+    //开关变为开启的时候，通知用户开启模板消息
+    if (self.data.subscribeMessageOpen){
+      return new Promise((resolve, reject) => {
+        wx.requestSubscribeMessage({
+          tmplIds: [self.data.messageReplyNotifyId],
+          success: (res) => {
+            if (res[self.data.messageReplyNotifyId] === 'accept') {
+              console.info("开启模板消息通知成功");
+            } else {
+              console.warn("开启模板消息通知失败");
+            }
+          },
+          fail(err) {
+            console.error(JSON.stringify(err));
+          }
+        })
+      })
+    }
   },
 
   /// 保存图片

@@ -14,6 +14,7 @@ Page({
     subscribeMessageOpen: false,
     showLoginModal: false,
     showLoginModalStatus: false,
+    messageDiscussNotifyId:"GytyYcEW0BqLnACK9hFZMMXbvOZc2oq5DQjdJ65sRFI"
   },
 
   onLoad: function() {
@@ -304,9 +305,9 @@ Page({
     if (!self.data.subscribeMessageOpen){
       return new Promise((resolve, reject) => {
         wx.requestSubscribeMessage({
-          tmplIds: ["GytyYcEW0BqLnACK9hFZMMXbvOZc2oq5DQjdJ65sRFI"],
+          tmplIds: [self.data.messageDiscussNotifyId],
           success: (res) => {
-            if (res['GytyYcEW0BqLnACK9hFZMMXbvOZc2oq5DQjdJ65sRFI'] === 'accept') {
+            if (res[self.data.messageDiscussNotifyId] === 'accept') {
               console.info("订阅成功");
               self.setData({
                 subscribeMessageOpen: true
@@ -340,9 +341,9 @@ Page({
     if (self.data.subscribeMessageOpen){
       return new Promise((resolve, reject) => {
         wx.requestSubscribeMessage({
-          tmplIds: ["GytyYcEW0BqLnACK9hFZMMXbvOZc2oq5DQjdJ65sRFI"],
+          tmplIds: [self.data.messageDiscussNotifyId],
           success: (res) => {
-            if (res['GytyYcEW0BqLnACK9hFZMMXbvOZc2oq5DQjdJ65sRFI'] === 'accept') {
+            if (res[self.data.messageDiscussNotifyId] === 'accept') {
               console.info("订阅成功");
               self.setData({
                 subscribeMessageOpen: true

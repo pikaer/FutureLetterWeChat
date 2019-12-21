@@ -241,7 +241,7 @@ image {
   position: fixed;
   top: 20%;
   z-index: 9500;
-  height: 205px;
+  height: 220px;
   background: #fff;
   width: 100%;
 }
@@ -254,13 +254,6 @@ image {
   width: 100%;
   height: 40px;
   padding-top: 10px;
-}
-
-.cancelBtnDialogView {
-  float: left;
-  width: 40px;
-  padding-left: 20px;
-  margin-top: 5px;
 }
 
 .sendBtnDialogView {
@@ -981,17 +974,18 @@ swiper-item {
   font-size: 16px;
   padding-top: 10px;
   width: 100%;
-  box-shadow: 0px 0px 2px #837c7c;
+  box-shadow: 0px 0px 1px #837c7c;
   height: 80px;
   border-radius: 4px;
-  padding-left: 4px;
+  padding-left: 5px;
 }
 
 .textCommontView {
   padding-left: 10px;
-  padding-right: 10px;
+  padding-right: 15px;
   padding-top: 10px;
   padding-bottom: 10px;
+  clear: both;
 }
 
 .cancelBtn {
@@ -1040,18 +1034,49 @@ swiper-item {
 
 .notifyText {
   float: left;
-  padding-top: 5px;
+  padding-top: 3px;
   height: 40px;
-  padding-left:13px;
+  padding-left: 5px;
   padding-right: 10px;
 }
 
 .notifyBtnView {
-  float: right;
+  float: left;
   padding-right: 15px;
+  height: 30px;
 }
 
 .notifyView {
   width: 100%;
   padding-left: 5px;
+}
+
+.momentContentView {
+  height: 50px;
+  background-color: #eff2fb;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 4px;
+  float: left;
+  width: 95%;
+}
+
+.textmomentContent {
+  font-size: 14px;
+  float: left;
+  padding-left:7px;
+  padding-top: 12px;
+}
+
+.imgMomentContent {
+  padding-top: 5px;
+  padding-left: 5px;
+  float: left;
+}
+
+.momentDiscussImg {
+  display: inline-block;
+  overflow: hidden;
+  height: 40px;
+  width: 40px;
 }

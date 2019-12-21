@@ -245,21 +245,27 @@
 <view class="modal-mask-all" bindtap="hideChatModal" wx:if="{{showChatModal}}" />
 <view class="modal-commontContent" wx:if="{{showChatModal}}">
   <view class="btnDialogView">
-    <view class="cancelBtnDialogView" bindtap="hideChatModal">取消</view>
-
-    <view class="sendBtnDialogView" bindtap="insertDialogContent">发送</view>
+    <view class="notifyView">
+      <view class="notifyText">回复时通知我</view>
+      <view class="notifyBtnView">
+        <switch bindtap="requestOpenMssageNotify" bindchange="subscribeMessage" checked='{{subscribeMessageOpen}}' />
+      </view>
+    </view>
+    <view class="sendBtnDialogView" bindtap="insertDialogContent">发 送</view>
   </view>
-
+  <view class="momentContentView">
+    <view class="imgMomentContent">
+      <image class='momentDiscussImg' wx:if="{{currentMoment.imgContent!=null&&currentMoment.imgContent.length>0}}" src="{{currentMoment.imgContent}}" catchtap="previewImg" data-imgContent='{{currentMoment.imgContent}}'></image>
+    </view>
+    <view class="textmomentContent">
+      {{momentTextContent}}
+    </view>
+  </view>
   <view class="textCommontView">
     <!--这个是输入框-->
     <textarea class="textValueView" placeholder="请输入评论内容" bindinput="insertDialogDiscussInput" placeholder-style="color: gray" maxlength="50" focus="true"></textarea>
   </view>
-  <view class="notifyView">
-    <view class="notifyText">对方回复时通知我</view>
-    <view class="notifyBtnView">
-      <switch checked='{{subscribeMessageOpen}}' bindtap="requestMsg" bindchange="subscribeMessage" />
-    </view>
-  </view>
+
 </view>
 
 
