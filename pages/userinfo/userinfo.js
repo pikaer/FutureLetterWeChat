@@ -174,6 +174,8 @@ Page({
   updateUserInfo: function() {
     let self = this;
     let tempUserInfo = this.data.tempUserInfo;
+    let cacheKey = "userEditInfo+" + app.globalData.apiHeader.UId;
+    app.setCache(cacheKey, tempUserInfo);
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
         'api/Letter/UpdateUserInfo', {

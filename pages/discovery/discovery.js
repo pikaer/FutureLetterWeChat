@@ -735,7 +735,8 @@ Page({
     app.httpPost(
       'api/Letter/AddAttention', {
         "UId": app.globalData.apiHeader.UId,
-        "PartnerUId": uid
+        "PartnerUId": uid,
+        "MomentId": this.data.currentMoment.momentId
       },
       function(res) {
         if (res.isExecuteSuccess) {

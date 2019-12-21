@@ -30,28 +30,21 @@ Page({
         type: 'warn',
         value: 4
       }
-    ]
+    ],
+    slideButtons: [{
+      text: '已读'
+    }, {
+      type: 'warn',
+      text: '删除',
+      extClass: 'btnDelete'
+    }],
   },
 
   onLoad: function() {
-    app.globalData.currentDiscussMoment = {};
     this.setData({
       tempDiscussList: app.globalData.tempDiscussList
     });
-    this.setBtnData();
-  },
-
-  setBtnData: function() {
-    this.setData({
-      icon: '/content/images/baocuntupian.svg',
-      slideButtons: [{
-        text: '已读'
-      }, {
-        type: 'warn',
-        text: '删除',
-        extClass: 'btnDelete'
-      }],
-    });
+    app.globalData.currentDiscussMoment = {};
   },
 
   slideButtonTap(ops) {
@@ -77,15 +70,15 @@ Page({
 
   //卸载页面，中断webSocket
   onDisconnected: function() {
-    try{
+    try {
       this.hubConnect.close({
         UId: app.globalData.apiHeader.UId,
         ConnetType: 1
       })
-    }catch(e){
+    } catch (e) {
       console.error(JSON.stringify(e));
     }
-   
+
   },
 
   //连接WebSocket
@@ -95,7 +88,7 @@ Page({
 
     this.hubConnect.start(url, {
       UId: app.globalData.apiHeader.UId,
-      ConnetType:1
+      ConnetType: 1
     });
 
     this.hubConnect.onOpen = res => {
@@ -161,7 +154,7 @@ Page({
     let pickUpId = e.currentTarget.dataset.pickupid;
     let uId = e.currentTarget.dataset.uid;
     wx.navigateTo({
-      url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId + "&partnerUId=" +uId
+      url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId + "&partnerUId=" + uId
     })
   },
 
