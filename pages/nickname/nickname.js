@@ -4,14 +4,14 @@ Page({
     tempNickName: ""
   },
 
-  onLoad: function (options) {
+  onLoad: function(options) {
     let temp = "tempNickName";
     this.setData({
       [temp]: options.nickName
     })
   },
   //获取用户输入的用户名
-  nickNameInput: function (e) {
+  nickNameInput: function(e) {
     let pages = getCurrentPages();
     let prevPage = pages[pages.length - 2];
     let nickName = 'tempUserInfo.nickName';
@@ -21,9 +21,24 @@ Page({
   },
 
   //保存并返回上一级页面。
-  updateNickName: function () {
+  updateNickName: function() {
     wx.navigateBack({
       delta: 1
     })
   },
+
+  //分享功能
+  onShareAppMessage: function(res) {
+    return {
+      title: "最懂你的灵魂，即将与你相遇",
+      imageUrl: "",
+      path: "/pages/discovery/discovery",
+      success: function(res) {
+        // 转发成功
+      },
+      fail: function(res) {
+        // 转发失败
+      }
+    }
+  }
 })

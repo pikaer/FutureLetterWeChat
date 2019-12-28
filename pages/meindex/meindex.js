@@ -201,6 +201,20 @@ Page({
   //分享功能
   onShareAppMessage: function (res) {
     this.hideModalShare();
+    if (app.isBlank(this.data.correntSelectItem)) {
+      return {
+        title: "最懂你的灵魂，即将与你相遇",
+        imageUrl: "",
+        path: "/pages/discovery/discovery",
+        success: function (res) {
+          // 转发成功
+        },
+        fail: function (res) {
+          // 转发失败
+        }
+      }
+    }
+
     let url = "";
     let title = "今日份一张图";
     let momentId = "";

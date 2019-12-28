@@ -15,8 +15,8 @@ App({
   globalData: {
     baseUrl: "https://www.pikaer.com/todayapi/",
     socketUrl: "https://www.pikaer.com/signalR/",
-   //baseUrl: "https://localhost:44386/",
-    // socketUrl: "https://localhost:44375/",
+    //baseUrl: "https://localhost:44386/",
+    //socketUrl: "https://localhost:44375/",
 
     httpHeader: {
       "Content-Type": "application/json"
@@ -43,7 +43,7 @@ App({
     basicUserInfo: {}, //meindex页面初始化数据
     userInfoWX: {}, //微信提供的用户信息
     statusBarHeight: wx.getSystemInfoSync()['statusBarHeight'],
-    needCheckUseInfo:false
+    needCheckUseInfo: false
   },
 
   /**

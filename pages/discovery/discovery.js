@@ -183,7 +183,7 @@ Page({
       },
       function(res) {
         if (res != null && res.uId > 0) {
-          //res.uId = 40230;
+          //res.uId = 50239;
           console.info("登录成功");
           app.globalData.basicUserInfo = res;
           app.globalData.apiHeader.UId = res.uId;
@@ -332,6 +332,19 @@ Page({
   //分享功能
   onShareAppMessage: function(res) {
     this.hideModalShare();
+    if (app.isBlank(this.data.currentMoment)){
+      return {
+        title: "最懂你的灵魂，即将与你相遇",
+        imageUrl: "",
+        path: "/pages/discovery/discovery",
+        success: function (res) {
+          // 转发成功
+        },
+        fail: function (res) {
+          // 转发失败
+        }
+      }
+    }
     let momentId = this.data.currentMoment.momentId;
     let url = "";
     let title = "今日份一张图";

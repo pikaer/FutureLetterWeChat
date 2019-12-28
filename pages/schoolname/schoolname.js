@@ -27,4 +27,20 @@ Page({
       delta: 1
     })
   },
+
+  //分享功能
+  onShareAppMessage: function (res) {
+    return {
+      title: "最懂你的灵魂，即将与你相遇",
+      imageUrl: "",
+      path: "/pages/discovery/discovery",
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
+  }
+  
 })

@@ -14,7 +14,7 @@ Page({
     subscribeMessageOpen: false,
     showLoginModal: false,
     showLoginModalStatus: false,
-    messageDiscussNotifyId:"GytyYcEW0BqLnACK9hFZMMXbvOZc2oq5DQjdJ65sRFI"
+    messageDiscussNotifyId: "GytyYcEW0BqLnACK9hFZMMXbvOZc2oq5DQjdJ65sRFI"
   },
 
   onLoad: function() {
@@ -92,13 +92,13 @@ Page({
     var self = this;
     if (app.isBlank(self.data.tempTextContent)) {
       self.requestMsgAndPublisgh();
-    }else{
+    } else {
       //文本安全性校验
       app.httpPost(
         'api/Letter/MsgSecCheck', {
           "TextContent": self.data.tempTextContent
         },
-        function (res) {
+        function(res) {
           if (!res.isOK) {
             wx.showToast({
               title: "内容不合法",
@@ -110,7 +110,7 @@ Page({
             self.requestMsgAndPublisgh();
           }
         },
-        function (res) {
+        function(res) {
           self.requestMsgAndPublisgh();
         }
       )
@@ -166,7 +166,7 @@ Page({
     var timer = setInterval(function() {
       times++
       if (times >= 1) {
-        clearInterval(timer); 
+        clearInterval(timer);
         self.backPage();
       }
     }, 1000)
@@ -302,7 +302,7 @@ Page({
   // login.js
   requestMsgAndPublisgh() {
     let self = this;
-    if (!self.data.subscribeMessageOpen){
+    if (!self.data.subscribeMessageOpen) {
       return new Promise((resolve, reject) => {
         wx.requestSubscribeMessage({
           tmplIds: [self.data.messageDiscussNotifyId],
@@ -329,7 +329,7 @@ Page({
           }
         })
       })
-    }else{
+    } else {
       self.publishMomentContent();
     }
   },
@@ -338,7 +338,7 @@ Page({
   // login.js
   requestMsg() {
     let self = this;
-    if (self.data.subscribeMessageOpen){
+    if (self.data.subscribeMessageOpen) {
       return new Promise((resolve, reject) => {
         wx.requestSubscribeMessage({
           tmplIds: [self.data.messageDiscussNotifyId],
@@ -363,6 +363,21 @@ Page({
           }
         })
       })
+    }
+  },
+
+  //分享功能
+  onShareAppMessage: function(res) {
+    return {
+      title: "最懂你的灵魂，即将与你相遇",
+      imageUrl: "",
+      path: "/pages/discovery/discovery",
+      success: function(res) {
+        // 转发成功
+      },
+      fail: function(res) {
+        // 转发失败
+      }
     }
   },
 

@@ -94,7 +94,7 @@
                       </view>
                       <view class="ageTextView">{{value.age}}</view>
                     </view>
-                    <view class="timeView">{{value.createTime}}</view>
+                    <!-- <view class="timeView">{{value.createTime}}</view> -->
                     <view class="distanceDescView">{{value.distanceDesc}}</view>
                   </view>
                 </view>
@@ -159,7 +159,7 @@
                       </view>
                       <view class="ageTextView">{{value.age}}</view>
                     </view>
-                    <view class="timeView">{{value.createTime}}</view>
+                    <!-- <view class="timeView">{{value.createTime}}</view> -->
                     <view class="distanceDescView">{{value.distanceDesc}}</view>
                   </view>
                 </view>
