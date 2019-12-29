@@ -12,7 +12,12 @@
     "pages/signature/signature",
     "pages/discussdetail/discussdetail",
     "pages/momentdetail/momentdetail",
-    "pages/publishmoment/publishmoment"
+    "pages/publishmoment/publishmoment",
+    "components/half-screen-dialog/half-screen-dialog",
+    "components/badge/badge",
+    "components/dialog/dialog",
+    "components/slideview/slideview",
+    "components/actionsheet/actionsheet"
   ],
   "window": {
     "backgroundTextStyle": "light",

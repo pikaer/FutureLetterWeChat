@@ -4,8 +4,8 @@
   "backgroundTextStyle": "dark",
   "navigationStyle": "custom",
   "usingComponents": {
-    "mp-halfScreenDialog": "../components/half-screen-dialog/half-screen-dialog",
-    "mp-badge": "../components/badge/badge",
-    "mp-dialog": "../components/dialog/dialog"
+    "mp-halfScreenDialog": "../../components/half-screen-dialog/half-screen-dialog",
+    "mp-badge": "../../components/badge/badge",
+    "mp-dialog": "../../components/dialog/dialog"
   }
 }

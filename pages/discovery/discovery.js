@@ -1037,13 +1037,8 @@ Page({
     let key = e.currentTarget.dataset.key;
     let pickUpList = this.data.pickUpList;
     this.clearUnReadCount(pickUpId);
-    app.globalData.currentDiscussMoment.momentId = pickUpList[key].momentId;
-    app.globalData.currentDiscussMoment.momentUId = pickUpList[key].uId;
-    app.globalData.currentDiscussMoment.headImgPath = pickUpList[key].headImgPath;
-    app.globalData.currentDiscussMoment.nickName = pickUpList[key].nickName;
-    app.globalData.currentDiscussMoment.textContent = pickUpList[key].textContent;
-    app.globalData.currentDiscussMoment.imgContent = pickUpList[key].imgContent;
-    app.globalData.currentDiscussMoment.createTime = pickUpList[key].createTime;
+    let cacheKey = "discussDetail_momentId_" + pickUpList[key].momentId;
+    app.setCache(cacheKey, pickUpList[key]);
     wx.navigateTo({
       url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId + "&partnerUId=" + pickUpList[key].uId + "&momentId=" + pickUpList[key].momentId
     })
@@ -1054,13 +1049,8 @@ Page({
   previewAtentionMomentDetail: function(e) {
     let key = e.currentTarget.dataset.key;
     let attentionList = this.data.attentionList;
-    app.globalData.currentDiscussMoment.momentId = attentionList[key].momentId;
-    app.globalData.currentDiscussMoment.momentUId = attentionList[key].uId;
-    app.globalData.currentDiscussMoment.headImgPath = attentionList[key].headImgPath;
-    app.globalData.currentDiscussMoment.nickName = attentionList[key].nickName;
-    app.globalData.currentDiscussMoment.textContent = attentionList[key].textContent;
-    app.globalData.currentDiscussMoment.imgContent = attentionList[key].imgContent;
-    app.globalData.currentDiscussMoment.createTime = attentionList[key].createTime;
+    let cacheKey = "discussDetail_momentId_" + attentionList[key].momentId;
+    app.setCache(cacheKey, attentionList[key]);
     wx.navigateTo({
       url: "../../pages/discussdetail/discussdetail?partnerUId=" + attentionList[key].uId + "&momentId=" + attentionList[key].momentId
     })
