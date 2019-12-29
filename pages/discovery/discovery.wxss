@@ -947,6 +947,7 @@ swiper-item {
   font-size: 10px;
   color: #8e8e8e;
   padding-left: 5px;
+  padding-top: 1px;
   float: left;
 }
 
@@ -1063,7 +1064,7 @@ swiper-item {
 .textmomentContent {
   font-size: 14px;
   float: left;
-  padding-left:7px;
+  padding-left: 7px;
   padding-top: 12px;
 }
 
