@@ -14,7 +14,7 @@ Page({
   data: {
     currentMoment: {},
     basicUserInfo: {},
-    currentBasicUserInfo: {},
+    currentBasicUserInfo: {},//用作头像展示和是否注册监控
     pickUpList: [],
     attentionList: [],
     currentTargetPickUpId: "",
@@ -47,7 +47,8 @@ Page({
     totalCoin: 0, //金币余额
     insertDialogDiscussVlaue: "", //快速评论内容
     subscribeMessageOpen:false,
-    messageReplyNotifyId: "-zecjwuk6Z0uN1txUSwvgXKmaek081c1Y9t6mqAn6ck",
+    messageReplyNotifyWechatId: "-zecjwuk6Z0uN1txUSwvgXKmaek081c1Y9t6mqAn6ck",
+    messageReplyNotifyQQId: "59880ab542241403ede33bb4c64f0166",
     momentTextContent:""
   },
 
@@ -332,10 +333,12 @@ Page({
   //分享功能
   onShareAppMessage: function(res) {
     this.hideModalShare();
+    let url = app.globalData.bingoLogo;
+    let title = app.globalData.bingoTitle;
     if (app.isBlank(this.data.currentMoment)){
       return {
-        title: "最懂你的灵魂，即将与你相遇",
-        imageUrl: "",
+        title: title,
+        imageUrl: url,
         path: "/pages/discovery/discovery",
         success: function (res) {
           // 转发成功
@@ -346,8 +349,6 @@ Page({
       }
     }
     let momentId = this.data.currentMoment.momentId;
-    let url = "";
-    let title = "今日份一张图";
     if (this.data.currentMoment.textContent != "" && this.data.currentMoment.textContent != null) {
       title = this.data.currentMoment.textContent;
     }
@@ -473,15 +474,6 @@ Page({
     this.setData({
       showModal: false
     });
-  },
-
-  //聊一聊
-  toChat: function() {
-    this.hideModal();
-    let pickUpId = this.data.currentTargetPickUpId;
-    wx.navigateTo({
-      url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId
-    })
   },
 
   //用户主页
@@ -677,7 +669,6 @@ Page({
       'api/Letter/Discuss', {
         "UId": app.globalData.apiHeader.UId,
         "MomentId": this.data.currentMoment.momentId,
-        "PartnerUId": this.data.currentMoment.uId,
         "TextContent": "Hi~"
       },
       function(res) {
@@ -718,7 +709,6 @@ Page({
       'api/Letter/Discuss', {
         "UId": app.globalData.apiHeader.UId,
         "MomentId": this.data.currentMoment.momentId,
-        "PartnerUId": this.data.currentMoment.uId,
         "TextContent": this.data.insertDialogDiscussVlaue
       },
       function(res) {
@@ -914,13 +904,8 @@ Page({
       selectItem: ops.currentTarget.dataset,
       currentMoment: pickUpList[key]
     })
-    app.globalData.currentDiscussMoment.momentId = pickUpList[key].momentId;
-    app.globalData.currentDiscussMoment.momentUId = pickUpList[key].uId;
-    app.globalData.currentDiscussMoment.headImgPath = pickUpList[key].headImgPath;
-    app.globalData.currentDiscussMoment.nickName = pickUpList[key].nickName;
-    app.globalData.currentDiscussMoment.textContent = pickUpList[key].textContent;
-    app.globalData.currentDiscussMoment.imgContent = pickUpList[key].imgContent;
-    app.globalData.currentDiscussMoment.createTime = pickUpList[key].createTime;
+    let cacheKey = "discussDetail_momentId_" + pickUpList[key].momentId;
+    app.setCache(cacheKey, pickUpList[key]);
   },
 
 
@@ -944,13 +929,8 @@ Page({
       selectItem: ops.currentTarget.dataset,
       currentMoment: attentionList[key]
     })
-    app.globalData.currentDiscussMoment.momentId = attentionList[key].momentId;
-    app.globalData.currentDiscussMoment.momentUId = attentionList[key].uId;
-    app.globalData.currentDiscussMoment.headImgPath = attentionList[key].headImgPath;
-    app.globalData.currentDiscussMoment.nickName = attentionList[key].nickName;
-    app.globalData.currentDiscussMoment.textContent = attentionList[key].textContent;
-    app.globalData.currentDiscussMoment.imgContent = attentionList[key].imgContent;
-    app.globalData.currentDiscussMoment.createTime = attentionList[key].createTime;
+    let cacheKey = "discussDetail_momentId_" + attentionList[key].momentId;
+    app.setCache(cacheKey, attentionList[key]);
   },
 
 
@@ -1065,7 +1045,7 @@ Page({
     app.globalData.currentDiscussMoment.imgContent = pickUpList[key].imgContent;
     app.globalData.currentDiscussMoment.createTime = pickUpList[key].createTime;
     wx.navigateTo({
-      url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId + "&partnerUId=" + pickUpList[key].uId
+      url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId + "&partnerUId=" + pickUpList[key].uId + "&momentId=" + pickUpList[key].momentId
     })
   },
 
@@ -1082,7 +1062,7 @@ Page({
     app.globalData.currentDiscussMoment.imgContent = attentionList[key].imgContent;
     app.globalData.currentDiscussMoment.createTime = attentionList[key].createTime;
     wx.navigateTo({
-      url: "../../pages/discussdetail/discussdetail?partnerUId=" + attentionList[key].uId
+      url: "../../pages/discussdetail/discussdetail?partnerUId=" + attentionList[key].uId + "&momentId=" + attentionList[key].momentId
     })
   },
 
@@ -1663,13 +1643,19 @@ Page({
   // 订阅模板消息
   requestOpenMssageNotify() {
     let self = this;
+    let messageReplyNotifyId="";
+    if (app.globalData.apiHeader.Platform == 1) {
+      messageReplyNotifyId = self.data.messageReplyNotifyQQId;
+    } else {
+      messageReplyNotifyId = self.data.messageReplyNotifyWechatId;
+    }
     //开关变为开启的时候，通知用户开启模板消息
     if (self.data.subscribeMessageOpen){
       return new Promise((resolve, reject) => {
         wx.requestSubscribeMessage({
-          tmplIds: [self.data.messageReplyNotifyId],
+          tmplIds: [messageReplyNotifyId],
           success: (res) => {
-            if (res[self.data.messageReplyNotifyId] === 'accept') {
+            if (res[messageReplyNotifyId] === 'accept') {
               console.info("开启模板消息通知成功");
             } else {
               console.warn("开启模板消息通知失败");

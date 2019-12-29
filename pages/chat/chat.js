@@ -12,6 +12,7 @@ Page({
     pageIndex: 1,
     showModal: false,
     showDialog: false,
+    chatListCacheKey: "chatListCache",
     groups: [{
         text: '标为已读',
         value: 1
@@ -41,9 +42,19 @@ Page({
   },
 
   onLoad: function() {
-    this.setData({
-      tempDiscussList: app.globalData.tempDiscussList
-    });
+    if (!app.isBlank(app.globalData.tempDiscussList)) {
+      this.setData({
+        tempDiscussList: app.globalData.tempDiscussList
+      });
+    } else {
+      let cacheValue = wx.getStorageSync(this.data.chatListCacheKey);
+      if (!app.isBlank(cacheValue)) {
+        this.setData({
+          tempDiscussList: cacheValue
+        });
+      }
+    }
+
     app.globalData.currentDiscussMoment = {};
   },
 
@@ -153,8 +164,9 @@ Page({
     this.clearUnReadCount(e);
     let pickUpId = e.currentTarget.dataset.pickupid;
     let uId = e.currentTarget.dataset.uid;
+    let momentId = e.currentTarget.dataset.momentid;
     wx.navigateTo({
-      url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId + "&partnerUId=" + uId
+      url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId + "&partnerUId=" + uId + "&momentId=" + momentId
     })
   },
 
@@ -174,13 +186,12 @@ Page({
             tempDiscussList: res.discussList
           });
           app.globalData.tempDiscussList = res.discussList;
-          //获取聊天数据结束后，停止刷新下拉
-          wx.stopPullDownRefresh();
+
+          app.setCache(self.data.chatListCacheKey, res.discussList);
+
         },
         function(res) {
           console.error("获取聊天列表失败！");
-          //获取聊天数据结束后，停止刷新下拉
-          wx.stopPullDownRefresh();
         })
     }
   },
@@ -348,19 +359,21 @@ Page({
   },
 
   //分享功能
-  onShareAppMessage: function (res) {
+  onShareAppMessage: function(res) {
+    let url = app.globalData.bingoLogo;
+    let title = app.globalData.bingoTitle;
     return {
-      title: "最懂你的灵魂，即将与你相遇",
-      imageUrl: "",
+      title: title,
+      imageUrl: url,
       path: "/pages/discovery/discovery",
-      success: function (res) {
+      success: function(res) {
         // 转发成功
       },
-      fail: function (res) {
+      fail: function(res) {
         // 转发失败
       }
     }
   }
-  
+
 
 })

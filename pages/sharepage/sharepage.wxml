@@ -1,32 +1,76 @@
+<view class="inputarea">
+  <view class="viewinput">
+    <input placeholder="输入评论" value='{{discussContent}}' bindinput="discussContentInput" bindfocus='settingMbShow' bindblur='settingMbNoShow' />
+  </view>
+  <view class="btnAreaView">
+    <form bindsubmit="insertDiscussContent" report-submit='true'>
+      <button form-type="submit" class="txtSend">提交</button>
+    </form>
+  </view>
+</view>
+
+
 <view class="indexContainer">
   <view class="subContainer">
     <view class="mainContainer">
       <view class="contentArea">
+
+        <view class="discussArea">
+          <view class="discussView" wx:for="{{discussDetailList}}" wx:for-index="key" wx:for-item="value">
+            <view class="leftView">
+              <image src="{{value.headImgPath}}" data-uId='{{value.pickUpUId}}' class="userHead" catchtap='toShowModal'></image>
+            </view>
+            <view class="centerView">
+              <view class="nickNameView">{{value.nickName}}</view>
+              <view class="{{value.gender==1?'genderView':'gender_womanView'}}">
+                <view class="genderImgView">
+                  <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
+                  <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
+                </view>
+                 <view class="distanceDescView">{{value.distanceDesc}}</view>
+              </view>
+              <view class="timeView">{{value.recentChatTime}}</view>
+            </view>
+            <view class="rightView" wx:if="{{key==0}}" data-uId='{{discussDetail.momentUId}}' data-pickUpId='{{discussDetail.pickUpId}}' data-key='{{key}}' catchtap='moreAction'>
+              <view class="iconfont more" style='font-size:20px'></view>
+            </view>
+            <view class="discussContent">{{value.textContent}}</view>
+            <view class="lineView"></view>
+          </view>
+        </view>
+
+
         <view class="titleView">
           <view class="leftView">
-            <image src="{{momentDetail.headImgPath}}" class="userHead" data-uId='{{momentDetail.uId}}' catchtap='toShowModal'></image>
+            <image src="{{discussDetail.headImgPath}}" class="userHead" data-uId='{{discussDetail.momentUId}}' catchtap='toShowModal'></image>
           </view>
           <view class="centerView">
-            <view class="nickNameView">{{momentDetail.nickName}}</view>
-            <view class="timeView">{{momentDetail.createTime}}</view>
+            <view class="nickNameView">{{discussDetail.nickName}}</view>
+            <view class="{{discussDetail.gender==1?'genderView':'gender_womanView'}}">
+              <view class="genderImgView">
+                <image wx:if="{{discussDetail.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
+                <image wx:if="{{discussDetail.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
+              </view>
+               <view class="distanceDescView">{{discussDetail.distanceDesc}}</view>
+            </view>
+            <view class="timeView">{{discussDetail.createTime}}</view>
+           
           </view>
-          <view class="rightView" data-uId='{{discussDetail.momentUId}}' data-pickUpId='{{discussDetail.pickUpId}}' data-key='{{key}}' catchtap='moreAction'>
+          <view class="rightView" wx:if="{{discussDetailList==null||discussDetailList.length==0}}" data-uId='{{discussDetail.momentUId}}' data-pickUpId='{{discussDetail.pickUpId}}' data-key='{{key}}' catchtap='moreAction'>
             <view class="iconfont more" style='font-size:20px'></view>
           </view>
         </view>
         <view class="bodyView">
           <!-- 文本动态 -->
-          <view class="textView">{{momentDetail.textContent}}</view>
+          <view class="textView">{{discussDetail.textContent}}</view>
           <!-- 图片动态 -->
-          <view class="imgView" wx:if="{{momentDetail.imgContent!=null&&momentDetail.imgContent!=''}}">
-            <image src="{{momentDetail.imgContent}}" catchtap="previewImg" data-imgContent='{{momentDetail.imgContent}}' class="imgCount" mode="widthFix"></image>
+          <view class="imgView" wx:if="{{discussDetail.imgContent!=null&&discussDetail.imgContent!=''}}">
+            <image src="{{discussDetail.imgContent}}" catchtap="previewImg" data-imgContent='{{discussDetail.imgContent}}' class="imgCount" mode="widthFix"></image>
           </view>
         </view>
       </view>
     </view>
   </view>
-
-  <view class="moreBtnView" bindtap="toStartup">查看更多</view>
 </view>
 
 
@@ -62,11 +106,11 @@
 <mp-halfScreenDialog show="{{showModalStatus}}" closabled="{{false}}">
   <view slot="footer" class='shareArea'>
     <view class='dialog_content'>
-      <view class="shareTo" bindtap="saveLocal">
+      <view class="shareTo" bindtap="toStartup">
         <button>
-          <image class="shareIcon" src="/content/images/baocuntupian.svg"></image>
+          <image class="bingoIcon" src="/content/images/bingo.jpg"></image>
         </button>
-        <view class="shareText">保存本地</view>
+        <view class="shareText">进入主页</view>
       </view>
       <view class="shareTo">
         <button open-type='share'>
@@ -79,9 +123,18 @@
 </mp-halfScreenDialog>
 <!--弹出框end-->
 
-<!-- 生成海报画布 -->
-<view style='width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 999; display: flex; align-items: center; justify-content: center; animation: {{isShow ? "show" : "dismiss"}}Mask 0.3s forwards ease; position: fixed; top: 0; left: {{isCreate ? 0 : "750rpx"}};' catchtap='catchtap' catchtouchmove='blockTouches'>
-  <canvas canvas-id='poster' style='width: 622rpx; height: 882rpx; position: fixed; left: 750rpx;'></canvas>
-  <image style='width: 622rpx; height: 882rpx; margin-bottom: 96rpx;' src='{{poster}}'></image>
-  <button class='maskButton' hover-class='maskButton-hover' hidden='{{!isCreate}}' catchtap='btnCreate'>保存到本地相册</button>
+<!--custom Modal-->
+<view class="modal-mask-all" wx:if="{{showLoginModal}}"></view>
+<view wx:if="{{showLoginModal}}">
+  <view class="modal-content-login">
+    <view class="titleTxtView">
+      你还未登录，登录后才能评论~
+    </view>
+    <view class="cancelBtnView">
+      <button lang="zh_CN" bindtap="cancelLogin" class="cancelBtn">取消</button>
+    </view>
+    <view class="loginBtnView">
+      <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo" class="loginBtn">登录</button>
+    </view>
+  </view>
 </view>

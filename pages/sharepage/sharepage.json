@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "一张图",
+  "navigationBarTitleText": "进入主页",
   "enablePullDownRefresh": false,
   "backgroundTextStyle": "dark",
   "usingComponents": {

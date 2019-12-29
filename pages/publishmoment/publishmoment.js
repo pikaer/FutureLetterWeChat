@@ -11,10 +11,12 @@ Page({
     publishDisabled: true,
     isRegister: true,
     tempTextContent: "",
+    momentId: "",
     subscribeMessageOpen: false,
     showLoginModal: false,
-    showLoginModalStatus: false,
-    messageDiscussNotifyId: "GytyYcEW0BqLnACK9hFZMMXbvOZc2oq5DQjdJ65sRFI"
+    showShareModal: false,
+    messageDiscussNotifyWechatId: "GytyYcEW0BqLnACK9hFZMMXbvOZc2oq5DQjdJ65sRFI",
+    messageDiscussNotifyQQId: "59880ab542241403ede33bb4c64f0166"
   },
 
   onLoad: function() {
@@ -27,6 +29,19 @@ Page({
     this.setData({
       showLoginModal: false
     });
+  },
+
+  hideShareModal() {
+    this.setData({
+      showShareModal: false
+    });
+  },
+
+  cancelShare() {
+    this.hideShareModal();
+    wx.navigateBack({
+      delta: 1
+    })
   },
 
   toLogin: function() {
@@ -88,6 +103,41 @@ Page({
       })
   },
 
+
+  //分享功能
+  onShareAppMessage: function(res) {
+    this.hideShareModal();
+    let url = app.globalData.bingoLogo;
+    let title = app.globalData.bingoTitle;
+    if (app.isBlank(this.data.momentId)) {
+      return {
+        title: title,
+        imageUrl: url,
+        path: "/pages/discovery/discovery",
+        success: function(res) {
+          // 转发成功
+        },
+        fail: function(res) {
+          // 转发失败
+        }
+      }
+    }
+    if (this.data.tempTextContent != "" && this.data.tempTextContent != undefined) {
+      title = this.data.tempTextContent;
+    }
+    if (this.data.localImgs[0] != "" && this.data.localImgs[0] != undefined) {
+      url = this.data.localImgs[0];
+    }
+    wx.navigateBack({
+      delta: 1
+    })
+    return {
+      title: title,
+      imageUrl: url,
+      path: "/pages/sharepage/sharepage?momentId=" + this.data.momentId
+    }
+  },
+
   publishMoment: function(ops) {
     var self = this;
     if (app.isBlank(self.data.tempTextContent)) {
@@ -129,7 +179,10 @@ Page({
       },
       function(res) {
         if (res.isExecuteSuccess) {
-          self.publishToast(true);
+          self.data.momentId = res.momentId;
+          self.setData({
+            showShareModal: true
+          });
         } else {
           self.publishToast(false);
         }
@@ -177,9 +230,6 @@ Page({
     wx.navigateBack({
       delta: 1
     })
-
-    let pages = getCurrentPages();
-    let prevPage = pages[pages.length - 2];
   },
 
 
@@ -302,12 +352,18 @@ Page({
   // login.js
   requestMsgAndPublisgh() {
     let self = this;
+    let messageDiscussNotifyId = "";
+    if (app.globalData.apiHeader.Platform == 1) {
+      messageDiscussNotifyId = self.data.messageDiscussNotifyQQId;
+    } else {
+      messageDiscussNotifyId = self.data.messageDiscussNotifyWechatId;
+    }
     if (!self.data.subscribeMessageOpen) {
       return new Promise((resolve, reject) => {
         wx.requestSubscribeMessage({
-          tmplIds: [self.data.messageDiscussNotifyId],
+          tmplIds: [messageDiscussNotifyId],
           success: (res) => {
-            if (res[self.data.messageDiscussNotifyId] === 'accept') {
+            if (res[messageDiscussNotifyId] === 'accept') {
               console.info("订阅成功");
               self.setData({
                 subscribeMessageOpen: true
@@ -338,12 +394,18 @@ Page({
   // login.js
   requestMsg() {
     let self = this;
+    let messageDiscussNotifyId = "";
+    if (app.globalData.apiHeader.Platform == 1) {
+      messageDiscussNotifyId = self.data.messageDiscussNotifyQQId;
+    } else {
+      messageDiscussNotifyId = self.data.messageDiscussNotifyWechatId;
+    }
     if (self.data.subscribeMessageOpen) {
       return new Promise((resolve, reject) => {
         wx.requestSubscribeMessage({
-          tmplIds: [self.data.messageDiscussNotifyId],
+          tmplIds: [messageDiscussNotifyId],
           success: (res) => {
-            if (res[self.data.messageDiscussNotifyId] === 'accept') {
+            if (res[messageDiscussNotifyId] === 'accept') {
               console.info("订阅成功");
               self.setData({
                 subscribeMessageOpen: true
@@ -363,21 +425,6 @@ Page({
           }
         })
       })
-    }
-  },
-
-  //分享功能
-  onShareAppMessage: function(res) {
-    return {
-      title: "最懂你的灵魂，即将与你相遇",
-      imageUrl: "",
-      path: "/pages/discovery/discovery",
-      success: function(res) {
-        // 转发成功
-      },
-      fail: function(res) {
-        // 转发失败
-      }
     }
   },
 

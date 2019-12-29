@@ -703,7 +703,6 @@ button {
   text-align: center;
   margin-top: 20px;
   float: left;
-  margin-left: 10px;
   font-size: 20px;
   width: 100%;
   font-weight: 700;

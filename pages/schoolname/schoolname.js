@@ -30,9 +30,11 @@ Page({
 
   //分享功能
   onShareAppMessage: function (res) {
+    let url = app.globalData.bingoLogo;
+    let title = app.globalData.bingoTitle;
     return {
-      title: "最懂你的灵魂，即将与你相遇",
-      imageUrl: "",
+      title: title,
+      imageUrl: url,
       path: "/pages/discovery/discovery",
       success: function (res) {
         // 转发成功

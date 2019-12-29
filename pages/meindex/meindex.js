@@ -72,7 +72,9 @@ Page({
   toMomentDetailPage: function (e) {
     let momentId = e.currentTarget.dataset.momentid;
     wx.navigateTo({
-      url: "../../pages/momentdetail/momentdetail?momentId=" + momentId
+       url: "../../pages/momentdetail/momentdetail?momentId=" + momentId
+       //url: "../../pages/sharepage/sharepage?momentId=" + momentId
+       //url: "../../pages/sharepage/sharepage?momentId=" + "645c0c5d-a072-4bab-aa24-73a3575791e0"       
     })
   },
 
@@ -201,10 +203,12 @@ Page({
   //分享功能
   onShareAppMessage: function (res) {
     this.hideModalShare();
+    let url = app.globalData.bingoLogo;
+    let title = app.globalData.bingoTitle;
     if (app.isBlank(this.data.correntSelectItem)) {
       return {
-        title: "最懂你的灵魂，即将与你相遇",
-        imageUrl: "",
+        title: title,
+        imageUrl: url,
         path: "/pages/discovery/discovery",
         success: function (res) {
           // 转发成功
@@ -215,8 +219,6 @@ Page({
       }
     }
 
-    let url = "";
-    let title = "今日份一张图";
     let momentId = "";
     let index = 0;
     let list = {};

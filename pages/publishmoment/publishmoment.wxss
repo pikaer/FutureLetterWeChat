@@ -12,11 +12,6 @@
   padding: 8px;
 }
 
-image {
-  width: 40rpx;
-  height: 40rpx;
-  margin: 0 4%;
-}
 
 .add-image, .up-pic image {
   margin-top: 2%;
@@ -104,7 +99,7 @@ image {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background: #EFF2FB;
+  background: #eff2fb;
   height: 100%;
 }
 
@@ -136,7 +131,7 @@ page {
   width: 95px;
   padding-top: 10px;
   font-size: 15px;
-  background: #EFF2FB;
+  background: #eff2fb;
 }
 
 .loginBtn {
@@ -149,6 +144,29 @@ page {
   color: white;
 }
 
+.cancelShareBtn {
+  float: left;
+  height: 35px;
+  width: 110px;
+  padding-top: 10px;
+  margin-left: 10px;
+  font-size: 15px;
+  background: #eff2fb;
+  font-weight: 700;
+}
+
+.shareBtn {
+  float: right;
+  height: 35px;
+  width: 110px;
+  font-size: 15px;
+  padding-top: 10px;
+  margin-right: 10px;
+  background: #00cd66;
+  color: white;
+   font-weight: 700;
+}
+
 .titleTxtView {
   text-align: center;
   margin-top: 15px;
@@ -156,6 +174,7 @@ page {
   margin-left: 10px;
   margin-bottom: 30px;
   font-size: 15px;
+  width: 100%;
 }
 
 button::after {
@@ -181,10 +200,50 @@ button {
   float: left;
   padding-top: 14px;
   height: 40px;
-  padding-right:5px;
+  padding-right: 5px;
 }
 
 .notifyBtnView {
   float: left;
   padding-top: 10px;
+}
+
+.modal-content-share {
+  position: fixed;
+  top: 160px;
+  right: 10%;
+  left: 10%;
+  z-index: 9500;
+  height: 280px;
+  background: white;
+  border-radius: 10rpx;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.titleIconView {
+  height: 48px;
+  width: 100%;
+  padding-top: 30px;
+}
+
+.success_logo {
+  height: 100%;
+  width: 100%;
+}
+
+.shareBtnView {
+  clear: both;
+  padding-top: 30px;
+
+}
+
+.shareTitleTxtView {
+  text-align: center;
+  margin-top: 25px;
+  float: left;
+  margin-bottom: 30px;
+  font-size: 18px;
+  font-weight: 700;
+  width: 100%;
 }

@@ -14,40 +14,43 @@ Page({
   data: {
     discussDetail: {},
     discussDetailList: [],
-    pickUpId: "",
+    pickUpId: null,
+    momentId: null,
     discussContent: "",
     inputMarBot: false,
     showModal: false,
     showModalStatus: false,
     showLoginModal: false,
-    showLoginModalStatus: false,
     basicUserInfo: {},
     isCreate: false,
     isShow: false,
-    partnerUId:0
+    partnerUId: 0
   },
 
   onLoad: function(options) {
-    this.setData({
-      discussDetail: app.globalData.currentDiscussMoment
-    })
 
-    if (options.pickUpId != "undefined" && options.pickUpId!=""){
+    if (!app.isBlank(options.momentId)) {
+      this.data.momentId = options.momentId
+    }
+
+    if (!app.isBlank(options.pickUpId)) {
       this.data.pickUpId = options.pickUpId
     }
 
-    if (options.partnerUId != "undefined" && options.partnerUId>0){
+    if (!app.isBlank(options.partnerUId) && options.partnerUId > 0) {
       this.data.partnerUId = parseInt(options.partnerUId);
     }
-
-    this.discussDetail();
     this.initData();
     this.onLineConnected();
   },
 
+  onShow: function(options) {
+    this.discussDetail();
+  },
+
   //通知对方刷新聊天页面
   sendMessage: function() {
-    this.onLineHub.send("subScribeMessage",this.data.partnerUId);
+    this.onLineHub.send("subScribeMessage", this.data.partnerUId);
   },
 
 
@@ -58,7 +61,7 @@ Page({
     this.onLineHub.start(url, {
       UId: app.globalData.apiHeader.UId,
       PartnerUId: this.data.partnerUId,
-      ConnetType:2
+      ConnetType: 2
     });
 
     this.onLineHub.onOpen = res => {
@@ -75,12 +78,15 @@ Page({
 
   //卸载页面，中断webSocket
   onUnload: function() {
-    try{
-      this.onLineHub.close({
-        UId: app.globalData.apiHeader.UId,
-        ConnetType: 1
-      })
-    }catch (e) {
+    try {
+      if (this.onLineHub != undefined) {
+        this.onLineHub.close({
+          UId: app.globalData.apiHeader.UId,
+          ConnetType: 2
+        })
+      }
+
+    } catch (e) {
       console.error(JSON.stringify(e));
     }
   },
@@ -88,22 +94,21 @@ Page({
   //数据初始化
   initData: function() {
     try {
-      if (!app.isBlank(this.data.pickUpId)){
-        let cacheValue = wx.getStorageSync(this.data.pickUpId);
-        if (!app.isBlank(cacheValue)) {
-          this.setData({
-            discussDetail: cacheValue,
-            discussDetailList: cacheValue.discussDetailList
-          })
-        }
-      }else{
-        let cacheKey = "momentId_" + this.data.discussDetail.momentId + "uId" + app.globalData.apiHeader.UId + "partnerUId" + this.data.partnerUId;
+      if (this.data.momentId != "undefined" && this.data.momentId != undefined) {
+        let cacheKey = "discussDetail_momentId_" + this.data.momentId;
         let cacheValue = wx.getStorageSync(cacheKey);
         if (!app.isBlank(cacheValue)) {
           this.setData({
-            discussDetail: cacheValue,
-            discussDetailList: cacheValue.discussDetailList
+            discussDetail: cacheValue
           })
+
+          let cacheListKey = "discussDetailList_pickUpId_" + cacheValue.pickUpId;
+          let cacheListValue = wx.getStorageSync(cacheListKey);
+          if (!app.isBlank(cacheListValue)) {
+            this.setData({
+              discussDetailList: cacheListValue
+            })
+          }
         }
       }
     } catch (e) {
@@ -185,13 +190,17 @@ Page({
   //获取动态
   discussDetail: function() {
     var self = this;
+    let requestdata = {
+      "UId": app.globalData.apiHeader.UId
+    }
+    if (self.data.pickUpId != null) {
+      requestdata.PickUpId = self.data.pickUpId;
+    }
+    if (self.data.momentId != null) {
+      requestdata.MomentId = self.data.momentId;
+    }
     app.httpPost(
-      'api/Letter/DiscussDetail', {
-        "UId": app.globalData.apiHeader.UId,
-        "MomentId": self.data.discussDetail.momentId,
-        "PartnerUId": self.data.partnerUId,
-        "PickUpId": self.data.pickUpId,
-      },
+      'api/Letter/DiscussDetail', requestdata,
       function(res) {
         if (!app.isBlank(res)) {
           let tempDetailList = res.discussDetailList;
@@ -200,9 +209,12 @@ Page({
             pickUpId: res.pickUpId,
             discussDetailList: tempDetailList
           });
-          app.setCache(res.pickUpId, res);
-          let cacheKey = "momentId_" + self.data.discussDetail.momentId + "uId" + app.globalData.apiHeader.UId+ "partnerUId" + self.data.partnerUId;
+
+          let cacheKey = "discussDetail_momentId_" + res.momentId;
           app.setCache(cacheKey, res);
+
+          let cacheListKey = "discussDetailList_pickUpId_" + res.pickUpId;
+          app.setCache(cacheListKey, tempDetailList);
         }
         app.globalData.currentDiscussMoment = {};
         wx.stopPullDownRefresh();
@@ -324,7 +336,6 @@ Page({
         'api/Letter/Discuss', {
           "UId": app.globalData.apiHeader.UId,
           "MomentId": self.data.discussDetail.momentId,
-          "PartnerUId": self.data.partnerUId,
           "PickUpId": self.data.pickUpId,
           "TextContent": content
         },
@@ -469,23 +480,23 @@ Page({
 
   //分享功能
   onShareAppMessage: function(res) {
+    let url = app.globalData.bingoLogo;
+    let title = app.globalData.bingoTitle;
     this.hideModalShare();
     if (app.isBlank(this.data.discussDetail)) {
       return {
-        title: "最懂你的灵魂，即将与你相遇",
-        imageUrl: "",
+        title: title,
+        imageUrl: url,
         path: "/pages/discovery/discovery",
-        success: function (res) {
+        success: function(res) {
           // 转发成功
         },
-        fail: function (res) {
+        fail: function(res) {
           // 转发失败
         }
       }
     }
     let momentId = this.data.discussDetail.momentId;
-    let url = "";
-    let title = "今日份一张图";
     if (this.data.discussDetail.textContent != "" && this.data.discussDetail.textContent != null) {
       title = this.data.discussDetail.textContent;
     }

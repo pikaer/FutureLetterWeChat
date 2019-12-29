@@ -43,7 +43,9 @@ App({
     basicUserInfo: {}, //meindex页面初始化数据
     userInfoWX: {}, //微信提供的用户信息
     statusBarHeight: wx.getSystemInfoSync()['statusBarHeight'],
-    needCheckUseInfo: false
+    needCheckUseInfo: false,
+    bingoTitle: "欢迎进入我的聊天室",
+    bingoLogo:"https://www.pikaer.com/common/image/20191229_44915_e676a972-d827-4025-b7c8-e0a08de11446.jpg"
   },
 
   /**

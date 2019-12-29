@@ -45,7 +45,7 @@ Page({
   //获取动态
   momentDetail: function () {
     var self = this;
-    let cacheKey = "momentDetail+" + self.data.momentId;
+    let cacheKey = "discussDetail_momentId_" + self.data.momentId;
     let cacheValue = wx.getStorageSync(cacheKey);
     if (!app.isBlank(cacheValue)) {
       self.setData({
@@ -133,10 +133,12 @@ Page({
   //分享功能
   onShareAppMessage: function (res) {
     this.hideModalShare();
+    let url = app.globalData.bingoLogo;
+    let title = app.globalData.bingoTitle;
     if (app.isBlank(this.data.momentDetail)) {
       return {
-        title: "最懂你的灵魂，即将与你相遇",
-        imageUrl: "",
+        title: title,
+        imageUrl: url,
         path: "/pages/discovery/discovery",
         success: function (res) {
           // 转发成功
@@ -148,8 +150,6 @@ Page({
     }
 
     let momentId = this.data.momentId;
-    let url = "";
-    let title = "今日份一张图";
     if (this.data.momentDetail.textContent != "" && this.data.momentDetail.textContent != null) {
       title = this.data.momentDetail.textContent;
     }

@@ -23,7 +23,7 @@
               <view class="nickNameView">{{value.nickName}}</view>
               <view class="timeView">{{value.recentChatTime}}</view>
             </view>
-            <view class="rightView" wx:if="{{key==0}}" data-uId='{{discussDetail.momentUId}}' data-pickUpId='{{discussDetail.pickUpId}}' data-key='{{key}}' catchtap='moreAction'>
+            <view class="rightView" wx:if="{{key==0}}" data-uId='{{value.pickUpUId}}' data-pickUpId='{{discussDetail.pickUpId}}' data-key='{{key}}' catchtap='moreAction'>
               <view class="iconfont more" style='font-size:20px'></view>
             </view>
             <view class="discussContent">{{value.textContent}}</view>

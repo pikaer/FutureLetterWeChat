@@ -18,7 +18,7 @@
     <view class="notifyView">
       <view class="notifyText">有人评论时通知我</view>
       <view class="notifyBtnView">
-        <switch checked='{{subscribeMessageOpen}}' bindtap="requestMsg" bindchange="subscribeMessage"/>
+        <switch checked='{{subscribeMessageOpen}}' bindtap="requestMsg" bindchange="subscribeMessage" />
       </view>
     </view>
   </view>
@@ -43,5 +43,23 @@
     </view>
     <button lang="zh_CN" bindtap="cancelLogin" class="cancelBtn">取消</button>
     <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo" class="loginBtn">登录</button>
+  </view>
+</view>
+
+
+<!--custom Modal-->
+<view class="modal-mask-all" bindtap="hideShareModal" wx:if="{{showShareModal}}"></view>
+<view wx:if="{{showShareModal}}">
+  <view class="modal-content-share">
+    <view class="titleIconView">
+      <image class='success_logo' src="/content/images/success.svg"></image>
+    </view>
+    <view class="shareTitleTxtView">
+      发布成功
+    </view>
+    <view class="shareBtnView">
+      <button lang="zh_CN" bindtap="cancelShare" class="cancelShareBtn">返回上一页</button>
+      <button open-type='share' class="shareBtn">分享给好友</button>
+    </view>
   </view>
 </view>

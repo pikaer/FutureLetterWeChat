@@ -303,7 +303,7 @@
         <button open-type='share'>
           <image class="shareIcon" src="/content/images/weixin.svg " />
         </button>
-        <view class="shareText ">分享好友/群</view>
+        <view class="shareText">分享好友/群</view>
       </view>
       <view class="shareTo">
         <button bindtap="addCollect">
