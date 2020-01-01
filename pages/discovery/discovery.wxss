@@ -574,7 +574,7 @@ button {
   width: 100%;
   top: 0;
   left: 0;
-  height: 80px;
+  height: 40px;
   z-index: 999;
   background: #eff2fb;
   border-bottom: 1px solid #e4dfdf;
@@ -602,7 +602,7 @@ button {
 }
 
 .empty_custom {
-  height: 80px;
+  height: 40px;
   width: 100%;
 }
 
@@ -752,7 +752,7 @@ button {
   font-size: 17px;
   padding-left: 20px;
   padding-right: 20px;
-  flex-grow: 1;
+  padding-top: 10px;
 }
 
 .rightTitleView {
@@ -760,6 +760,7 @@ button {
   font-size: 17px;
   padding-right: 10px;
   flex-grow: 1;
+  padding-top: 10px;
 }
 
 .toUserPage {
@@ -880,11 +881,8 @@ swiper-item {
 }
 
 .coinDetailView {
-  float: right;
-  font-size: 17px;
-  padding-right: 10px;
-  flex-grow: 1;
-  height: 28px;
+  float: left;
+  padding-top: 7px;
 }
 
 .coin_logo {

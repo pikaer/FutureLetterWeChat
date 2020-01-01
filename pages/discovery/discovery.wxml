@@ -1,44 +1,18 @@
 <!-- 自定义的导航栏 -->
+<view wx:if="{{!showStartUp}}" class="empty_custom" style="padding-top:{{statusBarHeight}}px"></view>
 <view wx:if="{{!showStartUp}}" class="custom flex_center" style="padding-top:{{statusBarHeight}}px">
-  <view class="chatListView" style="top:{{statusBarHeight+6}}px" catchtap="toChatPage">
-    <view class="chatBackgroundView">
-      <view class="discussListView">
-        评论列表
-      </view>
-      <view class="unreadCount" wx:if="{{unReadCount!=''}}">
-        <view class="weui-badge">{{unReadCount}}</view>
-      </view>
-      <view class="navigatorView"></view>
-    </view>
-  </view>
-  <view catchtap="toUserPage" class="toUserPage">
-    <image class='nav_logo' wx:if="{{currentBasicUserInfo!=null&&currentBasicUserInfo.isRegister}}" src="{{currentBasicUserInfo.headPhotoPath}}"></image>
-    <image class='nav_logo' wx:else src="/content/images/bingo.jpg"></image>
-  </view>
-  <view class="momentContainer">
+  <view style="top:{{statusBarHeight+6}}px">
     <view bindtap="toDiscoryList" class="leftTitleView">
       <view class="{{currentTab==0?'momentTitleCilick':'momentTitle'}}">探索 </view>
     </view>
     <view bindtap="toAttentionList" class="rightTitleView">
       <view class="{{currentTab==0?'momentTitle':'momentTitleCilick'}}"> 关注</view>
     </view>
-    <view bindtap="toCoinDetailPage" class="coinDetailView">
-      <view class="coinTextView">{{totalCoin}}</view>
-      <view class="coinIconView">
-        <image class='coin_logo' src="/content/images/coin.svg"></image>
-      </view>
-
-    </view>
   </view>
 </view>
-
-
-
-<view wx:if="{{!showStartUp}}" class="empty_custom" style="padding-top:{{statusBarHeight}}px"></view>
 <!-- 自定义的导航栏 -->
 
 <view wx:if="{{showStartUp}}" class="checkoutView">
-
   <view class="startTextView">你未看此花时，</view>
   <view class="startTextView">此花与汝心同归于寂；</view>
   <view class="startTextView">你来看此花时，</view>

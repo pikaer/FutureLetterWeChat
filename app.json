@@ -32,6 +32,28 @@
       "desc": "请确认授权"
     }
   },
+  "tabBar": {
+    "list": [
+      {
+        "text": "发现",
+        "pagePath": "pages/discovery/discovery",
+        "iconPath": "content/images/discovery.png",
+        "selectedIconPath": "content/images/discovery1.png"
+      },
+      {
+        "text": "消息",
+        "pagePath": "pages/chat/chat",
+        "iconPath": "content/images/chat.png",
+        "selectedIconPath": "content/images/chat1.png"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/meindex/meindex",
+        "iconPath": "content/images/mine.png",
+        "selectedIconPath": "content/images/mine1.png"
+      }
+    ]
+  },
   "networkTimeout": {
     "request": 20000,
     "downloadFile": 20000
