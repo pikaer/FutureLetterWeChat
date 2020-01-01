@@ -166,26 +166,10 @@
         </scroll-view>
       </swiper-item>
     </swiper>
-
   </view>
 
-  <view class="refreshMomentView">
-    <view class="publishIconView" catchtap="onPullDownRefresh" disabled='{{onPullDownRefreshDisabled}}'>
-      <view class="getBottleImg">
-        <image src="/content/images/refresh.svg" class="refreshImg" />
-      </view>
-      <view class="getBottleView">捡一个</view>
-    </view>
-  </view>
-  <view class="publishIcon">
-    <view class="publishBottleImg">
-      <view class="publishIconView" catchtap="publishMoment">
-        <view class="getBottleImg">
-          <image src="/content/images/publishicon.svg" class="publishIconImg" />
-        </view>
-        <view class="publishBottleView">扔一个</view>
-      </view>
-    </view>
+  <view class="publishIcon" catchtap="publishMoment">
+    <view class="publishIconView">+</view>
   </view>
 </view>
 
