@@ -136,9 +136,9 @@ Page({
     if (this.data.discussDetailList.length < 8) {
       return;
     }
-    wx.pageScrollTo({
-      scrollTop: 999999
-    })
+    // wx.pageScrollTo({
+    //   scrollTop: 999999
+    // })
   },
 
 
@@ -395,6 +395,12 @@ Page({
         inputfoucusOn:false
       });
       self.toBottom();
+      self.setData({
+        discussContent: " ",
+      });
+      self.setData({
+        discussContent: "",
+      });
       self.setData({
         inputfoucusOn: true
       });

@@ -1,10 +1,28 @@
 .contentArea {
-  margin-bottom: 7px;
   background-color: white;
-  clear: both;
-  width: 100%;
-  border-radius: 12px;
-  box-shadow: 0px 0px 3px #837c7c;
+  float: right;
+  max-width: 70%;
+  border-radius: 5px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+
+.contentArea_left {
+  background-color: white;
+  float: left;
+  max-width: 70%;
+  border-radius: 5px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+
+.contentArea_right {
+  background-color: #94ee68;
+  float: right;
+  max-width: 70%;
+  border-radius: 5px;
+  margin-right: 10px;
+  margin-bottom: 20px;
 }
 
 .titleView {
@@ -13,14 +31,13 @@
 
 .leftView {
   float: left;
+  margin-left: 3px;
 }
 
 .userHead {
   width: 42px;
   height: 42px;
   border-radius: 100%;
-  margin-top: 10px;
-  margin-left: 8px;
 }
 
 .centerView {
@@ -42,6 +59,7 @@
 .imgView {
   margin-left: 0px;
   margin-right: 0px;
+  min-width: 240px;
 }
 
 .discussView {
@@ -49,21 +67,33 @@
 }
 
 .discussArea {
-  margin-bottom: 0px;
+  margin-bottom: 120px;
+  height: 100%;
 }
 
 .discussContent {
   clear: both;
   font-size: 14px;
   padding-top: 0px;
-  margin-left: 58px;
   margin-bottom: 8px;
+  height: 100%;
 }
 
 .inputarea {
   width: 100%;
+  height: 60px;
   background-color: #eff2fb;
-  height: 50px;
+  position: fixed;
+  bottom: 0px;
+}
+
+.inputareaInput {
+  width: 100%;
+    height: 60px;
+  background-color: #eff2fb;
+  position: fixed;
+  margin-bottom:20px;
+  bottom: 0px;
 }
 
 .chatLineView {
@@ -75,7 +105,8 @@
 }
 
 .viewinput {
-  width: 75%;
+  width: 72%;
+  height: 30px;
   background-color: white;
   float: left;
   margin-top: 10px;
@@ -89,25 +120,23 @@
 
 .viewSend {
   float: left;
-  margin-top: 11px;
-  margin-left: 0px;
 }
 
 .txtSend {
   width: 60px;
-  height: 32px;
+  height: 28px;
   background: #00cd66;
   padding-left: 4px;
   padding-right: 3px;
   border-radius: 5px;
   font-size: 15px;
   text-align: center;
-  padding-top: 8px;
+  padding-top: 6px;
   color: white;
   margin-top: 11px;
 }
 
-input {
+.inputFocus {
   display: block;
   height: 1.4rem;
   text-overflow: clip;
@@ -117,6 +146,20 @@ input {
   min-height: 1.4rem;
   padding-top: 5px;
   padding-left: 5px;
+  caret-color: #00cd66;
+}
+
+.inputBlur {
+  display: block;
+  height: 1.4rem;
+  text-overflow: clip;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: UICTFontTextStyleBody;
+  min-height: 1.4rem;
+  padding-top: 5px;
+  padding-left: 5px;
+  caret-color: #eff2fb;
 }
 
 .discussSupportCount {
@@ -130,51 +173,49 @@ input {
 }
 
 .textView {
-  font-size: 16px;
-  padding-top: 10px;
+  font-size: 15px;
+  padding-top: 7px;
   padding-bottom: 7px;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: 7px;
+  margin-right: 7px;
 }
 
 .imgCount {
   width: 100%;
-  height: auto;
+  max-height: 500px;
   margin-bottom: -6px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
 
-page {
-  height: 100%;
-  font-size: 32rpx;
-  line-height: 1.6;
-  background-color: #eff2fb;
-}
-
-.indexContainer {
-  padding-bottom: 0px;
-  padding-top: 5px;
-}
-
-.subContainer {
-  margin-left: 7px;
-  margin-right: 7px;
-  margin-top: 2px;
-  background: white;
-  box-shadow: 0px 0px 0px #837c7c;
+.imgCount1 {
+  width: 100%;
+  max-height: 500px;
+  margin-bottom: -6px;
   border-radius: 5px;
 }
 
-.mainContainer {
-  margin: 0px;
+page {
+  font-size: 32rpx;
+  line-height: 1.6;
+  background-color: #eff2fb;
+  padding-bottom: 60px;
+}
+
+.indexContainer {
+  margin-left: 7px;
+  margin-right: 7px;
+  margin-top: 2px;
+  padding-top: 5px;
+  padding-bottom: 80px;
+  box-shadow: 0px 0px 0px #837c7c;
+  border-radius: 5px;
+  height: 100%;
 }
 
 .rightView {
   float: right;
-  margin-right: 7px;
-  margin-top: 7px;
-  width: 25px;
+  margin-right: 12px;
 }
 
 .dialog_content {
@@ -297,4 +338,10 @@ button {
   padding-right: 5px;
   width: 110px;
   margin-top: 40px;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
 }

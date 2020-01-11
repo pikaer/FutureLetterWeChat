@@ -1,0 +1,376 @@
+.indexContainer {
+  padding-bottom: 15px;
+}
+
+page {
+  height: 100%;
+  font-size: 32rpx;
+  line-height: 1.6;
+  background-color: #eff2fb;
+}
+
+.inputarea {
+  width: 100%;
+  background-color: #eff2fb;
+  height: 50px;
+}
+
+.subContainer {
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-top: 8px;
+  background: white;
+  box-shadow: 0px 0px 2px #837c7c;
+  border-radius: 5px;
+}
+
+input {
+  display: block;
+  height: 1.4rem;
+  text-overflow: clip;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: UICTFontTextStyleBody;
+  min-height: 1.4rem;
+  padding-top: 5px;
+  padding-left: 5px;
+}
+
+.mainContainer {
+  margin: 0px;
+}
+
+.contentArea {
+  margin-bottom: 7px;
+  background-color: white;
+  clear: both;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.titleView {
+  width: 100%;
+}
+
+.leftView {
+  float: left;
+}
+
+.userHead {
+  width: 42px;
+  height: 42px;
+  border-radius: 100%;
+  margin-top: 10px;
+  margin-left: 8px;
+}
+
+.centerView {
+  float: left;
+  margin-top: 10px;
+  margin-left: 8px;
+}
+
+.modal-content-login {
+  position: fixed;
+  top: 40%;
+  right: 10%;
+  left: 10%;
+  z-index: 9500;
+  height: 180px;
+  background: white;
+  border-radius: 12px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.titleTxtView {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  float: left;
+  font-size: 18px;
+  width: 100%;
+  font-weight: 700;
+}
+
+.cancelBtnView {
+  float: left;
+  padding-left: 5px;
+  width: 110px;
+  margin-top: 40px;
+}
+
+.loginBtnView {
+  float: right;
+  padding-right: 5px;
+  width: 110px;
+  margin-top: 40px;
+}
+
+.cancelBtn {
+  width: 110px;
+  height: 40px;
+  padding-top: 10px;
+  background: #e3e3e3;
+  font-weight: 650;
+}
+
+.loginBtn {
+  width: 110px;
+  height: 40px;
+  padding-top: 10px;
+  background: #00cd66;
+  color: white;
+  font-weight: 650;
+}
+
+.discussContent {
+  clear: both;
+  font-size: 14px;
+  padding-top: 0px;
+  margin-left: 8px;
+  margin-bottom:5px;
+}
+
+.nickNameView {
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.timeView {
+  font-size: 11px;
+  color: #8e8e8e;
+  float: left;
+  padding-left: 5px;
+}
+
+.bodyView {
+  clear: both;
+}
+
+.textView {
+  font-size: 16px;
+  padding-top: 10px;
+  padding-bottom: 7px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.imgView {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.imgCount {
+  width: 100%;
+  margin-bottom: -5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.rightView {
+  float: right;
+  margin-right: 5px;
+  margin-top: 7px;
+  width: 25px;
+}
+
+.dialog_content {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.shareArea {
+  position: relative;
+  overflow: hidden;
+  background-color: white;
+  padding-bottom: 10px;
+}
+
+.shareTo {
+  text-align: center;
+  background: white;
+  font-size: 28rpx;
+  float: left;
+  flex-grow: 1;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.shareIcon {
+  margin-top: 15px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 48px;
+  height: 48px;
+}
+
+.bingoIcon {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 100%;
+}
+
+button::after {
+  border: none;
+}
+
+.discussView {
+  clear: both;
+}
+
+.discussArea {
+  margin-bottom: 0px;
+}
+
+button {
+  background-color: white;
+  line-height: 1;
+  overflow: flex;
+  width: 60px;
+  height: 60px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-bottom: 10px;
+}
+
+.moreBtnView {
+  text-align: center;
+  padding-top: 5px;
+  font-size: 18px;
+  background-color: #00cd66;
+  margin-top: 23px;
+  margin-left: 80px;
+  margin-right: 80px;
+  border-radius: 5px;
+  color: white;
+  height: 35px;
+}
+
+.viewSend {
+  float: left;
+}
+
+.inputFocus {
+  display: block;
+  height: 1.4rem;
+  text-overflow: clip;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: UICTFontTextStyleBody;
+  min-height: 1.4rem;
+  padding-top: 5px;
+  padding-left: 5px;
+  caret-color: #00cd66;
+}
+
+.viewinput {
+  width: 75%;
+  background-color: white;
+  float: left;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  font-size: 30rpx;
+  border-radius: 7rpx;
+  padding-bottom: 7px;
+}
+
+.btnAreaView {
+  width: 60px;
+  float: right;
+  padding-right: 10px;
+}
+
+.txtSend {
+  width: 60px;
+  height: 32px;
+  background: #00cd66;
+  padding-left: 4px;
+  padding-right: 3px;
+  border-radius: 5px;
+  font-size: 15px;
+  text-align: center;
+  padding-top: 8px;
+  color: white;
+  margin-top: 11px;
+}
+
+.distanceDescView {
+  font-size: 9px;
+  color: white;
+  padding-left: 5px;
+  float: left;
+  padding-right: 6px;
+  padding-top: 1px;
+}
+
+.genderView {
+  height: 15px;
+  color: white;
+  float: left;
+  background-color: #85d0ed;
+  border-radius: 8px;
+  margin-top: 2px;
+}
+
+.gender_womanView {
+  height: 15px;
+  color: white;
+  float: left;
+  background-color: #fda3e6;
+  border-radius: 8px;
+  margin-top: 2px;
+}
+
+.genderImgView {
+  float: left;
+  padding-top: 3px;
+  margin-bottom: 2px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.chatLineView {
+  margin: 0 auto;
+  width: 100%;
+  height: 1.5rpx;
+  background-color: #e5e5e5;
+  clear: both;
+}
+
+.inputareaInput {
+  width: 100%;
+  height: 60px;
+  background-color: #eff2fb;
+  position: fixed;
+  margin-bottom: 20px;
+  bottom: 0px;
+}
+
+image {
+  width: 100%;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.genderImg {
+  width: 9px;
+  height: 9px;
+  float: left;
+}

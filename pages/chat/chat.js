@@ -166,7 +166,7 @@ Page({
     let uId = e.currentTarget.dataset.uid;
     let momentId = e.currentTarget.dataset.momentid;
     wx.navigateTo({
-      url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId + "&partnerUId=" + uId + "&momentId=" + momentId
+      url: "../../pages/discussdetailV1/discussdetail?pickUpId=" + pickUpId + "&partnerUId=" + uId + "&momentId=" + momentId
     })
   },
 

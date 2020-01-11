@@ -14,7 +14,7 @@ Page({
   data: {
     currentMoment: {},
     basicUserInfo: {},
-    currentBasicUserInfo: {},//用作头像展示和是否注册监控
+    currentBasicUserInfo: {}, //用作头像展示和是否注册监控
     pickUpList: [],
     attentionList: [],
     currentTargetPickUpId: "",
@@ -46,13 +46,14 @@ Page({
     topNum: 0,
     totalCoin: 0, //金币余额
     insertDialogDiscussVlaue: "", //快速评论内容
-    subscribeMessageOpen:false,
+    subscribeMessageOpen: false,
     messageReplyNotifyWechatId: "-zecjwuk6Z0uN1txUSwvgXKmaek081c1Y9t6mqAn6ck",
     messageReplyNotifyQQId: "59880ab542241403ede33bb4c64f0166",
-    momentTextContent:""
+    momentTextContent: ""
   },
 
   onLoad: function() {
+    wx.hideTabBar();
     this.userLogin();
   },
 
@@ -227,9 +228,9 @@ Page({
 
   //通知对方刷新聊天页面
   sendMessage: function(partnerUId) {
-    try{
+    try {
       this.hubConnect.send("subScribeMessage", partnerUId);
-    }catch(e){
+    } catch (e) {
       console.error(JSON.stringify(e));
     }
   },
@@ -244,6 +245,7 @@ Page({
         pickUpList: cacheValue,
         showStartUp: false
       });
+      wx.showTabBar();
       console.info("获取全局瓶子列表缓存成功");
     }
     app.httpPost(
@@ -256,6 +258,7 @@ Page({
           pickUpList: res.pickUpList,
           showStartUp: false
         });
+        wx.showTabBar();
         app.setCache(cacheKey, res.pickUpList);
         console.info("获取全局瓶子列表成功");
         self.getUserLocation();
@@ -335,15 +338,15 @@ Page({
     this.hideModalShare();
     let url = app.globalData.bingoLogo;
     let title = app.globalData.bingoTitle;
-    if (app.isBlank(this.data.currentMoment)){
+    if (app.isBlank(this.data.currentMoment)) {
       return {
         title: title,
         imageUrl: url,
         path: "/pages/discovery/discovery",
-        success: function (res) {
+        success: function(res) {
           // 转发成功
         },
-        fail: function (res) {
+        fail: function(res) {
           // 转发失败
         }
       }
@@ -388,14 +391,28 @@ Page({
     }
 
     this.setMoreContent(ops);
-    if (this.data.currentMoment.textContent != null && this.data.currentMoment.textContent.length>=18){
-      this.setData({
-        momentTextContent: this.data.currentMoment.textContent.substring(0, 18)+"..."
-      })
-    }else{
-      this.setData({
-        momentTextContent: this.data.currentMoment.textContent
-      })
+    if (!app.isBlank(this.data.currentMoment.textContent)) {
+      if (!app.isBlank(this.data.currentMoment.imgContent)) {
+        if (this.data.currentMoment.textContent.length > 19) {
+          this.setData({
+            momentTextContent: this.data.currentMoment.textContent.substring(0, 18) + "..."
+          })
+        } else {
+          this.setData({
+            momentTextContent: this.data.currentMoment.textContent
+          })
+        }
+      } else {
+        if (this.data.currentMoment.textContent.length > 26) {
+          this.setData({
+            momentTextContent: this.data.currentMoment.textContent.substring(0, 25) + "..."
+          })
+        } else {
+          this.setData({
+            momentTextContent: this.data.currentMoment.textContent
+          })
+        }
+      }
     }
     this.setData({
       showChatModal: true
@@ -420,13 +437,13 @@ Page({
     })
   },
 
-  showLoginModal: function () {
+  showLoginModal: function() {
     this.setData({
       showLoginModal: true
     })
   },
 
-  
+
 
   //获取用户基础信息
   toShowModal: function(ops) {
@@ -1040,7 +1057,7 @@ Page({
     let cacheKey = "discussDetail_momentId_" + pickUpList[key].momentId;
     app.setCache(cacheKey, pickUpList[key]);
     wx.navigateTo({
-      url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId + "&partnerUId=" + pickUpList[key].uId + "&momentId=" + pickUpList[key].momentId
+      url: "../../pages/discussdetailV1/discussdetail?pickUpId=" + pickUpId + "&partnerUId=" + pickUpList[key].uId + "&momentId=" + pickUpList[key].momentId
     })
   },
 
@@ -1052,7 +1069,7 @@ Page({
     let cacheKey = "discussDetail_momentId_" + attentionList[key].momentId;
     app.setCache(cacheKey, attentionList[key]);
     wx.navigateTo({
-      url: "../../pages/discussdetail/discussdetail?partnerUId=" + attentionList[key].uId + "&momentId=" + attentionList[key].momentId
+      url: "../../pages/discussdetailV1/discussdetail?partnerUId=" + attentionList[key].uId + "&momentId=" + attentionList[key].momentId
     })
   },
 
@@ -1624,7 +1641,7 @@ Page({
       })
   },
 
-  subscribeMessage:function (ops) {
+  subscribeMessage: function(ops) {
     this.setData({
       subscribeMessageOpen: ops.detail.value
     });
@@ -1633,14 +1650,14 @@ Page({
   // 订阅模板消息
   requestOpenMssageNotify() {
     let self = this;
-    let messageReplyNotifyId="";
+    let messageReplyNotifyId = "";
     if (app.globalData.apiHeader.Platform == 1) {
       messageReplyNotifyId = self.data.messageReplyNotifyQQId;
     } else {
       messageReplyNotifyId = self.data.messageReplyNotifyWechatId;
     }
     //开关变为开启的时候，通知用户开启模板消息
-    if (self.data.subscribeMessageOpen){
+    if (self.data.subscribeMessageOpen) {
       return new Promise((resolve, reject) => {
         wx.requestSubscribeMessage({
           tmplIds: [messageReplyNotifyId],

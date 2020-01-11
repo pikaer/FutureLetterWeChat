@@ -72,8 +72,8 @@ Page({
   toMomentDetailPage: function (e) {
     let momentId = e.currentTarget.dataset.momentid;
     wx.navigateTo({
-       url: "../../pages/momentdetail/momentdetail?momentId=" + momentId
-       //url: "../../pages/sharepage/sharepage?momentId=" + momentId
+       //url: "../../pages/momentdetail/momentdetail?momentId=" + momentId
+       url: "../../pages/sharepage/sharepage?momentId=" + momentId
        //url: "../../pages/sharepage/sharepage?momentId=" + "645c0c5d-a072-4bab-aa24-73a3575791e0"       
     })
   },

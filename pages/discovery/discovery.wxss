@@ -15,9 +15,9 @@ page {
   padding: 0;
   font-size: 14rpx;
   color: #000;
-  padding-left: 7px;
-  padding-right: 7px;
-  background-color: #eff2fb;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #4f7ffd;
   overflow: hidden;
   width: 100%;
   height: 100%;
@@ -25,13 +25,12 @@ page {
 
 .contentArea {
   margin-top: 2px;
-  margin-bottom: 7px;
   background-color: #fff;
-  width: 84%;
+  box-shadow: 0px 0px 4px #837c7c;
+  width: 100%;
   height: 100%;
-  border-radius: 12px;
-  float: right;
-  margin-right: 3px;
+  border-radius: 6px;
+  float: left;
 }
 
 .userHead {
@@ -46,6 +45,8 @@ page {
 
 .leftView {
   float: left;
+  padding-left: 6px;
+  padding-top: 5px;
 }
 
 .centerView {
@@ -65,6 +66,7 @@ page {
   font-weight: 650;
   float: left;
   margin-top: 4px;
+  margin-left: 2px;
 }
 
 .timeView {
@@ -94,9 +96,9 @@ page {
 .imgCount {
   max-width: 100%;
   margin-bottom: -3px;
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
-  max-height: 450px；;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  max-height: 650px；;
 }
 
 .publishIcon {
@@ -121,7 +123,7 @@ page {
 .spinner>div {
   width: 8px;
   height: 8px;
-  background-color: #09f;
+  background-color: white;
   border-radius: 100%;
   display: inline-block;
   -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
@@ -135,7 +137,7 @@ page {
   width: 100%;
   text-align: center;
   font-size: 14px;
-  padding-top: 7px;
+  padding-top: 15px;
 }
 
 .footerSpinner {
@@ -179,8 +181,15 @@ page {
 
 .txtLoding {
   size: 14px;
-  color: gray;
+  color: white;
   padding-left: 8px;
+}
+
+.momentTitleCilickBottom {
+  border-bottom: solid 2px white;
+  margin-left: 6px;
+  margin-right: 6px;
+  padding-top: 3px;
 }
 
 image {
@@ -415,7 +424,6 @@ button {
 
 .unreadCount {
   float: left;
-  padding-left: 5px;
 }
 
 .btnContainer {
@@ -517,28 +525,19 @@ button {
 .contentAreaView {
   width: 100%;
   clear: both;
+  padding-top: 10px;
 }
 
 .onlineView {
   float: left;
   width: 80px;
   font-size: 8px;
-  padding-top: 9px;
+  padding-top: 6px;
 }
 
 .commentView {
   font-size: 13px;
   width: 100%;
-}
-
-.toCommentView {
-  font-size: 12px;
-  float: right;
-  color: #8e8e8e;
-  width: 37px;
-  padding-top: 4px;
-  padding-left: 3px;
-  padding-right: 5px;
 }
 
 .rightCommentView {
@@ -559,6 +558,7 @@ button {
 
 .centerTitleView {
   float: left;
+  padding-top: 5px;
 }
 
 /* 自定义导航栏开始 */
@@ -571,8 +571,8 @@ button {
   left: 0;
   height: 40px;
   z-index: 999;
-  background: #eff2fb;
-  border-bottom: 1px solid #e4dfdf;
+  background: #4f7ffd;
+  /* border-bottom: 1px solid #e4dfdf; */
 }
 
 .nav_logo {
@@ -580,8 +580,8 @@ button {
   margin-left: 7px;
   margin-right: 15rpx;
   display: block;
-  width: 45px;
-  height: 45px;
+  width: 30px;
+  height: 30px;
   border-radius: 100%;
 }
 
@@ -602,7 +602,7 @@ button {
 }
 
 .chatListView {
-  left: 8px;
+  left: 10px;
   position: fixed;
 }
 
@@ -747,15 +747,14 @@ button {
   font-size: 17px;
   padding-left: 20px;
   padding-right: 20px;
-  padding-top: 10px;
+  padding-top: 7px;
 }
 
 .rightTitleView {
   float: left;
   font-size: 17px;
-  padding-right: 10px;
   flex-grow: 1;
-  padding-top: 10px;
+  padding-top: 7px;
 }
 
 .toUserPage {
@@ -846,13 +845,12 @@ swiper-item {
 }
 
 .momentTitleCilick {
-  border-bottom: solid 3px #09f;
-  color: #09f;
+  color: white;
   font-weight: 650;
 }
 
 .momentTitle {
-  color: #9d9d9d;
+  color: white;
 }
 
 .empty_topArea {
@@ -862,7 +860,7 @@ swiper-item {
 
 .placeUseview {
   width: 100%;
-  height: 220px;
+  height: 100px;
   clear: both;
 }
 
@@ -892,17 +890,19 @@ swiper-item {
 
 .coinTextView {
   float: left;
-  padding-right: 5px;
+  padding-left: 2px;
   color: #ffa500;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 650;
+  padding-top: 8px;
 }
 
 .coinIconView {
   float: left;
-  width: 20px;
-  height: 20px;
-  padding-top: 5px;
+  width: 15px;
+  height: 15px;
+  padding-top: 9px;
+  padding-left: 15px;
 }
 
 .publishMomentBtnView {
@@ -939,8 +939,7 @@ swiper-item {
 .distanceDescView {
   font-size: 10px;
   color: #8e8e8e;
-  padding-left: 5px;
-  padding-top: 1px;
+  padding-left: 2px;
   float: left;
 }
 
@@ -951,7 +950,7 @@ swiper-item {
   width: 68px;
   float: right;
   margin-top: 7px;
-  margin-right: 10px;
+  margin-right: 8px;
 }
 
 .shuxianView {
@@ -1072,4 +1071,8 @@ swiper-item {
   overflow: hidden;
   height: 40px;
   width: 40px;
+}
+
+.rightHeadImgView {
+  float: right;
 }

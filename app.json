@@ -11,6 +11,7 @@
     "pages/sharepage/sharepage",
     "pages/signature/signature",
     "pages/discussdetail/discussdetail",
+    "pages/discussdetailV1/discussdetail",
     "pages/momentdetail/momentdetail",
     "pages/publishmoment/publishmoment",
     "components/half-screen-dialog/half-screen-dialog",
@@ -33,6 +34,7 @@
     }
   },
   "tabBar": {
+    "backgroundColor": "#EFF2FB",
     "list": [
       {
         "text": "发现",
