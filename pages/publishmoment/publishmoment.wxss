@@ -12,7 +12,6 @@
   padding: 8px;
 }
 
-
 .add-image, .up-pic image {
   margin-top: 2%;
   margin-left: 2%;
@@ -164,7 +163,7 @@ page {
   margin-right: 10px;
   background: #00cd66;
   color: white;
-   font-weight: 700;
+  font-weight: 700;
 }
 
 .titleTxtView {
@@ -234,8 +233,7 @@ button {
 
 .shareBtnView {
   clear: both;
-  padding-top: 30px;
-
+  padding-top: 55px;
 }
 
 .shareTitleTxtView {
@@ -243,7 +241,7 @@ button {
   margin-top: 25px;
   float: left;
   margin-bottom: 30px;
-  font-size: 18px;
+  font-size:22px;
   font-weight: 700;
   width: 100%;
 }

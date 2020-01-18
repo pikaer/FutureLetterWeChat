@@ -167,9 +167,16 @@ Page({
         "UId": app.globalData.apiHeader.UId
       },
       function(res) {
-        self.setData({
-          unReadCount: res.unReadCount
-        });
+        if (!app.isBlank(res.unReadCount)) {
+          wx.setTabBarBadge({
+            index: 1,
+            text: res.unReadCount
+          })
+        } else {
+          wx.removeTabBarBadge({
+            index: 1,
+          })
+        }
       },
       function(res) {
         console.error("刷新未读数量失败!");
@@ -393,9 +400,9 @@ Page({
     this.setMoreContent(ops);
     if (!app.isBlank(this.data.currentMoment.textContent)) {
       if (!app.isBlank(this.data.currentMoment.imgContent)) {
-        if (this.data.currentMoment.textContent.length > 19) {
+        if (this.data.currentMoment.textContent.length > 15) {
           this.setData({
-            momentTextContent: this.data.currentMoment.textContent.substring(0, 18) + "..."
+            momentTextContent: this.data.currentMoment.textContent.substring(0, 15) + "..."
           })
         } else {
           this.setData({

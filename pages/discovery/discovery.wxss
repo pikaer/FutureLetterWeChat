@@ -81,7 +81,7 @@ page {
 }
 
 .textView {
-  font-size: 13px;
+  font-size: 15px;
   padding-top: 10px;
   padding-bottom: 7px;
   margin-left: 8px;
@@ -98,7 +98,7 @@ page {
   margin-bottom: -3px;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
-  max-height: 650px；;
+  /* max-height: 850px； */
 }
 
 .publishIcon {
@@ -194,8 +194,28 @@ page {
 
 image {
   width: 100%;
+  height: 350px;
   display: inline-block;
   overflow: hidden;
+}
+
+.chatBtnView {
+  padding-bottom: 15px;
+  width: 80px;
+  background-color: #00cd66;
+  height: 15px;
+  border-radius: 5px;
+  color: white;
+  padding-top: 5px;
+  display: inline-block;
+  font-weight: 650;
+}
+
+.btnContainer {
+  width: 800px;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .defaultDescView {
@@ -232,11 +252,11 @@ image {
 
 .modal-content {
   position: fixed;
-  top: 40%;
+  top: 30%;
   right: 15%;
   left: 15%;
   z-index: 9500;
-  height: 200px;
+  height: 250px;
   background: #fff;
   border-radius: 10rpx;
 }
@@ -251,7 +271,7 @@ image {
 }
 
 .basicInfoAreaView {
-  height: 200px;
+  height: 250px;
 }
 
 .btnDialogView {
@@ -273,18 +293,6 @@ image {
   text-align: center;
   padding-top: 4px;
   color: white;
-  font-weight: 650;
-}
-
-.chatBtnView {
-  padding-bottom: 15px;
-  width: 80px;
-  background-color: #00cd66;
-  height: 15px;
-  border-radius: 5px;
-  color: white;
-  padding-top: 5px;
-  display: inline-block;
   font-weight: 650;
 }
 
@@ -364,7 +372,7 @@ image {
   position: relative;
   overflow: hidden;
   background-color: white;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
 }
 
 .shareTo {
@@ -428,6 +436,7 @@ button {
 
 .btnContainer {
   width: 800px;
+  padding-top: 70px;
   text-align: center;
   display: table-cell;
   vertical-align: middle;
@@ -525,7 +534,7 @@ button {
 .contentAreaView {
   width: 100%;
   clear: both;
-  padding-top: 10px;
+  padding-top: 8px;
 }
 
 .onlineView {
@@ -579,9 +588,10 @@ button {
   float: left;
   margin-left: 7px;
   margin-right: 15rpx;
+  padding-top: 5px;
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 27px;
+  height: 24px;
   border-radius: 100%;
 }
 
@@ -683,7 +693,7 @@ button {
 
 .modal-content-publishMoment {
   position: fixed;
-  top: 40%;
+  top: 30%;
   right: 10%;
   left: 10%;
   z-index: 9500;
@@ -716,17 +726,19 @@ button {
 
 .publishMomentBtn {
   width: 110px;
-  height: 40px;
-  padding-top: 10px;
+  height: 38px;
+  padding-top: 11px;
   background: #00cd66;
   color: white;
+  font-size: 16px;
   font-weight: 650;
 }
 
 .cancelPublishMomentBtn {
   width: 110px;
-  height: 40px;
-  padding-top: 10px;
+  height: 38px;
+  font-size: 16px;
+  padding-top: 11px;
   background: #e3e3e3;
   font-weight: 650;
 }
@@ -870,7 +882,8 @@ swiper-item {
   text-align: center;
   height: 30px;
   font-size: 14px;
-  color: #09f;
+  color: white;
+  padding-top: 10px;
 }
 
 .coinDetailView {
@@ -909,14 +922,14 @@ swiper-item {
   float: right;
   padding-right: 5px;
   width: 110px;
-  margin-top: 40px;
+  margin-top: 50px;
 }
 
 .cancelPublishMomentBtnView {
   float: left;
   padding-left: 5px;
   width: 110px;
-  margin-top: 40px;
+  margin-top: 50px;
 }
 
 .contentTxtView {
@@ -1048,6 +1061,7 @@ swiper-item {
   background-color: #eff2fb;
   margin-left: 10px;
   margin-right: 10px;
+  margin-top: 8px;
   border-radius: 4px;
   float: left;
   width: 95%;

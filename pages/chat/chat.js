@@ -71,6 +71,7 @@ Page({
 
   onShow: function() {
     this.getChatList();
+    this.unReadCountRefresh();
     this.onConnected();
   },
 
@@ -110,6 +111,7 @@ Page({
     this.hubConnect.on("receive", res => {
       console.info("成功订阅消息");
       this.getChatList();
+      this.unReadCountRefresh();
     })
   },
 
@@ -165,6 +167,9 @@ Page({
     let pickUpId = e.currentTarget.dataset.pickupid;
     let uId = e.currentTarget.dataset.uid;
     let momentId = e.currentTarget.dataset.momentid;
+    let key = e.currentTarget.dataset.index;
+    let cacheKey = "discussDetail_momentId_" + momentId;
+    app.setCache(cacheKey, this.data.tempDiscussList[key]);
     wx.navigateTo({
       url: "../../pages/discussdetailV1/discussdetail?pickUpId=" + pickUpId + "&partnerUId=" + uId + "&momentId=" + momentId
     })
@@ -292,6 +297,7 @@ Page({
         },
         function(res) {
           self.getChatList();
+          self.unReadCountRefresh();
           self.resetSelectItem();
         },
         function(res) {
@@ -373,7 +379,33 @@ Page({
         // 转发失败
       }
     }
-  }
+  },
+
+  unReadCountRefresh: function () {
+    if (app.globalData.apiHeader.UId <= 0) {
+      return;
+    }
+    let self = this;
+    app.httpPost(
+      'api/Letter/UnReadTotalCount', {
+        "UId": app.globalData.apiHeader.UId
+      },
+      function (res) {
+        if (!app.isBlank(res.unReadCount)) {
+          wx.setTabBarBadge({
+            index: 1,
+            text: res.unReadCount
+          })
+        } else {
+          wx.removeTabBarBadge({
+            index: 1,
+          })
+        }
+      },
+      function (res) {
+        console.error("刷新未读数量失败!");
+      })
+  },
 
 
 })

@@ -1,5 +1,5 @@
 .indexContainer {
-  padding-bottom: 15px;
+  padding-bottom: 5px;
 }
 
 page {
@@ -18,9 +18,8 @@ page {
 .subContainer {
   margin-left: 8px;
   margin-right: 8px;
-  margin-top: 8px;
   background: white;
-  box-shadow: 0px 0px 2px #837c7c;
+  /* box-shadow: 0px 0px 1px #837c7c; */
   border-radius: 5px;
 }
 
@@ -57,11 +56,11 @@ input {
 }
 
 .userHead {
-  width: 42px;
-  height: 42px;
+  width: 48px;
+  height: 48px;
   border-radius: 100%;
-  margin-top: 10px;
-  margin-left: 8px;
+  margin-left: 6px;
+  margin-top: 6px;
 }
 
 .centerView {
@@ -126,10 +125,10 @@ input {
 
 .discussContent {
   clear: both;
-  font-size: 14px;
+  font-size: 15px;
   padding-top: 0px;
   margin-left: 8px;
-  margin-bottom:5px;
+  margin-bottom: 5px;
 }
 
 .nickNameView {
@@ -149,7 +148,7 @@ input {
 }
 
 .textView {
-  font-size: 16px;
+  font-size: 15px;
   padding-top: 10px;
   padding-bottom: 7px;
   margin-left: 8px;
@@ -163,7 +162,7 @@ input {
 
 .imgCount {
   width: 100%;
-  margin-bottom: -5px;
+  margin-bottom: -6px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
@@ -184,11 +183,142 @@ input {
   margin-bottom: 10px;
 }
 
+.backBtnView {
+  left: 10px;
+  position: fixed;
+  border: 1rpx solid #dfe0e4;
+  border-radius: 100px;
+  height: 30px;
+  width: 80px;
+  margin-top: 2px;
+  margin-right: 8px;
+  background-color: #fafbfe;
+}
+
+.backUpView {
+  float: left;
+  width: 32px;
+  padding-top: 5px;
+  border-bottom-left-radius: 50%;
+  border-top-left-radius: 50%;
+}
+
+.backUpHoverView {
+  float: left;
+  width: 32px;
+  padding-top: 5px;
+  border-bottom-left-radius: 50%;
+  border-top-left-radius: 50%;
+  background-color: #9ca2a4;
+}
+
+.shuxianView {
+  font-size: 17px;
+  color: #dfe0e4;
+  float: left;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.toHomeView {
+  float: right;
+  width: 35px;
+  height: 83%;
+  padding-top: 5px;
+  border-bottom-right-radius: 50%;
+  border-top-right-radius: 50%;
+}
+
+.toHomeHoverView {
+  float: right;
+  width: 35px;
+  height: 83%;
+  padding-top: 5px;
+  border-bottom-right-radius: 50%;
+  border-top-right-radius: 50%;
+  background-color: #9ca2a4;
+}
+
+.empty_custom {
+  height: 40px;
+  width: 100%;
+}
+
+.nav_logoRight {
+  width: 20px;
+  height: 20px;
+  padding-right: 6px;
+}
+
+.nav_logoLeft {
+  width: 20px;
+  height: 20px;
+  padding-left: 5px;
+}
+
+.headImgAreaView {
+  float: left;
+  padding-left: 105px;
+  padding-top: 2px;
+}
+
+.topUserHead {
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+}
+
+.topCenterView {
+  clear: both;
+  width: 150px;
+}
+
+.headImgView {
+  width: 36px;
+  height: 36px;
+  float: left;
+}
+
+.userInfoView {
+  float: left;
+}
+
+.topNickNameView {
+  font-size: 14px;
+  font-weight: 650;
+  float: left;
+}
+
+.topBasicInfo {
+  font-size: 9px;
+  color: #8e8e8e;
+  float: left;
+  padding-left: 4px;
+  padding-right: 5px;
+  margin-top: 2px;
+}
+
+.topHeadView {
+  float: left;
+}
+
+.custom {
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 43px;
+  z-index: 999;
+  background: #eff2fb;
+  border-bottom: solid 1px #dfe0e4;
+}
+
 .shareArea {
   position: relative;
   overflow: hidden;
   background-color: white;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
 }
 
 .shareTo {
@@ -209,8 +339,8 @@ input {
   left: 0;
   bottom: 0;
   right: 0;
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
 }
 
 .bingoIcon {
@@ -311,13 +441,36 @@ button {
   margin-top: 11px;
 }
 
+.txtSendHover {
+  width: 60px;
+  height: 32px;
+  background: #2ba245;
+  padding-left: 4px;
+  padding-right: 3px;
+  border-radius: 5px;
+  font-size: 15px;
+  text-align: center;
+  padding-top: 8px;
+  color: white;
+  margin-top: 11px;
+}
+
 .distanceDescView {
   font-size: 9px;
-  color: white;
-  padding-left: 5px;
+  color: #8e8e8e;
+  padding-left: 1px;
+  margin-top: 2px;
   float: left;
-  padding-right: 6px;
-  padding-top: 1px;
+}
+
+.topPointer {
+  width: 7px;
+  height: 7px;
+  font-size: 20px;
+  float: left;
+  background-color: #00cd66;
+  border-radius: 200%;
+  margin-top: 5px;
 }
 
 .genderView {

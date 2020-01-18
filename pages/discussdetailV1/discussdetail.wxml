@@ -1,11 +1,34 @@
+<view class="empty_custom" style="padding-top:{{statusBarHeight}}px"></view>
+<view class="custom" style="padding-top:{{statusBarHeight}}px">
+  <view class="backBtnView" style="top:{{statusBarHeight+3}}px">
+    <view class="backUpView" hover-class="backUpHoverView" catchtap='backUpAction'>
+      <image class='nav_logoLeft' src="/content/images/backupicon.svg" />
+    </view>
+    <view class="shuxianView">|</view>
+    <view class="toHomeView" hover-class="toHomeHoverView" catchtap='toHomeAction'>
+      <image class='nav_logoRight' src="/content/images/homeicon.svg" />
+    </view>
+  </view>
+  <view class="headImgAreaView">
+    <view class="topHeadView">
+      <view class="topNickNameView">{{partnerDetail.nickName}}</view>
+    </view>
+    <view class="topCenterView">
+      <view class="topPointer" wx:if="{{partnerDetail.onLineDesc.length>0}}"></view>
+      <view class="topBasicInfo" wx:if="{{partnerDetail.onLineDesc.length>0}}">{{partnerDetail.onLineDesc}}</view>
+      <view class="iconfont dingwei" style="font-size:10px;float:left;color: #8e8e8e;"></view>
+      <view class="distanceDescView">{{partnerDetail.distanceDesc}}</view>
+    </view>
+  </view>
+</view>
+
 <view class="inputarea">
   <view class="viewinput">
-    <input placeholder="输入评论" value='{{discussContent}}' bindinput="discussContentInput" bindfocus='settingMbShow' bindblur='settingMbNoShow'  bindconfirm="discussContentInput" hold-keyboard='true' adjust-position='true'
-    />
+    <input adjust-position='false' focus='true' placeholder="输入评论" value='{{discussContent}}' bindinput="discussContentInput"  bindconfirm="insertDiscussContent"  confirm-type="send" confirm-hold='true' hold-keyboard='true'   />
   </view>
   <view class="btnAreaView">
     <form bindsubmit="insertDiscussContent" report-submit='true'>
-      <button form-type="submit" class="txtSend">提交</button>
+      <button form-type="submit" class="txtSend" hover-class="txtSendHover">提交</button>
     </form>
   </view>
 </view>
@@ -25,7 +48,6 @@
               <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
               <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
             </view>
-            <!-- <view class="distanceDescView">{{value.distanceDesc}}</view> -->
           </view>
           <view class="timeView">{{value.recentChatTime}}</view>
         </view>
@@ -49,7 +71,6 @@
             <image wx:if="{{discussDetail.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
             <image wx:if="{{discussDetail.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
           </view>
-          <!-- <view class="distanceDescView">{{discussDetail.distanceDesc}}</view> -->
         </view>
         <view class="timeView">{{discussDetail.createTime}}</view>
 
@@ -122,12 +143,6 @@
           <image class="shareIcon" src="/content/images/report.svg "></image>
         </button>
         <view class="shareText">举报</view>
-      </view>
-      <view class="shareTo" bindtap="saveLocal">
-        <button>
-          <image class="shareIcon" src="/content/images/baocuntupian.svg"></image>
-        </button>
-        <view class="shareText">保存图片</view>
       </view>
       <view class="shareTo">
         <button open-type='share'>

@@ -13,6 +13,10 @@ const rate = function(rpx) {
 Page({
   data: {
     discussDetail: {},
+    partnerDetail: {
+      "nickName": " ",
+      "distanceDesc": "远方"
+    },
     discussDetailList: [],
     pickUpId: null,
     momentId: null,
@@ -23,6 +27,7 @@ Page({
     inputfoucusOn: false,
     basicUserInfo: {},
     isCreate: false,
+    statusBarHeight: app.globalData.statusBarHeight,
     isShow: false,
     topNum: 99999,
     partnerUId: 0
@@ -99,7 +104,9 @@ Page({
         let cacheKey = "discussDetail_momentId_" + this.data.momentId;
         let cacheValue = wx.getStorageSync(cacheKey);
         if (!app.isBlank(cacheValue)) {
+          let nickName = 'partnerDetail.nickName';
           this.setData({
+            [nickName]: cacheValue.nickName,
             discussDetail: cacheValue
           })
           let cacheListKey = "discussDetailList_pickUpId_" + cacheValue.pickUpId;
@@ -108,23 +115,7 @@ Page({
             this.setData({
               discussDetailList: cacheListValue
             })
-          } else {
-            let discuss = {};
-            let detailList = [];
-            discuss.isMyReply = cacheValue.isMyMoment;
-            discuss.pickUpUId = app.globalData.apiHeader.UId;
-            discuss.headImgPath = cacheValue.headImgPath;
-            discuss.nickName = cacheValue.nickName;
-            discuss.gender = cacheValue.gender;
-            discuss.textContent = cacheValue.textContent;
-            discuss.imgContent = cacheValue.imgContent;
-            discuss.distanceDesc = cacheValue.distanceDesc;
-            detailList.push(discuss);
-            self.setData({
-              discussDetailList: detailList
-            });
           }
-          this.toBottom();
         }
       }
     } catch (e) {
@@ -141,6 +132,18 @@ Page({
     // })
   },
 
+  //返回上一级页面。
+  backUpAction: function() {
+    wx.navigateBack({
+      delta: 1
+    })
+  },
+
+  toHomeAction: function() {
+    wx.switchTab({
+      url: "../../pages/discovery/discovery"
+    })
+  },
 
   //获取用户基础信息
   toShowModal: function(ops) {
@@ -233,10 +236,11 @@ Page({
           self.setData({
             discussDetail: res,
             pickUpId: res.pickUpId,
-            discussDetailList: tempDetailList
+            partnerDetail: res.partnerDetail,
+            discussDetailList: res.discussDetailList
           });
           let cacheListKey = "discussDetailList_pickUpId_" + res.pickUpId;
-          app.setCache(cacheListKey, tempDetailList);
+          app.setCache(cacheListKey, res.discussDetailList);
         }
         app.globalData.currentDiscussMoment = {};
         self.toBottom();
@@ -383,16 +387,17 @@ Page({
       discuss.nickName = userinfo.nickName;
       discuss.pickUpUId = app.globalData.apiHeader.UId;
       discuss.headImgPath = userinfo.headPhotoPath;
+      discuss.gender = userinfo.gender;
       discuss.recentChatTime = '刚刚';
       discuss.isMyReply = true;
       discuss.textContent = textContent;
-      detailList.push(discuss);
+      detailList.unshift(discuss);
       self.setData({
         discussDetailList: detailList
       });
       self.setData({
         discussContent: "",
-        inputfoucusOn:false
+        inputfoucusOn: false
       });
       self.toBottom();
       self.setData({
