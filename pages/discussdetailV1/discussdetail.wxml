@@ -84,7 +84,7 @@
       <view class="textView">{{discussDetail.textContent}}</view>
       <!-- 图片动态 -->
       <view class="imgView" wx:if="{{discussDetail.imgContent!=null&&discussDetail.imgContent!=''}}">
-        <image src="{{discussDetail.imgContent}}" catchtap="previewImg" data-imgContent='{{discussDetail.imgContent}}' class="imgCount" mode="widthFix"></image>
+        <image src="{{discussDetail.imgContent}}" catchtap="previewImg" data-imgContent='{{discussDetail.imgContent}}' class="imgCount" mode="aspectFit"></image>
       </view>
     </view>
   </view>

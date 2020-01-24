@@ -58,7 +58,7 @@
               <view class="content">
                 <view class="textView">{{value.textContent}}</view>
                 <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
-                  <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' catchtap="previewImg" class="momentImg" mode="widthFix"></image>
+                  <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' catchtap="previewImg" class="momentImg" mode="aspectFill"></image>
                 </view>
 
               </view>
@@ -78,7 +78,7 @@
               <view class="content">
                 <view class="textView">{{value.textContent}}</view>
                 <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
-                  <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' catchtap="previewImg" class="momentImg" mode="widthFix"></image>
+                  <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' catchtap="previewImg" class="momentImg" mode="aspectFill"></image>
                 </view>
 
               </view>

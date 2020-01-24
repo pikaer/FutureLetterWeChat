@@ -42,20 +42,18 @@ Page({
   },
 
   onLoad: function() {
-    if (!app.isBlank(app.globalData.tempDiscussList)) {
+    let cacheValue = wx.getStorageSync(this.data.chatListCacheKey);
+    if (!app.isBlank(cacheValue)) {
       this.setData({
-        tempDiscussList: app.globalData.tempDiscussList
+        tempDiscussList: cacheValue
       });
-    } else {
-      let cacheValue = wx.getStorageSync(this.data.chatListCacheKey);
-      if (!app.isBlank(cacheValue)) {
-        this.setData({
-          tempDiscussList: cacheValue
-        });
-      }
     }
+  },
 
-    app.globalData.currentDiscussMoment = {};
+  onShow: function () {
+    this.getChatList();
+    this.unReadCountRefresh();
+    this.onConnected();
   },
 
   slideButtonTap(ops) {
@@ -67,12 +65,6 @@ Page({
     } else {
       this.clearUnReadCount(ops);
     }
-  },
-
-  onShow: function() {
-    this.getChatList();
-    this.unReadCountRefresh();
-    this.onConnected();
   },
 
   //卸载页面，中断webSocket
@@ -190,10 +182,7 @@ Page({
           self.setData({
             tempDiscussList: res.discussList
           });
-          app.globalData.tempDiscussList = res.discussList;
-
           app.setCache(self.data.chatListCacheKey, res.discussList);
-
         },
         function(res) {
           console.error("获取聊天列表失败！");
@@ -216,7 +205,7 @@ Page({
           self.setData({
             tempDiscussList: self.data.tempDiscussList
           })
-          app.globalData.tempDiscussList = self.data.tempDiscussList
+          app.setCache(self.data.chatListCacheKey, self.data.tempDiscussList);
         },
         function(res) {
           console.info("清除未读消息Http失败！")
@@ -278,7 +267,7 @@ Page({
           self.setData({
             tempDiscussList: self.data.tempDiscussList
           })
-          app.globalData.tempDiscussList = self.data.tempDiscussList;
+          app.setCache(self.data.chatListCacheKey, self.data.tempDiscussList);
           self.resetSelectItem();
         },
         function(res) {
@@ -324,7 +313,7 @@ Page({
               self.setData({
                 tempDiscussList: []
               });
-              app.globalData.tempDiscussList = [];
+              app.setCache(self.data.chatListCacheKey, self.data.tempDiscussList);
               self.resetSelectItem();
             },
             function(res) {
@@ -352,7 +341,7 @@ Page({
           self.setData({
             tempDiscussList: list
           });
-          app.globalData.tempDiscussList = list;
+          app.setCache(self.data.chatListCacheKey, list);
           //重置数据
           self.resetSelectItem();
         },

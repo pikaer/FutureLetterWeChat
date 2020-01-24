@@ -12,24 +12,23 @@ page {
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-  padding: 0;
   font-size: 14rpx;
   color: #000;
   padding-left: 10px;
-  padding-right: 10px;
-  background-color: #4f7ffd;
+  padding-right:3px;
   overflow: hidden;
-  width: 100%;
+  width:100%;
   height: 100%;
 }
 
 .contentArea {
   margin-top: 2px;
   background-color: #fff;
-  box-shadow: 0px 0px 4px #837c7c;
-  width: 100%;
+  box-shadow: 0px 0px 1px #837c7c;
+  width:100%;
   height: 100%;
   border-radius: 6px;
+  margin-left: 7px;
   float: left;
 }
 
@@ -62,7 +61,7 @@ page {
 }
 
 .nickNameView {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 650;
   float: left;
   margin-top: 4px;
@@ -81,7 +80,7 @@ page {
 }
 
 .textView {
-  font-size: 15px;
+  font-size: 14px;
   padding-top: 10px;
   padding-bottom: 7px;
   margin-left: 8px;
@@ -94,10 +93,10 @@ page {
 }
 
 .imgCount {
-  max-width: 100%;
+  max-width: 92%;
   margin-bottom: -3px;
   border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
+  border-radius: 10px;
   /* max-height: 850px； */
 }
 
@@ -123,7 +122,7 @@ page {
 .spinner>div {
   width: 8px;
   height: 8px;
-  background-color: white;
+  background-color: #09f;
   border-radius: 100%;
   display: inline-block;
   -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
@@ -181,12 +180,12 @@ page {
 
 .txtLoding {
   size: 14px;
-  color: white;
+  color: #09f;
   padding-left: 8px;
 }
 
 .momentTitleCilickBottom {
-  border-bottom: solid 2px white;
+  border-bottom: solid 3px #09f;
   margin-left: 6px;
   margin-right: 6px;
   padding-top: 3px;
@@ -194,7 +193,6 @@ page {
 
 image {
   width: 100%;
-  height: 350px;
   display: inline-block;
   overflow: hidden;
 }
@@ -490,8 +488,11 @@ button {
 }
 
 .imgView {
-  width: 100%;
+  width:100%;
   height: 100%;
+  margin-left: 15px;
+  margin-bottom: 15px;
+  margin-right: 10px;
   display: inline-block;
   border-radius: 100%;
 }
@@ -580,8 +581,7 @@ button {
   left: 0;
   height: 40px;
   z-index: 999;
-  background: #4f7ffd;
-  /* border-bottom: 1px solid #e4dfdf; */
+  border-bottom: 1px solid #e4dfdf;
 }
 
 .nav_logo {
@@ -591,7 +591,7 @@ button {
   padding-top: 5px;
   display: block;
   width: 27px;
-  height: 24px;
+  height: 27px;
   border-radius: 100%;
 }
 
@@ -857,12 +857,12 @@ swiper-item {
 }
 
 .momentTitleCilick {
-  color: white;
+  color: #09f;
   font-weight: 650;
 }
 
 .momentTitle {
-  color: white;
+  color: #09f;
 }
 
 .empty_topArea {
@@ -882,7 +882,7 @@ swiper-item {
   text-align: center;
   height: 30px;
   font-size: 14px;
-  color: white;
+  color: #09f;
   padding-top: 10px;
 }
 

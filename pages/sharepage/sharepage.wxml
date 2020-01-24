@@ -14,7 +14,6 @@
   <view class="subContainer">
     <view class="mainContainer">
       <view class="contentArea">
-
         <view class="discussArea">
           <view class="discussView" wx:for="{{discussDetailList}}" wx:for-index="key" wx:for-item="value">
             <view class="leftView">
@@ -111,6 +110,12 @@
           <image class="bingoIcon" src="/content/images/bingo.jpg"></image>
         </button>
         <view class="shareText">进入主页</view>
+      </view>
+      <view class="shareTo" bindtap="toStartup">
+        <button>
+          <image class="bingoIcon" src="/content/images/share.svg"></image>
+        </button>
+        <view class="shareText">创建我的聊天室</view>
       </view>
       <view class="shareTo">
         <button open-type='share'>

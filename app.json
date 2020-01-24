@@ -37,7 +37,7 @@
     "backgroundColor": "#EFF2FB",
     "list": [
       {
-        "text": "发现",
+        "text": "闪聊",
         "pagePath": "pages/discovery/discovery",
         "iconPath": "content/images/discovery.png",
         "selectedIconPath": "content/images/discovery1.png"

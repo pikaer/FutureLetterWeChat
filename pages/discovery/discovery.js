@@ -29,7 +29,7 @@ Page({
     isCreate: false,
     isShow: false,
     showStartUp: true,
-    unReadCount: "",
+    unReadMomentCount:"",
     onloadText: "查看更多>>",
     showPublishMomentModal: false,
     onPullDownRefreshDisabled: false,
@@ -62,6 +62,7 @@ Page({
     this.checkRegister();
     this.refreshMomentListData();
     this.getTotalCoin();
+    this.getAttentionMomentCount();
   },
 
   //初始化数据
@@ -74,6 +75,7 @@ Page({
     this.onConnected();
     this.getAttentionList(true);
     this.getTotalCoin();
+    this.getAttentionMomentCount();
   },
 
   //卸载页面
@@ -122,6 +124,45 @@ Page({
         })
     }
   },
+
+  getAttentionMomentCount: function () {
+    var self = this;
+    if (app.globalData.apiHeader.UId > 0) {
+      app.httpPost(
+        'api/Letter/AttentionMomentCount', {
+          "UId": app.globalData.apiHeader.UId
+        },
+        function (res) {
+          console.info("获取用户关注好友新增动态（未查阅）数量成功！")
+          self.setData({
+            unReadMomentCount: res.unReadCountStr
+          });
+        },
+        function (res) {
+          console.error("获取用户关注好友新增动态（未查阅）数量失败！");
+        })
+    }
+  },
+
+  updateLastScanMomentTime: function () {
+    var self = this;
+    if (app.globalData.apiHeader.UId > 0) {
+      self.setData({
+        unReadMomentCount:""
+      });
+      app.httpPost(
+        'api/Letter/UpdateLastScanMomentTime', {
+          "UId": app.globalData.apiHeader.UId
+        },
+        function (res) {
+          console.info("更新最新浏览关注好友动态时间成功！")
+        },
+        function (res) {
+          console.error("更新最新浏览关注好友动态时间失败！");
+        })
+    }
+  },
+
 
   checkRegister: function() {
     let self = this;
@@ -291,7 +332,7 @@ Page({
         },
         function(res) {
           console.info("获取聊天列表成功！")
-          app.globalData.tempDiscussList = res.discussList;
+          app.setCache("chatListCache", res.discussList);
         },
         function(res) {
           console.error("获取聊天列表失败！");
@@ -1032,6 +1073,7 @@ Page({
       });
       this.toTop();
       this.getAttentionList(true);
+      this.updateLastScanMomentTime();
     } else {
       this.setData({
         currentTab: 0,
@@ -1052,6 +1094,7 @@ Page({
       currentTab: 1
     });
     this.getAttentionList(true);
+    this.updateLastScanMomentTime();
   },
 
 

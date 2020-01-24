@@ -15,7 +15,7 @@ App({
   globalData: {
     baseUrl: "https://www.pikaer.com/todayapi/",
     socketUrl: "https://www.pikaer.com/signalR/",
-    // baseUrl: "https://localhost:44386/",
+    //baseUrl: "https://localhost:44386/",
     //socketUrl: "https://localhost:44375/",
 
     httpHeader: {
@@ -37,7 +37,6 @@ App({
       "imgContent": "",
       "createTime": ""
     }, //用户当前点击的动态，用以数据传递给动态详情页
-    tempDiscussList: [], //chat初始化数据
     tempMomentList: [], //meindex页面初始化数据
     tempCollectList: [], //meindex页面初始化数据
     basicUserInfo: {}, //meindex页面初始化数据
