@@ -10,7 +10,10 @@ Page({
     hasImg: true,
     publishDisabled: true,
     isRegister: true,
+    isHideNickName: false,
     tempTextContent: "",
+    hidingNickName: "",
+    isRegister: true,
     momentId: "",
     subscribeMessageOpen: false,
     showLoginModal: false,
@@ -21,7 +24,8 @@ Page({
 
   onLoad: function() {
     this.setData({
-      isRegister: app.globalData.basicUserInfo.isRegister
+      isRegister: app.globalData.basicUserInfo.isRegister,
+      hidingNickName: app.globalData.basicUserInfo.nickName
     })
   },
 
@@ -48,6 +52,13 @@ Page({
     this.setData({
       showLoginModal: true
     });
+  },
+
+  //性别单选框值变动
+  identityValueChange: function(e) {
+    this.setData({
+      isHideNickName: e.detail.value == 2
+    })
   },
 
   bindGetUserInfo: function(e) {
@@ -173,6 +184,8 @@ Page({
     app.httpPost(
       'api/Letter/PublishMoment', {
         "UId": app.globalData.apiHeader.UId,
+        "IsHide": self.data.isHideNickName,
+        "HidingNickName": self.data.hidingNickName,
         "TextContent": self.data.tempTextContent,
         "ImgContent": self.data.serverImgs[0],
         "SubscribeMessageOpen": self.data.subscribeMessageOpen

@@ -44,8 +44,8 @@
     <div class="txtLoding">加载中</div>
   </view>
   <view class="page-body">
-    <swiper indicator-dots="{{indicatorDots}}" resistanceRatio='0'  autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px" current="{{currentTab}}"
-      bindchange="bindChange">
+    <swiper indicator-dots="{{indicatorDots}}" resistanceRatio='0' autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px"
+      current="{{currentTab}}" bindchange="bindChange">
       <swiper-item>
         <scroll-view scroll-y="false" class="momentArea">
           <view class="defaultDescView" wx:if="{{pickUpList.length==0}}">
@@ -59,7 +59,11 @@
           <view class="contentAreaView" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList}}" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}' data-key='{{key}}'>
             <view class="contentArea">
               <view class="titleView">
-                <view data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' class="leftView" catchtap='toShowModal'>
+                <view wx:if="{{value.isHide}}" class="{{value.gender==2?'left_Hide_WoManView':'left_Hide_ManView'}}" data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' data-pickUpId='{{value.pickUpId}}' catchtap='toShowModal'>
+                  <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
+                  <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
+                </view>
+                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" catchtap='toShowModal'>
                   <image src="{{value.headImgPath}}" class="userHead" />
                 </view>
                 <view class="centerTitleView">
@@ -73,14 +77,14 @@
                     </view>
                   </view>
                   <view class="centerView">
-                    <view class="{{value.gender==1?'genderView':'gender_womanView'}}">
+                    <view wx:if="{{!value.isHide}}" class="{{value.gender==1?'genderView':'gender_womanView'}}">
                       <view class="genderImgView">
                         <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
                         <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
                       </view>
-                      <view class="ageTextView">{{value.age}}</view>
                     </view>
-                    <view class="iconfont dingwei" style="font-size:10px;float:left;padding-left:5px;color: #8e8e8e;"></view>
+                    <view wx:if="{{value.isHide}}" class="hideTextView">分身状态</view>
+                    <view class="iconfont dingwei" style="font-size:10px;float:left;padding-left:5px;color:#8e8e8e;padding-top:0px;"></view>
                     <view class="distanceDescView">{{value.distanceDesc}}</view>
                   </view>
                 </view>
@@ -113,7 +117,7 @@
 
       </swiper-item>
       <swiper-item>
-        <scroll-view scroll-y="true" scroll-x="false" scroll-top='{{topNum}}' class="momentArea">
+        <scroll-view scroll-y="false" class="momentArea">
           <view class="defaultDescView" wx:if="{{attentionList.length==0}}">
             <view class="pullTxtView">空空如也，快去关注好友吧~</view>
           </view>
@@ -141,9 +145,9 @@
                         <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
                         <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
                       </view>
-                      <view class="ageTextView">{{value.age}}</view>
+                      <!-- <view class="ageTextView">{{value.age}}</view> -->
                     </view>
-                    <view class="iconfont dingwei" style="font-size:10px;float:left;padding-left:5px;color: #8e8e8e;"></view>
+                    <view class="iconfont dingwei" style="font-size:10px;float:left;padding-left:5px;color:#8e8e8e;padding-top:1px;"></view>
                     <view class="distanceDescView">{{value.distanceDesc}}</view>
                   </view>
                 </view>
@@ -200,9 +204,9 @@
       <view class='signatrueView-all' wx:if="{{basicUserInfo.signature!=null&&basicUserInfo.signature!=''}}">
         个性签名：{{basicUserInfo.signature}}
       </view>
-      <view class="btnContainer">
+      <!-- <view class="btnContainer">
         <view class="chatBtnView" catchtap='toChat'>聊一聊</view>
-      </view>
+      </view> -->
     </view>
   </view>
 </view>
@@ -243,17 +247,17 @@
         </button>
         <view class="shareText">全部清空</view>
       </view>
-      <view class="shareTo" bindtap="forwardMoment">
+      <view class="shareTo">
+        <button bindtap="addCollect">
+          <image class="shareIcon" src="/content/images/collect.svg " />
+        </button>
+        <view class="shareText">添加收藏</view>
+      </view>
+      <view class="shareTo" bindtap="forwardMoment" wx:if="{{!currentMoment.isHide}}">
         <button>
           <image class="shareIcon" src="/content/images/share.svg" />
         </button>
         <view class="shareText">一键转发</view>
-      </view>
-      <view class="shareTo" bindtap="addAttention">
-        <button>
-          <image class="shareIcon" src="/content/images/addattention.svg " />
-        </button>
-        <view class="shareText">关注Ta</view>
       </view>
       <view class="shareTo" bindtap="insertDiscussContent">
         <button>
@@ -275,11 +279,11 @@
         </button>
         <view class="shareText">举报</view>
       </view>
-      <view class="shareTo">
-        <button bindtap="addCollect">
-          <image class="shareIcon" src="/content/images/collect.svg " />
+      <view class="shareTo" bindtap="addAttention" wx:if="{{!currentMoment.isHide}}">
+        <button>
+          <image class="shareIcon" src="/content/images/addattention.svg " />
         </button>
-        <view class="shareText">添加收藏</view>
+        <view class="shareText">关注Ta</view>
       </view>
       <view class="shareTo">
         <button open-type='share'>

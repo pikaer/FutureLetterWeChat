@@ -51,7 +51,21 @@
         <swiper-item>
           <scroll-view scroll-y="true" class="momentArea">
             <view class="momentView" wx:for="{{tempMomentList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' bindtap="toMomentDetailPage" bindlongpress="bindlongMomentPress">
-              <view class="publishTime">{{value.publishTime}}</view>
+              <view class="momentTitleView">
+                <view wx:if="{{value.isHide}}" class="{{value.gender==2?'hideHeadPhoto_Man_View':'hideHeadPhoto_WoMan_View'}}" data-isHide='{{value.isHide}}'>
+                  <view class="shortNameView">{{value.shortNickName}}</view>
+                </view>
+                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView">
+                  <image src="{{value.headImgPath}}" class="userTitleHead" />
+                </view>
+              </view>
+              <view class="centerTitleView">
+                <view class="nickName_Left_View">{{value.nickName}}</view>
+                <view class="centerView">
+                  <view class="publishTime">{{value.publishTime}}</view>
+                  <view wx:if="{{value.isHide}}" class="hideTextView">分身状态</view>
+                </view>
+              </view>
               <view class="iconView" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' catchtap='bindlongMomentPress'>
                 <view class="iconfont more" style='font-size:20px'></view>
               </view>
@@ -71,7 +85,35 @@
           <scroll-view scroll-y="true" class="momentArea">
             <view class="momentView" wx:for="{{tempCollectList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-collectId='{{value.collectId}}' data-momentId='{{value.momentId}}' data-uId='{{value.uId}}' data-type='2'
               bindtap="toDiscussDetailPage" bindlongpress="bindlongMomentPress">
-              <view class="publishTime">{{value.createTime}}</view>
+              <view class="momentTitleView">
+                <view wx:if="{{value.isHide}}" class="{{value.gender==2?'left_Hide_WoManView':'left_Hide_ManView'}}" data-isHide='{{value.isHide}}'>
+                  <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
+                  <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
+                </view>
+                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView">
+                  <image src="{{value.headImgPath}}" class="userTitleHead" />
+                </view>
+              </view>
+              <view class="centerTitleView">
+                <view class="topHeadView">
+                  <view class="nickNameView">{{value.nickName}}</view>
+                  <view class="onlineView" wx:if="{{value.onLineDesc!=''}}">
+                    <mp-badge style="margin-left: 5px;margin-right: 5px;float:left;padding-top:1rpx;" ext-class="blue" />
+                    <view class="onlineTextView">{{value.onLineDesc}}</view>
+                  </view>
+                </view>
+                <view class="centerView">
+                  <view wx:if="{{!value.isHide}}" class="{{value.gender==1?'genderView':'gender_womanView'}}">
+                    <view class="genderImgView">
+                      <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
+                      <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
+                    </view>
+                  </view>
+                  <view wx:if="{{value.isHide}}" class="hideTextView">分身状态</view>
+                  <view class="iconfont dingwei" style="font-size:10px;float:left;padding-left:5px;color:#8e8e8e;padding-top:1px;"></view>
+                  <view class="distanceDescView">{{value.distanceDesc}}</view>
+                </view>
+              </view>
               <view class="iconView" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-collectId='{{value.collectId}}' data-momentId='{{value.momentId}}' data-type='2' catchtap='bindlongMomentPress'>
                 <view class="iconfont more" style='font-size:20px'></view>
               </view>

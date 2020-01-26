@@ -2,8 +2,6 @@ page {
   -webkit-user-select: none;
   user-select: none;
   width: 100%;
-  overflow-x: hidden;
-  overflow-y: hidden;
 }
 
 .indexContainer {
@@ -15,17 +13,17 @@ page {
   font-size: 14rpx;
   color: #000;
   padding-left: 10px;
-  padding-right:3px;
+  padding-right: 3px;
   overflow: hidden;
-  width:100%;
+  width: 100%;
   height: 100%;
 }
 
 .contentArea {
   margin-top: 2px;
   background-color: #fff;
-  box-shadow: 0px 0px 1px #837c7c;
-  width:100%;
+  box-shadow: 0px 0px 2px #837c7c;
+  width: 95%;
   height: 100%;
   border-radius: 6px;
   margin-left: 7px;
@@ -46,6 +44,28 @@ page {
   float: left;
   padding-left: 6px;
   padding-top: 5px;
+  width: 45px;
+  height: 45px;
+}
+
+.left_Hide_ManView {
+  float: left;
+  margin-left: 6px;
+  margin-top: 5px;
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  background-color: #85d0ed;
+}
+
+.left_Hide_WoManView {
+  float: left;
+  margin-left: 6px;
+  margin-top: 5px;
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  background-color: #fda3e6;
 }
 
 .centerView {
@@ -83,7 +103,7 @@ page {
   font-size: 14px;
   padding-top: 10px;
   padding-bottom: 7px;
-  margin-left: 8px;
+  margin-left:14px;
   margin-right: 8px;
 }
 
@@ -95,7 +115,6 @@ page {
 .imgCount {
   max-width: 92%;
   margin-bottom: -3px;
-  border-bottom-left-radius: 6px;
   border-radius: 10px;
   /* max-height: 850px； */
 }
@@ -111,6 +130,7 @@ page {
   height: 100%;
   font-size: 32rpx;
   line-height: 1.6;
+  position: fixed;
 }
 
 .spinner {
@@ -441,30 +461,31 @@ button {
 }
 
 .genderView {
-  height: 12px;
+  height: 13px;
   color: white;
   float: left;
-  width: 28px;
+  width: 13px;
+  border-radius: 8px;
+  margin-top: 2px;
   background-color: #85d0ed;
+}
+
+.gender_womanView {
+  height: 13px;
+  color: white;
+  float: left;
+  width: 13px;
+  background-color: #fda3e6;
   border-radius: 8px;
   margin-top: 2px;
 }
 
-.gender_womanView {
-  height: 12px;
-  color: white;
-  float: left;
-  width: 28px;
-  background-color: #fda3e6;
-  border-radius: 8px;
-  margin-top: 3px;
-}
-
 .genderImgView {
   float: left;
-  padding-top: 2px;
+  padding-top: 3px;
   margin-bottom: 2px;
-  padding-left: 4px;
+  padding-left: 3px;
+  padding-right: 3px;
 }
 
 .genderImg {
@@ -488,9 +509,9 @@ button {
 }
 
 .imgView {
-  width:100%;
+  width: 100%;
   height: 100%;
-  margin-left: 15px;
+  margin-left: 14px;
   margin-bottom: 15px;
   margin-right: 10px;
   display: inline-block;
@@ -591,7 +612,7 @@ button {
   padding-top: 5px;
   display: block;
   width: 27px;
-  height: 27px;
+  height: 29px;
   border-radius: 100%;
 }
 
@@ -1089,4 +1110,17 @@ swiper-item {
 
 .rightHeadImgView {
   float: right;
+}
+
+.genderImgHead {
+  height: 25px;
+  width: 25px;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.hideTextView {
+  font-size: 10px;
+  color: #8e8e8e;
+  float: left;
 }

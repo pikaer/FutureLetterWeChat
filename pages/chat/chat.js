@@ -109,6 +109,15 @@ Page({
 
   //获取用户基础信息
   toShowModal: function(ops) {
+    if (ops.currentTarget.dataset.ishide) {
+      wx.showToast({
+        title: "无法查看匿名用户的信息",
+        icon: 'none',
+        duration: 1500
+      });
+      return;
+    }
+    
     var self = this;
     let cacheKey = "basicUserInfo+" + ops.currentTarget.dataset.uid;
     let cacheValue = wx.getStorageSync(cacheKey);

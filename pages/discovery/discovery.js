@@ -29,7 +29,7 @@ Page({
     isCreate: false,
     isShow: false,
     showStartUp: true,
-    unReadMomentCount:"",
+    unReadMomentCount: "",
     onloadText: "查看更多>>",
     showPublishMomentModal: false,
     onPullDownRefreshDisabled: false,
@@ -125,39 +125,39 @@ Page({
     }
   },
 
-  getAttentionMomentCount: function () {
+  getAttentionMomentCount: function() {
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
         'api/Letter/AttentionMomentCount', {
           "UId": app.globalData.apiHeader.UId
         },
-        function (res) {
+        function(res) {
           console.info("获取用户关注好友新增动态（未查阅）数量成功！")
           self.setData({
             unReadMomentCount: res.unReadCountStr
           });
         },
-        function (res) {
+        function(res) {
           console.error("获取用户关注好友新增动态（未查阅）数量失败！");
         })
     }
   },
 
-  updateLastScanMomentTime: function () {
+  updateLastScanMomentTime: function() {
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       self.setData({
-        unReadMomentCount:""
+        unReadMomentCount: ""
       });
       app.httpPost(
         'api/Letter/UpdateLastScanMomentTime', {
           "UId": app.globalData.apiHeader.UId
         },
-        function (res) {
+        function(res) {
           console.info("更新最新浏览关注好友动态时间成功！")
         },
-        function (res) {
+        function(res) {
           console.error("更新最新浏览关注好友动态时间失败！");
         })
     }
@@ -495,6 +495,15 @@ Page({
 
   //获取用户基础信息
   toShowModal: function(ops) {
+    if (ops.currentTarget.dataset.ishide) {
+      wx.showToast({
+        title: "无法查看匿名用户的信息",
+        icon: 'none',
+        duration: 1500
+      });
+      return;
+    }
+
     var self = this;
     let cacheKey = "basicUserInfo+" + ops.currentTarget.dataset.uid;
     let cacheValue = wx.getStorageSync(cacheKey);

@@ -6,7 +6,6 @@
 
 .textAreas {
   height: 100%;
-  background-color: white;
   width: 100%;
   font-size: 16px;
   padding: 8px;
@@ -35,6 +34,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   align-content: flex-start;
+  border-bottom: 1px solid #e4dfdf;
 }
 
 .picture_item {
@@ -192,7 +192,8 @@ button {
 }
 
 .notifyView {
-  padding-top: 20px;
+  border-bottom: 1px solid #e4dfdf;
+  height: 50px;
 }
 
 .notifyText {
@@ -200,11 +201,30 @@ button {
   padding-top: 14px;
   height: 40px;
   padding-right: 5px;
+  padding-left: 10px;
+}
+
+.notifyImg {
+  height: 100%;
+  width: 100%;
+}
+
+.notifyIcon {
+  width: 28px;
+  height: 28px;
+  float: left;
+  padding-top: 12px;
+  padding-left: 23px;
+}
+
+.publishView {
+  padding-top: 20px;
 }
 
 .notifyBtnView {
-  float: left;
+  float: right;
   padding-top: 10px;
+  padding-right: 10px;
 }
 
 .modal-content-share {
@@ -241,7 +261,94 @@ button {
   margin-top: 25px;
   float: left;
   margin-bottom: 30px;
-  font-size:22px;
+  font-size: 22px;
   font-weight: 700;
   width: 100%;
+}
+
+.identityView {
+  height: 50px;
+  border-bottom: 1px solid #e4dfdf;
+  clear: both;
+}
+
+.radioLable {
+  font-size: 16px;
+  margin-top: 10px;
+  float: left;
+}
+
+.radioView {
+  float: right;
+  margin-top: 10px;
+  margin-right: 4px;
+}
+
+.labelReal {
+  padding-right: 20px;
+}
+
+.labelFake {
+  padding-right: 8px;
+}
+
+.identityIcon {
+  width: 33px;
+  height: 33px;
+  float: left;
+  padding-top: 10px;
+  padding-left: 20px;
+}
+
+.identityText {
+  float: left;
+  padding-top: 14px;
+  height: 40px;
+  padding-right: 5px;
+  padding-left: 8px;
+}
+
+.nickNameView {
+  height: 50px;
+  border-bottom: 1px solid #e4dfdf;
+  clear: both;
+}
+
+.nickNameIcon {
+  width: 23px;
+  height: 23px;
+  float: left;
+  padding-top: 14px;
+  padding-left: 25px;
+}
+
+.nickNameText {
+  float: left;
+  padding-top: 13px;
+  padding-left: 14px;
+}
+
+.nickNameValueView {
+  float: right;
+  padding-top: 14px;
+  padding-right: 34px;
+}
+
+.navigator-right {
+  padding-right: 26rpx;
+  position: relative;
+}
+
+.navigator-right:after {
+  content: " ";
+  display: inline-block;
+  height: 18rpx;
+  width: 18rpx;
+  border-width: 2rpx 2rpx 0 0;
+  border-color: #888;
+  border-style: solid;
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+  position: absolute;
+  top: 22px;
+  right:40rpx;
 }

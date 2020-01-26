@@ -5,11 +5,11 @@
   height: 100%;
   width: 100%;
   position: fixed;
-  background-color: #EFF2FB;
+  background-color: #eff2fb;
 }
 
 page {
-  background-color: #EFF2FB;
+  background-color: #eff2fb;
   height: 100%;
   font-size: 32rpx;
   line-height: 1.6;
@@ -33,7 +33,7 @@ button:last-child {
 .chatArea {
   height: 65px;
   width: 100%;
-  background-color: #EFF2FB;
+  background-color: #eff2fb;
 }
 
 .headPhotoViewV2 {
@@ -63,7 +63,7 @@ button:last-child {
 .chatContentTxt {
   font-size: 13px;
   color: #8e8e8e;
-  margin-top: 8px;
+  margin-top:2px;
 }
 
 .rightView {
@@ -115,7 +115,7 @@ button:last-child {
   color: #000;
   width: 100%;
   height: 100%;
-  background-color: #EFF2FB;
+  background-color: #eff2fb;
 }
 
 .blackTxtView {
@@ -138,4 +138,32 @@ button:last-child {
   margin: 10px 5px;
   line-height: 1;
   vertical-align: middle;
+}
+
+.hideHeadPhoto_Man_View {
+  float: left;
+  width: 48px;
+  height: 48px;
+  background-color: #85d0ed;
+  border-radius: 100%;
+  margin-left: 8px;
+  margin-top: 10px;
+}
+
+.hideHeadPhoto_WoMan_View {
+  float: left;
+  width: 48px;
+  height: 48px;
+  background-color: #fda3e6;
+  border-radius: 100%;
+  margin-left: 8px;
+  margin-top: 10px;
+}
+
+.shortNameView {
+  width: 100%;
+  height: 100%;
+  font-size: 24px;
+  padding-top:6px;
+  text-align: center;
 }

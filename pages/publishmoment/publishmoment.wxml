@@ -1,6 +1,6 @@
 <view class="containerView">
   <view class='inputArea'>
-    <textarea bindblur="bindTextAreaBlur" bindinput="textContentInput" auto-focus maxlength="400" placeholder="这一刻的想法..." class="textAreas" />
+    <textarea bindblur="bindTextAreaBlur" bindinput="textContentInput" maxlength="400" placeholder="这一刻的想法..." class="textAreas" />
   </view>
   <view class="picture_list">
     <view wx:for="{{upload_picture_list}}" class="picture_item" wx:key="{{index}}">
@@ -15,22 +15,50 @@
         <text>+</text>
       </view>
     </view>
-    <view class="notifyView">
-      <view class="notifyText">有人评论时通知我</view>
-      <view class="notifyBtnView">
-        <switch checked='{{subscribeMessageOpen}}' bindtap="requestMsg" bindchange="subscribeMessage" />
-      </view>
+  </view>
+  <view class="notifyView">
+    <view class="notifyIcon">
+      <image class='notifyImg' src="/content/images/notify.svg" />
+    </view>
+    <view class="notifyText">有人评论时通知我</view>
+    <view class="notifyBtnView">
+      <switch checked='{{subscribeMessageOpen}}' bindtap="requestMsg" bindchange="subscribeMessage" />
     </view>
   </view>
+  <view class="identityView">
+    <view class="identityIcon">
+      <image class='notifyImg' src="/content/images/identity.svg" />
+    </view>
+    <view class="identityText">发布身份</view>
+    <view class="radioView">
+      <radio-group bindchange="identityValueChange">
+        <label class="labelReal">
+          真身
+          <radio value="1" checked />
+        </label>
+        <label class="labelFake">
+          匿名
+          <radio value="2" />
+        </label>
+      </radio-group>
+    </view>
+  </view>
+  <navigator wx:if="{{isHideNickName}}"  class="nickNameView" url="../../pages/hidingnickname/hidingnickname?nickName={{hidingNickName}}">
+    <view class="nickNameIcon">
+      <image class='notifyImg' src="/content/images/editnickname.svg" />
+    </view>
+    <view class="nickNameText">匿名时昵称</view>
+    <view class="nickNameValueView">{{hidingNickName}}</view>
+    <view class="navigator-right"></view>
+  </navigator>
 
-  <view wx:if="{{isRegister}}" bindtap="publishMoment">
+  <view wx:if="{{isRegister}}" bindtap="publishMoment" class="publishView">
     <button disabled='{{publishDisabled}}' class='yes-upload'>发布动态</button>
   </view>
 
-  <view wx:else bindtap="toLogin">
+  <view wx:else bindtap="toLogin" class="publishView">
     <button disabled='{{publishDisabled}}' class="yes-upload">发布动态</button>
   </view>
-
 </view>
 
 

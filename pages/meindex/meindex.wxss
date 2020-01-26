@@ -201,24 +201,31 @@ swiper-item {
 .textView {
   font-size: 14px;
   margin-bottom: 10px;
+  padding-left: 3px;
 }
 
 .imgView {
   width: 100%;
+  height: 100%;
+  margin-left: 5px;
+  margin-bottom: 8px;
+  margin-right: 5px;
+  display: inline-block;
+  border-radius: 100%;
 }
 
 .publishTime {
-  font-size: 12px;
+  font-size: 10px;
   color: gray;
-  width: 70%;
-  padding-top: 2px;
+  padding-top: 1px;
   float: left;
 }
 
 .momentImg {
+  margin-bottom: -3px;
+  border-radius: 10px;
   width: 100%;
-  border-radius: 4px;
-  max-height: 300px;
+  max-width: 97%;
 }
 
 .fixedView {
@@ -240,7 +247,7 @@ swiper-item {
   margin-left: 12px;
   margin-right: 12px;
   margin-bottom: 12px;
-  border-radius:6px;
+  border-radius: 6px;
   box-shadow: 0px 0px 2px #837c7c;
 }
 
@@ -352,6 +359,7 @@ button::after {
 
 .content {
   clear: both;
+  padding-top: 9px;
 }
 
 button {
@@ -378,4 +386,156 @@ button {
 
 .iconView {
   float: right;
+}
+
+.momentTitleView {
+  width: 100%;
+}
+
+.hideHeadPhoto_Man_View {
+  float: left;
+  width: 48px;
+  height: 48px;
+  background-color: #85d0ed;
+  border-radius: 100%;
+}
+
+.hideHeadPhoto_WoMan_View {
+  float: left;
+  width: 48px;
+  height: 48px;
+  background-color: #fda3e6;
+  border-radius: 100%;
+}
+
+.shortNameView {
+  width: 100%;
+  height: 100%;
+  font-size: 24px;
+  padding-top: 5px;
+  text-align: center;
+}
+
+.genderImgHead {
+  height: 25px;
+  width: 25px;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.leftView {
+  float: left;
+  width: 45px;
+  height: 45px;
+}
+
+.userTitleHead {
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+}
+
+.centerTitleView {
+  float: left;
+  padding-top: 4px;
+}
+
+.nickNameView {
+  font-size: 14px;
+  font-weight: 650;
+  float: left;
+}
+
+.nickName_Left_View {
+  font-size: 14px;
+  margin-left: 8px;
+  font-weight: 650;
+  float: left;
+}
+
+.centerView {
+  float: left;
+  margin-left: 8px;
+  width: 100%;
+}
+
+.hideTextView {
+  font-size: 10px;
+  color: #8e8e8e;
+  float: left;
+  padding-top: 1px;
+}
+
+.left_Hide_ManView {
+  float: left;
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  background-color: #85d0ed;
+}
+
+.left_Hide_WoManView {
+  float: left;
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  background-color: #fda3e6;
+}
+
+.topHeadView {
+  margin-left: 8px;
+}
+
+.onlineView {
+  float: left;
+  width: 80px;
+  font-size: 8px;
+  padding-top: 3px;
+}
+
+.onlineTextView {
+  color: #8e8e8e;
+  font-size: 8px;
+  padding-top: 5rpx;
+}
+
+.genderView {
+  height: 13px;
+  color: white;
+  float: left;
+  width: 13px;
+  border-radius: 8px;
+  margin-top: 2px;
+  background-color: #85d0ed;
+}
+
+.gender_womanView {
+  height: 13px;
+  color: white;
+  float: left;
+  width: 13px;
+  background-color: #fda3e6;
+  border-radius: 8px;
+  margin-top: 2px;
+}
+
+.genderImgView {
+  float: left;
+  padding-top: 3px;
+  margin-bottom: 2px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.genderImg {
+  width: 7px;
+  height: 7px;
+}
+
+.distanceDescView {
+  font-size: 10px;
+  color: #8e8e8e;
+  padding-left: 2px;
+  padding-top: 1px;
+  float: left;
 }
