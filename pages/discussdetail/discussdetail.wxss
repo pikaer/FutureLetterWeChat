@@ -87,14 +87,6 @@
   bottom: 0px;
 }
 
-.inputareaInput {
-  width: 100%;
-    height: 60px;
-  background-color: #eff2fb;
-  position: fixed;
-  margin-bottom:20px;
-  bottom: 0px;
-}
 
 .chatLineView {
   margin: 0 auto;
@@ -273,13 +265,26 @@ button {
 
 .modal-content-login {
   position: fixed;
-  top: 40%;
+  top: 30%;
   right: 10%;
   left: 10%;
   z-index: 9500;
   height: 180px;
-  background: white;
-  border-radius: 12px;
+  background: #eff2fb;
+  border-radius: 6px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.modal-content-hidingNickName {
+  position: fixed;
+  top: 30%;
+  right: 10%;
+  left: 10%;
+  z-index: 9500;
+  height: 200px;
+  background: #eff2fb;
+  border-radius: 6px;
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -340,8 +345,323 @@ button {
   margin-top: 40px;
 }
 
+.cancelModelView {
+  float: left;
+  padding-left: 5px;
+  width: 110px;
+  margin-top:32px;
+}
+
+.submitModelBtnView {
+  float: right;
+  padding-right: 5px;
+  width: 110px;
+  margin-top:32px;
+}
+
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
   color: transparent;
+}
+
+.empty_custom {
+  height: 40px;
+  width: 100%;
+}
+
+.custom {
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 43px;
+  z-index: 999;
+  background: #eff2fb;
+  border-bottom: solid 1px #dfe0e4;
+}
+
+.backBtnView {
+  left: 10px;
+  position: fixed;
+  border: 1rpx solid #dfe0e4;
+  border-radius: 100px;
+  height: 30px;
+  width: 80px;
+  margin-top: 2px;
+  margin-right: 8px;
+  background-color: #fafbfe;
+}
+
+.backUpView {
+  float: left;
+  width: 32px;
+  padding-top: 5px;
+  border-bottom-left-radius: 50%;
+  border-top-left-radius: 50%;
+}
+
+.backUpHoverView {
+  float: left;
+  width: 32px;
+  padding-top: 5px;
+  border-bottom-left-radius: 50%;
+  border-top-left-radius: 50%;
+  background-color: #9ca2a4;
+}
+
+.nav_logoLeft {
+  width: 20px;
+  height: 20px;
+  padding-left: 5px;
+}
+
+.shuxianView {
+  font-size: 17px;
+  color: #dfe0e4;
+  float: left;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.toHomeView {
+  float: right;
+  width: 35px;
+  height: 83%;
+  padding-top: 5px;
+  border-bottom-right-radius: 50%;
+  border-top-right-radius: 50%;
+}
+
+.toHomeHoverView {
+  float: right;
+  width: 35px;
+  height: 83%;
+  padding-top: 5px;
+  border-bottom-right-radius: 50%;
+  border-top-right-radius: 50%;
+  background-color: #9ca2a4;
+}
+
+.nav_logoRight {
+  width: 20px;
+  height: 20px;
+  padding-right: 6px;
+}
+
+.headImgAreaView {
+  float: left;
+  left: 105px;
+  position: fixed;
+}
+
+.topUserHead {
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+}
+
+.topNickNameView {
+  font-size: 14px;
+  font-weight: 650;
+  float: left;
+}
+
+.topCenterView {
+  clear: both;
+  width: 150px;
+}
+
+.topPointer {
+  width: 7px;
+  height: 7px;
+  font-size: 20px;
+  float: left;
+  background-color: #00cd66;
+  border-radius: 200%;
+  margin-top: 5px;
+}
+
+.topBasicInfo {
+  font-size: 9px;
+  color: #8e8e8e;
+  float: left;
+  padding-left: 4px;
+  padding-right: 5px;
+  margin-top: 2px;
+}
+
+.distanceDescView {
+  font-size: 9px;
+  color: #8e8e8e;
+  padding-left: 1px;
+  margin-top: 2px;
+  float: left;
+}
+
+.momentContentView {
+  height: 50px;
+  background-color: white;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 8px;
+  border-radius: 4px;
+  float: left;
+  position: fixed;
+  width: 95%;
+}
+
+.momentContentView_Hover {
+  height: 50px;
+  background-color: #eff2fb;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 8px;
+  border-radius: 4px;
+  float: left;
+  position: fixed;
+  width: 95%;
+  box-shadow: 0px 0px 1px #837c7c;
+}
+
+.imgMomentContent {
+  padding-top: 5px;
+  padding-left: 5px;
+  float: left;
+}
+
+.momentDiscussImg {
+  display: inline-block;
+  overflow: hidden;
+  height: 40px;
+  width: 40px;
+}
+
+.textmomentContent {
+  font-size: 14px;
+  float: left;
+  padding-left: 7px;
+  padding-top: 12px;
+}
+
+.navigator-right {
+  padding-right: 26rpx;
+  position: relative;
+}
+
+.navigator-right:after {
+  content: " ";
+  display: inline-block;
+  height: 18rpx;
+  width: 18rpx;
+  border-width: 2rpx 2rpx 0 0;
+  border-color: #888;
+  border-style: solid;
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+  position: absolute;
+  top: 22px;
+  right: 30rpx;
+}
+
+.showTextContentView {
+  position: fixed;
+  top: 12%;
+  z-index: 9500;
+  background: #fff;
+  border-radius: 10rpx;
+  left: 40px;
+  right: 40px;
+  padding: 10px;
+}
+
+.scrollContainer {
+}
+
+.changeHidingView {
+  float: left;
+  font-size: 14px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+}
+
+.changeHiding {
+  float: left;
+  font-size: 14px;
+  padding-top: 5px;
+  color: #1e90ff;
+}
+
+.changeHidingArea {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 80px;
+  margin: auto;
+  text-align: center;
+  width: 225px;
+  background-color: #e4e4e4;
+  border-radius: 3px;
+  padding-bottom: 4px;
+}
+
+.changeHidingArea_Fouces {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100px;
+  margin: auto;
+  text-align: center;
+  width: 225px;
+  background-color: #e4e4e4;
+  border-radius: 3px;
+  padding-bottom: 4px;
+}
+
+.inputHidingNickNameView {
+  height: 40px;
+  margin-top: 45px;
+  background-color: #eff2fb;
+  padding: 10px;
+  border-radius: 5px;
+  padding-left: 7px;
+}
+
+.inputHidingNickName {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  border-radius: 5px;
+  padding-left: 6px;
+}
+
+.shortNickNameView {
+  padding-top: 6px;
+  font-size: 18px;
+}
+
+.hidingHeadImgView_WoMan {
+  width: 42px;
+  height: 42px;
+  background-color: #fda3e6;
+  border-radius: 100%;
+  text-align: center;
+}
+
+.hidingHeadImgView_Man {
+  width: 42px;
+  height: 42px;
+  background-color: #85d0ed;
+  border-radius: 100%;
+  text-align: center;
+}
+
+.hidingNickNameTitle {
+  color: #1e90ff;
+  float: left;
+  font-size: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top:28px;
 }

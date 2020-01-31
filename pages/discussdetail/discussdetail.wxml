@@ -1,8 +1,42 @@
-<page>
-  <scroll-view class="indexContainer">
+<view class="empty_custom" style="padding-top:{{statusBarHeight+66}}px">
+</view>
+<view class="custom" style="padding-top:{{statusBarHeight+66}}px">
+  <view class="backBtnView" style="top:{{statusBarHeight+3}}px">
+    <view class="backUpView" hover-class="backUpHoverView" catchtap='backUpAction'>
+      <image class='nav_logoLeft' src="/content/images/backupicon.svg" />
+    </view>
+    <view class="shuxianView">|</view>
+    <view class="toHomeView" hover-class="toHomeHoverView" catchtap='toHomeAction'>
+      <image class='nav_logoRight' src="/content/images/homeicon.svg" />
+    </view>
+  </view>
+  <view class="headImgAreaView" style="top:{{statusBarHeight+3}}px">
+    <view class="topHeadView">
+      <view class="topNickNameView">{{partnerDetail.nickName}}</view>
+    </view>
+    <view class="topCenterView">
+      <view class="topPointer" wx:if="{{partnerDetail.onLineDesc.length>0}}"></view>
+      <view class="topBasicInfo" wx:if="{{partnerDetail.onLineDesc.length>0}}">{{partnerDetail.onLineDesc}}</view>
+      <view class="iconfont dingwei" style="font-size:10px;float:left;color: #8e8e8e;"></view>
+      <view class="distanceDescView">{{partnerDetail.distanceDesc}}</view>
+    </view>
+  </view>
+  <view bindtap="toShowTextContentModal" class="momentContentView" hover-class="momentContentView_Hover" style="top:{{statusBarHeight+45}}px">
+    <view class="imgMomentContent">
+      <image class='momentDiscussImg' wx:if="{{momentDetail.imgContent!=null&&momentDetail.imgContent.length>0}}" src="{{momentDetail.imgContent}}" catchtap="previewImg" data-imgContent='{{momentDetail.imgContent}}'></image>
+    </view>
+    <view class="textmomentContent">{{momentTextContent}}</view>
+    <view wx:if="{{momentTextContent!=null&&momentTextContent!=''&&momentTextContent.length!=momentDetail.textContent.length}}" class="navigator-right"></view>
+  </view>
+</view>
+<view class="scrollContainer">
+  <scroll-view class="indexContainer" style="padding-bottom:{{keyBoardHeight+20}}px" scroll-y="true">
     <view class="discussView" wx:for="{{discussDetailList}}" wx:for-index="key" wx:for-item="value">
       <view class="{{value.isMyReply?'rightView':'leftView'}}">
-        <image src="{{value.headImgPath}}" class="userHead" data-uId='{{value.pickUpUId}}' catchtap='toShowModal'></image>
+        <view wx:if="{{value.isHide}}" class="{{value.gender==2?'hidingHeadImgView_WoMan':'hidingHeadImgView_Man'}}">
+          <view class="shortNickNameView">{{value.shortNickName}}</view>
+        </view>
+        <image wx:else src="{{value.headImgPath}}" class="userHead" data-uId='{{value.pickUpUId}}' catchtap='toShowModal'></image>
       </view>
 
       <view wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" class="{{value.isMyReply?'contentArea':'contentArea_left'}}">
@@ -17,105 +51,129 @@
         <view class="textView">{{value.textContent}}</view>
       </view>
     </view>
-
   </scroll-view>
+</view>
 
 
 
-  <!--custom Modal-->
-  <view class="modal-mask-all" bindtap="hideModal" wx:if="{{showModal}}"></view>
-  <view wx:if="{{showModal}}">
-    <view class="modal-content-all">
-      <view class="headView-all">
-        <image class="userHead-all" src="{{basicUserInfo.headPhotoPath}}" catchtap="previewImg" data-imgContent='{{basicUserInfo.headPhotoPath}}'></image>
+
+<!--custom Modal-->
+<view class="modal-mask-all" bindtap="hideModal" wx:if="{{showModal}}"></view>
+<view wx:if="{{showModal}}">
+  <view class="modal-content-all">
+    <view class="headView-all">
+      <image class="userHead-all" src="{{basicUserInfo.headPhotoPath}}" catchtap="previewImg" data-imgContent='{{basicUserInfo.headPhotoPath}}'></image>
+    </view>
+    <view class="rightUserInfo-all">
+      <view class='nickNameView-all'>{{basicUserInfo.nickName}}</view>
+      <view class='basicInfoView-all'>{{basicUserInfo.basicUserInfo}}</view>
+      <view class='placeInfoView-all'>
+        <view class="iconfont dingwei" style='font-size:12px'> {{basicUserInfo.placeInfo}}</view>
       </view>
-      <view class="rightUserInfo-all">
-        <view class='nickNameView-all'>
-          {{basicUserInfo.nickName}}
-        </view>
-        <view class='basicInfoView-all'>
-          {{basicUserInfo.basicUserInfo}}
-        </view>
-        <view class='placeInfoView-all'>
-          <view class="iconfont dingwei" style='font-size:12px'> {{basicUserInfo.placeInfo}}</view>
-        </view>
+    </view>
+    <view class='signatrueView-all' wx:if="{{basicUserInfo.signature!=null&&basicUserInfo.signature!=''}}">
+      个性签名：{{basicUserInfo.signature}}
+    </view>
+  </view>
+</view>
+
+
+
+<!--custom Modal-->
+<view class="modal-mask-all" bindtap="hideTextContentModal" wx:if="{{showTextContentModal}}"></view>
+<view wx:if="{{showTextContentModal}}">
+  <view class="showTextContentView">{{momentDetail.textContent}}</view>
+</view>
+
+<!--custom Modal-->
+<view class="modal-mask-all" wx:if="{{showLoginModal}}"></view>
+<view wx:if="{{showLoginModal}}">
+  <view class="modal-content-login">
+    <view class="titleTxtView">
+      你还未登录，登录后才能评论~
+    </view>
+    <view class="cancelBtnView">
+      <button lang="zh_CN" bindtap="cancelLogin" class="cancelBtn">取消</button>
+    </view>
+    <view class="loginBtnView">
+      <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo" class="loginBtn">登录</button>
+    </view>
+  </view>
+</view>
+
+<!--custom Modal-->
+<view class="modal-mask-all" wx:if="{{showChangeHideModal}}"></view>
+<view wx:if="{{showChangeHideModal}}">
+  <view class="modal-content-hidingNickName">
+    <view class="hidingNickNameTitle">
+      每次对话都可以换新名字:
+    </view>
+    <view class="inputHidingNickNameView">
+      <input class="inputHidingNickName" value="{{tempHidingNickName}}" placeholder="请输入匿名时昵称" bindinput="hidingNickNameInput" adjust-position='false'></input>
+    </view>
+    <view class="cancelModelView">
+      <button lang="zh_CN" bindtap="cancelChangeHide" class="cancelBtn">取消</button>
+    </view>
+    <view class="submitModelBtnView">
+      <button lang="zh_CN" bindtap="updateHiding" class="loginBtn">提交</button>
+    </view>
+  </view>
+</view>
+
+<!--弹出框start-->
+<mp-halfScreenDialog show="{{showModalStatus}}" closabled="{{false}}">
+  <view slot="footer" class='shareArea'>
+    <view class='dialog_content'>
+      <view class="shareTo" bindtap="reportItem">
+        <button>
+          <image class="shareIcon" src="/content/images/report.svg "></image>
+        </button>
+        <view class="shareText">举报</view>
       </view>
-      <view class='signatrueView-all' wx:if="{{basicUserInfo.signature!=null&&basicUserInfo.signature!=''}}">
-        个性签名：{{basicUserInfo.signature}}
+      <view class="shareTo" bindtap="saveLocal">
+        <button>
+          <image class="shareIcon" src="/content/images/baocuntupian.svg"></image>
+        </button>
+        <view class="shareText">保存图片</view>
+      </view>
+      <view class="shareTo">
+        <button open-type='share'>
+          <image class="shareIcon" src="/content/images/weixin.svg"></image>
+        </button>
+        <view class="shareText">分享好友/群</view>
+      </view>
+      <view class="shareTo" bindtap="addCollect">
+        <button>
+          <image class="shareIcon" src="/content/images/collect.svg "></image>
+        </button>
+        <view class="shareText">添加收藏</view>
       </view>
     </view>
   </view>
+</mp-halfScreenDialog>
+<!--弹出框end-->
 
+<!-- 生成海报画布 -->
+<view style='width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 999; display: flex; align-items: center; justify-content: center; animation: {{isShow ? "show" : "dismiss"}}Mask 0.3s forwards ease; position: fixed; top: 0; left: {{isCreate ? 0 : "750rpx"}};'
+  catchtap='catchtap' catchtouchmove='blockTouches'>
+  <canvas canvas-id='poster' style='width: 622rpx; height: 882rpx; position: fixed; left: 750rpx;'></canvas>
+  <image style='width: 622rpx; height: 882rpx; margin-bottom: 96rpx;' src='{{poster}}'></image>
+  <button class='maskButton' hover-class='maskButton-hover' hidden='{{!isCreate}}' catchtap='btnCreate'>保存到本地相册</button>
+</view>
 
+<view wx:if="{{myDetail.showHideStatus!=0}}" class="{{inputfoucusOn?'changeHidingArea_Fouces':'changeHidingArea'}}">
+  <view wx:if="{{myDetail.showHideStatus!=0}}" class="changeHidingView">开始对话前，你可以</view>
+  <view wx:if="{{myDetail.showHideStatus==1}}" class="changeHiding" catchtap='showChangeHide'>切换为匿名</view>
+  <view wx:if="{{myDetail.showHideStatus==2}}" class="changeHiding" catchtap='showChangeHide'>切换为真身</view>
+</view>
 
-  <!--custom Modal-->
-  <view class="modal-mask-all" wx:if="{{showLoginModal}}"></view>
-  <view wx:if="{{showLoginModal}}">
-    <view class="modal-content-login">
-      <view class="titleTxtView">
-        你还未登录，登录后才能评论~
-      </view>
-      <view class="cancelBtnView">
-        <button lang="zh_CN" bindtap="cancelLogin" class="cancelBtn">取消</button>
-      </view>
-      <view class="loginBtnView">
-        <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo" class="loginBtn">登录</button>
-      </view>
-    </view>
-  </view>
-
-  <!--弹出框start-->
-  <mp-halfScreenDialog show="{{showModalStatus}}" closabled="{{false}}">
-    <view slot="footer" class='shareArea'>
-      <view class='dialog_content'>
-        <view class="shareTo" bindtap="reportItem">
-          <button>
-            <image class="shareIcon" src="/content/images/report.svg "></image>
-          </button>
-          <view class="shareText">举报</view>
-        </view>
-        <view class="shareTo" bindtap="saveLocal">
-          <button>
-            <image class="shareIcon" src="/content/images/baocuntupian.svg"></image>
-          </button>
-          <view class="shareText">保存图片</view>
-        </view>
-        <view class="shareTo">
-          <button open-type='share'>
-            <image class="shareIcon" src="/content/images/weixin.svg"></image>
-          </button>
-          <view class="shareText">分享好友/群</view>
-        </view>
-        <view class="shareTo" bindtap="addCollect">
-          <button>
-            <image class="shareIcon" src="/content/images/collect.svg "></image>
-          </button>
-          <view class="shareText">添加收藏</view>
-        </view>
-      </view>
-    </view>
-  </mp-halfScreenDialog>
-  <!--弹出框end-->
-
-  <!-- 生成海报画布 -->
-  <view style='width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 999; display: flex; align-items: center; justify-content: center; animation: {{isShow ? "show" : "dismiss"}}Mask 0.3s forwards ease; position: fixed; top: 0; left: {{isCreate ? 0 : "750rpx"}};'
-    catchtap='catchtap' catchtouchmove='blockTouches'>
-    <canvas canvas-id='poster' style='width: 622rpx; height: 882rpx; position: fixed; left: 750rpx;'></canvas>
-    <image style='width: 622rpx; height: 882rpx; margin-bottom: 96rpx;' src='{{poster}}'></image>
-    <button class='maskButton' hover-class='maskButton-hover' hidden='{{!isCreate}}' catchtap='btnCreate'>保存到本地相册</button>
-  </view>
-
-</page>
-
-
-<view class="{{inputfoucusOn?'inputareaInput':'inputarea'}}">
+<view class="inputarea" style="bottom:{{keyBoardHeight}}px">
   <view class="chatLineView"></view>
   <view class="viewinput">
-    <input bindfocus="inputfoucus"  class="{{inputfoucusOn?'inputFocus':'inputBlur'}}" bindblur="inputblur" value='{{discussContent}}' bindinput="discussContentInput" confirm-type="send" bindconfirm="insertDiscussContent" confirm-hold='true' hold-keyboard='true' adjust-position='true'>
-    </input>
+    <input focus='{{inputfoucusOn}}' bindfocus="inputfoucus" bindblur="inputblur" hold-keyboard='true' confirm-hold='true' class="{{inputfoucusOn?'inputFocus':'inputBlur'}}" value='{{discussContent}}' bindinput="discussContentInput" confirm-type="send" bindconfirm="insertDiscussContent"
+      adjust-position='{{false}}'></input>
   </view>
   <view class="viewSend" data-idx='{{partnerId}}' bindtap="insertDiscussContent">
     <view class="txtSend">发 送</view>
   </view>
-  <view class="chatLineView"></view>
 </view>

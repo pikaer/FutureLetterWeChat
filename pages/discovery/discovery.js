@@ -49,7 +49,8 @@ Page({
     subscribeMessageOpen: false,
     messageReplyNotifyWechatId: "-zecjwuk6Z0uN1txUSwvgXKmaek081c1Y9t6mqAn6ck",
     messageReplyNotifyQQId: "59880ab542241403ede33bb4c64f0166",
-    momentTextContent: ""
+    momentTextContent: "",
+    userInfoBasicInfoCacheKey: "userInfoBasicInfoCacheKey"
   },
 
   onLoad: function() {
@@ -188,11 +189,26 @@ Page({
   //用户登录
   userLogin: function() {
     let self = this;
+
+    //优先获取缓存
+    let cacheValue = wx.getStorageSync(self.data.userInfoBasicInfoCacheKey);
+    let needInit = true;
+    if (!app.isBlank(cacheValue) && cacheValue.uId > 0) {
+      app.globalData.basicUserInfo = cacheValue;
+      app.globalData.apiHeader.UId = cacheValue.uId;
+      self.setData({
+        currentBasicUserInfo: cacheValue
+      });
+      needInit = false;
+      console.info("通过缓存登录成功!");
+      self.init();
+    }
+
     wx.login({
       success: res => {
         console.log(JSON.stringify(res));
         if (res.code) {
-          self.getLoginInfo(res.code);
+          self.getLoginInfo(res.code, needInit);
         }
       }
     })
@@ -225,7 +241,7 @@ Page({
   },
 
   //获取OpenId
-  getLoginInfo: function(code) {
+  getLoginInfo: function(code, needInit) {
     let self = this;
     app.httpPost(
       'api/Letter/UserLogin', {
@@ -240,7 +256,10 @@ Page({
           self.setData({
             currentBasicUserInfo: res
           });
-          self.init();
+          app.setCache(self.data.userInfoBasicInfoCacheKey, res);
+          if (needInit) {
+            self.init();
+          }
         } else {
           console.error("登录失败!");
         }
@@ -978,7 +997,7 @@ Page({
       selectItem: ops.currentTarget.dataset,
       currentMoment: pickUpList[key]
     })
-    let cacheKey = "discussDetail_momentId_" + pickUpList[key].momentId;
+    let cacheKey = "momentDetail_momentId_" + pickUpList[key].momentId;
     app.setCache(cacheKey, pickUpList[key]);
   },
 
@@ -1003,7 +1022,7 @@ Page({
       selectItem: ops.currentTarget.dataset,
       currentMoment: attentionList[key]
     })
-    let cacheKey = "discussDetail_momentId_" + attentionList[key].momentId;
+    let cacheKey = "momentDetail_momentId_" + attentionList[key].momentId;
     app.setCache(cacheKey, attentionList[key]);
   },
 
@@ -1113,10 +1132,10 @@ Page({
     let key = e.currentTarget.dataset.key;
     let pickUpList = this.data.pickUpList;
     this.clearUnReadCount(pickUpId);
-    let cacheKey = "discussDetail_momentId_" + pickUpList[key].momentId;
+    let cacheKey = "momentDetail_momentId_" + pickUpList[key].momentId;
     app.setCache(cacheKey, pickUpList[key]);
     wx.navigateTo({
-      url: "../../pages/discussdetailV1/discussdetail?pickUpId=" + pickUpId + "&partnerUId=" + pickUpList[key].uId + "&momentId=" + pickUpList[key].momentId
+      url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId + "&partnerUId=" + pickUpList[key].uId + "&momentId=" + pickUpList[key].momentId
     })
   },
 
@@ -1128,7 +1147,7 @@ Page({
     let cacheKey = "discussDetail_momentId_" + attentionList[key].momentId;
     app.setCache(cacheKey, attentionList[key]);
     wx.navigateTo({
-      url: "../../pages/discussdetailV1/discussdetail?partnerUId=" + attentionList[key].uId + "&momentId=" + attentionList[key].momentId
+      url: "../../pages/discussdetail/discussdetail?partnerUId=" + attentionList[key].uId + "&momentId=" + attentionList[key].momentId
     })
   },
 

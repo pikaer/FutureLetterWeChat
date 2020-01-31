@@ -50,7 +50,7 @@ Page({
     }
   },
 
-  onShow: function () {
+  onShow: function() {
     this.getChatList();
     this.unReadCountRefresh();
     this.onConnected();
@@ -117,7 +117,7 @@ Page({
       });
       return;
     }
-    
+
     var self = this;
     let cacheKey = "basicUserInfo+" + ops.currentTarget.dataset.uid;
     let cacheValue = wx.getStorageSync(cacheKey);
@@ -168,11 +168,8 @@ Page({
     let pickUpId = e.currentTarget.dataset.pickupid;
     let uId = e.currentTarget.dataset.uid;
     let momentId = e.currentTarget.dataset.momentid;
-    let key = e.currentTarget.dataset.index;
-    let cacheKey = "discussDetail_momentId_" + momentId;
-    app.setCache(cacheKey, this.data.tempDiscussList[key]);
     wx.navigateTo({
-      url: "../../pages/discussdetailV1/discussdetail?pickUpId=" + pickUpId + "&partnerUId=" + uId + "&momentId=" + momentId
+      url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpId + "&partnerUId=" + uId + "&momentId=" + momentId
     })
   },
 
@@ -379,7 +376,7 @@ Page({
     }
   },
 
-  unReadCountRefresh: function () {
+  unReadCountRefresh: function() {
     if (app.globalData.apiHeader.UId <= 0) {
       return;
     }
@@ -388,7 +385,7 @@ Page({
       'api/Letter/UnReadTotalCount', {
         "UId": app.globalData.apiHeader.UId
       },
-      function (res) {
+      function(res) {
         if (!app.isBlank(res.unReadCount)) {
           wx.setTabBarBadge({
             index: 1,
@@ -400,7 +397,7 @@ Page({
           })
         }
       },
-      function (res) {
+      function(res) {
         console.error("刷新未读数量失败!");
       })
   },

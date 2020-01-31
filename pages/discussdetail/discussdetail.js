@@ -12,41 +12,54 @@ const rate = function(rpx) {
 
 Page({
   data: {
-    discussDetail: {},
+    momentDetail: {
+      "momentId": ""
+    },
+    myDetail: {
+      "showHideStatus": 0
+    },
+    partnerDetail: {
+      "nickName": " ",
+      "distanceDesc": "远方"
+    },
     discussDetailList: [],
     pickUpId: null,
     momentId: null,
     discussContent: "",
+    tempHidingNickName: "",
     showModal: false,
+    showTextContentModal: false,
     showModalStatus: false,
     showLoginModal: false,
+    showChangeHideModal: false,
     inputfoucusOn: false,
     basicUserInfo: {},
     isCreate: false,
     isShow: false,
     topNum: 99999,
-    partnerUId: 0
+    statusBarHeight: app.globalData.statusBarHeight,
+    keyBoardHeight: 0,
+    partnerUId: 0,
+    momentTextContent: ""
   },
 
   onLoad: function(options) {
-
-    if (!app.isBlank(options.momentId)) {
-      this.data.momentId = options.momentId
-    }
-
     if (!app.isBlank(options.pickUpId)) {
       this.data.pickUpId = options.pickUpId
     }
-
     if (!app.isBlank(options.partnerUId) && options.partnerUId > 0) {
       this.data.partnerUId = parseInt(options.partnerUId);
     }
-    this.initData();
+    if (!app.isBlank(options.momentId)) {
+      this.initData(options.momentId);
+      this.data.momentDetail.momentId = options.momentId;
+    }
     this.onLineConnected();
   },
 
   onShow: function(options) {
     this.discussDetail();
+    this.getChatDetailList();
   },
 
   //通知对方刷新聊天页面
@@ -58,7 +71,6 @@ Page({
   onLineConnected: function() {
     this.onLineHub = new HubConnection();
     var url = app.globalData.socketUrl + "onLineHub";
-
     this.onLineHub.start(url, {
       UId: app.globalData.apiHeader.UId,
       PartnerUId: this.data.partnerUId,
@@ -72,7 +84,7 @@ Page({
     //订阅对方发来的消息
     this.onLineHub.on("receive", res => {
       console.info("成功订阅消息");
-      this.discussDetail();
+      this.getChatDetailList();
       this.clearUnReadCount();
     })
   },
@@ -86,45 +98,49 @@ Page({
           ConnetType: 2
         })
       }
-
     } catch (e) {
       console.error(JSON.stringify(e));
     }
   },
 
   //数据初始化
-  initData: function() {
+  initData: function(momentId) {
     try {
-      if (this.data.momentId != "undefined" && this.data.momentId != undefined) {
-        let cacheKey = "discussDetail_momentId_" + this.data.momentId;
-        let cacheValue = wx.getStorageSync(cacheKey);
-        if (!app.isBlank(cacheValue)) {
+      if (momentId != "undefined" && momentId != undefined) {
+        let momentDetailCacheKey = "momentDetail_momentId_" + momentId;
+        let momentDetailCacheValue = wx.getStorageSync(momentDetailCacheKey);
+        if (!app.isBlank(momentDetailCacheValue)) {
+          let nickName = 'partnerDetail.nickName';
           this.setData({
-            discussDetail: cacheValue
+            [nickName]: momentDetailCacheValue.nickName,
+            momentDetail: momentDetailCacheValue
           })
-          let cacheListKey = "discussDetailList_pickUpId_" + cacheValue.pickUpId;
-          let cacheListValue = wx.getStorageSync(cacheListKey);
-          if (!app.isBlank(cacheListValue)) {
-            this.setData({
-              discussDetailList: cacheListValue
-            })
-          } else {
-            let discuss = {};
-            let detailList = [];
-            discuss.isMyReply = cacheValue.isMyMoment;
-            discuss.pickUpUId = app.globalData.apiHeader.UId;
-            discuss.headImgPath = cacheValue.headImgPath;
-            discuss.nickName = cacheValue.nickName;
-            discuss.gender = cacheValue.gender;
-            discuss.textContent = cacheValue.textContent;
-            discuss.imgContent = cacheValue.imgContent;
-            discuss.distanceDesc = cacheValue.distanceDesc;
-            detailList.push(discuss);
-            self.setData({
-              discussDetailList: detailList
-            });
-          }
-          this.toBottom();
+          this.cutTextContent()
+        }
+
+        let discussDetailListKey = "discussDetailList_momentId_" + momentId;
+        let discussDetailListCacheValue = wx.getStorageSync(discussDetailListKey);
+        if (!app.isBlank(discussDetailListCacheValue)) {
+          this.setData({
+            discussDetailList: discussDetailListCacheValue
+          })
+        }
+
+        let myDetailKey = "myDetail_momentId_" + momentId;
+        let myDetaiCacheValue = wx.getStorageSync(myDetailKey);
+        if (!app.isBlank(myDetaiCacheValue)) {
+          this.setData({
+            myDetail: myDetaiCacheValue,
+            tempHidingNickName: myDetaiCacheValue.nickName
+          })
+        }
+
+        let partnerDetailKey = "partnerDetail_momentId_" + momentId;
+        let partnerDetailCacheValue = wx.getStorageSync(partnerDetailKey);
+        if (!app.isBlank(partnerDetailCacheValue)) {
+          this.setData({
+            partnerDetail: partnerDetailCacheValue
+          })
         }
       }
     } catch (e) {
@@ -132,8 +148,34 @@ Page({
     }
   },
 
+  cutTextContent: function() {
+    if (!app.isBlank(this.data.momentDetail.textContent)) {
+      if (!app.isBlank(this.data.momentDetail.imgContent)) {
+        if (this.data.momentDetail.textContent.length > 16) {
+          this.setData({
+            momentTextContent: this.data.momentDetail.textContent.substring(0, 16) + "..."
+          })
+        } else {
+          this.setData({
+            momentTextContent: this.data.momentDetail.textContent
+          })
+        }
+      } else {
+        if (this.data.momentDetail.textContent.length > 26) {
+          this.setData({
+            momentTextContent: this.data.momentDetail.textContent.substring(0, 25) + "..."
+          })
+        } else {
+          this.setData({
+            momentTextContent: this.data.momentDetail.textContent
+          })
+        }
+      }
+    }
+  },
+
   toBottom: function() {
-    if (this.data.discussDetailList.length < 8) {
+    if (this.data.discussDetailList.length <4) {
       return;
     }
     wx.pageScrollTo({
@@ -141,6 +183,19 @@ Page({
     })
   },
 
+
+  //返回上一级页面。
+  backUpAction: function() {
+    wx.navigateBack({
+      delta: 1
+    })
+  },
+
+  toHomeAction: function() {
+    wx.switchTab({
+      url: "../../pages/discovery/discovery"
+    })
+  },
 
   //获取用户基础信息
   toShowModal: function(ops) {
@@ -187,10 +242,29 @@ Page({
     });
   },
 
+  toShowTextContentModal: function() {
+    if (app.isBlank(this.data.momentDetail.textContent)) {
+      return;
+    }
+    if (this.data.momentTextContent.length == this.data.momentDetail.textContent.length) {
+      return;
+    }
+    this.setData({
+      showTextContentModal: true
+    });
+  },
+
+  hideTextContentModal: function() {
+    this.setData({
+      showTextContentModal: false
+    });
+  },
+
 
   //下拉刷新页面数据
   onPullDownRefresh: function() {
     this.discussDetail();
+    this.getChatDetailList();
   },
 
   // 预览图片
@@ -213,32 +287,82 @@ Page({
     })
   },
 
+  //获取输入的聊天内容
+  hidingNickNameInput: function(e) {
+    this.setData({
+      tempHidingNickName: e.detail.value
+    })
+  },
+
   //获取动态
   discussDetail: function() {
     var self = this;
     let requestdata = {
       "UId": app.globalData.apiHeader.UId
     }
-    if (self.data.pickUpId != null) {
+    if (!app.isBlank(self.data.pickUpId)) {
       requestdata.PickUpId = self.data.pickUpId;
     }
-    if (self.data.momentId != null) {
-      requestdata.MomentId = self.data.momentId;
+    if (!app.isBlank(self.data.momentDetail.momentId)) {
+      requestdata.MomentId = self.data.momentDetail.momentId;
     }
-    app.httpPost(
-      'api/Letter/DiscussDetail', requestdata,
+    app.httpPost('api/Letter/DiscussDetail', requestdata,
       function(res) {
         if (!app.isBlank(res)) {
-          let tempDetailList = res.discussDetailList;
           self.setData({
-            discussDetail: res,
+            momentDetail: res.momentDetail,
+            partnerDetail: res.partnerDetail,
+            myDetail: res.myDetail,
             pickUpId: res.pickUpId,
-            discussDetailList: tempDetailList
+            tempHidingNickName: res.myDetail.nickName
           });
-          let cacheListKey = "discussDetailList_pickUpId_" + res.pickUpId;
-          app.setCache(cacheListKey, tempDetailList);
+          let momentDetailCacheKey = "momentDetail_momentId_" + res.momentDetail.momentId;
+          app.setCache(momentDetailCacheKey, res.momentDetail);
+
+          let myDetailKey = "myDetail_momentId_" + res.momentDetail.momentId;
+          app.setCache(myDetailKey, res.myDetail);
+
+          let partnerDetailKey = "partnerDetail_momentId_" + res.momentDetail.momentId;
+          app.setCache(partnerDetailKey, res.partnerDetail);
+
+          self.cutTextContent()
         }
         app.globalData.currentDiscussMoment = {};
+      },
+      function(res) {
+        console.info("获取数据失败");
+      })
+  },
+
+
+  //获取动态
+  getChatDetailList: function() {
+    var self = this;
+    let requestdata = {
+      "UId": app.globalData.apiHeader.UId
+    }
+    if (!app.isBlank(self.data.pickUpId)) {
+      requestdata.PickUpId = self.data.pickUpId;
+    }
+    if (!app.isBlank(self.data.momentDetail.momentId)) {
+      requestdata.MomentId = self.data.momentDetail.momentId;
+    }
+    app.httpPost('api/Letter/ChatDetailList', requestdata,
+      function(res) {
+        if (!app.isBlank(res) && !app.isBlank(res.discussDetailList)) {
+          self.setData({
+            discussDetailList: res.discussDetailList
+          });
+          let discussDetailListKey = "discussDetailList_momentId_" + self.data.momentDetail.momentId;
+          app.setCache(discussDetailListKey, res.discussDetailList);
+
+          if (self.data.myDetail.showHideStatus != 0) {
+            let hideArea = 'myDetail.showHideStatus';
+            self.setData({
+              [hideArea]: 0
+            })
+          }
+        }
         self.toBottom();
       },
       function(res) {
@@ -252,6 +376,28 @@ Page({
     });
   },
 
+  cancelChangeHide: function() {
+    this.setData({
+      showChangeHideModal: false
+    });
+  },
+
+  showChangeHide: function() {
+    if (this.data.myDetail.showHideStatus == 1) {
+      this.setData({
+        inputfoucusOn: false
+      });
+      this.setData({
+        showChangeHideModal: true
+      });
+    } else {
+      let status = 'myDetail.showHideStatus';
+      this.setData({
+        [status]: 1
+      });
+      this.updateShowNickName();
+    }
+  },
 
   bindGetUserInfo: function(e) {
     let self = this;
@@ -356,7 +502,7 @@ Page({
       app.httpPost(
         'api/Letter/Discuss', {
           "UId": app.globalData.apiHeader.UId,
-          "MomentId": self.data.discussDetail.momentId,
+          "MomentId": self.data.momentDetail.momentId,
           "PickUpId": self.data.pickUpId,
           "TextContent": content
         },
@@ -380,24 +526,31 @@ Page({
     let detailList = self.data.discussDetailList;
     if (userinfo != null && userinfo != "") {
       let discuss = {};
-      discuss.nickName = userinfo.nickName;
       discuss.pickUpUId = app.globalData.apiHeader.UId;
       discuss.headImgPath = userinfo.headPhotoPath;
       discuss.recentChatTime = '刚刚';
       discuss.isMyReply = true;
       discuss.textContent = textContent;
+      discuss.gender = self.data.myDetail.gender;
+      discuss.nickName = self.data.myDetail.nickName;
+      discuss.headImgPath = self.data.myDetail.headImgPath;
+      discuss.isHide = self.data.myDetail.isHide;
+      discuss.shortNickName = self.data.myDetail.shortNickName;
       detailList.push(discuss);
+
       self.setData({
-        discussDetailList: detailList
+        discussDetailList: detailList,
+        discussContent: ""
       });
-      self.setData({
-        discussContent: "",
-        inputfoucusOn:false
-      });
+
+      if (self.data.myDetail.showHideStatus != 0) {
+        let hideArea = 'myDetail.showHideStatus';
+        self.setData({
+          [hideArea]: 0
+        })
+      }
+
       self.toBottom();
-      self.setData({
-        inputfoucusOn: true
-      });
     }
   },
 
@@ -432,7 +585,7 @@ Page({
     var self = this;
     app.httpPost(
       'api/Letter/ReportBottle', {
-        "PickUpId": self.data.discussDetail.pickUpId
+        "PickUpId": self.data.pickUpId
       },
       function(res) {
         console.info("举报瓶子成功！");
@@ -447,9 +600,72 @@ Page({
       })
   },
 
+  //设置为匿名
+  updateShowNickName: function() {
+    var self = this;
+    app.httpPost(
+      'api/Letter/UpdateHiding', {
+        "PickUpId": self.data.pickUpId,
+        "MomentId": self.data.momentDetail.momentId,
+        "UId": app.globalData.apiHeader.UId,
+        "IsHide": false,
+        "HidingNickName": ""
+      },
+      function(res) {
+        if (res.success) {
+          wx.showToast({
+            title: "设置成功",
+            icon: 'success',
+            duration: 1500
+          });
+        } else {
+          console.error("更新用户身份状态失败");
+        }
+      },
+      function(res) {
+        console.error("更新用户身份状态失败");
+      })
+  },
+
+
+  //设置为匿名
+  updateHiding: function(isHide) {
+    var self = this;
+    app.httpPost(
+      'api/Letter/UpdateHiding', {
+        "PickUpId": self.data.pickUpId,
+        "MomentId": self.data.momentDetail.momentId,
+        "UId": app.globalData.apiHeader.UId,
+        "IsHide": true,
+        "HidingNickName": self.data.tempHidingNickName
+      },
+      function(res) {
+        if (res.success) {
+          console.info("更新用户身份状态成功！");
+          let hideArea = 'myDetail.showHideStatus';
+          self.setData({
+            [hideArea]: 2
+          })
+          wx.showToast({
+            title: "设置成功",
+            icon: 'success',
+            duration: 1500
+          });
+          self.cancelChangeHide();
+          self.discussDetail();
+        } else {
+          console.error("更新用户身份状态失败");
+          self.cancelChangeHide();
+        }
+      },
+      function(res) {
+        console.error("更新用户身份状态失败");
+      })
+  },
+
   saveLocal: function() {
     this.hideModalShare();
-    this.createPoster(this.data.discussDetail.imgContent);
+    this.createPoster(this.data.momentDetail.imgContent);
   },
 
   //添加收藏
@@ -458,7 +674,7 @@ Page({
     app.httpPost(
       'api/Letter/AddCollect', {
         "UId": app.globalData.apiHeader.UId,
-        "MomentId": self.data.discussDetail.momentId,
+        "MomentId": self.data.momentDetail.momentId,
         "PickUpId": self.data.pickUpId,
         "FromPage": "discussDetailPage"
       },
@@ -490,7 +706,7 @@ Page({
     let url = app.globalData.bingoLogo;
     let title = app.globalData.bingoTitle;
     this.hideModalShare();
-    if (app.isBlank(this.data.discussDetail)) {
+    if (app.isBlank(this.data.momentDetail)) {
       return {
         title: title,
         imageUrl: url,
@@ -503,12 +719,12 @@ Page({
         }
       }
     }
-    let momentId = this.data.discussDetail.momentId;
-    if (this.data.discussDetail.textContent != "" && this.data.discussDetail.textContent != null) {
-      title = this.data.discussDetail.textContent;
+    let momentId = this.data.momentDetail.momentId;
+    if (this.data.momentDetail.textContent != "" && this.data.momentDetail.textContent != null) {
+      title = this.data.momentDetail.textContent;
     }
-    if (this.data.discussDetail.imgContent != "" && this.data.discussDetail.imgContent != null) {
-      url = this.data.discussDetail.imgContent;
+    if (this.data.momentDetail.imgContent != "" && this.data.momentDetail.imgContent != null) {
+      url = this.data.momentDetail.imgContent;
     }
     return {
       title: title,
@@ -721,13 +937,17 @@ Page({
 
   inputfoucus: function(obj) {
     this.setData({
-      inputfoucusOn: true
+      inputfoucusOn: true,
+      keyBoardHeight: obj.detail.height
     })
+    this.toBottom();
   },
 
   inputblur: function(obj) {
     this.setData({
-      inputfoucusOn: false
+      inputfoucusOn: false,
+      keyBoardHeight: 0
     })
+    this.toBottom();
   },
 })
