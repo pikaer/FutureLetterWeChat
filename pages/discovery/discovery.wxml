@@ -2,7 +2,7 @@
 <view wx:if="{{!showStartUp}}" class="empty_custom" style="padding-top:{{statusBarHeight}}px"></view>
 <view wx:if="{{!showStartUp}}" class="custom" style="padding-top:{{statusBarHeight}}px">
   <view class="chatListView" style="top:{{statusBarHeight+6}}px">
-    <image class='nav_logo' src="/content/images/publish.svg" catchtap="publishMoment" />
+    <!-- <image class='nav_logo' src="/content/images/publish.svg" catchtap="publishMoment" /> -->
     <view class="coinIconView" bindtap="toCoinDetailPage">
       <image class='coin_logo' src="/content/images/coin.svg" />
     </view>
@@ -123,7 +123,7 @@
           <view class="empty_topArea"></view>
           <view class="contentAreaView" bindtap="previewAtentionMomentDetail" bindlongpress="moreAtteitionAction" wx:for="{{attentionList}}" wx:for-index="key" wx:for-item="value" data-momentId='{{value.momentId}}' data-key='{{key}}'>
             <view class="contentArea" hover-class="contentArea_Hover">
-              <view class="titleView" >
+              <view class="titleView">
                 <view data-uId='{{value.uId}}' data-momentId='{{value.momentId}}' class="leftView" catchtap='toShowModal'>
                   <image src="{{value.headImgPath}}" class="userHead" />
                 </view>
@@ -178,6 +178,9 @@
       </swiper-item>
     </swiper>
   </view>
+
+  <view class="publishIcon" catchtap="publishMoment">
+    <view class="iconfont edit" style='font-size:25px;font-weight: 650;color: white;padding-top: 3px;' /> </view>
 </view>
 
 <!--custom Modal-->

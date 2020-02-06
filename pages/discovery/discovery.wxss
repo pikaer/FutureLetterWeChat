@@ -134,6 +134,11 @@ page {
   position: fixed;
   bottom: 15px;
   right: 15px;
+  width: 48px;
+  height: 48px;
+  background-color: #09f;
+  border-radius: 100%;
+  text-align: center;
 }
 
 page {
@@ -644,7 +649,6 @@ button {
 }
 
 .chatListView {
-  left: 10px;
   position: fixed;
 }
 
@@ -935,7 +939,7 @@ swiper-item {
 
 .coinTextView {
   float: left;
-  padding-left: 2px;
+  padding-left:4px;
   color: #ffa500;
   font-size: 14px;
   font-weight: 650;

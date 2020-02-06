@@ -161,9 +161,9 @@ Page({
           })
         }
       } else {
-        if (this.data.momentDetail.textContent.length > 26) {
+        if (this.data.momentDetail.textContent.length > 22) {
           this.setData({
-            momentTextContent: this.data.momentDetail.textContent.substring(0, 25) + "..."
+            momentTextContent: this.data.momentDetail.textContent.substring(0, 22) + "..."
           })
         } else {
           this.setData({
@@ -455,7 +455,7 @@ Page({
       })
   },
 
-
+  
   appendDiscussContent: function() {
     var self = this;
     let userinfo = app.globalData.basicUserInfo;

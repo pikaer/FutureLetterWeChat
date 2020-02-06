@@ -48,12 +48,12 @@ Page({
         tempDiscussList: cacheValue
       });
     }
+    this.onConnected();
   },
 
   onShow: function() {
     this.getChatList();
     this.unReadCountRefresh();
-    this.onConnected();
   },
 
   slideButtonTap(ops) {
