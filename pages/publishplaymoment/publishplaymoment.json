@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "编辑动态",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "mp-badge": "../../components/badge/badge"
+  }
+}

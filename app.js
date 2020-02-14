@@ -13,9 +13,9 @@ const rate = function(rpx) {
 App({
   //全局变量
   globalData: {
-    baseUrl: "https://www.pikaer.com/todayapi/",
+    baseUrl: "https://www.pikaer.com/todayapi/api/",
     socketUrl: "https://www.pikaer.com/signalR/",
-    // baseUrl: "https://localhost:44386/",
+    // baseUrl: "https://localhost:44386/api/",
     //socketUrl: "https://localhost:44375/",
 
     httpHeader: {

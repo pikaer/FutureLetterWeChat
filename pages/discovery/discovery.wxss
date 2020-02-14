@@ -127,7 +127,6 @@ page {
   max-width: 92%;
   margin-bottom: -3px;
   border-radius: 10px;
-  /* max-height: 850px； */
 }
 
 .publishIcon {
@@ -136,7 +135,7 @@ page {
   right: 15px;
   width: 48px;
   height: 48px;
-  background-color: #09f;
+  background-color: #0178d4;
   border-radius: 100%;
   text-align: center;
 }
@@ -579,7 +578,7 @@ button {
   float: left;
   width: 80px;
   font-size: 8px;
-  padding-top: 6px;
+  padding-top: 8px;
 }
 
 .commentView {
@@ -939,7 +938,7 @@ swiper-item {
 
 .coinTextView {
   float: left;
-  padding-left:4px;
+  padding-left: 4px;
   color: #ffa500;
   font-size: 14px;
   font-weight: 650;

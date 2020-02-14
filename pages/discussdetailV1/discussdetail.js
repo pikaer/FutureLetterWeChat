@@ -163,7 +163,7 @@ Page({
       });
     }
     app.httpPost(
-      'api/Letter/BasicUserInfo', {
+      'Letter/BasicUserInfo', {
         "UId": ops.currentTarget.dataset.uid
       },
       function(res) {
@@ -229,7 +229,7 @@ Page({
       requestdata.MomentId = self.data.momentId;
     }
     app.httpPost(
-      'api/Letter/DiscussDetail', requestdata,
+      'Letter/DiscussDetail', requestdata,
       function(res) {
         if (!app.isBlank(res)) {
           let tempDetailList = res.discussDetailList;
@@ -293,7 +293,7 @@ Page({
       self.cancelLogin();
     }
     app.httpPost(
-      'api/Letter/SetUserInfo', {
+      'Letter/SetUserInfo', {
         "UId": app.globalData.apiHeader.UId,
         "NickName": userInfoWX.nickName,
         "AvatarUrl": userInfoWX.avatarUrl,
@@ -329,7 +329,7 @@ Page({
 
     //文本安全性校验
     app.httpPost(
-      'api/Letter/MsgSecCheck', {
+      'Letter/MsgSecCheck', {
         "TextContent": self.data.discussContent
       },
       function(res) {
@@ -358,7 +358,7 @@ Page({
     if (content != null && content != '' && content.length > 0) {
       self.insertDiscussContentToList(content);
       app.httpPost(
-        'api/Letter/Discuss', {
+        'Letter/Discuss', {
           "UId": app.globalData.apiHeader.UId,
           "MomentId": self.data.discussDetail.momentId,
           "PickUpId": self.data.pickUpId,
@@ -424,7 +424,7 @@ Page({
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/ClearUnReadCount', {
+        'Letter/ClearUnReadCount', {
           "UId": app.globalData.apiHeader.UId,
           "PickUpId": self.data.pickUpId
         },
@@ -442,7 +442,7 @@ Page({
     this.hideModalShare();
     var self = this;
     app.httpPost(
-      'api/Letter/ReportBottle', {
+      'Letter/ReportBottle', {
         "PickUpId": self.data.discussDetail.pickUpId
       },
       function(res) {
@@ -467,7 +467,7 @@ Page({
   addCollect: function(ops) {
     var self = this;
     app.httpPost(
-      'api/Letter/AddCollect', {
+      'Letter/AddCollect', {
         "UId": app.globalData.apiHeader.UId,
         "MomentId": self.data.discussDetail.momentId,
         "PickUpId": self.data.pickUpId,

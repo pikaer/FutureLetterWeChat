@@ -215,7 +215,7 @@ Page({
       });
     }
     app.httpPost(
-      'api/Letter/BasicUserInfo', {
+      'Letter/BasicUserInfo', {
         "UId": ops.currentTarget.dataset.uid
       },
       function(res) {
@@ -306,7 +306,7 @@ Page({
     if (!app.isBlank(self.data.momentDetail.momentId)) {
       requestdata.MomentId = self.data.momentDetail.momentId;
     }
-    app.httpPost('api/Letter/DiscussDetail', requestdata,
+    app.httpPost('Letter/DiscussDetail', requestdata,
       function(res) {
         if (!app.isBlank(res)) {
           self.setData({
@@ -347,7 +347,7 @@ Page({
     if (!app.isBlank(self.data.momentDetail.momentId)) {
       requestdata.MomentId = self.data.momentDetail.momentId;
     }
-    app.httpPost('api/Letter/ChatDetailList', requestdata,
+    app.httpPost('Letter/ChatDetailList', requestdata,
       function(res) {
         if (!app.isBlank(res) && !app.isBlank(res.discussDetailList)) {
           self.setData({
@@ -435,7 +435,7 @@ Page({
       self.cancelLogin();
     }
     app.httpPost(
-      'api/Letter/SetUserInfo', {
+      'Letter/SetUserInfo', {
         "UId": app.globalData.apiHeader.UId,
         "NickName": userInfoWX.nickName,
         "AvatarUrl": userInfoWX.avatarUrl,
@@ -471,7 +471,7 @@ Page({
 
     //文本安全性校验
     app.httpPost(
-      'api/Letter/MsgSecCheck', {
+      'Letter/MsgSecCheck', {
         "TextContent": self.data.discussContent
       },
       function(res) {
@@ -500,7 +500,7 @@ Page({
     if (content != null && content != '' && content.length > 0) {
       self.insertDiscussContentToList(content);
       app.httpPost(
-        'api/Letter/Discuss', {
+        'Letter/Discuss', {
           "UId": app.globalData.apiHeader.UId,
           "MomentId": self.data.momentDetail.momentId,
           "PickUpId": self.data.pickUpId,
@@ -566,7 +566,7 @@ Page({
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/ClearUnReadCount', {
+        'Letter/ClearUnReadCount', {
           "UId": app.globalData.apiHeader.UId,
           "PickUpId": self.data.pickUpId
         },
@@ -584,7 +584,7 @@ Page({
     this.hideModalShare();
     var self = this;
     app.httpPost(
-      'api/Letter/ReportBottle', {
+      'Letter/ReportBottle', {
         "PickUpId": self.data.pickUpId
       },
       function(res) {
@@ -604,7 +604,7 @@ Page({
   updateShowNickName: function() {
     var self = this;
     app.httpPost(
-      'api/Letter/UpdateHiding', {
+      'Letter/UpdateHiding', {
         "PickUpId": self.data.pickUpId,
         "MomentId": self.data.momentDetail.momentId,
         "UId": app.globalData.apiHeader.UId,
@@ -632,7 +632,7 @@ Page({
   updateHiding: function(isHide) {
     var self = this;
     app.httpPost(
-      'api/Letter/UpdateHiding', {
+      'Letter/UpdateHiding', {
         "PickUpId": self.data.pickUpId,
         "MomentId": self.data.momentDetail.momentId,
         "UId": app.globalData.apiHeader.UId,
@@ -672,7 +672,7 @@ Page({
   addCollect: function(ops) {
     var self = this;
     app.httpPost(
-      'api/Letter/AddCollect', {
+      'Letter/AddCollect', {
         "UId": app.globalData.apiHeader.UId,
         "MomentId": self.data.momentDetail.momentId,
         "PickUpId": self.data.pickUpId,

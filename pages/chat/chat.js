@@ -135,7 +135,7 @@ Page({
     }
 
     app.httpPost(
-      'api/Letter/BasicUserInfo', {
+      'Letter/BasicUserInfo', {
         "UId": ops.currentTarget.dataset.uid
       },
       function(res) {
@@ -178,7 +178,7 @@ Page({
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/DiscussList', {
+        'Letter/DiscussList', {
           "UId": app.globalData.apiHeader.UId,
           "PageIndex": self.data.pageIndex
         },
@@ -201,7 +201,7 @@ Page({
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/ClearUnReadCount', {
+        'Letter/ClearUnReadCount', {
           "UId": app.globalData.apiHeader.UId,
           "PickUpId": ops.currentTarget.dataset.pickupid
         },
@@ -263,7 +263,7 @@ Page({
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/ClearUnReadCount', {
+        'Letter/ClearUnReadCount', {
           "UId": app.globalData.apiHeader.UId,
           "PickUpId": self.data.selectItem.pickupid
         },
@@ -287,7 +287,7 @@ Page({
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/ClearAllUnReadCount', {
+        'Letter/ClearAllUnReadCount', {
           "UId": app.globalData.apiHeader.UId
         },
         function(res) {
@@ -311,7 +311,7 @@ Page({
       success(res) {
         if (res.confirm && app.globalData.apiHeader.UId > 0) {
           app.httpPost(
-            'api/Letter/DeleteAllBottle', {
+            'Letter/DeleteAllBottle', {
               "UId": app.globalData.apiHeader.UId
             },
             function(res) {
@@ -335,7 +335,7 @@ Page({
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/DeleteBottle', {
+        'Letter/DeleteBottle', {
           "UId": app.globalData.apiHeader.UId,
           "PickUpId": self.data.selectItem.pickupid,
           "DeleteType": 1
@@ -382,7 +382,7 @@ Page({
     }
     let self = this;
     app.httpPost(
-      'api/Letter/UnReadTotalCount', {
+      'Letter/UnReadTotalCount', {
         "UId": app.globalData.apiHeader.UId
       },
       function(res) {

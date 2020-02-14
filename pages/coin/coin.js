@@ -35,7 +35,7 @@ Page({
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/UserCoinInfo', {
+        'Letter/UserCoinInfo', {
           "UId": app.globalData.apiHeader.UId
         },
         function(res) {

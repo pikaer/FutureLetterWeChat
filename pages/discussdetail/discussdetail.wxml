@@ -30,7 +30,7 @@
   </view>
 </view>
 <view class="scrollContainer">
-  <scroll-view class="indexContainer" style="padding-bottom:{{keyBoardHeight+20}}px" scroll-y="true">
+  <scroll-view scroll-with-animation="true" class="indexContainer" style="padding-bottom:{{keyBoardHeight+20}}px" scroll-y="true">
     <view class="discussView" wx:for="{{discussDetailList}}" wx:for-index="key" wx:for-item="value">
       <view class="chatTimeView" wx:if="{{value.isTimeVisible}}">
         <view class="chatTimeText">{{value.recentChatTime}}</view>
@@ -107,9 +107,7 @@
 <view class="modal-mask-all" wx:if="{{showChangeHideModal}}"></view>
 <view wx:if="{{showChangeHideModal}}">
   <view class="modal-content-hidingNickName">
-    <view class="hidingNickNameTitle">
-      每次对话都可以换新名字:
-    </view>
+    <view class="hidingNickNameTitle">每次对话都可以换新名字:</view>
     <view class="inputHidingNickNameView">
       <input class="inputHidingNickName" value="{{tempHidingNickName}}" placeholder="请输入匿名时昵称" bindinput="hidingNickNameInput" adjust-position='false'></input>
     </view>

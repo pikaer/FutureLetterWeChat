@@ -92,7 +92,7 @@ Page({
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/MyMomentList', {
+        'Letter/MyMomentList', {
           "UId": app.globalData.apiHeader.UId,
           "PageIndex": self.data.pageIndex
         },
@@ -127,7 +127,7 @@ Page({
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/GetCollectList', {
+        'Letter/GetCollectList', {
           "UId": app.globalData.apiHeader.UId,
           "PageIndex": self.data.pageCollectIndex
         },
@@ -257,7 +257,7 @@ Page({
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/DeleteMoment', {
+        'Letter/DeleteMoment', {
           "MomentId": self.data.selectMomentItem.momentid
         },
         function (res) {
@@ -284,7 +284,7 @@ Page({
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/DeleteCollect', {
+        'Letter/DeleteCollect', {
           "CollectId": self.data.selectCollectItem.collectid
         },
         function (res) {
@@ -314,7 +314,7 @@ Page({
       success(res) {
         if (res.confirm && app.globalData.apiHeader.UId > 0) {
           app.httpPost(
-            'api/Letter/DeleteAllMoment', {
+            'Letter/DeleteAllMoment', {
               "UId": app.globalData.apiHeader.UId
             },
             function (res) {
@@ -347,7 +347,7 @@ Page({
       success(res) {
         if (res.confirm && app.globalData.apiHeader.UId > 0) {
           app.httpPost(
-            'api/Letter/DeleteAllCollect', {
+            'Letter/DeleteAllCollect', {
               "UId": app.globalData.apiHeader.UId
             },
             function (res) {
@@ -382,7 +382,7 @@ Page({
       });
     }
     app.httpPost(
-      'api/Letter/BasicUserInfo', {
+      'Letter/BasicUserInfo', {
         "UId": app.globalData.apiHeader.UId,
         "Type": 1
       },
@@ -444,7 +444,7 @@ Page({
     app.globalData.basicUserInfo.isRegister = true;
 
     app.httpPost(
-      'api/Letter/SetUserInfo', {
+      'Letter/SetUserInfo', {
         "UId": app.globalData.apiHeader.UId,
         "NickName": userInfoWX.nickName,
         "AvatarUrl": userInfoWX.avatarUrl,

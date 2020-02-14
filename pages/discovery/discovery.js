@@ -111,7 +111,7 @@ Page({
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/UserCoinInfo', {
+        'Letter/UserCoinInfo', {
           "UId": app.globalData.apiHeader.UId
         },
         function(res) {
@@ -130,7 +130,7 @@ Page({
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/AttentionMomentCount', {
+        'Letter/AttentionMomentCount', {
           "UId": app.globalData.apiHeader.UId
         },
         function(res) {
@@ -152,7 +152,7 @@ Page({
         unReadMomentCount: ""
       });
       app.httpPost(
-        'api/Letter/UpdateLastScanMomentTime', {
+        'Letter/UpdateLastScanMomentTime', {
           "UId": app.globalData.apiHeader.UId
         },
         function(res) {
@@ -170,7 +170,7 @@ Page({
     if ((!app.isBlank(self.data.currentBasicUserInfo) && !self.data.currentBasicUserInfo.isRegister) ||
       app.globalData.needCheckUseInfo) {
       app.httpPost(
-        'api/Letter/BasicUserInfo', {
+        'Letter/BasicUserInfo', {
           "UId": app.globalData.apiHeader.UId,
           "Type": 1
         },
@@ -220,7 +220,7 @@ Page({
     }
     let self = this;
     app.httpPost(
-      'api/Letter/UnReadTotalCount', {
+      'Letter/UnReadTotalCount', {
         "UId": app.globalData.apiHeader.UId
       },
       function(res) {
@@ -244,7 +244,7 @@ Page({
   getLoginInfo: function(code, needInit) {
     let self = this;
     app.httpPost(
-      'api/Letter/UserLogin', {
+      'Letter/UserLogin', {
         "LoginCode": code
       },
       function(res) {
@@ -316,7 +316,7 @@ Page({
       console.info("获取全局瓶子列表缓存成功");
     }
     app.httpPost(
-      'api/Letter/PickUpList', {
+      'Letter/PickUpList', {
         "UId": app.globalData.apiHeader.UId,
         "PageIndex": 1
       },
@@ -345,7 +345,7 @@ Page({
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/DiscussList', {
+        'Letter/DiscussList', {
           "UId": app.globalData.apiHeader.UId,
           "PageIndex": 1
         },
@@ -368,7 +368,7 @@ Page({
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/MyMomentList', {
+        'Letter/MyMomentList', {
           "UId": app.globalData.apiHeader.UId,
           "PageIndex": 1
         },
@@ -387,7 +387,7 @@ Page({
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/GetCollectList', {
+        'Letter/GetCollectList', {
           "UId": app.globalData.apiHeader.UId,
           "PageIndex": 1
         },
@@ -543,7 +543,7 @@ Page({
       currentTargetPickUpId: ops.currentTarget.dataset.pickupid
     });
     app.httpPost(
-      'api/Letter/BasicUserInfo', {
+      'Letter/BasicUserInfo', {
         "UId": ops.currentTarget.dataset.uid
       },
       function(res) {
@@ -567,15 +567,6 @@ Page({
     this.setData({
       showModal: false
     });
-  },
-
-  //用户主页
-  toUserPage: function() {
-    this.hideModal();
-    let pickUpId = this.data.currentTargetPickUpId;
-    wx.navigateTo({
-      url: "../../pages/meindex/meindex"
-    })
   },
 
   toTop: function() {
@@ -611,7 +602,7 @@ Page({
     let pickUpId = this.data.currentMoment.pickUpId;
     let index = this.data.selectItem.key;
     app.httpPost(
-      'api/Letter/DeleteBottle', {
+      'Letter/DeleteBottle', {
         "UId": app.globalData.apiHeader.UId,
         "PickUpId": pickUpId,
         "DeleteType": 0
@@ -646,7 +637,7 @@ Page({
     this.hideModalShare();
     let momentId = this.data.currentMoment.momentId;
     app.httpPost(
-      'api/Letter/ForwardMoment', {
+      'Letter/ForwardMoment', {
         "UId": app.globalData.apiHeader.UId,
         "MomentId": momentId
       },
@@ -673,7 +664,7 @@ Page({
     var self = this;
     let pickUpId = this.data.currentMoment.pickUpId;
     app.httpPost(
-      'api/Letter/Discuss', {
+      'Letter/Discuss', {
         "UId": app.globalData.apiHeader.UId,
         "PickUpId": pickUpId,
         "TextContent": "Hi~"
@@ -727,7 +718,7 @@ Page({
     var self = this;
     let pickUpId = this.data.currentMoment.pickUpId;
     app.httpPost(
-      'api/Letter/Discuss', {
+      'Letter/Discuss', {
         "UId": app.globalData.apiHeader.UId,
         "PickUpId": pickUpId,
         "TextContent": this.data.insertDialogDiscussVlaue
@@ -759,7 +750,7 @@ Page({
     this.hideModalShare();
     var self = this;
     app.httpPost(
-      'api/Letter/Discuss', {
+      'Letter/Discuss', {
         "UId": app.globalData.apiHeader.UId,
         "MomentId": this.data.currentMoment.momentId,
         "TextContent": "Hi~"
@@ -799,7 +790,7 @@ Page({
     this.hideChatModal();
     var self = this;
     app.httpPost(
-      'api/Letter/Discuss', {
+      'Letter/Discuss', {
         "UId": app.globalData.apiHeader.UId,
         "MomentId": this.data.currentMoment.momentId,
         "TextContent": this.data.insertDialogDiscussVlaue
@@ -829,7 +820,7 @@ Page({
     var self = this;
     let uid = this.data.currentMoment.uId;
     app.httpPost(
-      'api/Letter/AddAttention', {
+      'Letter/AddAttention', {
         "UId": app.globalData.apiHeader.UId,
         "PartnerUId": uid,
         "MomentId": this.data.currentMoment.momentId
@@ -861,7 +852,7 @@ Page({
     var self = this;
     let uid = this.data.currentMoment.uId;
     app.httpPost(
-      'api/Letter/CancelAttention', {
+      'Letter/CancelAttention', {
         "UId": app.globalData.apiHeader.UId,
         "PartnerUId": uid
       },
@@ -892,7 +883,7 @@ Page({
     var self = this;
     let uid = this.data.currentMoment.uId;
     app.httpPost(
-      'api/Letter/OnlineNotify', {
+      'Letter/OnlineNotify', {
         "UId": app.globalData.apiHeader.UId,
         "PartnerUId": uid
       },
@@ -929,7 +920,7 @@ Page({
     var self = this;
     let pickUpId = this.data.currentMoment.pickUpId;
     app.httpPost(
-      'api/Letter/ReportBottle', {
+      'Letter/ReportBottle', {
         "PickUpId": pickUpId
       },
       function(res) {
@@ -954,7 +945,7 @@ Page({
     this.hideModalShare();
     var self = this;
     app.httpPost(
-      'api/Letter/AddCollect', {
+      'Letter/AddCollect', {
         "UId": app.globalData.apiHeader.UId,
         "MomentId": self.data.currentMoment.momentId,
         "PickUpId": self.data.currentMoment.pickUpId,
@@ -1050,7 +1041,7 @@ Page({
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/ClearUnReadCount', {
+        'Letter/ClearUnReadCount', {
           "UId": app.globalData.apiHeader.UId,
           "PickUpId": pickUpId
         },
@@ -1190,7 +1181,7 @@ Page({
     var self = this;
     let tempPickUpList = self.data.pickUpList;
     app.httpPost(
-      'api/Letter/PickUpList', {
+      'Letter/PickUpList', {
         "UId": app.globalData.apiHeader.UId,
         "PageIndex": this.data.pageIndex
       },
@@ -1234,7 +1225,7 @@ Page({
     }
     let tempAttentionList = self.data.attentionList;
     app.httpPost(
-      'api/Letter/AttentionList', {
+      'Letter/AttentionList', {
         "UId": app.globalData.apiHeader.UId,
         "PageIndex": this.data.attentionPageIndex
       },
@@ -1272,7 +1263,7 @@ Page({
     var self = this;
     let tempPickUpList = self.data.pickUpList;
     app.httpPost(
-      'api/Letter/PickUp', {
+      'Letter/PickUp', {
         "UId": app.globalData.apiHeader.UId
       },
       function(res) {
@@ -1342,7 +1333,7 @@ Page({
       success(res) {
         if (res.confirm) {
           app.httpPost(
-            'api/Letter/ClearAllBottle', {
+            'Letter/ClearAllBottle', {
               "UId": app.globalData.apiHeader.UId
             },
             function(res) {
@@ -1643,7 +1634,7 @@ Page({
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/UpdateUserLocation', {
+        'Letter/UpdateUserLocation', {
           "UId": app.globalData.apiHeader.UId,
           "Latitude": latitude,
           "Longitude": longitude
@@ -1699,7 +1690,7 @@ Page({
     app.globalData.basicUserInfo.isRegister = true;
     self.cancelLogin();
     app.httpPost(
-      'api/Letter/SetUserInfo', {
+      'Letter/SetUserInfo', {
         "UId": app.globalData.apiHeader.UId,
         "NickName": userInfoWX.nickName,
         "AvatarUrl": userInfoWX.avatarUrl,

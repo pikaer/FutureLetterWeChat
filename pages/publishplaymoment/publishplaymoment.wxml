@@ -1,0 +1,144 @@
+<view class="containerView">
+  <view class="contentArea" style="background-image: url({{backGroundImg}})">
+    <view class="editBackGroundView" bindtap="uploadpic">
+      <view class="editBackGroundText">更换背景图 </view>
+    </view>
+    <view class="bodyView" bindtap="showTextContentModal">
+      <!-- 文本动态 -->
+      <view class="textView">{{tempTextContent}}</view>
+    </view>
+    <view class="editView" bindtap="showTextContentModal">
+      <image class="editImg" src="/content/images/whiteedit.svg"></image>
+    </view>
+    <view class="titleView">
+      <view wx:if="{{!isHideNickName}}" class="{{1==2?'left_Hide_WoManView':'left_Hide_ManView'}}">
+        <image wx:if="{{basicUserInfo.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
+        <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
+      </view>
+      <view wx:else data-uId='{{basicUserInfo.uId}}' class="leftView">
+        <image src="{{backGroundImg}}" class="userHead" />
+      </view>
+      <view class="centerTitleView">
+        <view class="topHeadView">
+          <view class="backNickNameView">{{basicUserInfo.nickName}}</view>
+          <view class="onlineView">
+            <mp-badge style="margin-left: 5px;margin-right: 5px;float:left;padding-top:1rpx;" ext-class="blue" />
+            <view class="onlineTextView">当前在线</view>
+          </view>
+        </view>
+        <view class="centerView">
+          <view wx:if="{{isHideNickName}}" class="{{basicUserInfo.gender==1?'genderView':'gender_womanView'}}">
+            <view class="genderImgView">
+              <image wx:if="{{basicUserInfo.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
+              <image wx:if="{{basicUserInfo.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
+            </view>
+          </view>
+          <view class="tagView">0米</view>
+          <view class="tagView">{{basicUserInfo.ageYear}}</view>
+          <view class="tagView">{{basicUserInfo.constellation}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="lineView"></view>
+  <view class="notifyView">
+    <view class="notifyIcon">
+      <image class='notifyImg' src="/content/images/tag.svg" />
+    </view>
+    <view class="notifyText">一起玩类型</view>
+    <view class="pickValue">
+      <picker bindchange="bindPlayTypeChange" value="{{playTypeArray}}" range="{{playTypeArray}}">
+        <view class="pickData">{{playTypeArray[playTypeIndex]}}</view>
+      </picker>
+    </view>
+    <view class="navigator-right"></view>
+  </view>
+  <view class="lineView"></view>
+  <view class="notifyView">
+    <view class="notifyIcon">
+      <image class='notifyImg' src="/content/images/notify.svg" />
+    </view>
+    <view class="notifyText">有人打招呼时通知我</view>
+    <view class="notifyBtnView">
+      <switch checked='{{subscribeMessageOpen}}' bindtap="requestMsg" bindchange="subscribeMessage" />
+    </view>
+  </view>
+  <view class="lineView"></view>
+  <view class="identityView">
+    <view class="identityIcon">
+      <image class='notifyImg' src="/content/images/identity.svg" />
+    </view>
+    <view class="identityText">发布身份</view>
+    <view class="radioView">
+      <radio-group bindchange="identityValueChange">
+        <label class="labelReal">
+          真身
+          <radio value="1" checked />
+        </label>
+        <label class="labelFake">
+          匿名
+          <radio value="2" />
+        </label>
+      </radio-group>
+    </view>
+  </view>
+  <view class="lineView"></view>
+  <navigator wx:if="{{isHideNickName}}" class="nickNameView" url="../../pages/hidingnickname/hidingnickname?nickName={{hidingNickName}}">
+    <view class="nickNameIcon">
+      <image class='notifyImg' src="/content/images/editnickname.svg" />
+    </view>
+    <view class="nickNameText">匿名时昵称</view>
+    <view class="nickNameValueView">{{hidingNickName}}</view>
+    <view class="navigator-right"></view>
+  </navigator>
+  <view wx:if="{{isHideNickName}}" class="lineView"></view>
+  <view wx:if="{{isRegister}}" class="publishView">
+    <button disabled='{{publishDisabled}}' bindtap="publishMoment" class='yes-upload'>发布动态</button>
+  </view>
+
+  <view wx:else class="publishView">
+    <button disabled='{{publishDisabled}}' bindtap="toLogin" class="yes-upload">发布动态</button>
+  </view>
+</view>
+
+<!--custom Modal-->
+<view class="modal-mask-all" wx:if="{{showTextContentModal}}"></view>
+<view wx:if="{{showTextContentModal}}" class="modal-content-TextContent">
+  <view class="showTextTitle">一句话介绍自己:</view>
+  <view class="inputTextContentView">
+    <input class="inputTextContent" maxlength="14" value="{{tempTextContent}}" placeholder="不要超过14个字哦" bindinput="textContentInput" adjust-position='false'></input>
+  </view>
+  <view class="cancelModelView">
+    <button lang="zh_CN" bindtap="cancelTextContentModal" class="submitBtn">确认</button>
+  </view>
+</view>
+
+<!--custom Modal-->
+<view class="modal-mask-all" bindtap="hideLoginModal" wx:if="{{showLoginModal}}"></view>
+<view wx:if="{{showLoginModal}}">
+  <view class="modal-content-login">
+    <view class="titleTxtView">
+      你还未登录，登录后才能发布动态~
+    </view>
+    <button lang="zh_CN" bindtap="cancelLogin" class="cancelBtn">取消</button>
+    <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo" class="loginBtn">登录</button>
+  </view>
+</view>
+
+
+<!--custom Modal-->
+<view class="modal-mask-all" wx:if="{{showShareModal}}"></view>
+<view wx:if="{{showShareModal}}">
+  <view class="modal-content-share">
+    <view class="titleIconView">
+      <image class='success_logo' src="/content/images/success.svg"></image>
+    </view>
+    <view class="shareTitleTxtView">
+      发布成功
+    </view>
+    <view class="shareBtnView">
+      <button lang="zh_CN" bindtap="cancelShare" class="cancelShareBtn">返回上一页</button>
+      <button open-type='share' class="shareBtn">分享给好友</button>
+    </view>
+  </view>
+</view>

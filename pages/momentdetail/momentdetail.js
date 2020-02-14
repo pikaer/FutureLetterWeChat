@@ -53,7 +53,7 @@ Page({
       });
     } else {
       app.httpPost(
-        'api/Letter/MomentDetail', {
+        'Letter/MomentDetail', {
           "MomentId": self.data.momentId
         },
         function (res) {
@@ -86,7 +86,7 @@ Page({
       });
     }
     app.httpPost(
-      'api/Letter/BasicUserInfo', {
+      'Letter/BasicUserInfo', {
         "UId": ops.currentTarget.dataset.uid
       },
       function (res) {

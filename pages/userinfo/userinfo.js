@@ -79,7 +79,7 @@ Page({
     }
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/BasicUserInfo', {
+        'Letter/BasicUserInfo', {
           "UId": app.globalData.apiHeader.UId
         },
         function(res) {
@@ -101,7 +101,7 @@ Page({
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/UpdateAvatarUrl', {
+        'Letter/UpdateAvatarUrl', {
           "UId": app.globalData.apiHeader.UId,
           "AvatarUrl": path
         },
@@ -120,7 +120,7 @@ Page({
     let cacheKey = "userEditInfo+" + app.globalData.apiHeader.UId;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/GetUserInfo', {
+        'Letter/GetUserInfo', {
           "UId": app.globalData.apiHeader.UId
         },
         function(res) {
@@ -178,7 +178,7 @@ Page({
     app.setCache(cacheKey, tempUserInfo);
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
-        'api/Letter/UpdateUserInfo', {
+        'Letter/UpdateUserInfo', {
           "UId": app.globalData.apiHeader.UId,
           "Gender": tempUserInfo.gender,
           "NickName": tempUserInfo.nickName,
@@ -287,7 +287,7 @@ Page({
   uploadimage(tempPath) {
     let self = this
     wx.uploadFile({
-      url: app.globalData.baseUrl + "api/Letter/UpLoadImg", //需要用HTTPS，同时在微信公众平台后台添加服务器地址  
+      url: app.globalData.baseUrl + "Letter/UpLoadImg", //需要用HTTPS，同时在微信公众平台后台添加服务器地址  
       filePath: tempPath.path, //上传的文件本地地址    
       name: 'file',
       success: function(res) {

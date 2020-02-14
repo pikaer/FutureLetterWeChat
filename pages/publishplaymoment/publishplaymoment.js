@@ -1,11 +1,10 @@
 const app = getApp()
 
-
 Page({
   data: {
-    localImgs: [],
-    serverImgs: [],
-    upload_picture_list: [],
+    backGroundImg: "",
+    serverImgsPath: "",
+    upload_percent: 0,
     ishidden: false,
     hasImg: true,
     publishDisabled: true,
@@ -13,11 +12,14 @@ Page({
     isHideNickName: false,
     tempTextContent: "",
     hidingNickName: "",
-    isRegister: true,
     momentId: "",
+    basicUserInfo:{},
     subscribeMessageOpen: false,
     showLoginModal: false,
     showShareModal: false,
+    showTextContentModal: false,
+    playTypeArray: ['其他', '王者', '吃鸡', '连麦', '游戏', '学习', '追剧', '早起', '散步', '看电影'],
+    playTypeIndex: 0,
     messageDiscussNotifyWechatId: "GytyYcEW0BqLnACK9hFZMMXbvOZc2oq5DQjdJ65sRFI",
     messageDiscussNotifyQQId: "59880ab542241403ede33bb4c64f0166"
   },
@@ -25,9 +27,22 @@ Page({
   onLoad: function() {
     this.setData({
       isRegister: app.globalData.basicUserInfo.isRegister,
+      basicUserInfo: app.globalData.basicUserInfo,
+      backGroundImg: app.globalData.basicUserInfo.headPhotoPath,
+      serverImgsPath: app.globalData.basicUserInfo.headPhotoPath,
+      tempTextContent: app.globalData.basicUserInfo.signature,
       hidingNickName: app.globalData.basicUserInfo.nickName
     })
   },
+
+  onShow: function () {
+    this.setData({
+      isRegister: app.globalData.basicUserInfo.isRegister,
+      basicUserInfo: app.globalData.basicUserInfo
+    })
+    this.basicUserInfo();
+  },
+
 
   cancelLogin: function() {
     this.setData({
@@ -54,7 +69,7 @@ Page({
     });
   },
 
-  //性别单选框值变动
+  //单选框值变动
   identityValueChange: function(e) {
     this.setData({
       isHideNickName: e.detail.value == 2
@@ -83,6 +98,31 @@ Page({
         }
       })
     }
+  },
+
+  //获取用户基础信息
+  basicUserInfo: function (ops) {
+    var self = this;
+    let cacheKey = "basicUserInfo+" + app.globalData.apiHeader.UId;
+    app.httpPost(
+      'Letter/BasicUserInfo', {
+        "UId": app.globalData.apiHeader.UId,
+        "Type": 1
+      },
+      function (res) {
+        app.globalData.basicUserInfo = res;
+        self.setData({
+          basicUserInfo: res
+        });
+        this.setData({
+          isRegister: res.isRegister,
+          basicUserInfo: res
+        })
+        app.setCache(cacheKey, res);
+      },
+      function (res) {
+        console.error("获取用户基础信息失败");
+      })
   },
 
   //存入用户信息
@@ -120,32 +160,10 @@ Page({
     this.hideShareModal();
     let url = app.globalData.bingoLogo;
     let title = app.globalData.bingoTitle;
-    if (app.isBlank(this.data.momentId)) {
-      return {
-        title: title,
-        imageUrl: url,
-        path: "/pages/discovery/discovery",
-        success: function(res) {
-          // 转发成功
-        },
-        fail: function(res) {
-          // 转发失败
-        }
-      }
-    }
-    if (this.data.tempTextContent != "" && this.data.tempTextContent != undefined) {
-      title = this.data.tempTextContent;
-    }
-    if (this.data.localImgs[0] != "" && this.data.localImgs[0] != undefined) {
-      url = this.data.localImgs[0];
-    }
-    wx.navigateBack({
-      delta: 1
-    })
     return {
       title: title,
       imageUrl: url,
-      path: "/pages/sharepage/sharepage?momentId=" + this.data.momentId
+      path: "/pages/discovery/discovery"
     }
   },
 
@@ -178,6 +196,25 @@ Page({
     }
   },
 
+  cancelTextContentModal: function() {
+    this.setData({
+      showTextContentModal: false
+    });
+  },
+
+  showTextContentModal: function() {
+    this.setData({
+      showTextContentModal: true
+    });
+  },
+
+  //获取输入的聊天内容
+  textContentInput: function(e) {
+    this.setData({
+      tempTextContent: e.detail.value
+    })
+    this.updateBtnState();
+  },
   //发布动态
   publishMomentContent: function() {
     var self = this;
@@ -187,7 +224,9 @@ Page({
         "IsHide": self.data.isHideNickName,
         "HidingNickName": self.data.hidingNickName,
         "TextContent": self.data.tempTextContent,
-        "ImgContent": self.data.serverImgs[0],
+        "ImgContent": self.data.serverImgsPath,
+        "SourceFlag": 1,
+        "PlayType": self.data.playTypeIndex,
         "SubscribeMessageOpen": self.data.subscribeMessageOpen
       },
       function(res) {
@@ -262,29 +301,29 @@ Page({
     this.updateBtnState();
   },
 
+  bindPlayTypeChange: function(e) {
+    this.setData({
+      playTypeIndex: e.detail.value
+    })
+  },
+
   //更新按钮禁用状态
   updateBtnState: function() {
-    let str = this.data.tempTextContent;
-    let localImgs = this.data.localImgs;
-    let canUse = (localImgs != undefined && localImgs.length > 0) || (str != null && str.length > 0);
     this.setData({
-      publishDisabled: !canUse
+      publishDisabled: app.isBlank(this.data.tempTextContent) || app.isBlank(this.data.backGroundImg)
     })
   },
 
   //选择图片方法
   uploadpic: function(e) {
     let self = this //获取上下文
-    let upload_picture_list = self.data.upload_picture_list;
-    let localImgs = self.data.localImgs;
     //选择图片
     wx.chooseImage({
       count: 1, // 默认9，这里显示一次选择相册的图片数量 
       sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有  
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function(res) { // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片 
-        let tempFiles = res.tempFiles;
-        if (tempFiles.length > 1 || (localImgs != undefined && localImgs.length + tempFiles.length > 1)) {
+        if (res.tempFiles.length > 1) {
           wx.showToast({
             title: "不能超过1张",
             icon: 'success',
@@ -293,74 +332,15 @@ Page({
           })
           return;
         }
-        //把选择的图片 添加到集合里
-        for (let i in tempFiles) {
-          tempFiles[i]['upload_percent'] = 0;
-          localImgs.push(tempFiles[i].path);
-          upload_picture_list.push(tempFiles[i])
-        }
 
         self.setData({
-          upload_picture_list: upload_picture_list,
-          localImgs: localImgs
+          backGroundImg: res.tempFiles[0].path,
         });
 
-        if (upload_picture_list.length >= 1) {
-          self.setData({
-            ishidden: true
-          });
-        }
-        self.uploadimage();
-
-        self.updateBtnState();
       }
     })
   },
 
-  //上传图片
-  uploadimage() {
-    let self = this
-    let uploadList = self.data.upload_picture_list
-    //循环把图片上传到服务器 并显示进度       
-    for (let j in uploadList) {
-      if (uploadList[j]['upload_percent'] == 0) {
-        //上传图片
-        upload_file_server(self, uploadList, j)
-      }
-    }
-  },
-
-  // 点击删除图片
-  deleteImg(e) {
-    let uploadList = this.data.upload_picture_list;
-    let localImgs = this.data.localImgs;
-    let index = e.currentTarget.dataset.index;
-    uploadList.splice(index, 1);
-    localImgs.splice(index, 1);
-    this.setData({
-      upload_picture_list: uploadList,
-      localImgs: localImgs
-    });
-
-    if (localImgs.length < 1) {
-      this.setData({
-        ishidden: false
-      });
-    }
-
-    this.updateBtnState();
-
-    let serverImgs = this.data.serverImgs;
-    let imgPath = serverImgs[index].imgPath;
-    if (serverImgs != undefined) {
-      serverImgs.splice(index, 1);
-      this.setData({
-        serverImgs: serverImgs
-      });
-      //删除服务器上图片
-      deleteImg(imgPath);
-    }
-  },
 
   // login.js
   requestMsgAndPublisgh() {
@@ -441,65 +421,37 @@ Page({
     }
   },
 
-  // 预览图片
-  previewImg(e) {
-    //获取当前图片的下标
-    let index = e.currentTarget.dataset.index;
-    //所有图片
-    let localImgs = this.data.localImgs;
-    wx.previewImage({
-      //当前显示图片
-      current: localImgs[index],
-      //所有图片
-      urls: localImgs
-    })
+
+  upload_file_server() {
+    if (backGroundImg.contains("https://") || backGroundImg.contains("http://")) {
+      this.publishMomentContent();
+    } else {
+      let self = this
+      const upload_task = wx.uploadFile({
+        url: app.globalData.baseUrl + "Letter/UpLoadImg", //需要用HTTPS，同时在微信公众平台后台添加服务器地址  
+        filePath: backGroundImg, //上传的文件本地地址    
+        name: 'file',
+        success: function(res) {
+          let data = JSON.parse(res.data);
+          if (data.success) {
+            self.setData({
+              serverImgsPath: data.content.imgPath
+            });
+            self.publishMomentContent();
+          }
+        },
+        fail: function(res) {
+          var data = JSON.parse(res.data);
+          console.info(data);
+          self.publishToast(false);
+        }
+      })
+      //上传 进度方法
+      upload_task.onProgressUpdate((res) => {
+        self.setData({
+          upload_percent: res.progress
+        });
+      });
+    }
   }
 })
-
-/**
- * 上传图片方法
- */
-function upload_file_server(self, upload_picture_list, j) {
-  const upload_task = wx.uploadFile({
-    url: app.globalData.baseUrl + "Letter/UpLoadImg", //需要用HTTPS，同时在微信公众平台后台添加服务器地址  
-    filePath: upload_picture_list[j]['path'], //上传的文件本地地址    
-    name: 'file',
-    success: function(res) {
-      let data = JSON.parse(res.data);
-      let serverImgs = self.data.serverImgs;
-      if (data.success) {
-        serverImgs.push(data.content.imgPath);
-        self.setData({
-          serverImgs: serverImgs
-        });
-      }
-    },
-    fail: function(res) {
-      var data = JSON.parse(res.data);
-      console.info(data);
-    }
-  })
-  //上传 进度方法
-  upload_task.onProgressUpdate((res) => {
-    upload_picture_list[j]['upload_percent'] = res.progress
-    self.setData({
-      upload_picture_list: upload_picture_list
-    });
-  });
-}
-
-//删除服务器上的图片
-function deleteImg(path) {
-  var self = this;
-  app.httpPost(
-    'Letter/DeleteImg', {
-      "ImgPath": path
-    },
-    function(res) {
-      console.info("删除图片成功，path=" + path);
-    },
-    function(res) {
-      console.error("删除图片失败，path=" + path);
-    },
-  )
-}

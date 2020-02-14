@@ -8,7 +8,7 @@
     </view>
     <view bindtap="toCoinDetailPage" class="coinTextView">{{totalCoin}}</view>
   </view>
-  <view catchtap="toUserPage" class="toUserPage">
+  <view  class="toUserPage">
     <view bindtap="toDiscoryList" class="leftTitleView">
       <view class="{{currentTab==0?'momentTitleCilick':'momentTitle'}}">探索 </view>
       <view class="{{currentTab==0?'momentTitleCilickBottom':''}}"></view>
@@ -47,7 +47,7 @@
     <swiper indicator-dots="{{indicatorDots}}" resistanceRatio='0' autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px"
       current="{{currentTab}}" bindchange="bindChange">
       <swiper-item>
-        <scroll-view scroll-y="false" class="momentArea">
+        <scroll-view scroll-with-animation="true" scroll-y="false" class="momentArea">
           <view class="defaultDescView" wx:if="{{pickUpList.length==0}}">
             <view class="pullImgView">
               <image src="/content/images/pullDown.png" class="pullImg" />
@@ -56,7 +56,7 @@
           </view>
           <!-- 占位 -->
           <view class="empty_topArea"></view>
-          <view class="contentAreaView" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList}}" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}' data-key='{{key}}'>
+          <view class="contentAreaView" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}' data-key='{{key}}'>
             <view class="contentArea" hover-class="contentArea_Hover">
               <view class="titleView">
                 <view wx:if="{{value.isHide}}" class="{{value.gender==2?'left_Hide_WoManView':'left_Hide_ManView'}}" data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' data-pickUpId='{{value.pickUpId}}' catchtap='toShowModal'>
@@ -115,13 +115,13 @@
 
       </swiper-item>
       <swiper-item>
-        <scroll-view scroll-y="false" class="momentArea">
+        <scroll-view scroll-with-animation="true" scroll-y="false" class="momentArea">
           <view class="defaultDescView" wx:if="{{attentionList.length==0}}">
             <view class="pullTxtView">空空如也，快去关注好友吧~</view>
           </view>
           <!-- 占位 -->
           <view class="empty_topArea"></view>
-          <view class="contentAreaView" bindtap="previewAtentionMomentDetail" bindlongpress="moreAtteitionAction" wx:for="{{attentionList}}" wx:for-index="key" wx:for-item="value" data-momentId='{{value.momentId}}' data-key='{{key}}'>
+          <view class="contentAreaView" bindtap="previewAtentionMomentDetail" bindlongpress="moreAtteitionAction" wx:for="{{attentionList}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-momentId='{{value.momentId}}' data-key='{{key}}'>
             <view class="contentArea" hover-class="contentArea_Hover">
               <view class="titleView">
                 <view data-uId='{{value.uId}}' data-momentId='{{value.momentId}}' class="leftView" catchtap='toShowModal'>
@@ -180,7 +180,8 @@
   </view>
 
   <view class="publishIcon" catchtap="publishMoment">
-    <view class="iconfont edit" style='font-size:25px;font-weight: 650;color: white;padding-top: 3px;' /> </view>
+    <view class="iconfont edit" style='font-size:25px;font-weight: 650;color: white;padding-top: 3px;' />
+  </view>
 </view>
 
 <!--custom Modal-->
