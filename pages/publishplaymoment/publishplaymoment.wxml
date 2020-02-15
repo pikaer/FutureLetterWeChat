@@ -11,12 +11,12 @@
       <image class="editImg" src="/content/images/whiteedit.svg"></image>
     </view>
     <view class="titleView">
-      <view wx:if="{{!isHideNickName}}" class="{{1==2?'left_Hide_WoManView':'left_Hide_ManView'}}">
+      <view wx:if="{{isHideNickName}}" class="{{basicUserInfo.gender==2?'left_Hide_WoManView':'left_Hide_ManView'}}">
         <image wx:if="{{basicUserInfo.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
         <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
       </view>
       <view wx:else data-uId='{{basicUserInfo.uId}}' class="leftView">
-        <image src="{{backGroundImg}}" class="userHead" />
+        <image src="{{basicUserInfo.headPhotoPath}}" class="userHead" />
       </view>
       <view class="centerTitleView">
         <view class="topHeadView">
@@ -27,7 +27,7 @@
           </view>
         </view>
         <view class="centerView">
-          <view wx:if="{{isHideNickName}}" class="{{basicUserInfo.gender==1?'genderView':'gender_womanView'}}">
+          <view wx:if="{{!isHideNickName}}" class="{{basicUserInfo.gender==1?'genderView':'gender_womanView'}}">
             <view class="genderImgView">
               <image wx:if="{{basicUserInfo.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
               <image wx:if="{{basicUserInfo.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
@@ -93,7 +93,7 @@
   </navigator>
   <view wx:if="{{isHideNickName}}" class="lineView"></view>
   <view wx:if="{{isRegister}}" class="publishView">
-    <button disabled='{{publishDisabled}}' bindtap="publishMoment" class='yes-upload'>发布动态</button>
+    <button disabled='{{publishDisabled}}' bindtap="upload_file_server" class='yes-upload'>发布动态</button>
   </view>
 
   <view wx:else class="publishView">

@@ -7,13 +7,13 @@ Page({
     upload_percent: 0,
     ishidden: false,
     hasImg: true,
-    publishDisabled: true,
+    publishDisabled: false,
     isRegister: true,
     isHideNickName: false,
     tempTextContent: "",
     hidingNickName: "",
     momentId: "",
-    basicUserInfo:{},
+    basicUserInfo: {},
     subscribeMessageOpen: false,
     showLoginModal: false,
     showShareModal: false,
@@ -35,7 +35,7 @@ Page({
     })
   },
 
-  onShow: function () {
+  onShow: function() {
     this.setData({
       isRegister: app.globalData.basicUserInfo.isRegister,
       basicUserInfo: app.globalData.basicUserInfo
@@ -101,7 +101,7 @@ Page({
   },
 
   //获取用户基础信息
-  basicUserInfo: function (ops) {
+  basicUserInfo: function(ops) {
     var self = this;
     let cacheKey = "basicUserInfo+" + app.globalData.apiHeader.UId;
     app.httpPost(
@@ -109,18 +109,15 @@ Page({
         "UId": app.globalData.apiHeader.UId,
         "Type": 1
       },
-      function (res) {
+      function(res) {
         app.globalData.basicUserInfo = res;
         self.setData({
-          basicUserInfo: res
-        });
-        this.setData({
           isRegister: res.isRegister,
           basicUserInfo: res
         })
         app.setCache(cacheKey, res);
       },
-      function (res) {
+      function(res) {
         console.error("获取用户基础信息失败");
       })
   },
@@ -423,13 +420,13 @@ Page({
 
 
   upload_file_server() {
-    if (backGroundImg.contains("https://") || backGroundImg.contains("http://")) {
+    if (this.data.backGroundImg===app.globalData.basicUserInfo.headPhotoPath) {
       this.publishMomentContent();
     } else {
       let self = this
       const upload_task = wx.uploadFile({
         url: app.globalData.baseUrl + "Letter/UpLoadImg", //需要用HTTPS，同时在微信公众平台后台添加服务器地址  
-        filePath: backGroundImg, //上传的文件本地地址    
+        filePath: this.data.backGroundImg, //上传的文件本地地址    
         name: 'file',
         success: function(res) {
           let data = JSON.parse(res.data);
