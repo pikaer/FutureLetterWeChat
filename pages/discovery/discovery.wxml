@@ -2,7 +2,6 @@
 <view wx:if="{{!showStartUp}}" class="empty_custom" style="padding-top:{{statusBarHeight}}px"></view>
 <view wx:if="{{!showStartUp}}" class="custom" style="padding-top:{{statusBarHeight}}px">
   <view class="chatListView" style="top:{{statusBarHeight+6}}px">
-    <!-- <image class='nav_logo' src="/content/images/publish.svg" catchtap="publishMoment" /> -->
     <view class="coinIconView" bindtap="toCoinDetailPage">
       <image class='coin_logo' src="/content/images/coin.svg" />
     </view>

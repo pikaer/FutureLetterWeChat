@@ -11,7 +11,7 @@
   padding: 8px;
 }
 
-.add-image, .up-pic image {
+.add-image {
   margin-top: 2%;
   margin-left: 2%;
   width: 150rpx;
@@ -272,11 +272,6 @@ button {
   clear: both;
 }
 
-.radioLable {
-  font-size: 16px;
-  margin-top: 10px;
-  float: left;
-}
 
 .radioView {
   float: right;

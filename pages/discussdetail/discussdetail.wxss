@@ -25,9 +25,7 @@
   margin-bottom: 20px;
 }
 
-.titleView {
-  width: 100%;
-}
+
 
 .leftView {
   float: left;
@@ -66,10 +64,7 @@
   clear: both;
 }
 
-.discussArea {
-  margin-bottom: 120px;
-  height: 100%;
-}
+
 
 .discussContent {
   clear: both;
@@ -151,16 +146,6 @@
   padding-top: 5px;
   padding-left: 5px;
   caret-color: #eff2fb;
-}
-
-.discussSupportCount {
-  float: right;
-  margin-left: 5px;
-  margin-top: 4px;
-}
-
-.bodyView {
-  clear: both;
 }
 
 .textView {
@@ -315,20 +300,6 @@ button {
   font-weight: 700;
 }
 
-.btnAreaView {
-  width: 60px;
-  float: right;
-  padding-right: 10px;
-}
-
-.publishMomentBtn {
-  width: 110px;
-  height: 40px;
-  padding-top: 10px;
-  background: #00cd66;
-  color: white;
-  font-weight: 650;
-}
 
 .cancelBtnView {
   float: left;
@@ -455,11 +426,6 @@ button {
   position: fixed;
 }
 
-.topUserHead {
-  width: 36px;
-  height: 36px;
-  border-radius: 100%;
-}
 
 .topNickNameView {
   font-size: 14px;

@@ -93,7 +93,7 @@
   </navigator>
   <view wx:if="{{isHideNickName}}" class="lineView"></view>
   <view wx:if="{{isRegister}}" class="publishView">
-    <button disabled='{{publishDisabled}}' bindtap="upload_file_server" class='yes-upload'>发布动态</button>
+    <button disabled='{{publishDisabled}}' bindtap="upload_file_publishMoment" class='yes-upload'>发布动态</button>
   </view>
 
   <view wx:else class="publishView">

@@ -100,6 +100,7 @@ Page({
     }
   },
 
+
   //获取用户基础信息
   basicUserInfo: function(ops) {
     var self = this;
@@ -131,7 +132,7 @@ Page({
     app.globalData.basicUserInfo.isRegister = true;
     self.isRegister = true;
     if (app.globalData.basicUserInfo.isRegister) {
-      self.publishMoment();
+      self.upload_file_publishMoment();
     }
     app.httpPost(
       'Letter/SetUserInfo', {
@@ -212,6 +213,8 @@ Page({
     })
     this.updateBtnState();
   },
+
+
   //发布动态
   publishMomentContent: function() {
     var self = this;
@@ -242,6 +245,7 @@ Page({
       },
     )
   },
+
 
   //弹框
   publishToast: function(success) {
@@ -311,6 +315,8 @@ Page({
     })
   },
 
+
+
   //选择图片方法
   uploadpic: function(e) {
     let self = this //获取上下文
@@ -339,7 +345,6 @@ Page({
   },
 
 
-  // login.js
   requestMsgAndPublisgh() {
     let self = this;
     let messageDiscussNotifyId = "";
@@ -381,7 +386,7 @@ Page({
   },
 
 
-  // login.js
+  //有人打招呼时通知我 开关切换
   requestMsg() {
     let self = this;
     let messageDiscussNotifyId = "";
@@ -419,9 +424,9 @@ Page({
   },
 
 
-  upload_file_server() {
+  upload_file_publishMoment() {
     if (this.data.backGroundImg===app.globalData.basicUserInfo.headPhotoPath) {
-      this.publishMomentContent();
+      this.publishMoment();
     } else {
       let self = this
       const upload_task = wx.uploadFile({
@@ -434,7 +439,7 @@ Page({
             self.setData({
               serverImgsPath: data.content.imgPath
             });
-            self.publishMomentContent();
+            self.publishMoment();
           }
         },
         fail: function(res) {

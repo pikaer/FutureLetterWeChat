@@ -372,6 +372,7 @@ swiper-item {
   height: 0;
   color: transparent;
 }
+
 .publishIcon {
   position: fixed;
   bottom: 15px;
@@ -381,4 +382,11 @@ swiper-item {
   background-color: #0178d4;
   border-radius: 100%;
   text-align: center;
+}
+
+.placeUseview {
+  width: 100%;
+  height: 100px;
+  clear: both;
+  margin-bottom: 50px;
 }
