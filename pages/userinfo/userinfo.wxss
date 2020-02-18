@@ -147,7 +147,7 @@ page {
   width: 100%;
   font-size: 12px;
   padding-left: 20px;
-  padding-top: 6px;
+  padding-top: 16px;
   padding-bottom: 6px;
   color: #8e8e8e;
   background-color: #eff2fb;

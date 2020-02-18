@@ -38,7 +38,7 @@
           <view class="{{currentTab==0?'momentTitleCilick':'momentTitle'}}">发布的动态</view>
         </view>
         <view bindtap="toCollectList" class="itemTitleView">
-          <view class="{{currentTab==0?'momentTitle':'momentTitleCilick'}}">收藏的动态</view>
+          <view class="{{currentTab==1?'momentTitleCilick':'momentTitle'}}">收藏的动态</view>
         </view>
       </view>
     </view>
@@ -50,7 +50,7 @@
         <!-- 动态 -->
         <swiper-item>
           <scroll-view scroll-y="true" class="momentArea">
-            <view class="momentView" hover-class="momentView_Hover" wx:for="{{tempMomentList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' bindtap="toMomentDetailPage" bindlongpress="bindlongMomentPress">
+            <view class="momentView" hover-class="momentView_Hover" wx:for="{{tempMomentList}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' bindtap="toMomentDetailPage" bindlongpress="bindlongMomentPress">
               <view class="momentTitleView">
                 <view wx:if="{{value.isHide}}" class="{{value.gender==2?'hideHeadPhoto_WoMan_View':'hideHeadPhoto_Man_View'}}" data-isHide='{{value.isHide}}'>
                   <view class="shortNameView">{{value.shortNickName}}</view>
@@ -64,6 +64,7 @@
                 <view class="centerView">
                   <view class="publishTime">{{value.publishTime}}</view>
                   <view wx:if="{{value.isHide}}" class="hideTextView">分身状态</view>
+                  <view class="hideTextView">闪聊动态</view>
                 </view>
               </view>
               <view class="iconView" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' catchtap='bindlongMomentPress'>
@@ -83,8 +84,8 @@
         <!-- 收藏 -->
         <swiper-item>
           <scroll-view scroll-y="true" class="momentArea">
-            <view class="momentView" hover-class="momentView_Hover" wx:for="{{tempCollectList}}" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-collectId='{{value.collectId}}' data-momentId='{{value.momentId}}' data-uId='{{value.uId}}' data-type='2'
-              bindtap="toDiscussDetailPage" bindlongpress="bindlongMomentPress">
+            <view class="momentView" hover-class="momentView_Hover" wx:for="{{tempCollectList}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-collectId='{{value.collectId}}' data-momentId='{{value.momentId}}'
+              data-uId='{{value.uId}}' data-type='2' bindtap="toDiscussDetailPage" bindlongpress="bindlongMomentPress">
               <view class="momentTitleView">
                 <view wx:if="{{value.isHide}}" class="{{value.gender==2?'left_Hide_WoManView':'left_Hide_ManView'}}" data-isHide='{{value.isHide}}'>
                   <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />

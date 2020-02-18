@@ -36,26 +36,6 @@
   background-color: #eff2fb;
 }
 
-.coinCountView {
-  float: left;
-  font-size: 13px;
-}
-
-.countText {
-  float: left;
-  font-size: 12px;
-  color: #9d9d9d;
-}
-
-.countView {
-  margin-top: 5px;
-}
-
-.userInfoView {
-  margin-top: 45rpx;
-  float: right;
-}
-
 .tabView {
   width: 100%;
 }
@@ -196,14 +176,9 @@ swiper-item {
 
 .publishTime {
   font-size: 10px;
-  float: left;
-  background-color: #eff2fb;
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-bottom: 1px;
+  color: gray;
   padding-top: 1px;
-  border-radius: 5px;
-  margin-right: 5px;
+  float: left;
 }
 
 .momentImg {
@@ -331,54 +306,12 @@ button {
   margin-bottom: 10px;
 }
 
-.editView {
-  float: left;
-  padding-left: 10px;
-  padding-top: 12px;
-}
-
-.editImg {
-  width: 16px;
-  height: 16px;
-}
-
 .iconView {
   float: right;
 }
 
 .momentTitleView {
   width: 100%;
-}
-
-.hideHeadPhoto_Man_View {
-  float: left;
-  width: 48px;
-  height: 48px;
-  background-color: #85d0ed;
-  border-radius: 100%;
-}
-
-.hideHeadPhoto_WoMan_View {
-  float: left;
-  width: 48px;
-  height: 48px;
-  background-color: #fda3e6;
-  border-radius: 100%;
-}
-
-.shortNameView {
-  width: 100%;
-  height: 100%;
-  font-size: 24px;
-  padding-top: 5px;
-  text-align: center;
-}
-
-.genderImgHead {
-  height: 25px;
-  width: 25px;
-  padding-left: 10px;
-  padding-top: 10px;
 }
 
 .leftView {
@@ -412,36 +345,9 @@ button {
 }
 
 .centerView {
+  float: left;
   margin-left: 8px;
-  clear: both;
-}
-
-.hideTextView {
-  font-size: 10px;
-  float: left;
-  background-color: #eff2fb;
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-bottom: 1px;
-  padding-top: 1px;
-  border-radius: 5px;
-  margin-right: 5px;
-}
-
-.left_Hide_ManView {
-  float: left;
-  width: 45px;
-  height: 45px;
-  border-radius: 100%;
-  background-color: #85d0ed;
-}
-
-.left_Hide_WoManView {
-  float: left;
-  width: 45px;
-  height: 45px;
-  border-radius: 100%;
-  background-color: #fda3e6;
+  width: 100%;
 }
 
 .topHeadView {
@@ -500,4 +406,55 @@ button {
   padding-left: 2px;
   padding-top: 1px;
   float: left;
+}
+
+.tagView {
+  float: left;
+  background-color: white;
+  padding-left: 5px;
+  border-radius: 5px;
+  padding-right: 5px;
+  margin-right: 5px;
+  font-size: 10px;
+  color: black;
+}
+
+.genderImg {
+  width: 7px;
+  height: 7px;
+}
+
+.genderImgView {
+  float: left;
+  padding-top: 3px;
+  margin-bottom: 2px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.genderView {
+  height: 13px;
+  color: white;
+  float: left;
+  width: 13px;
+  border-radius: 8px;
+  margin-top: 1px;
+  margin-right: 8px;
+  background-color: #85d0ed;
+}
+
+.gender_womanView {
+  height: 13px;
+  color: white;
+  float: left;
+  width: 13px;
+  background-color: #fda3e6;
+  border-radius: 8px;
+  margin-top: 2px;
+  margin-right: 8px;
+}
+
+.tagAreaView {
+  margin-top: 8px;
+  clear: both;
 }

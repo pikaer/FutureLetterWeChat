@@ -40,16 +40,7 @@ Page({
   },
 
   onShow: function() {
-    this.getPlayTogetherList(0);
-    this.getPlayTogetherList(1);
-    this.getPlayTogetherList(2);
-    this.getPlayTogetherList(3);
-    this.getPlayTogetherList(4);
-    this.getPlayTogetherList(5);
-    this.getPlayTogetherList(6);
-    this.getPlayTogetherList(7);
-    this.getPlayTogetherList(8);
-    this.getPlayTogetherList(9);
+    this.getPlayTogetherList();
   },
 
   //初始化数据
@@ -71,11 +62,19 @@ Page({
     var self = this;
     app.httpPost(
       'Letter/PlayTogetherList', {
-        "UId": app.globalData.apiHeader.UId,
-        "PlayType": playType
+        "UId": app.globalData.apiHeader.UId
       },
       function(res) {
-        self.setPlayTogtherData(res.playTogetherList, playType);
+        self.setPlayTogtherData(res.playTogetherList_Other, 0);
+        self.setPlayTogtherData(res.playTogetherList_WangZhe, 1);
+        self.setPlayTogtherData(res.playTogetherList_ChiJi, 2);
+        self.setPlayTogtherData(res.playTogetherList_LianMai, 3);
+        self.setPlayTogtherData(res.playTogetherList_Game, 4);
+        self.setPlayTogtherData(res.playTogetherList_Learn, 5);
+        self.setPlayTogtherData(res.playTogetherList_TVTracker, 6);
+        self.setPlayTogtherData(res.playTogetherList_Earlybird, 7);
+        self.setPlayTogtherData(res.playTogetherList_Walk, 8);
+        self.setPlayTogtherData(res.playTogetherList_Movie, 9);
         console.info("获取一起玩列表成功");
       },
       function(res) {
@@ -95,6 +94,15 @@ Page({
     });
     this.scrollPosition(tabIndex);
   },
+
+  //跳转至个人空间
+  toUserSpace: function(e) {
+    wx.navigateTo({
+      url: "../../pages/userspace/userspace?uId=" + e.currentTarget.dataset.uid
+    })
+  },
+
+
 
   getPlayTogtherCacheData: function(playType) {
     let cacheKey = 'playTogetherListCacheData_playType_' + playType;

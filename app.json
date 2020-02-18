@@ -5,6 +5,7 @@
     "pages/playtogether/playtogether",
     "pages/publishplaymoment/publishplaymoment",
     "pages/coin/coin",
+    "pages/userspace/userspace",
     "pages/coindetail/coindetail",
     "pages/meindex/meindex",
     "pages/userinfo/userinfo",

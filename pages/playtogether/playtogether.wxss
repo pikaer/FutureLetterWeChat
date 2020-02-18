@@ -129,7 +129,7 @@ swiper-item {
 
 .left_Hide_ManView {
   float: left;
-  margin-left: 6px;
+  margin-left: 20px;
   margin-top: 5px;
   width: 45px;
   height: 45px;
@@ -247,13 +247,24 @@ swiper-item {
   padding-left: 5px;
   border-radius: 5px;
   padding-right: 5px;
-  margin-right: 8px;
+  margin-right: 5px;
   font-size: 10px;
   color: black;
 }
 
-.bodyView {
+.bodyView_Hide {
   margin-top: 280px;
+  background-color: white;
+  float: left;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin-left: 45px;
+  margin-bottom: 4px;
+}
+
+.bodyView {
+  margin-top: 232px;
   background-color: white;
   float: left;
   border-top-left-radius: 10px;
@@ -389,4 +400,41 @@ swiper-item {
   height: 100px;
   clear: both;
   margin-bottom: 50px;
+}
+
+.momentImgListView {
+  clear: both;
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+.momentImgView {
+  width: 39px;
+  height: 51px;
+  float: left;
+  margin-right: 5px;
+  background-color: white;
+  border-radius: 8px;
+  padding-left: 1px;
+  padding-top: 1px;
+}
+
+.momentImg {
+  height: 50px;
+  width: 38px;
+  border-radius: 8px;
+}
+
+.toUserSpaceView {
+  float: left;
+  width: 18px;
+  height: 51px;
+  background-color: #eff2fb;
+  border-radius: 8px;
+  margin-left: 10px;
+}
+
+.toUserIcon {
+  width: 18px;
+  height: 51px;
 }

@@ -66,6 +66,7 @@
   </view>
   <view class="explainTxt">以下信息用于提高匹配度，不会出现在简介里</view>
   <view class="blockView">
+     <view class="lineView"></view>
     <view class="basicTextView">
       <navigator url="../../pages/schoolname/schoolname?schoolName={{tempUserInfo.schoolName}}" class="navigator">
         <view class="navigatorView">

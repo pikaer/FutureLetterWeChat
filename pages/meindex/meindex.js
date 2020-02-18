@@ -94,6 +94,8 @@ Page({
       app.httpPost(
         'Letter/MyMomentList', {
           "UId": app.globalData.apiHeader.UId,
+          "SourceFlag":0,
+          "FilterHideMoment":false,
           "PageIndex": self.data.pageIndex
         },
         function (res) {
