@@ -25,39 +25,5 @@
   </scroll-view>
 </view>
 
-<!--custom Modal-->
-<view class="modal-mask-all" bindtap="hideModal" wx:if="{{showModal}}"></view>
-<view wx:if="{{showModal}}">
-  <view class="modal-content-all">
-    <view class="headView-all">
-      <image class="userHead-all" src="{{basicUserInfo.headPhotoPath}}" catchtap="previewImg" data-imgContent='{{basicUserInfo.headPhotoPath}}'></image>
-    </view>
-    <view class="rightUserInfo-all">
-      <view class='nickNameView-all'>
-        {{basicUserInfo.nickName}}
-      </view>
-      <view class='basicInfoView-all'>
-        {{basicUserInfo.basicUserInfo}}
-      </view>
-      <view class='placeInfoView-all'>
-        <view class="iconfont dingwei" style='font-size:12px'> {{basicUserInfo.placeInfo}}</view>
-      </view>
-    </view>
-    <view class='signatrueView-all' wx:if="{{basicUserInfo.signature!=null&&basicUserInfo.signature!=''}}">
-      个性签名：{{basicUserInfo.signature}}
-    </view>
-  </view>
-</view>
-
-
-
-<mp-actionSheet bindactiontap="btnClick" show="{{showDialog}}" actions="{{groups}}"></mp-actionSheet>
-
 <!-- 底部弹出菜单 -->
-<action-sheet hidden="true">
-  <action-sheet-item bindtap="toHasRead">标为已读</action-sheet-item>
-  <action-sheet-item bindtap="deleteChat">删除会话</action-sheet-item>
-  <action-sheet-item bindtap="toAllHasRead">全部已读</action-sheet-item>
-  <action-sheet-item bindtap="deleteAllBottle">全部清空</action-sheet-item>
-  <action-sheet-cancel bindtap="resetSelectItem">取消</action-sheet-cancel>
-</action-sheet>
+<mp-actionSheet bindactiontap="btnClick" show="{{showDialog}}" actions="{{groups}}"></mp-actionSheet>

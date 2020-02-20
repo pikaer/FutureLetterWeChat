@@ -10,7 +10,7 @@ Page({
     publishDisabled: false,
     isRegister: true,
     isHideNickName: false,
-    tempTextContent: "",
+    tempTextContent: "快来和我一起玩呀！",
     hidingNickName: "",
     momentId: "",
     basicUserInfo: {},
@@ -30,7 +30,6 @@ Page({
       basicUserInfo: app.globalData.basicUserInfo,
       backGroundImg: app.globalData.basicUserInfo.headPhotoPath,
       serverImgsPath: app.globalData.basicUserInfo.headPhotoPath,
-      tempTextContent: app.globalData.basicUserInfo.signature,
       hidingNickName: app.globalData.basicUserInfo.nickName
     })
   },

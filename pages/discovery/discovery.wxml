@@ -1,12 +1,6 @@
 <!-- 自定义的导航栏 -->
 <view wx:if="{{!showStartUp}}" class="empty_custom" style="padding-top:{{statusBarHeight}}px"></view>
 <view wx:if="{{!showStartUp}}" class="custom" style="padding-top:{{statusBarHeight}}px">
-  <view class="chatListView" style="top:{{statusBarHeight+6}}px">
-    <view class="coinIconView" bindtap="toCoinDetailPage">
-      <image class='coin_logo' src="/content/images/coin.svg" />
-    </view>
-    <view bindtap="toCoinDetailPage" class="coinTextView">{{totalCoin}}</view>
-  </view>
   <view  class="toUserPage">
     <view bindtap="toDiscoryList" class="leftTitleView">
       <view class="{{currentTab==0?'momentTitleCilick':'momentTitle'}}">探索 </view>

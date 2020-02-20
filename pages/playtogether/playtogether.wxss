@@ -283,20 +283,13 @@ swiper-item {
   max-width: 300px;
 }
 
-.editIconView {
-  float: left;
-  width: 25px;
-  height: 25px;
-  padding-left: 15px;
-}
-
 .custom {
   position: fixed;
   text-align: center;
   width: 100%;
   top: 0;
   left: 0;
-  height: 80px;
+  height: 60px;
   z-index: 999;
   border-bottom: 1px solid #e4dfdf;
 }
@@ -312,23 +305,13 @@ swiper-item {
   border-radius: 100%;
 }
 
-.edit_logo {
-  height: 100%;
-  width: 100%;
-}
-
-.chatListView {
-  position: fixed;
-}
-
 .tabBarView {
-  width: 100%;
   white-space: nowrap;
   position: fixed;
 }
 
 .empty_custom {
-  height: 80px;
+  height: 60px;
   width: 100%;
 }
 

@@ -4,18 +4,12 @@
 
 .headPhotoView {
   float: left;
+  padding-top: 7px;
 }
 
 .userHead {
   width: 140rpx;
   height: 140rpx;
-  margin-left: 28rpx;
-  border-radius: 100%;
-}
-
-.loginHead {
-  width: 83rpx;
-  height: 85rpx;
   margin-left: 28rpx;
   border-radius: 100%;
 }
@@ -27,49 +21,15 @@
   font-weight: 650;
 }
 
-.loginBtn {
-  margin-top: 10rpx;
-  font-size: 18px;
-  float: left;
-  width: 90px;
-  height: 30px;
-  background-color: #eff2fb;
-}
-
 .tabView {
   width: 100%;
 }
 
 .basicInfoView {
   float: left;
+  max-width: 70%;
   padding-top: 2px;
   padding-left: 7px;
-}
-
-.loginInfoView {
-  float: left;
-  padding-top: 5px;
-}
-
-.momentContainer {
-  width: 100%;
-}
-
-.itemTitleView {
-  float: left;
-  font-size: 17px;
-  padding-left: 20px;
-  color: #09f;
-  flex-grow: 1;
-}
-
-.titleView {
-  width: 100%;
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  text-align: center;
-  padding-top: 8px;
 }
 
 page {
@@ -133,29 +93,9 @@ button:last-child {
   padding: 0;
 }
 
-.swiper-item {
-  display: block;
-  height: 100%;
-  width: 100%;
-}
-
 .page-section-title {
   margin-top: 60rpx;
   position: relative;
-}
-
-swiper {
-  height: 100%;
-  width: 100%;
-  display: block;
-}
-
-swiper-item {
-  display: block;
-  overflow: hidden;
-  will-change: 'transform';
-  height: 100%;
-  width: 100%;
 }
 
 .textView {
@@ -176,9 +116,14 @@ swiper-item {
 
 .publishTime {
   font-size: 10px;
-  color: gray;
-  padding-top: 1px;
   float: left;
+  background-color: #eff2fb;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 1px;
+  padding-top: 1px;
+  border-radius: 5px;
+  margin-right: 5px;
 }
 
 .momentImg {
@@ -225,65 +170,14 @@ swiper-item {
   box-shadow: 0px 0px 1px #837c7c;
 }
 
-.momentTitleCilick {
-  width: 90px;
-  margin: auto;
-  border-bottom: solid 3px #09f;
-  color: #09f;
-}
-
-.momentTitle {
-  width: 90px;
-  margin: auto;
-  color: #9d9d9d;
-}
-
 .placeUseView {
-  height: 100px;
+  height: 70px;
   width: 100%;
   margin-bottom: 70px;
   text-align: center;
   font-size: 14px;
   color: #9d9d9d;
   padding-top: 10px;
-}
-
-.dialog_content {
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.shareArea {
-  position: relative;
-  overflow: hidden;
-  background-color: white;
-  padding-bottom: 10px;
-}
-
-.shareTo {
-  text-align: center;
-  background: white;
-  font-size: 28rpx;
-  float: left;
-  flex-grow: 1;
-  position: relative;
-  margin-bottom: 10px;
-}
-
-.shareIcon {
-  margin-top: 15px;
-  margin: auto;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  width: 38px;
-  height: 38px;
 }
 
 button::after {
@@ -331,12 +225,6 @@ button {
   padding-top: 4px;
 }
 
-.nickNameView {
-  font-size: 14px;
-  font-weight: 650;
-  float: left;
-}
-
 .nickName_Left_View {
   font-size: 14px;
   margin-left: 8px;
@@ -345,26 +233,8 @@ button {
 }
 
 .centerView {
-  float: left;
   margin-left: 8px;
-  width: 100%;
-}
-
-.topHeadView {
-  margin-left: 8px;
-}
-
-.onlineView {
-  float: left;
-  width: 80px;
-  font-size: 8px;
-  padding-top: 3px;
-}
-
-.onlineTextView {
-  color: #8e8e8e;
-  font-size: 8px;
-  padding-top: 5rpx;
+  clear: both;
 }
 
 .genderView {
@@ -398,14 +268,6 @@ button {
 .genderImg {
   width: 7px;
   height: 7px;
-}
-
-.distanceDescView {
-  font-size: 10px;
-  color: #8e8e8e;
-  padding-left: 2px;
-  padding-top: 1px;
-  float: left;
 }
 
 .tagView {
@@ -457,4 +319,31 @@ button {
 .tagAreaView {
   margin-top: 8px;
   clear: both;
+}
+
+.signatureView {
+  clear: both;
+  font-size: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.hideTextView {
+  font-size: 10px;
+  float: left;
+  background-color: #eff2fb;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 1px;
+  padding-top: 1px;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.chatTextView {
+  float: left;
+  padding-top: 4px;
+  padding-left: 3px;
+  font-size: 12px;
+  color: #8e8e8e;
 }

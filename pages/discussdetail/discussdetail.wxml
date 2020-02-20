@@ -36,11 +36,11 @@
         <view class="chatTimeText">{{value.recentChatTime}}</view>
       </view>
 
-      <view class="{{value.isMyReply?'rightView':'leftView'}}">
+      <view class="{{value.isMyReply?'rightView':'leftView'}}" data-isHide='{{value.isHide}}' catchtap='toShowModal'>
         <view wx:if="{{value.isHide}}" class="{{value.gender==2?'hidingHeadImgView_WoMan':'hidingHeadImgView_Man'}}">
           <view class="shortNickNameView">{{value.shortNickName}}</view>
         </view>
-        <image wx:else src="{{value.headImgPath}}" class="userHead" data-uId='{{value.pickUpUId}}' catchtap='toShowModal'></image>
+        <image wx:else src="{{value.headImgPath}}" class="userHead" data-uId='{{value.pickUpUId}}'></image>
       </view>
 
       <view wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" class="{{value.isMyReply?'contentArea':'contentArea_left'}}">

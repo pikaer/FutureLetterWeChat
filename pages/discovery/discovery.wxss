@@ -578,7 +578,7 @@ button {
 }
 
 .toUserPage {
-  display: inline-block;
+  /* display: inline-block; */
 }
 
 .page-body {

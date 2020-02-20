@@ -175,7 +175,7 @@ Page({
   },
 
   toBottom: function() {
-    if (this.data.discussDetailList.length <4) {
+    if (this.data.discussDetailList.length < 4) {
       return;
     }
     wx.pageScrollTo({
@@ -199,47 +199,22 @@ Page({
 
   //获取用户基础信息
   toShowModal: function(ops) {
-    var self = this;
-    let cacheKey = "basicUserInfo+" + ops.currentTarget.dataset.uid;
-    let cacheValue = wx.getStorageSync(cacheKey);
-    let isRefreshCache = false;
-    if (!app.isBlank(cacheValue)) {
-      isRefreshCache = true;
-      self.setData({
-        basicUserInfo: cacheValue,
-        showModal: true
+    if (ops.currentTarget.dataset.ishide) {
+      wx.showToast({
+        title: "无法查看匿名用户的信息",
+        icon: 'none',
+        duration: 1500
       });
-    } else {
-      self.setData({
-        basicUserInfo: {}
-      });
+      return;
     }
-    app.httpPost(
-      'Letter/BasicUserInfo', {
-        "UId": ops.currentTarget.dataset.uid
-      },
-      function(res) {
-        if (!app.isBlank(res)) {
-          self.setData({
-            basicUserInfo: res
-          });
-          if (!isRefreshCache) {
-            self.setData({
-              showModal: true
-            });
-          }
-          app.setCache(cacheKey, res);
-        }
-      },
-      function(res) {
-        console.error("获取用户基础信息失败");
-      })
+    this.toUserSpace(ops.currentTarget.dataset.uid);
   },
 
-  hideModal: function() {
-    this.setData({
-      showModal: false
-    });
+  //跳转至个人空间
+  toUserSpace: function(uid) {
+    wx.navigateTo({
+      url: "../../pages/userspace/userspace?uId=" + uid
+    })
   },
 
   toShowTextContentModal: function() {
@@ -455,7 +430,7 @@ Page({
       })
   },
 
-  
+
   appendDiscussContent: function() {
     var self = this;
     let userinfo = app.globalData.basicUserInfo;

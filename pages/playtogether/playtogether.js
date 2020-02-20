@@ -3,15 +3,6 @@ import {
   HubConnection
 } from "../../utils/signalR.js";
 import auth from '../../utils/auth.js';
-// 获取倍率
-const raterpx = 750.0 / wx.getSystemInfoSync().windowWidth;
-
-const deviceWidth = 750.0 / wx.getSystemInfoSync().windowWidth;
-
-// 获取canvas转化后的rpx
-const rate = function(rpx) {
-  return rpx / raterpx
-};
 
 Page({
   data: {
@@ -31,20 +22,25 @@ Page({
     statusBarHeight: app.globalData.statusBarHeight,
     currentTab: 0, //当前所在tab
     scrollLeft: 0,
-    onloadText: ""
+    onloadText: "",
+    windowWidth: 300
   },
 
 
-  onLoad: function() {
+  onLoad: function () {
     this.initData();
+    this.setData({
+      windowWidth: wx.getSystemInfoSync().windowWidth
+    });
   },
 
-  onShow: function() {
+  onShow: function () {
     this.getPlayTogetherList();
+    this.unReadCountRefresh();
   },
 
   //初始化数据
-  initData: function() {
+  initData: function () {
     this.getPlayTogtherCacheData(0);
     this.getPlayTogtherCacheData(1);
     this.getPlayTogtherCacheData(2);
@@ -58,13 +54,13 @@ Page({
   },
 
   //获取动态
-  getPlayTogetherList: function(playType) {
+  getPlayTogetherList: function (playType) {
     var self = this;
     app.httpPost(
       'Letter/PlayTogetherList', {
         "UId": app.globalData.apiHeader.UId
       },
-      function(res) {
+      function (res) {
         self.setPlayTogtherData(res.playTogetherList_Other, 0);
         self.setPlayTogtherData(res.playTogetherList_WangZhe, 1);
         self.setPlayTogtherData(res.playTogetherList_ChiJi, 2);
@@ -77,7 +73,7 @@ Page({
         self.setPlayTogtherData(res.playTogetherList_Movie, 9);
         console.info("获取一起玩列表成功");
       },
-      function(res) {
+      function (res) {
         console.info("获取一起玩列表失败");
         self.setData({
           onloadText: "查看更多>>"
@@ -87,7 +83,7 @@ Page({
 
 
   //tab切换至动态
-  bindChange: function(e) {
+  bindChange: function (e) {
     let tabIndex = e.detail.current;
     this.setData({
       currentTab: tabIndex
@@ -96,15 +92,40 @@ Page({
   },
 
   //跳转至个人空间
-  toUserSpace: function(e) {
+  toUserSpace: function (e) {
     wx.navigateTo({
       url: "../../pages/userspace/userspace?uId=" + e.currentTarget.dataset.uid
     })
   },
 
 
+  unReadCountRefresh: function () {
+    if (app.globalData.apiHeader.UId <= 0) {
+      return;
+    }
+    let self = this;
+    app.httpPost(
+      'Letter/UnReadTotalCount', {
+        "UId": app.globalData.apiHeader.UId
+      },
+      function (res) {
+        if (!app.isBlank(res.unReadCount)) {
+          wx.setTabBarBadge({
+            index: 2,
+            text: res.unReadCount
+          })
+        } else {
+          wx.removeTabBarBadge({
+            index: 2,
+          })
+        }
+      },
+      function (res) {
+        console.error("刷新未读数量失败!");
+      })
+  },
 
-  getPlayTogtherCacheData: function(playType) {
+  getPlayTogtherCacheData: function (playType) {
     let cacheKey = 'playTogetherListCacheData_playType_' + playType;
     let cacheValue = wx.getStorageSync(cacheKey);
     if (!app.isBlank(cacheValue)) {
@@ -112,7 +133,7 @@ Page({
     }
   },
 
-  setPlayTogtherData: function(pickUpList, playType) {
+  setPlayTogtherData: function (pickUpList, playType) {
     if (playType == 0) {
       this.setData({
         pickUpList_Other: pickUpList,
@@ -159,7 +180,7 @@ Page({
     app.setCache(cacheKey, pickUpList);
   },
 
-  onTabSelected: function(e) {
+  onTabSelected: function (e) {
     let tabIndex = e.currentTarget.dataset.currenttab;
     this.setData({
       currentTab: tabIndex
@@ -167,7 +188,7 @@ Page({
     this.scrollPosition(tabIndex);
   },
 
-  scrollPosition: function(tabIndex) {
+  scrollPosition: function (tabIndex) {
     if (tabIndex <= 2) {
       this.setData({
         scrollLeft: 0
@@ -183,7 +204,7 @@ Page({
     }
   },
   //发布动态
-  publishMoment: function() {
+  publishMoment: function () {
     wx.navigateTo({
       url: '../../pages/publishplaymoment/publishplaymoment'
     })

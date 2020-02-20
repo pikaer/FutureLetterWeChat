@@ -117,47 +117,14 @@ Page({
       });
       return;
     }
-
-    var self = this;
-    let cacheKey = "basicUserInfo+" + ops.currentTarget.dataset.uid;
-    let cacheValue = wx.getStorageSync(cacheKey);
-    let isRefreshCache = false;
-    if (!app.isBlank(cacheValue)) {
-      isRefreshCache = true;
-      self.setData({
-        basicUserInfo: cacheValue,
-        showModal: true
-      });
-    } else {
-      self.setData({
-        basicUserInfo: {}
-      });
-    }
-
-    app.httpPost(
-      'Letter/BasicUserInfo', {
-        "UId": ops.currentTarget.dataset.uid
-      },
-      function(res) {
-        self.setData({
-          basicUserInfo: res,
-        });
-        if (!isRefreshCache) {
-          self.setData({
-            showModal: true
-          });
-        }
-        app.setCache(cacheKey, res);
-      },
-      function(res) {
-        console.error("获取用户基础信息失败");
-      })
+    this.toUserSpace(ops.currentTarget.dataset.uid);
   },
 
-  hideModal: function() {
-    this.setData({
-      showModal: false
-    });
+  //跳转至个人空间
+  toUserSpace: function (uid) {
+    wx.navigateTo({
+      url: "../../pages/userspace/userspace?uId=" + uid
+    })
   },
 
 
@@ -388,12 +355,12 @@ Page({
       function(res) {
         if (!app.isBlank(res.unReadCount)) {
           wx.setTabBarBadge({
-            index: 1,
+            index:2,
             text: res.unReadCount
           })
         } else {
           wx.removeTabBarBadge({
-            index: 1,
+            index:2,
           })
         }
       },

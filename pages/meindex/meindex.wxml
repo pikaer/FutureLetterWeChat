@@ -64,7 +64,8 @@
                 <view class="centerView">
                   <view class="publishTime">{{value.publishTime}}</view>
                   <view wx:if="{{value.isHide}}" class="hideTextView">分身状态</view>
-                  <view class="hideTextView">闪聊动态</view>
+                  <view class="hideTextView">{{value.sourceDesc}}</view>
+                  <view wx:if="{{value.playType==1}}" class="hideTextView">{{value.playTypeSesc}}</view>
                 </view>
               </view>
               <view class="iconView" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' catchtap='bindlongMomentPress'>
@@ -87,11 +88,11 @@
             <view class="momentView" hover-class="momentView_Hover" wx:for="{{tempCollectList}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-collectId='{{value.collectId}}' data-momentId='{{value.momentId}}'
               data-uId='{{value.uId}}' data-type='2' bindtap="toDiscussDetailPage" bindlongpress="bindlongMomentPress">
               <view class="momentTitleView">
-                <view wx:if="{{value.isHide}}" class="{{value.gender==2?'left_Hide_WoManView':'left_Hide_ManView'}}" data-isHide='{{value.isHide}}'>
+                <view wx:if="{{value.isHide}}" class="{{value.gender==2?'left_Hide_WoManView':'left_Hide_ManView'}}" data-isHide='{{value.isHide}}' catchtap='toShowModal'>
                   <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
                   <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
                 </view>
-                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView">
+                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" catchtap="toShowModal">
                   <image src="{{value.headImgPath}}" class="userTitleHead" />
                 </view>
               </view>

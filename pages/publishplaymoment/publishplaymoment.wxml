@@ -20,7 +20,7 @@
       </view>
       <view class="centerTitleView">
         <view class="topHeadView">
-          <view class="backNickNameView">{{basicUserInfo.nickName}}</view>
+          <view class="backNickNameView">{{isHideNickName?hidingNickName:basicUserInfo.nickName}}</view>
           <view class="onlineView">
             <mp-badge style="margin-left: 5px;margin-right: 5px;float:left;padding-top:1rpx;" ext-class="blue" />
             <view class="onlineTextView">当前在线</view>

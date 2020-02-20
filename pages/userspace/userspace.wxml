@@ -19,95 +19,41 @@
             <view class="tagView">{{basicUserInfo.constellation}}</view>
             <view class="tagView">{{basicUserInfo.placeInfo}}</view>
           </view>
-        </view>
-      </view>
-    </view>
-    <view class="momentContainer">
-      <view class="titleView">
-        <view bindtap="toPublishList" class="itemTitleView">
-          <view class="{{currentTab==0?'momentTitleCilick':'momentTitle'}}">闪聊动态</view>
-        </view>
-        <view bindtap="toPlayList" class="itemTitleView">
-          <view class="{{currentTab==0?'momentTitle':'momentTitleCilick'}}">一起玩动态</view>
+          <view class="signatureView">个性签名：{{basicUserInfo.signature}}</view>
         </view>
       </view>
     </view>
   </view>
   <view class="page-body">
     <view class="page-section page-section-spacing swiper">
-      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px" current="{{currentTab}}"
-        bindchange="bindChange">
-        <!-- 动态 -->
-        <swiper-item>
-          <scroll-view scroll-y="true" class="momentArea">
-            <view class="momentView" hover-class="momentView_Hover" wx:for="{{tempMomentList}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' bindtap="toMomentDetailPage">
-              <view class="momentTitleView">
-                <view data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' class="leftView">
-                  <image src="{{value.headImgPath}}" class="userTitleHead" />
-                </view>
-              </view>
-              <view class="centerTitleView">
-                <view class="nickName_Left_View">{{value.nickName}}</view>
-                <view class="centerView">
-                  <view class="publishTime">{{value.publishTime}}</view>
-                </view>
-              </view>
-              <view class="iconView" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1'>
-                <view class="iconfont comment" style='font-size:17px;float:left;font-weight: 650' />
-              </view>
-              <view class="content">
-                <view class="textView">{{value.textContent}}</view>
-                <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
-                  <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' catchtap="previewImg" class="momentImg" mode="aspectFill"></image>
-                </view>
-              </view>
+      <scroll-view scroll-y="true" class="momentArea">
+        <view class="momentView" hover-class="momentView_Hover" wx:for="{{tempMomentList}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' bindtap="toMomentDetailPage">
+          <view class="momentTitleView">
+            <view data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' class="leftView">
+              <image src="{{value.headImgPath}}" class="userTitleHead" />
             </view>
-            <view class="placeUseView">没有更多啦</view>
-          </scroll-view>
-        </swiper-item>
-        <!-- 一起玩动态 -->
-        <swiper-item>
-          <scroll-view scroll-y="true" class="momentArea">
-            <view class="momentView" hover-class="momentView_Hover" wx:for="{{tempPlayMomentList}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-collectId='{{value.collectId}}' data-momentId='{{value.momentId}}'
-              data-uId='{{value.uId}}' data-type='2' bindtap="toDiscussDetailPage">
-              <view class="momentTitleView">
-                <view data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' class="leftView">
-                  <image src="{{value.headImgPath}}" class="userTitleHead" />
-                </view>
-              </view>
-              <view class="centerTitleView">
-                <view class="topHeadView">
-                  <view class="nickNameView">{{value.nickName}}</view>
-                  <view class="onlineView" wx:if="{{value.onLineDesc!=''}}">
-                    <mp-badge style="margin-left: 5px;margin-right: 5px;float:left;padding-top:1rpx;" ext-class="blue" />
-                    <view class="onlineTextView">{{value.onLineDesc}}</view>
-                  </view>
-                </view>
-                <view class="centerView">
-                  <view class="{{value.gender==1?'genderView':'gender_womanView'}}">
-                    <view class="genderImgView">
-                      <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
-                      <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
-                    </view>
-                  </view>
-                  <view class="iconfont dingwei" style="font-size:10px;float:left;padding-left:5px;color:#8e8e8e;padding-top:1px;"></view>
-                  <view class="distanceDescView">{{value.distanceDesc}}</view>
-                </view>
-              </view>
-              <view class="iconView" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-collectId='{{value.collectId}}' data-momentId='{{value.momentId}}' data-type='2'>
-                <view class="iconfont more" style='font-size:20px'></view>
-              </view>
-              <view class="content">
-                <view class="textView">{{value.textContent}}</view>
-                <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
-                  <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' catchtap="previewImg" class="momentImg" mode="aspectFill"></image>
-                </view>
-              </view>
+          </view>
+          <view class="centerTitleView">
+            <view class="nickName_Left_View">{{value.nickName}}</view>
+            <view class="centerView">
+              <view class="publishTime">{{value.publishTime}}</view>
+              <view class="hideTextView">{{value.sourceDesc}}</view>
+              <view wx:if="{{value.playType!=0}}" class="hideTextView">{{value.playTypeSesc}}</view>
             </view>
-            <view class="placeUseView">没有更多啦</view>
-          </scroll-view>
-        </swiper-item>
-      </swiper>
+          </view>
+          <view class="iconView" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1'>
+            <view class="iconfont comment" style='font-size:18px;float:left;color:#8e8e8e' />
+            <view class="chatTextView">聊一聊</view>
+          </view>
+          <view class="content">
+            <view class="textView">{{value.textContent}}</view>
+            <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
+              <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' catchtap="previewImg" class="momentImg" mode="aspectFill"></image>
+            </view>
+          </view>
+        </view>
+        <view class="placeUseView">没有更多啦</view>
+      </scroll-view>
     </view>
   </view>
 </view>

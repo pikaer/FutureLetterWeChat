@@ -54,6 +54,25 @@ Page({
     this.getMyMomentList();
   },
 
+  //获取用户基础信息
+  toShowModal: function (ops) {
+    if (ops.currentTarget.dataset.ishide) {
+      wx.showToast({
+        title: "无法查看匿名用户的信息",
+        icon: 'none',
+        duration: 1500
+      });
+      return;
+    }
+    this.toUserSpace(ops.currentTarget.dataset.uid);
+  },
+
+  //跳转至个人空间
+  toUserSpace: function (uid) {
+    wx.navigateTo({
+      url: "../../pages/userspace/userspace?uId=" + uid
+    })
+  },
 
   //tab切换至收藏
   toCollectList: function (e) {
@@ -94,7 +113,6 @@ Page({
       app.httpPost(
         'Letter/MyMomentList', {
           "UId": app.globalData.apiHeader.UId,
-          "SourceFlag":0,
           "FilterHideMoment":false,
           "PageIndex": self.data.pageIndex
         },
