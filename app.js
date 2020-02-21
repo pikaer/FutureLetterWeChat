@@ -37,8 +37,6 @@ App({
       "imgContent": "",
       "createTime": ""
     }, //用户当前点击的动态，用以数据传递给动态详情页
-    tempMomentList: [], //meindex页面初始化数据
-    tempCollectList: [], //meindex页面初始化数据
     basicUserInfo: {}, //meindex页面初始化数据
     userInfoWX: {}, //微信提供的用户信息
     statusBarHeight: wx.getSystemInfoSync()['statusBarHeight'],

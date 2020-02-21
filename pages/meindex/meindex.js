@@ -6,7 +6,6 @@ Page({
     tempMomentList: [],
     tempCollectList: [],
     basicUserInfo: {},
-    totalCoin: 0,
     selectMomentItem: [],
     selectCollectItem: [],
     correntSelectItem: 1,
@@ -25,12 +24,7 @@ Page({
   },
 
   onLoad: function () {
-    app.globalData.currentDiscussMoment = {};
-    this.setData({
-      basicUserInfo: app.globalData.basicUserInfo,
-      tempMomentList: app.globalData.tempMomentList,
-      tempCollectList: app.globalData.tempCollectList
-    });
+    
   },
 
   onShow: function () {
@@ -109,6 +103,13 @@ Page({
   //获取我扔出去的没有被评论的动态
   getMyMomentList: function () {
     var self = this;
+    let cacheKey = "userMomentList_Uid_" + app.globalData.apiHeader.UId;
+    let cacheValue = wx.getStorageSync(cacheKey);
+    if (!app.isBlank(cacheValue)) {
+      self.setData({
+        tempMomentList: cacheValue
+      })
+    }
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
         'Letter/MyMomentList', {
@@ -121,7 +122,7 @@ Page({
           self.setData({
             tempMomentList: res.momentList
           });
-          app.globalData.tempMomentList = res.momentList;
+          app.setCache(cacheKey, res.momentList);
         },
         function (res) {
           console.error("获取聊天列表失败！");
@@ -145,6 +146,13 @@ Page({
   //获取收藏列表数据
   getCollectList: function () {
     var self = this;
+    let cacheKey = "userCollectListCacheValue"
+    let cacheValue = wx.getStorageSync(cacheKey);
+    if (!app.isBlank(cacheValue)) {
+      self.setData({
+        tempCollectList: cacheValue
+      })
+    }
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
         'Letter/GetCollectList', {
@@ -156,7 +164,7 @@ Page({
           self.setData({
             tempCollectList: res.collectList
           });
-          app.globalData.tempCollectList = res.collectList;
+          app.setCache(cacheKey, res.collectList);
         },
         function (res) {
           console.error("获取收藏列表数据失败！");
@@ -407,10 +415,8 @@ Page({
         "Type": 1
       },
       function (res) {
-        app.globalData.basicUserInfo = res;
         self.setData({
-          basicUserInfo: res,
-          totalCoin: res.totalCoin
+          basicUserInfo: res
         });
         app.setCache(cacheKey, res);
       },

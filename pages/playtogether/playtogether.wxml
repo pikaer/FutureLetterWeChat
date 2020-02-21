@@ -1,6 +1,6 @@
 <view class="empty_custom" style="padding-top:{{statusBarHeight-15}}px"></view>
 <view class="custom" style="padding-top:{{statusBarHeight-15}}px">
-  <scroll-view scroll-x="true" scroll-with-animation='true' class="tabBarView" style="top:{{statusBarHeight+6}}px;width:{{windowWidth-100}}px" scroll-left='{{scrollLeft}}'>
+  <scroll-view scroll-x="true" scroll-with-animation='true' class="tabBarView" style="top:{{statusBarHeight+9}}px;width:{{windowWidth-100}}px" scroll-left='{{scrollLeft}}'>
     <view id='tab0' bindtap="onTabSelected" data-currentTab='0' class="{{currentTab==0?'barTitleViewCilick':'barTitleView'}}">全部</view>
     <view id='tab1' bindtap="onTabSelected" data-currentTab='1' class="{{currentTab==1?'barTitleViewCilick':'barTitleView'}}">王者</view>
     <view id='tab2' bindtap="onTabSelected" data-currentTab='2' class="{{currentTab==2?'barTitleViewCilick':'barTitleView'}}">吃鸡</view>

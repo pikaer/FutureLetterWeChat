@@ -138,11 +138,12 @@
                         <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
                         <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
                       </view>
-                      <!-- <view class="ageTextView">{{value.age}}</view> -->
                     </view>
                     <view class="timeDescView">{{value.createTime}}</view>
-                    <view class="iconfont dingwei" style="font-size:10px;float:left;padding-left:5px;color:#8e8e8e;padding-top:1px;"></view>
-                    <view class="distanceDescView">{{value.distanceDesc}}</view>
+                    <view class="userPlaceView">
+                      <view class="iconfont dingwei" style="font-size:10px;float:left;color:#8e8e8e;"></view>
+                      <view class="distanceDescView">{{value.distanceDesc}}</view>
+                    </view>
                   </view>
                 </view>
                 <view class="rightBtnView">

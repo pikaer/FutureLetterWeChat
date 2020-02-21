@@ -50,7 +50,6 @@ Page({
     if (self.data.currentPageUId == 0) {
       return;
     }
-    var self = this;
     let cacheKey = "userMomentList_Uid_" + self.data.currentPageUId;
     let cacheValue = wx.getStorageSync(cacheKey);
     if (!app.isBlank(cacheValue)) {

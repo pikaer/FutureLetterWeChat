@@ -345,7 +345,7 @@ Page({
         })
     }
   },
-
+  
 
   //获取我扔出去的没有被评论的动态
   getMyMomentList: function() {
@@ -358,7 +358,8 @@ Page({
         },
         function(res) {
           console.info("获取聊天列表成功！")
-          app.globalData.tempMomentList = res.momentList;
+          let cacheKey = "userMomentList_Uid_" +app.globalData.apiHeader.UId;
+          app.setCache(cacheKey, res.momentList);
         },
         function(res) {
           console.error("获取聊天列表失败！");
@@ -376,7 +377,8 @@ Page({
           "PageIndex": 1
         },
         function(res) {
-          app.globalData.tempCollectList = res.collectList;
+          let cacheKey = "userCollectListCacheValue"
+          app.setCache(cacheKey, res.collectList);
         },
         function(res) {
           console.error("获取收藏列表数据失败！");

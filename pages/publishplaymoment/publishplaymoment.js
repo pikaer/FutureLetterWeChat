@@ -103,7 +103,14 @@ Page({
   //获取用户基础信息
   basicUserInfo: function(ops) {
     var self = this;
-    let cacheKey = "basicUserInfo+" + app.globalData.apiHeader.UId;
+    let cacheKey = "basicUserInfo+" +app.globalData.apiHeader.UId;
+    let cacheValue = wx.getStorageSync(cacheKey);
+    if (!app.isBlank(cacheValue)) {
+      self.setData({
+        isRegister: cacheValue.isRegister,
+        basicUserInfo: cacheValue
+      });
+    }
     app.httpPost(
       'Letter/BasicUserInfo', {
         "UId": app.globalData.apiHeader.UId,
