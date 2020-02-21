@@ -62,7 +62,6 @@ Page({
     this.unReadCountRefresh();
     this.checkRegister();
     this.refreshMomentListData();
-    this.getTotalCoin();
     this.getAttentionMomentCount();
   },
 
@@ -75,7 +74,6 @@ Page({
     this.getCollectList();
     this.onConnected();
     this.getAttentionList(true);
-    this.getTotalCoin();
     this.getAttentionMomentCount();
   },
 
@@ -110,27 +108,6 @@ Page({
     wx.navigateTo({
       url: "../../pages/userspace/userspace?uId="+uid
     })
-  },
-
-
-  //获取我扔出去的没有被评论的动态
-  getTotalCoin: function() {
-    var self = this;
-    if (app.globalData.apiHeader.UId > 0) {
-      app.httpPost(
-        'Letter/UserCoinInfo', {
-          "UId": app.globalData.apiHeader.UId
-        },
-        function(res) {
-          console.info("获取用户金币信息成功！")
-          self.setData({
-            totalCoin: res.totalCoin
-          });
-        },
-        function(res) {
-          console.error("获取用户金币信息失败！");
-        })
-    }
   },
 
   getAttentionMomentCount: function() {
@@ -1259,7 +1236,6 @@ Page({
           })
         }
         self.stopPullDownRefresh();
-        self.getTotalCoin();
       },
       function(res) {
         console.info("获取数据失败");

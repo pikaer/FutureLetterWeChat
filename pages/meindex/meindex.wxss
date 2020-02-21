@@ -21,7 +21,6 @@
 }
 
 .nickNameText {
-  margin-top: 10rpx;
   font-size: 18px;
   float: left;
   font-weight: 650;
@@ -36,34 +35,14 @@
   background-color: #eff2fb;
 }
 
-.coinCountView {
-  float: left;
-  font-size: 13px;
-}
-
-.countText {
-  float: left;
-  font-size: 12px;
-  color: #9d9d9d;
-}
-
-.countView {
-  margin-top: 5px;
-}
-
-.userInfoView {
-  margin-top: 45rpx;
-  float: right;
-}
-
 .tabView {
   width: 100%;
 }
 
 .basicInfoView {
   float: left;
-  padding-top: 2px;
   padding-left: 7px;
+  max-width: 70%;
 }
 
 .loginInfoView {
@@ -194,16 +173,35 @@ swiper-item {
   border-radius: 100%;
 }
 
+.userPlaceView {
+  float: left;
+  background-color: #eff2fb;
+  margin-left: 5px;
+  padding-right: 5px;
+  padding-left: 4px;
+  border-radius: 3px;
+  font-size: 10px;
+  color: #8e8e8e;
+}
+
+.timeDescView {
+  font-size: 10px;
+  color: #8e8e8e;
+  float: left;
+  background-color: #eff2fb;
+  border-radius: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
 .publishTime {
   font-size: 10px;
   float: left;
   background-color: #eff2fb;
+  color: #8e8e8e;
   padding-left: 5px;
   padding-right: 5px;
-  padding-bottom: 1px;
-  padding-top: 1px;
-  border-radius: 5px;
-  margin-right: 5px;
+  border-radius: 3px;
 }
 
 .momentImg {
@@ -333,8 +331,8 @@ button {
 
 .editView {
   float: left;
-  padding-left: 10px;
-  padding-top: 12px;
+  padding-left: 5px;
+  padding-top: 4px;
 }
 
 .editImg {
@@ -420,12 +418,11 @@ button {
   font-size: 10px;
   float: left;
   background-color: #eff2fb;
+  color: #8e8e8e;
   padding-left: 5px;
   padding-right: 5px;
-  padding-bottom: 1px;
-  padding-top: 1px;
-  border-radius: 5px;
-  margin-right: 5px;
+  border-radius: 3px;
+  margin-left: 5px;
 }
 
 .left_Hide_ManView {
@@ -479,6 +476,7 @@ button {
   background-color: #fda3e6;
   border-radius: 8px;
   margin-top: 2px;
+  margin-right: 5px;
 }
 
 .genderImgView {
@@ -487,6 +485,24 @@ button {
   margin-bottom: 2px;
   padding-left: 3px;
   padding-right: 3px;
+  margin-right: 5px;
+}
+
+.tagView {
+  float: left;
+  background-color: white;
+  padding-left: 5px;
+  border-radius: 5px;
+  padding-right: 5px;
+  margin-right: 5px;
+  font-size: 10px;
+  color: black;
+}
+
+.signatureView {
+  clear: both;
+  font-size: 12px;
+  padding-top: 5px;
 }
 
 .genderImg {
@@ -498,6 +514,10 @@ button {
   font-size: 10px;
   color: #8e8e8e;
   padding-left: 2px;
-  padding-top: 1px;
   float: left;
+}
+
+.tagAreaView {
+  margin-top: 8px;
+  clear: both;
 }

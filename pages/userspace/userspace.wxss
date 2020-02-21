@@ -118,6 +118,7 @@ button:last-child {
   font-size: 10px;
   float: left;
   background-color: #eff2fb;
+  color: #8e8e8e;
   padding-left: 5px;
   padding-right: 5px;
   padding-bottom: 1px;
@@ -332,6 +333,7 @@ button {
   font-size: 10px;
   float: left;
   background-color: #eff2fb;
+  color: #8e8e8e;
   padding-left: 5px;
   padding-right: 5px;
   padding-bottom: 1px;

@@ -86,8 +86,8 @@ page {
 
 .centerView {
   float: left;
-  margin-left: 8px;
   width: 100%;
+  margin-left: 8px;
 }
 
 .rightView {
@@ -103,7 +103,6 @@ page {
   margin-top: 4px;
   margin-left: 2px;
 }
-
 
 .bodyView {
   clear: both;
@@ -138,7 +137,6 @@ page {
   border-radius: 100%;
   text-align: center;
 }
-
 
 .spinner {
   margin: 100px auto 0;
@@ -224,7 +222,6 @@ image {
   overflow: hidden;
 }
 
-
 .defaultDescView {
   height: 100%;
   width: 100%;
@@ -245,7 +242,6 @@ image {
   font-size: 15px;
   margin-top: 10px;
 }
-
 
 .modal-content {
   position: fixed;
@@ -359,8 +355,6 @@ button {
   padding-right: 0px;
 }
 
-
-
 .unreadCount {
   float: left;
 }
@@ -373,6 +367,7 @@ button {
   border-radius: 8px;
   margin-top: 2px;
   background-color: #85d0ed;
+  margin-right: 5px;
 }
 
 .gender_womanView {
@@ -383,6 +378,7 @@ button {
   background-color: #fda3e6;
   border-radius: 8px;
   margin-top: 2px;
+  margin-right: 5px;
 }
 
 .genderImgView {
@@ -488,7 +484,6 @@ button {
   padding-top: 5px;
 }
 
-
 .custom {
   position: fixed;
   text-align: center;
@@ -508,7 +503,6 @@ button {
 .chatListView {
   position: fixed;
 }
-
 
 .modal-content-publishMoment {
   position: fixed;
@@ -594,7 +588,6 @@ button:last-child {
   margin-top: 60rpx;
   position: relative;
 }
-
 
 swiper {
   height: 100%;
@@ -703,6 +696,27 @@ swiper-item {
   color: #8e8e8e;
   padding-left: 2px;
   float: left;
+}
+
+.timeDescView {
+  font-size: 10px;
+  color: #8e8e8e;
+  float: left;
+  background-color: #eff2fb;
+  border-radius: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.userPlaceView {
+  float: left;
+  background-color: #eff2fb;
+  margin-left: 5px;
+  padding-right: 5px;
+  padding-left:4px;
+  border-radius: 3px;
+  font-size: 10px;
+  color: #8e8e8e;
 }
 
 .rightBtnView {
@@ -841,10 +855,4 @@ swiper-item {
   width: 25px;
   padding-left: 10px;
   padding-top: 10px;
-}
-
-.hideTextView {
-  font-size: 10px;
-  color: #8e8e8e;
-  float: left;
 }

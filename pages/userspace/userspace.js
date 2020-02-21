@@ -21,11 +21,6 @@ Page({
     this.getMyMomentList();
   },
 
-  onShow: function() {
-    this.basicUserInfo();
-    this.getMyMomentList();
-  },
-
 
   //下拉刷新页面数据
   onPullDownRefresh: function() {

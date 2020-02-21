@@ -125,6 +125,7 @@ swiper-item {
 .titleView {
   width: 100%;
   clear: both;
+  height: 48px;
 }
 
 .left_Hide_ManView {
@@ -249,11 +250,11 @@ swiper-item {
   padding-right: 5px;
   margin-right: 5px;
   font-size: 10px;
-  color: black;
+  color: #8e8e8e;
 }
 
 .bodyView_Hide {
-  margin-top: 280px;
+  margin-top: 274px;
   background-color: white;
   float: left;
   border-top-left-radius: 10px;
@@ -264,7 +265,7 @@ swiper-item {
 }
 
 .bodyView {
-  margin-top: 232px;
+  margin-top: 210px;
   background-color: white;
   float: left;
   border-top-left-radius: 10px;
@@ -335,11 +336,11 @@ swiper-item {
   margin-left: 5px;
   margin-right: 5px;
   border-radius: 5px;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-left: 9px;
+  padding-right: 9px;
   font-size: 15px;
-  padding-top: 3px;
-  padding-bottom: 3px;
+  padding-top: 1px;
+  padding-bottom: 1px;
 }
 
 .box {
@@ -387,15 +388,18 @@ swiper-item {
 
 .momentImgListView {
   clear: both;
-  padding-left: 20px;
-  padding-top: 10px;
+  padding-left: 2px;
+  margin-top: 10px;
+  height: 55px;
+  margin-left: 18px;
+  margin-right: 18px;
 }
 
 .momentImgView {
   width: 39px;
   height: 51px;
   float: left;
-  margin-right: 5px;
+  margin-right: 4px;
   background-color: white;
   border-radius: 8px;
   padding-left: 1px;
@@ -420,4 +424,22 @@ swiper-item {
 .toUserIcon {
   width: 18px;
   height: 51px;
+}
+
+.iconView {
+  float: right;
+  background-color: white;
+  margin-top: 5px;
+  margin-right: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 5px;
+}
+
+.chatTextView {
+  float: left;
+  padding-top: 3px;
+  padding-left: 3px;
+  font-size: 12px;
+  color: #8e8e8e;
 }

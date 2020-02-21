@@ -41,7 +41,7 @@
               <view wx:if="{{value.playType!=0}}" class="hideTextView">{{value.playTypeSesc}}</view>
             </view>
           </view>
-          <view class="iconView" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1'>
+          <view class="iconView">
             <view class="iconfont comment" style='font-size:18px;float:left;color:#8e8e8e' />
             <view class="chatTextView">聊一聊</view>
           </view>

@@ -42,7 +42,7 @@
                   <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
                   <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
                 </view>
-                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" catchtap='toShowModal'>
+                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" bindtap="toShowModal">
                   <image src="{{value.headImgPath}}" class="userHead" />
                 </view>
                 <view class="centerTitleView">
@@ -61,19 +61,26 @@
                       </view>
                     </view>
                     <view class="tagView">{{value.playTypeSesc}}</view>
-                    <view class="tagView">{{value.distanceDesc}}</view>
+                    <view class="tagView">
+                      <view class="iconfont dingwei" style="font-size:10px;padding-right: 2px;float:left;color:#8e8e8e;"></view>
+                      {{value.distanceDesc}}
+                    </view>
                     <view class="tagView">{{value.ageYear}}</view>
                     <view class="tagView">{{value.constellation}}</view>
                   </view>
                 </view>
               </view>
-              <view wx:if="{{!value.isHide}}" class='momentImgListView' data-uId='{{value.uId}}' bindtap="toUserSpace">
+              <view wx:if="{{!value.isHide}}" class='momentImgListView' data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' bindtap="toShowModal">
                 <view class="momentImgView" wx:for="{{value.recentPlayMomentImgs}}" wx:key="key" wx:for-index="key" wx:for-item="imgUrl">
                   <image src="{{imgUrl}}" class="momentImg" />
                 </view>
                 <view class="toUserSpaceView">
                   <image src="/content/images/right1.svg" class="toUserIcon" />
                 </view>
+              </view>
+              <view class="iconView">
+                <view class="iconfont comment" style='font-size:14px;float:left;color:#8e8e8e;padding-top: 2px;' />
+                <view class="chatTextView">聊一聊</view>
               </view>
             </view>
           </view>
@@ -120,7 +127,10 @@
                       </view>
                     </view>
                     <view class="tagView">{{value.playTypeSesc}}</view>
-                    <view class="tagView">{{value.distanceDesc}}</view>
+                    <view class="tagView">
+                      <view class="iconfont dingwei" style="font-size:10px;padding-right: 2px;float:left;color:#8e8e8e;"></view>
+                      {{value.distanceDesc}}
+                    </view>
                     <view class="tagView">{{value.ageYear}}</view>
                     <view class="tagView">{{value.constellation}}</view>
                   </view>
@@ -209,7 +219,7 @@
           <view class="empty_topArea"></view>
           <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_LianMai}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
-           <view class="contentArea" style="background-image: url({{value.imgContent}})">
+            <view class="contentArea" style="background-image: url({{value.imgContent}})">
               <view class="{{value.isHide?'bodyView_Hide':'bodyView'}}">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
@@ -445,7 +455,7 @@
           <view class="empty_topArea"></view>
           <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_Earlybird}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
-             <view class="contentArea" style="background-image: url({{value.imgContent}})">
+            <view class="contentArea" style="background-image: url({{value.imgContent}})">
               <view class="{{value.isHide?'bodyView_Hide':'bodyView'}}">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>

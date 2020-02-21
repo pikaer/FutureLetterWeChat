@@ -10,18 +10,20 @@
           <view class="editView">
             <image class="editImg" src="/content/images/edit.svg"></image>
           </view>
-          <view class="countView">
-            <view class="coinCountView" wx:if="{{basicUserInfo.gender!=0}}">
-              <view class="countText">金币余额: {{totalCoin}}</view>
+          <view class="tagAreaView">
+            <view class="{{basicUserInfo.gender==1?'genderView':'gender_womanView'}}">
+              <view class="genderImgView">
+                <image wx:if="{{basicUserInfo.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
+                <image wx:if="{{basicUserInfo.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
+              </view>
             </view>
+            <view class="tagView">{{basicUserInfo.distanceDesc}}</view>
+            <view class="tagView">{{basicUserInfo.ageYear}}</view>
+            <view class="tagView">{{basicUserInfo.constellation}}</view>
+            <view class="tagView">{{basicUserInfo.placeInfo}}</view>
           </view>
+          <view class="signatureView">个性签名：{{basicUserInfo.signature}}</view>
         </navigator>
-        <view class="userInfoView">
-          <navigator url="../../pages/coin/coin" class="navigator">
-            <view class="navigator-text" style='color:#9d9d9d;'>我的金币</view>
-            <view class="navigator-arrow"></view>
-          </navigator>
-        </view>
       </view>
       <view class="userView" wx:else>
         <view class="headPhotoView">
@@ -63,7 +65,7 @@
                 <view class="nickName_Left_View">{{value.nickName}}</view>
                 <view class="centerView">
                   <view class="publishTime">{{value.publishTime}}</view>
-                  <view wx:if="{{value.isHide}}" class="hideTextView">分身状态</view>
+                  <view wx:if="{{value.isHide}}" class="hideTextView">匿名发布</view>
                   <view class="hideTextView">{{value.sourceDesc}}</view>
                   <view wx:if="{{value.playType==1}}" class="hideTextView">{{value.playTypeSesc}}</view>
                 </view>
@@ -111,9 +113,12 @@
                       <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
                     </view>
                   </view>
-                  <view wx:if="{{value.isHide}}" class="hideTextView">分身状态</view>
-                  <view class="iconfont dingwei" style="font-size:10px;float:left;padding-left:5px;color:#8e8e8e;padding-top:1px;"></view>
-                  <view class="distanceDescView">{{value.distanceDesc}}</view>
+                  <view class="timeDescView">{{value.createTime}}</view>
+                  <view wx:if="{{value.isHide}}" class="hideTextView">匿名发布</view>
+                  <view class="userPlaceView">
+                    <view class="iconfont dingwei" style="font-size:10px;float:left;color:#8e8e8e;"></view>
+                    <view class="distanceDescView">{{value.distanceDesc}}</view>
+                  </view>
                 </view>
               </view>
               <view class="iconView" data-index='{{key}}' data-pickUpId='{{value.pickUpId}}' data-collectId='{{value.collectId}}' data-momentId='{{value.momentId}}' data-type='2' catchtap='bindlongMomentPress'>

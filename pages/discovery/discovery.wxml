@@ -1,7 +1,7 @@
 <!-- 自定义的导航栏 -->
 <view wx:if="{{!showStartUp}}" class="empty_custom" style="padding-top:{{statusBarHeight}}px"></view>
 <view wx:if="{{!showStartUp}}" class="custom" style="padding-top:{{statusBarHeight}}px">
-  <view  class="toUserPage">
+  <view class="toUserPage">
     <view bindtap="toDiscoryList" class="leftTitleView">
       <view class="{{currentTab==0?'momentTitleCilick':'momentTitle'}}">探索 </view>
       <view class="{{currentTab==0?'momentTitleCilickBottom':''}}"></view>
@@ -74,9 +74,11 @@
                         <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
                       </view>
                     </view>
-                    <view wx:if="{{value.isHide}}" class="hideTextView">分身状态</view>
-                    <view class="iconfont dingwei" style="font-size:10px;float:left;padding-left:5px;color:#8e8e8e;padding-top:0px;"></view>
-                    <view class="distanceDescView">{{value.distanceDesc}}</view>
+                    <view class="timeDescView">{{value.createTime}}</view>
+                    <view class="userPlaceView">
+                      <view class="iconfont dingwei" style="font-size:10px;float:left;color:#8e8e8e;"></view>
+                      <view class="distanceDescView">{{value.distanceDesc}}</view>
+                    </view>
                   </view>
                 </view>
                 <view class="rightBtnView">
@@ -138,6 +140,7 @@
                       </view>
                       <!-- <view class="ageTextView">{{value.age}}</view> -->
                     </view>
+                    <view class="timeDescView">{{value.createTime}}</view>
                     <view class="iconfont dingwei" style="font-size:10px;float:left;padding-left:5px;color:#8e8e8e;padding-top:1px;"></view>
                     <view class="distanceDescView">{{value.distanceDesc}}</view>
                   </view>
