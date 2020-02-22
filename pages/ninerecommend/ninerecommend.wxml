@@ -47,16 +47,22 @@
   <view class="userView">
     <view class="headPhotoView">
       <view class="attentionText" bindtap="attentionUser">关注</view>
-      <image class="userHead" src="{{currentMoment.headImgPath}}"></image>
-      <view class="reportText">举报</view>
+      <image class="userHead" src="{{currentMoment.headImgPath}}" bindtap="toShowModal"></image>
+      <view class="reportText" bindtap="reportItem">举报</view>
     </view>
-    <view class="nickNameText">{{currentMoment.nickName}}</view>
-    <view class="tagAreaView">
+    <view class="nickNameView">
+      <view class="nickNameText">{{currentMoment.nickName}} </view>
       <view class="{{currentMoment.gender==1?'genderView':'gender_womanView'}}">
         <image wx:if="{{currentMoment.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
         <image wx:if="{{currentMoment.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
       </view>
-      <view class="tagView">{{currentMoment.distanceDesc}}</view>
+    </view>
+
+    <view class="tagAreaView">
+      <view class="tagView">
+        <view class="iconfont dingwei" style="font-size:10px;padding-right: 2px;float:left;color:#8e8e8e;"></view>
+        {{currentMoment.distanceDesc}}
+      </view>
       <view class="tagView">{{currentMoment.ageYear}}</view>
       <view class="tagView">{{currentMoment.constellation}}</view>
       <view class="tagView">{{currentMoment.placeInfo}}</view>

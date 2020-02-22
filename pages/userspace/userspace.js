@@ -100,8 +100,7 @@ Page({
     }
     app.httpPost(
       'Letter/BasicUserInfo', {
-        "UId": self.data.currentPageUId,
-        "Type": 1
+        "UId": self.data.currentPageUId
       },
       function(res) {
         self.setData({

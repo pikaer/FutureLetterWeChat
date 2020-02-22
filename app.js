@@ -42,6 +42,7 @@ App({
     statusBarHeight: wx.getSystemInfoSync()['statusBarHeight'],
     needCheckUseInfo: false,
     bingoTitle: "欢迎进入我的聊天室",
+    userInfoBasicInfoCacheKey:"userInfoBasicInfoCacheKey",
     bingoLogo:"https://www.pikaer.com/common/image/20191229_44915_e676a972-d827-4025-b7c8-e0a08de11446.jpg"
   },
 

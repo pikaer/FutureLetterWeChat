@@ -246,6 +246,7 @@ button {
   border-radius: 8px;
   margin-top: 2px;
   background-color: #85d0ed;
+  margin-right: 5px;
 }
 
 .gender_womanView {
@@ -256,6 +257,7 @@ button {
   background-color: #fda3e6;
   border-radius: 8px;
   margin-top: 2px;
+  margin-right: 5px;
 }
 
 .genderImgView {
@@ -281,7 +283,6 @@ button {
   font-size: 10px;
   color: black;
 }
-
 
 .gender_womanView {
   height: 13px;
