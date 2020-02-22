@@ -88,7 +88,7 @@
     </view>
     <view class="lineView"></view>
     <view class="pickView">
-      <view class="pickLable">一起玩类型</view>
+      <view class="pickLable">学校类型</view>
       <view class="pickValue">
         <picker bindchange="bindSchoolTypeChange" value="{{tempUserInfo.schoolType}}" range="{{schoolTypeArray}}">
           <view class="pickData">{{schoolTypeArray[tempUserInfo.schoolType]}}</view>

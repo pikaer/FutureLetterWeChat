@@ -176,6 +176,9 @@
     </swiper>
   </view>
 
+ <view class="nineRecommendIcon" catchtap="toNineRecommend">
+    <view class="iconfont add" style='font-size:25px;font-weight: 650;color: white;padding-top: 3px;' />
+  </view>
   <view class="publishIcon" catchtap="publishMoment">
     <view class="iconfont edit" style='font-size:25px;font-weight: 650;color: white;padding-top: 3px;' />
   </view>

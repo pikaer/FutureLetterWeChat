@@ -282,29 +282,6 @@ button {
   color: black;
 }
 
-.genderImg {
-  width: 7px;
-  height: 7px;
-}
-
-.genderImgView {
-  float: left;
-  padding-top: 3px;
-  margin-bottom: 2px;
-  padding-left: 3px;
-  padding-right: 3px;
-}
-
-.genderView {
-  height: 13px;
-  color: white;
-  float: left;
-  width: 13px;
-  border-radius: 8px;
-  margin-top: 1px;
-  margin-right: 8px;
-  background-color: #85d0ed;
-}
 
 .gender_womanView {
   height: 13px;

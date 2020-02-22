@@ -713,7 +713,7 @@ swiper-item {
   background-color: #eff2fb;
   margin-left: 5px;
   padding-right: 5px;
-  padding-left:4px;
+  padding-left: 4px;
   border-radius: 3px;
   font-size: 10px;
   color: #8e8e8e;
@@ -855,4 +855,15 @@ swiper-item {
   width: 25px;
   padding-left: 10px;
   padding-top: 10px;
+}
+
+.nineRecommendIcon {
+  position: fixed;
+  bottom: 75px;
+  right: 15px;
+  width: 48px;
+  height: 48px;
+  background-color: #0178d4;
+  border-radius: 100%;
+  text-align: center;
 }

@@ -1,0 +1,406 @@
+.empty_custom {
+  height: 40px;
+  width: 100%;
+}
+
+.custom {
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 43px;
+  z-index: 999;
+  background-color: #4d80fd;
+}
+
+.backBtnView {
+  left: 10px;
+  position: fixed;
+  border: 1rpx solid #dfe0e4;
+  border-radius: 100px;
+  height: 30px;
+  width: 80px;
+  margin-top: 2px;
+  margin-right: 8px;
+  background-color: white;
+}
+
+.backUpView {
+  float: left;
+  width: 32px;
+  padding-top: 5px;
+  border-bottom-left-radius: 50%;
+  border-top-left-radius: 50%;
+}
+
+.backUpHoverView {
+  float: left;
+  width: 32px;
+  padding-top: 5px;
+  border-bottom-left-radius: 50%;
+  border-top-left-radius: 50%;
+  background-color: #9ca2a4;
+}
+
+.nav_logoLeft {
+  width: 20px;
+  height: 20px;
+  padding-left: 5px;
+}
+
+.shuxianView {
+  font-size: 17px;
+  color: #dfe0e4;
+  float: left;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.toHomeView {
+  float: right;
+  width: 35px;
+  height: 83%;
+  padding-top: 5px;
+  border-bottom-right-radius: 50%;
+  border-top-right-radius: 50%;
+}
+
+.toHomeHoverView {
+  float: right;
+  width: 35px;
+  height: 83%;
+  padding-top: 5px;
+  border-bottom-right-radius: 50%;
+  border-top-right-radius: 50%;
+  background-color: #9ca2a4;
+}
+
+.nav_logoRight {
+  width: 20px;
+  height: 20px;
+  padding-right: 6px;
+}
+
+page {
+  font-size: 32rpx;
+  line-height: 1.6;
+  background-color: #4d80fd;
+  padding-bottom: 60px;
+}
+
+.indexContainer {
+  width: 100%;
+  height: 100%;
+}
+
+.contentArea {
+  background-color: white;
+  box-shadow: 0px 0px 1px #837c7c;
+  height: 390px;
+  border-radius: 6px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.contentRowView {
+  height: 130px;
+  width: 100%;
+}
+
+.contentLineView {
+  float: left;
+  height: 100%;
+  text-align: center;
+  width: 33.33333%;
+  box-shadow: 1rpx 1rpx 0px #e4dfdf;
+  justify-content: center;
+  align-items: center;
+  display: -webkit-flex;
+  font-size: 12px;
+}
+
+.contentLineView_Hover {
+  float: left;
+  height: 100%;
+  text-align: center;
+  width: 33.33333%;
+  justify-content: center;
+  align-items: center;
+  display: -webkit-flex;
+  background-color: #eff2fb;
+  font-size: 12px;
+}
+
+.refreshBtnView {
+  width: 160px;
+  height: 50px;
+  background-color: white;
+  text-align: center;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 650;
+  border-radius: 6px;
+}
+
+.refreshBtnView_hover {
+  width: 160px;
+  height: 50px;
+  background-color: #eff2fb;
+  text-align: center;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 650;
+  border-radius: 6px;
+}
+
+.actionBtnView {
+  margin-top: 50px;
+  text-align: center;
+  height: 40px;
+  width: 100%;
+  justify-content: center;
+  display: -webkit-flex;
+}
+
+.actionView {
+  width: 50px;
+  height: 50px;
+  float: left;
+  margin-right: 10px;
+  border-radius: 100%;
+  background-color: #1f5dd8;
+  text-align: center;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.actionView_hover {
+  width: 50px;
+  height: 50px;
+  float: left;
+  margin-right: 10px;
+  border-radius: 100%;
+  background-color: #1900fa;
+  text-align: center;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.actionIcon {
+  height: 26px;
+  width: 26px;
+}
+
+.modal-commontContent {
+  position: fixed;
+  top: 11%;
+  z-index: 9500;
+  background: #fff;
+  left: 20px;
+  right: 20px;
+  border-radius: 8px;
+}
+
+.textmomentContent {
+  font-size: 12px;
+  float: left;
+  padding-left: 7px;
+  background-color: #eff2fb;
+  color: #8e8e8e;
+  margin: 10px;
+  border-radius: 2px;
+  padding: 5px;
+  width: 91%;
+}
+
+.textCommontView {
+  padding-left: 10px;
+  padding-right: 15px;
+  padding-bottom: 10px;
+  clear: both;
+}
+
+.textValueView {
+  font-size: 12px;
+  padding-top: 10px;
+  width: 100%;
+  box-shadow: 0px 0px 1px #837c7c;
+  height: 50px;
+  border-radius: 4px;
+  padding-left: 5px;
+}
+
+.btnDialogView {
+  width: 100%;
+  height: 40px;
+}
+
+.notifyView {
+  width: 100%;
+  padding-left: 5px;
+}
+
+.notifyText {
+  float: left;
+  padding-top: 4px;
+  height: 40px;
+  padding-left: 5px;
+  padding-right: 3px;
+  font-size: 14px;
+}
+
+.notifyBtnView {
+  float: left;
+  padding-right: 15px;
+  height: 30px;
+}
+
+.sendBtnDialogView {
+  float: right;
+  margin-right: 10px;
+  width: 60px;
+  height: 29px;
+  background: #00cd66;
+  border-radius: 5px;
+  font-size: 15px;
+  text-align: center;
+  padding-top: 4px;
+  color: white;
+  font-weight: 650;
+}
+
+.userView {
+  width: 100%;
+  border-bottom: 1px solid #e4dfdf;
+}
+
+.headPhotoView {
+  padding-top: 7px;
+  text-align: center;
+  height: 40px;
+}
+
+.userHead {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+}
+
+.basicInfoView {
+  float: left;
+  max-width: 70%;
+  padding-top: 2px;
+  padding-left: 7px;
+}
+
+.nickNameText {
+  font-weight: 650;
+  text-align: center;
+  font-size: 15px;
+
+}
+
+.tagAreaView {
+  text-align: center;
+  height: 20px;
+  width: 100%;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.genderImgView {
+  float: left;
+  padding-top: 3px;
+  margin-bottom: 2px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.genderImg {
+  width: 7px;
+  height: 7px;
+  padding-bottom: 8px;
+}
+
+.tagView {
+  float: left;
+  background-color: #eff2fb;
+  padding-left: 5px;
+  border-radius: 5px;
+  padding-right: 5px;
+  margin-right: 5px;
+  font-size: 10px;
+  color: black;
+}
+
+.signatureView {
+  clear: both;
+  font-size: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+}
+
+.gender_womanView {
+  height: 13px;
+  color: white;
+  float: left;
+  width: 13px;
+  background-color: #fda3e6;
+  border-radius: 8px;
+  margin-right: 5px;
+}
+
+.genderView {
+  height: 13px;
+  color: white;
+  float: left;
+  width: 13px;
+  border-radius: 8px;
+  margin-top: 2px;
+  background-color: #85d0ed;
+  margin-right: 5px;
+}
+
+.attentionText {
+  width: 40px;
+  float: left;
+  margin-left: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 1px;
+  color: #8e8e8e;
+}
+
+.reportText {
+  width: 40px;
+  float: right;
+  margin-right: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 1px;
+  color: #8e8e8e;
+}
+
+.cancelSendBtnView {
+  float: right;
+  margin-right: 10px;
+  width: 60px;
+  height: 29px;
+  background: #eff2fb;
+  border-radius: 5px;
+  font-size: 15px;
+  text-align: center;
+  padding-top: 4px;
+  color: #8e8e8e;
+  font-weight: 650;
+}

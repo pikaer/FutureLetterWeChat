@@ -1,0 +1,81 @@
+<view class="empty_custom" style="padding-top:{{statusBarHeight}}px">
+</view>
+<view class="custom" style="padding-top:{{statusBarHeight}}px">
+  <view class="backBtnView" style="top:{{statusBarHeight+3}}px">
+    <view class="backUpView" hover-class="backUpHoverView" catchtap='backUpAction'>
+      <image class='nav_logoLeft' src="/content/images/backupicon.svg" />
+    </view>
+    <view class="shuxianView">|</view>
+    <view class="toHomeView" hover-class="toHomeHoverView" catchtap='toHomeAction'>
+      <image class='nav_logoRight' src="/content/images/homeicon.svg" />
+    </view>
+  </view>
+</view>
+<view class="indexContainer">
+  <view class="contentArea">
+    <view class="contentRowView">
+      <view bindtap="toShowChatModal" data-momentIndex='1' class="contentLineView" hover-class="contentLineView_Hover" style="border-top-left-radius: 6px">{{momentText1}}</view>
+      <view bindtap="toShowChatModal" data-momentIndex='2' class="contentLineView" hover-class="contentLineView_Hover">{{momentText2}}</view>
+      <view bindtap="toShowChatModal" data-momentIndex='3' class="contentLineView" hover-class="contentLineView_Hover" style="border-top-right-radius: 6px">{{momentText3}}</view>
+    </view>
+    <view class="contentRowView">
+      <view bindtap="toShowChatModal" data-momentIndex='4' class="contentLineView" hover-class="contentLineView_Hover">{{momentText4}}</view>
+      <view bindtap="toShowChatModal" data-momentIndex='5' class="contentLineView" hover-class="contentLineView_Hover">{{momentText5}}</view>
+      <view bindtap="toShowChatModal" data-momentIndex='6' class="contentLineView" hover-class="contentLineView_Hover">{{momentText6}}</view>
+    </view>
+    <view class="contentRowView">
+      <view bindtap="toShowChatModal" data-momentIndex='7' class="contentLineView" hover-class="contentLineView_Hover" style="border-bottom-left-radius: 6px">{{momentText7}}</view>
+      <view bindtap="toShowChatModal" data-momentIndex='8' class="contentLineView" hover-class="contentLineView_Hover">{{momentText8}}</view>
+      <view bindtap="toShowChatModal" data-momentIndex='9' class="contentLineView" hover-class="contentLineView_Hover" style="border-bottom-right-radius: 6px">{{momentText9}}</view>
+    </view>
+  </view>
+  <view class="actionBtnView">
+    <view class="actionView" hover-class="actionView_hover" style="margin-right: 15px;">
+      <image class='actionIcon' src="/content/images/filter.svg" />
+    </view>
+    <view class="refreshBtnView" hover-class="refreshBtnView_hover" bindtap="nextPageData">下一批</view>
+    <view class="actionView" hover-class="actionView_hover" style="margin-left: 15px;">
+      <image class='actionIcon' src="/content/images/add.svg" />
+    </view>
+  </view>
+</view>
+
+
+<!--custom Modal-->
+<view class="modal-mask-all" bindtap="hideChatModal" wx:if="{{showChatModal}}" />
+<view class="modal-commontContent" wx:if="{{showChatModal}}">
+  <view class="userView">
+    <view class="headPhotoView">
+      <view class="attentionText" bindtap="attentionUser">关注</view>
+      <image class="userHead" src="{{currentMoment.headImgPath}}"></image>
+      <view class="reportText">举报</view>
+    </view>
+    <view class="nickNameText">{{currentMoment.nickName}}</view>
+    <view class="tagAreaView">
+      <view class="{{currentMoment.gender==1?'genderView':'gender_womanView'}}">
+        <image wx:if="{{currentMoment.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
+        <image wx:if="{{currentMoment.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
+      </view>
+      <view class="tagView">{{currentMoment.distanceDesc}}</view>
+      <view class="tagView">{{currentMoment.ageYear}}</view>
+      <view class="tagView">{{currentMoment.constellation}}</view>
+      <view class="tagView">{{currentMoment.placeInfo}}</view>
+    </view>
+    <view class="signatureView">个性签名：{{currentMoment.signature}}</view>
+  </view>
+  <view class="textmomentContent">{{currentMoment.textContent}}</view>
+  <view class="textCommontView">
+    <!--这个是输入框-->
+    <textarea class="textValueView" placeholder="请输入回应内容" bindinput="insertDialogDiscussInput" placeholder-style="color: gray" maxlength="50" focus="true"></textarea>
+  </view>
+  <view class="btnDialogView">
+    <view class="notifyView">
+      <view class="notifyText">开启微信通知</view>
+      <view class="notifyBtnView">
+        <switch bindtap="requestOpenMssageNotify" bindchange="subscribeMessage" checked='{{subscribeMessageOpen}}' />
+      </view>
+    </view>
+    <view class="sendBtnDialogView" bindtap="insertDialogContent">发 送</view>
+    <view class="cancelSendBtnView" bindtap="hideChatModal">取 消</view>
+  </view>
+</view>

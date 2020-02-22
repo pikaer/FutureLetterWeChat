@@ -110,6 +110,13 @@ Page({
     })
   },
 
+
+  toNineRecommend: function (uid) {
+    wx.navigateTo({
+      url: "../../pages/ninerecommend/ninerecommend"
+    })
+  },
+  
   getAttentionMomentCount: function() {
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
