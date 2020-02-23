@@ -2,5 +2,8 @@
   "navigationBarTitleText": "详情",
   "enablePullDownRefresh": false,
   "backgroundTextStyle": "dark",
-  "navigationStyle": "custom"
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "range-slider": "../../components/range-slider/range-slider"
+  }
 }

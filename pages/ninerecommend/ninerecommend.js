@@ -1,6 +1,8 @@
 const app = getApp()
 
-import { HubConnection } from "../../utils/signalR.js";
+import {
+  HubConnection
+} from "../../utils/signalR.js";
 
 Page({
 
@@ -9,16 +11,9 @@ Page({
    */
   data: {
     showChatModal: false,
+    showFilterModal: false,
     currentMoment: {},
-    momentPick1:false,
-    momentPick2:false,
-    momentPick3: false,
-    momentPick4: false,
-    momentPick5:false,
-    momentPick6: false,
-    momentPick7: false,
-    momentPick8: false,
-    momentPick9: false,
+    currentIndex: 0,
     momentText1: "",
     momentText2: "",
     momentText3: "",
@@ -37,28 +32,42 @@ Page({
     nineMoment7: {},
     nineMoment8: {},
     nineMoment9: {},
-    tempGender: 3,
-    insertDialogDiscussVlaue:"",
+    selectedGender: 3,
+    nextCount: 20, //剩余次数
+    insertDialogDiscussVlaue: "",
+    minAgeValue: 0,
+    maxAgeValue: 100,
+    rangeValues: [0, 100],
     statusBarHeight: app.globalData.statusBarHeight,
   },
 
   onLoad: function(options) {
-    if (app.globalData.apiHeader.UId>0){
+    if (app.globalData.apiHeader.UId > 0) {
       this.initData();
       this.onConnected();
-    }else{
+    } else {
       this.userLogin();
     }
+    this.initNextCount();
+  },
+
+  onRangeChange: function(e) {
+    let rangeArry = [e.detail.minValue, e.detail.maxValue]
+    this.setData({
+      rangeValues: rangeArry,
+      minAgeValue: Math.round(e.detail.minValue),
+      maxAgeValue: Math.round(e.detail.maxValue)
+    });
   },
 
   //卸载页面
-  onUnload: function () {
+  onUnload: function() {
     console.info("卸载页面，断开连接")
     this.onDisconnected();
   },
 
   //卸载页面，中断webSocket
-  onDisconnected: function () {
+  onDisconnected: function() {
     try {
       this.hubConnect.close({
         UId: app.globalData.apiHeader.UId,
@@ -82,8 +91,24 @@ Page({
     })
   },
 
+  toPublishMoment: function() {
+    wx.navigateTo({
+      url: "../../pages/publishtextmoment/publishtextmoment"
+    })
+  },
+
+
+  selectedGenderBtn: function(ops) {
+    this.setData({
+      selectedGender: ops.currentTarget.dataset.gender
+    })
+  },
+
   toShowChatModal: function(ops) {
     let index = ops.currentTarget.dataset.momentindex;
+    this.setData({
+      currentIndex: index
+    })
     if (index == 1) {
       this.setData({
         currentMoment: this.data.nineMoment1
@@ -143,22 +168,34 @@ Page({
     })
   },
 
+  confirmFilterBtn: function() {
+    this.setData({
+      showFilterModal: false
+    })
+  },
+
+  toShowFilterModal: function() {
+    this.setData({
+      showFilterModal: true
+    })
+  },
+
   nextPageData: function() {
-    this.nineMoment();
+    this.nineMoment(true);
   },
 
   initData: function() {
     let cacheKey = "ninePageMomentCacheKey";
     let cacheValue = wx.getStorageSync(cacheKey);
     if (app.isBlank(cacheValue) || cacheValue.isEmpty) {
-      this.nineMoment();
+      this.nineMoment(false);
     } else {
       this.nineMomentDataRefresh(cacheValue);
     }
   },
 
   //连接WebSocket
-  onConnected: function () {
+  onConnected: function() {
     if (app.globalData.apiHeader.UId <= 0) {
       return;
     }
@@ -182,7 +219,7 @@ Page({
   },
 
   //通知对方刷新聊天页面
-  sendMessage: function (partnerUId) {
+  sendMessage: function(partnerUId) {
     try {
       this.hubConnect.send("subScribeMessage", partnerUId);
     } catch (e) {
@@ -195,6 +232,15 @@ Page({
       return;
     }
     this.setData({
+      momentText1: "",
+      momentText2: "",
+      momentText3: "",
+      momentText4: "",
+      momentText5: "",
+      momentText6: "",
+      momentText7: "",
+      momentText8: "",
+      momentText9: "",
       nineMoment1: value.moment1,
       nineMoment2: value.moment2,
       nineMoment3: value.moment3,
@@ -253,17 +299,41 @@ Page({
   },
 
   //获取用户基础信息
-  nineMoment: function() {
+  nineMoment: function(needialog) {
     let self = this;
+    if (self.data.nextCount <= 0) {
+      wx.showToast({
+        title: "今日次数已用完，去发布一个吧",
+        icon: 'none',
+        duration: 1500
+      });
+      return;
+    }
+
     app.httpPost(
       'Letter/NineMoment', {
         "UId": app.globalData.apiHeader.UId,
-        "Gender": self.data.tempGender
+        "Gender": self.data.selectedGender
       },
       function(res) {
-        let cacheKey = "ninePageMomentCacheKey";
-        self.nineMomentDataRefresh(res);
-        app.setCache(cacheKey, res);
+        if (app.isBlank(res) || res.isEmpty) {
+          if (needialog) {
+            wx.showToast({
+              title: "没有更多动态啦，去发布一个吧",
+              icon: 'none',
+              duration: 1500
+            });
+          }
+        } else {
+          let cacheKey = "ninePageMomentCacheKey";
+          let count = self.data.nextCount - 1;
+          self.nineMomentDataRefresh(res);
+          app.setCache(cacheKey, res);
+          self.setData({
+            nextCount: count
+          })
+          self.refreshNextCount();
+        }
       },
       function(res) {
         console.error("获取用户基础信息失败");
@@ -292,12 +362,12 @@ Page({
 
 
   //举报瓶子
-  reportItem: function () {
+  reportItem: function() {
     app.httpPost(
       'Letter/ReportBottle', {
         "PickUpId": this.data.currentMoment.pickUpId
       },
-      function (res) {
+      function(res) {
         console.info("举报瓶子成功！");
         wx.showToast({
           title: "举报成功",
@@ -305,19 +375,19 @@ Page({
           duration: 1500
         });
       },
-      function (res) {
+      function(res) {
         console.info("举报瓶子失败");
       })
   },
 
   //获取用户输入的用户名
-  insertDialogDiscussInput: function (e) {
+  insertDialogDiscussInput: function(e) {
     this.data.insertDialogDiscussVlaue = e.detail.value
   },
 
 
   //发表评论
-  insertDialogContent: function () {
+  insertDialogContent: function() {
     if (this.data.insertDialogDiscussVlaue.length == 0) {
       wx.showToast({
         title: "内容不能为空",
@@ -334,7 +404,7 @@ Page({
         "PickUpId": self.data.currentMoment.pickUpId,
         "TextContent": self.data.insertDialogDiscussVlaue
       },
-      function (res) {
+      function(res) {
         if (res.isExecuteSuccess) {
           wx.showToast({
             title: "回复成功",
@@ -342,10 +412,11 @@ Page({
             duration: 1500
           });
           self.sendMessage(self.data.currentMoment.uId);
+          self.refreshReplyState(self.data.currentIndex);
           console.info("快速评论成功");
         }
       },
-      function (res) {
+      function(res) {
         wx.showToast({
           title: "评论失败",
           icon: 'none',
@@ -356,8 +427,45 @@ Page({
   },
 
 
+  refreshReplyState: function(currentIndex) {
+    let cacheKey = "ninePageMomentCacheKey";
+    let cacheValue = wx.getStorageSync(cacheKey);
+    if (app.isBlank(cacheValue)) {
+      return;
+    }
+    if (currentIndex == 1) {
+      cacheValue.moment1.hasReply = true;
+    }
+    if (currentIndex == 2) {
+      cacheValue.moment2.hasReply = true;
+    }
+    if (currentIndex == 3) {
+      cacheValue.moment3.hasReply = true;
+    }
+    if (currentIndex == 4) {
+      cacheValue.moment4.hasReply = true;
+    }
+    if (currentIndex == 5) {
+      cacheValue.moment5.hasReply = true;
+    }
+    if (currentIndex == 6) {
+      cacheValue.moment6.hasReply = true;
+    }
+    if (currentIndex == 7) {
+      cacheValue.moment7.hasReply = true;
+    }
+    if (currentIndex == 8) {
+      cacheValue.moment8.hasReply = true;
+    }
+    if (currentIndex == 9) {
+      cacheValue.moment9.hasReply = true;
+    }
+    this.nineMomentDataRefresh(cacheValue);
+    app.setCache(cacheKey, cacheValue);
+  },
+
   //用户登录
-  userLogin: function () {
+  userLogin: function() {
     let self = this;
     //优先获取缓存
     let cacheValue = wx.getStorageSync(app.globalData.userInfoBasicInfoCacheKey);
@@ -368,7 +476,7 @@ Page({
       console.info("通过缓存登录成功!");
       self.initData();
       self.onConnected();
-      needInit=false;
+      needInit = false;
     }
 
     wx.login({
@@ -410,12 +518,38 @@ Page({
 
 
   //分享功能
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     return {
-      title: "在没人认识我的地方，你才真正认识我。",
+      title: "和我一起，开启时空对话",
       imageUrl: "",
       path: "/pages/ninerecommend/ninerecommend"
     }
+  },
+
+  initNextCount: function() {
+    let curentdate = this.getNowDesc();
+    let cacheKey = "nineMomentNextCountCacheKey";
+    let cacheValue = wx.getStorageSync(cacheKey);
+    if (!app.isBlank(cacheValue)) {
+      if (cacheValue.indexOf(curentdate) >= 0) {
+        let strArry = cacheValue.split('_');
+        this.setData({
+          nextCount: strArry[1]
+        });
+      }
+    }
+  },
+
+  refreshNextCount: function() {
+    let curentdate = this.getNowDesc();
+    let cacheValue = curentdate + "_" + this.data.nextCount;
+    let cacheKey = "nineMomentNextCountCacheKey";
+    app.setCache(cacheKey, cacheValue);
+  },
+
+  getNowDesc: function() {
+    let now = new Date();
+    return now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
   },
 
 })

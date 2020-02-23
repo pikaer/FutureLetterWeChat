@@ -95,12 +95,10 @@ page {
 }
 
 .contentArea {
-  background-color: white;
-  box-shadow: 0px 0px 1px #837c7c;
   height: 390px;
   border-radius: 6px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 16px;
+  margin-right: 8px;
   margin-top: 10px;
 }
 
@@ -111,27 +109,30 @@ page {
 
 .contentLineView {
   float: left;
-  height: 100%;
+  height: 130px;
   text-align: center;
-  width: 33.33333%;
-  box-shadow: 1rpx 1rpx 0px #e4dfdf;
+  width: 32%;
   justify-content: center;
   align-items: center;
   display: -webkit-flex;
   font-size: 12px;
+  background-color: white;
+  border-top: 1px solid #e4dfdf;
+  border-left: 1px solid #e4dfdf;
 }
 
 .contentLineView_Hover {
   float: left;
-  height: 100%;
+  height: 130px;
   text-align: center;
-  width: 33.33333%;
-  box-shadow: 1rpx 1rpx 0px #e4dfdf;
+  width: 32%;
   justify-content: center;
   align-items: center;
   display: -webkit-flex;
   background-color: #eff2fb;
   font-size: 12px;
+  border-top: 1px solid #e4dfdf;
+  border-left: 1px solid #e4dfdf;
 }
 
 .refreshBtnView {
@@ -409,4 +410,107 @@ page {
   padding-top: 4px;
   color: #8e8e8e;
   font-weight: 650;
+}
+
+.modal-filterContent {
+  position: fixed;
+  top: 20%;
+  z-index: 9500;
+  background: #fff;
+  left: 20px;
+  right: 20px;
+  border-radius: 8px;
+  height: 250px;
+  text-align: center;
+}
+
+.confirmFilterBtnView {
+  height: 40px;
+  background-color: #00cd66;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  color: white;
+  font-weight: 650;
+  font-size: 18px;
+  margin-left: 60px;
+  margin-right: 60px;
+  margin-top: 30px;
+}
+
+.genderFilterView {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.genderFilterText {
+  font-size: 14px;
+  float: left;
+  margin-bottom: 10px;
+}
+
+.genderBtnView {
+  height: 30px;
+  width: 100%;
+  margin-top: 5px;
+  clear: both;
+}
+
+.genderBtn {
+  float: left;
+  width: 90px;
+  height: 32px;
+  background-color: #eff2fb;
+  margin-right: 10px;
+  border-radius: 2px;
+  font-size: 14px;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.genderBtn_Selected {
+  float: left;
+  width: 90px;
+  height: 32px;
+  background-color: #4d80fd;
+  color: white;
+  margin-right: 10px;
+  border-radius: 2px;
+  font-size: 14px;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.range-slider-block {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  box-shadow: 0px 0px 5px #888;
+}
+
+.range-text {
+  font-size: 18px;
+}
+
+.sliderFilterText {
+  font-size: 14px;
+  float: left;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.sliderView {
+  margin-top: 40px;
+  margin-left: 20px;
+}
+
+.nextCountText {
+  font-size: 16px;
+  color: white;
+  margin-left: 100px;
+  position: fixed;
 }

@@ -379,11 +379,15 @@ swiper-item {
   text-align: center;
 }
 
-.placeUseview {
-  width: 100%;
+.placeUseView {
   height: 100px;
+  width: 100%;
+  margin-bottom: 70px;
+  text-align: center;
+  font-size: 14px;
+  color: #9d9d9d;
+  padding-top: 10px;
   clear: both;
-  margin-bottom: 50px;
 }
 
 .momentImgListView {

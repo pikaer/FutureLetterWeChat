@@ -10,31 +10,32 @@
       <image class='nav_logoRight' src="/content/images/homeicon.svg" />
     </view>
   </view>
+  <view class="nextCountText" style="top:{{statusBarHeight+10}}px">今日剩余{{nextCount}}次</view>
 </view>
 <view class="indexContainer">
   <view class="contentArea">
     <view class="contentRowView">
-      <view bindtap="toShowChatModal" data-momentIndex='1' class="contentLineView" hover-class="contentLineView_Hover" style="border-top-left-radius: 6px">{{momentText1}}</view>
-      <view bindtap="toShowChatModal" data-momentIndex='2' class="contentLineView" hover-class="contentLineView_Hover">{{momentText2}}</view>
-      <view bindtap="toShowChatModal" data-momentIndex='3' class="contentLineView" hover-class="contentLineView_Hover" style="border-top-right-radius: 6px">{{momentText3}}</view>
+      <view bindtap="toShowChatModal" data-momentIndex='1' class="{{nineMoment1.hasReply?'contentLineView_Hover':'contentLineView'}}" style="border-top-left-radius: 6px;">{{momentText1}}</view>
+      <view bindtap="toShowChatModal" data-momentIndex='2' class="{{nineMoment2.hasReply?'contentLineView_Hover':'contentLineView'}}">{{momentText2}}</view>
+      <view bindtap="toShowChatModal" data-momentIndex='3' class="{{nineMoment3.hasReply?'contentLineView_Hover':'contentLineView'}}" style="border-top-right-radius: 6px;">{{momentText3}}</view>
     </view>
     <view class="contentRowView">
-      <view bindtap="toShowChatModal" data-momentIndex='4' class="contentLineView" hover-class="contentLineView_Hover">{{momentText4}}</view>
-      <view bindtap="toShowChatModal" data-momentIndex='5' class="contentLineView" hover-class="contentLineView_Hover">{{momentText5}}</view>
-      <view bindtap="toShowChatModal" data-momentIndex='6' class="contentLineView" hover-class="contentLineView_Hover">{{momentText6}}</view>
+      <view bindtap="toShowChatModal" data-momentIndex='4' class="{{nineMoment4.hasReply?'contentLineView_Hover':'contentLineView'}}">{{momentText4}}</view>
+      <view bindtap="toShowChatModal" data-momentIndex='5' class="{{nineMoment5.hasReply?'contentLineView_Hover':'contentLineView'}}">{{momentText5}}</view>
+      <view bindtap="toShowChatModal" data-momentIndex='6' class="{{nineMoment6.hasReply?'contentLineView_Hover':'contentLineView'}}">{{momentText6}}</view>
     </view>
     <view class="contentRowView">
-      <view bindtap="toShowChatModal" data-momentIndex='7' class="contentLineView" hover-class="contentLineView_Hover" style="border-bottom-left-radius: 6px">{{momentText7}}</view>
-      <view bindtap="toShowChatModal" data-momentIndex='8' class="contentLineView" hover-class="contentLineView_Hover">{{momentText8}}</view>
-      <view bindtap="toShowChatModal" data-momentIndex='9' class="contentLineView" hover-class="contentLineView_Hover" style="border-bottom-right-radius: 6px">{{momentText9}}</view>
+      <view bindtap="toShowChatModal" data-momentIndex='7' class="{{nineMoment7.hasReply?'contentLineView_Hover':'contentLineView'}}" style="border-bottom-left-radius: 6px;">{{momentText7}}</view>
+      <view bindtap="toShowChatModal" data-momentIndex='8' class="{{nineMoment8.hasReply?'contentLineView_Hover':'contentLineView'}}">{{momentText8}}</view>
+      <view bindtap="toShowChatModal" data-momentIndex='9' class="{{nineMoment9.hasReply?'contentLineView_Hover':'contentLineView'}}" style="border-bottom-right-radius: 6px;">{{momentText9}}</view>
     </view>
   </view>
   <view class="actionBtnView">
-    <view class="actionView" hover-class="actionView_hover" style="margin-right: 15px;">
+    <view bindtap="toShowFilterModal" class="actionView" hover-class="actionView_hover" style="margin-right: 15px;">
       <image class='actionIcon' src="/content/images/filter.svg" />
     </view>
     <view class="refreshBtnView" hover-class="refreshBtnView_hover" bindtap="nextPageData">下一批</view>
-    <view class="actionView" hover-class="actionView_hover" style="margin-left: 15px;">
+    <view bindtap="toPublishMoment" class="actionView" hover-class="actionView_hover" style="margin-left: 15px;">
       <image class='actionIcon' src="/content/images/add.svg" />
     </view>
   </view>
@@ -84,4 +85,27 @@
     <view class="sendBtnDialogView" bindtap="insertDialogContent">发 送</view>
     <view class="cancelSendBtnView" bindtap="hideChatModal">取 消</view>
   </view>
+</view>
+
+
+<!--custom Modal-->
+<view class="modal-mask-all" bindtap="hideFilterModal" wx:if="{{showFilterModal}}" />
+<view class="modal-filterContent" wx:if="{{showFilterModal}}">
+  <view class="genderFilterView">
+    <view class="genderFilterText">性别筛选</view>
+    <view class="genderBtnView">
+      <view bindtap="selectedGenderBtn" data-gender='3' class="{{selectedGender==3?'genderBtn_Selected':'genderBtn'}}">显示全部</view>
+      <view bindtap="selectedGenderBtn" data-gender='1' class="{{selectedGender==1?'genderBtn_Selected':'genderBtn'}}">只看男生</view>
+      <view bindtap="selectedGenderBtn" data-gender='2' class="{{selectedGender==2?'genderBtn_Selected':'genderBtn'}}">只看女生</view>
+    </view>
+  </view>
+  <view class="sliderFilterText">年龄筛选</view>
+  <view class="sliderFilterText">{{minAgeValue}}-{{maxAgeValue}}</view>
+  <view class="sliderView">
+    <range-slider width='400' height='80' block-size='50' min='0' max='100' values='{{rangeValues}}' bind:rangechange='onRangeChange'>
+      <view slot='minBlock' class='range-slider-block'></view>
+      <view slot='maxBlock' class='range-slider-block'></view>
+    </range-slider>
+  </view>
+  <view class="confirmFilterBtnView" bindtap="confirmFilterBtn">确 认</view>
 </view>

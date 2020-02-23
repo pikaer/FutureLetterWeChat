@@ -65,6 +65,7 @@ Page({
     } else {
       this.clearUnReadCount(ops);
     }
+    this.unReadCountRefresh();
   },
 
   //卸载页面，中断webSocket

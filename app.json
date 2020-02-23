@@ -4,6 +4,7 @@
     "pages/chat/chat",
     "pages/playtogether/playtogether",
     "pages/publishplaymoment/publishplaymoment",
+    "pages/publishtextmoment/publishtextmoment",
     "pages/userspace/userspace",
     "pages/ninerecommend/ninerecommend",
     "pages/meindex/meindex",

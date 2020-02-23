@@ -88,7 +88,7 @@
           <view class="seeMore" hidden='{{pickUpList_Other.length<50}}' bindtap="onReachBottom">
             {{onloadText}}
           </view>
-          <view class="placeUseview"></view>
+          <view class="placeUseView">没有更多啦</view>
         </scroll-view>
       </swiper-item>
       <!-- 王者 -->
@@ -98,7 +98,7 @@
           <view class="empty_topArea"></view>
           <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_WangZhe}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
-           <view class="contentArea" style="background-image: url({{value.imgContent}})">
+            <view class="contentArea" style="background-image: url({{value.imgContent}})">
               <view class="{{value.isHide?'bodyView_Hide':'bodyView'}}">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
@@ -154,7 +154,7 @@
           <view class="seeMore" hidden='{{pickUpList_WangZhe.length<50}}' bindtap="onReachBottom">
             {{onloadText}}
           </view>
-          <view class="placeUseview"></view>
+          <view class="placeUseView">没有更多啦</view>
         </scroll-view>
       </swiper-item>
       <!-- 吃鸡 -->
@@ -164,7 +164,7 @@
           <view class="empty_topArea"></view>
           <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_ChiJi}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
-           <view class="contentArea" style="background-image: url({{value.imgContent}})">
+            <view class="contentArea" style="background-image: url({{value.imgContent}})">
               <view class="{{value.isHide?'bodyView_Hide':'bodyView'}}">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
@@ -220,7 +220,7 @@
           <view class="seeMore" hidden='{{pickUpList_ChiJi.length<50}}' bindtap="onReachBottom">
             {{onloadText}}
           </view>
-          <view class="placeUseview"></view>
+          <view class="placeUseView">没有更多啦</view>
         </scroll-view>
       </swiper-item>
       <!-- 连麦 -->
@@ -230,7 +230,7 @@
           <view class="empty_topArea"></view>
           <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_LianMai}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
-           <view class="contentArea" style="background-image: url({{value.imgContent}})">
+            <view class="contentArea" style="background-image: url({{value.imgContent}})">
               <view class="{{value.isHide?'bodyView_Hide':'bodyView'}}">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
@@ -286,7 +286,7 @@
           <view class="seeMore" hidden='{{pickUpList_LianMai.length<50}}' bindtap="onReachBottom">
             {{onloadText}}
           </view>
-          <view class="placeUseview"></view>
+          <view class="placeUseView">没有更多啦</view>
         </scroll-view>
       </swiper-item>
       <!-- 游戏 -->
@@ -296,7 +296,7 @@
           <view class="empty_topArea"></view>
           <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_Game}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
-             <view class="contentArea" style="background-image: url({{value.imgContent}})">
+            <view class="contentArea" style="background-image: url({{value.imgContent}})">
               <view class="{{value.isHide?'bodyView_Hide':'bodyView'}}">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
@@ -352,7 +352,7 @@
           <view class="seeMore" hidden='{{pickUpList_Game.length<50}}' bindtap="onReachBottom">
             {{onloadText}}
           </view>
-          <view class="placeUseview"></view>
+          <view class="placeUseView">没有更多啦</view>
         </scroll-view>
       </swiper-item>
       <!-- 学习 -->
@@ -362,7 +362,7 @@
           <view class="empty_topArea"></view>
           <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_Learn}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
-             <view class="contentArea" style="background-image: url({{value.imgContent}})">
+            <view class="contentArea" style="background-image: url({{value.imgContent}})">
               <view class="{{value.isHide?'bodyView_Hide':'bodyView'}}">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
@@ -418,7 +418,7 @@
           <view class="seeMore" hidden='{{pickUpList_Learn.length<50}}' bindtap="onReachBottom">
             {{onloadText}}
           </view>
-          <view class="placeUseview"></view>
+          <view class="placeUseView">没有更多啦</view>
         </scroll-view>
       </swiper-item>
       <!-- 追剧 -->
@@ -428,7 +428,7 @@
           <view class="empty_topArea"></view>
           <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_TVTracker}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
-             <view class="contentArea" style="background-image: url({{value.imgContent}})">
+            <view class="contentArea" style="background-image: url({{value.imgContent}})">
               <view class="{{value.isHide?'bodyView_Hide':'bodyView'}}">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
@@ -484,7 +484,7 @@
           <view class="seeMore" hidden='{{pickUpList_TVTracker.length<50}}' bindtap="onReachBottom">
             {{onloadText}}
           </view>
-          <view class="placeUseview"></view>
+          <view class="placeUseView">没有更多啦</view>
         </scroll-view>
       </swiper-item>
       <!-- 早起 -->
@@ -494,7 +494,7 @@
           <view class="empty_topArea"></view>
           <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_Earlybird}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
-           <view class="contentArea" style="background-image: url({{value.imgContent}})">
+            <view class="contentArea" style="background-image: url({{value.imgContent}})">
               <view class="{{value.isHide?'bodyView_Hide':'bodyView'}}">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
@@ -550,7 +550,7 @@
           <view class="seeMore" hidden='{{pickUpList_Earlybird.length<50}}' bindtap="onReachBottom">
             {{onloadText}}
           </view>
-          <view class="placeUseview"></view>
+          <view class="placeUseView">没有更多啦</view>
         </scroll-view>
       </swiper-item>
       <!-- 散步 -->
@@ -560,7 +560,7 @@
           <view class="empty_topArea"></view>
           <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_Walk}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
-           <view class="contentArea" style="background-image: url({{value.imgContent}})">
+            <view class="contentArea" style="background-image: url({{value.imgContent}})">
               <view class="{{value.isHide?'bodyView_Hide':'bodyView'}}">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
@@ -616,7 +616,7 @@
           <view class="seeMore" hidden='{{pickUpList_Walk.length<50}}' bindtap="onReachBottom">
             {{onloadText}}
           </view>
-          <view class="placeUseview"></view>
+          <view class="placeUseView">没有更多啦</view>
         </scroll-view>
       </swiper-item>
       <!-- 看电影 -->
@@ -682,7 +682,7 @@
           <view class="seeMore" hidden='{{pickUpList_Movie.length<50}}' bindtap="onReachBottom">
             {{onloadText}}
           </view>
-          <view class="placeUseview"></view>
+          <view class="placeUseView">没有更多啦</view>
         </scroll-view>
       </swiper-item>
     </swiper>

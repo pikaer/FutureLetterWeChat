@@ -1,0 +1,63 @@
+<view class="containerView">
+  <view class='inputArea'>
+    <textarea bindblur="bindTextAreaBlur" bindinput="textContentInput" maxlength="400" placeholder="这一刻的想法..." class="textAreas" />
+  </view>
+  <view class="notifyView">
+    <view class="notifyIcon">
+      <image class='notifyImg' src="/content/images/notify.svg" />
+    </view>
+    <view class="notifyText">有人评论时通知我</view>
+    <view class="notifyBtnView">
+      <switch checked='{{subscribeMessageOpen}}' bindtap="requestMsg" bindchange="subscribeMessage" />
+    </view>
+  </view>
+  <view class="identityView">
+    <view class="identityIcon">
+      <image class='notifyImg' src="/content/images/identity.svg" />
+    </view>
+    <view class="identityText">发布身份</view>
+    <view class="radioView">
+      <radio-group bindchange="identityValueChange">
+        <label class="labelReal">
+          真身
+          <radio value="1" checked />
+        </label>
+        <label class="labelFake">
+          匿名
+          <radio value="2" />
+        </label>
+      </radio-group>
+    </view>
+  </view>
+  <navigator wx:if="{{isHideNickName}}" class="nickNameView" url="../../pages/hidingnickname/hidingnickname?nickName={{hidingNickName}}">
+    <view class="nickNameIcon">
+      <image class='notifyImg' src="/content/images/editnickname.svg" />
+    </view>
+    <view class="nickNameText">匿名时昵称</view>
+    <view class="nickNameValueView">{{hidingNickName}}</view>
+    <view class="navigator-right"></view>
+  </navigator>
+
+  <view bindtap="publishMoment" class="publishView">
+    <button disabled='{{publishDisabled}}' class='yes-upload'>发布动态</button>
+  </view>
+
+</view>
+
+
+<!--custom Modal-->
+<view class="modal-mask-all" bindtap="hideShareModal" wx:if="{{showShareModal}}"></view>
+<view wx:if="{{showShareModal}}">
+  <view class="modal-content-share">
+    <view class="titleIconView">
+      <image class='success_logo' src="/content/images/success.svg"></image>
+    </view>
+    <view class="shareTitleTxtView">
+      发布成功
+    </view>
+    <view class="shareBtnView">
+      <button lang="zh_CN" bindtap="cancelShare" class="cancelShareBtn">返回上一页</button>
+      <button open-type='share' class="shareBtn">分享给好友</button>
+    </view>
+  </view>
+</view>
