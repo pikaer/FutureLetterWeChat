@@ -1,60 +1,57 @@
-.empty_custom {
-  height: 40px;
-  width: 100%;
-}
-
-.custom {
-  position: fixed;
+.loginTitleTxtView {
   text-align: center;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  float: left;
+  margin-left: 10px;
+  font-size: 18px;
   width: 100%;
-  top: 0;
-  left: 0;
-  height: 43px;
-  z-index: 999;
-  background-color: #4d80fd;
+  font-weight: 700;
 }
 
-.backBtnView {
-  left: 10px;
-  position: fixed;
-  border: 1rpx solid #dfe0e4;
-  border-radius: 100px;
-  height: 30px;
-  width: 80px;
-  margin-top: 2px;
-  margin-right: 8px;
-  background-color: white;
-}
-
-.backUpView {
+.cancelBtnView {
   float: left;
-  width: 32px;
-  padding-top: 5px;
-  border-bottom-left-radius: 50%;
-  border-top-left-radius: 50%;
-}
-
-.backUpHoverView {
-  float: left;
-  width: 32px;
-  padding-top: 5px;
-  border-bottom-left-radius: 50%;
-  border-top-left-radius: 50%;
-  background-color: #9ca2a4;
-}
-
-.nav_logoLeft {
-  width: 20px;
-  height: 20px;
   padding-left: 5px;
+  width: 110px;
+  margin-top: 40px;
 }
 
-.shuxianView {
-  font-size: 17px;
-  color: #dfe0e4;
-  float: left;
-  padding-left: 3px;
-  padding-right: 3px;
+.cancelBtn {
+  width: 110px;
+  height: 40px;
+  padding-top: 10px;
+  background: #e3e3e3;
+  font-weight: 650;
+}
+
+button::after {
+  border: none;
+}
+
+button {
+  background-color: white;
+  line-height: 1;
+  overflow: flex;
+  width: 65px;
+  height: 65px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.loginBtnView {
+  float: right;
+  padding-right: 5px;
+  width: 110px;
+  margin-top: 40px;
+}
+
+.loginBtn {
+  width: 110px;
+  height: 40px;
+  padding-top: 10px;
+  background: #00cd66;
+  color: white;
+  font-weight: 650;
 }
 
 .toHomeView {
@@ -74,12 +71,6 @@
   border-bottom-right-radius: 50%;
   border-top-right-radius: 50%;
   background-color: #9ca2a4;
-}
-
-.nav_logoRight {
-  width: 20px;
-  height: 20px;
-  padding-right: 6px;
 }
 
 page {
@@ -161,6 +152,19 @@ page {
   border-radius: 6px;
 }
 
+.modal-content-login {
+  position: fixed;
+  top: 20%;
+  right: 10%;
+  left: 10%;
+  z-index: 9500;
+  height: 180px;
+  background: white;
+  border-radius: 12px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 .actionBtnView {
   margin-top: 50px;
   text-align: center;
@@ -210,7 +214,7 @@ page {
 
 .modal-commontContent {
   position: fixed;
-  top: 11%;
+  top: 5%;
   z-index: 9500;
   background: #fff;
   left: 20px;
@@ -292,8 +296,7 @@ page {
 
 .headPhotoView {
   padding-top: 7px;
-  text-align: center;
-  height: 40px;
+  display: -webkit-flex;
 }
 
 .userHead {
@@ -379,23 +382,27 @@ page {
 }
 
 .attentionText {
-  width: 40px;
+  width: 100%;
   float: left;
-  margin-left: 10px;
+  margin-left: 15px;
   font-size: 14px;
   border-radius: 5px;
   padding: 1px;
   color: #8e8e8e;
+  text-align: left;
+  margin-bottom: 10px;
 }
 
 .reportText {
-  width: 40px;
+  width: 100%;
   float: right;
-  margin-right: 10px;
+  margin-right: 15px;
   font-size: 14px;
   border-radius: 5px;
   padding: 1px;
   color: #8e8e8e;
+  text-align: right;
+  margin-bottom: 10px;
 }
 
 .cancelSendBtnView {
@@ -508,9 +515,46 @@ page {
   margin-left: 20px;
 }
 
-.nextCountText {
-  font-size: 16px;
-  color: white;
-  margin-left: 100px;
-  position: fixed;
+.left_Hide_ManView {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #85d0ed;
+}
+
+.left_Hide_WoManView {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background-color: #fda3e6;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.genderImgHead {
+  height: 25px;
+  width: 25px;
+}
+
+.leftView {
+  width: 40px;
+  height: 40px;
+}
+
+.userTitleHead {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+}
+
+.centerImgView {
+  width: 100%;
+  height: 40px;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
 }

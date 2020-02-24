@@ -1653,9 +1653,6 @@ Page({
       },
       function (res) {
         console.info("存入用户信息成功");
-        self.setData({
-          totalCoin: res.totalCoin
-        });
       },
       function (res) {
         console.error("存入用户信息失败!");

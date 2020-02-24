@@ -1,8 +1,9 @@
 {
-  "navigationBarTitleText": "详情",
+  "navigationBarTitleText": "今日剩余20次",
   "enablePullDownRefresh": false,
   "backgroundTextStyle": "dark",
-  "navigationStyle": "custom",
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#4d80fd",
   "usingComponents": {
     "range-slider": "../../components/range-slider/range-slider"
   }

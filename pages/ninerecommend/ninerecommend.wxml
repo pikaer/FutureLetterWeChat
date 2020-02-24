@@ -1,17 +1,3 @@
-<view class="empty_custom" style="padding-top:{{statusBarHeight}}px">
-</view>
-<view class="custom" style="padding-top:{{statusBarHeight}}px">
-  <view class="backBtnView" style="top:{{statusBarHeight+3}}px">
-    <view class="backUpView" hover-class="backUpHoverView" catchtap='backUpAction'>
-      <image class='nav_logoLeft' src="/content/images/backupicon.svg" />
-    </view>
-    <view class="shuxianView">|</view>
-    <view class="toHomeView" hover-class="toHomeHoverView" catchtap='toHomeAction'>
-      <image class='nav_logoRight' src="/content/images/homeicon.svg" />
-    </view>
-  </view>
-  <view class="nextCountText" style="top:{{statusBarHeight+10}}px">今日剩余{{nextCount}}次</view>
-</view>
 <view class="indexContainer">
   <view class="contentArea">
     <view class="contentRowView">
@@ -47,13 +33,21 @@
 <view class="modal-commontContent" wx:if="{{showChatModal}}">
   <view class="userView">
     <view class="headPhotoView">
-      <view class="attentionText" bindtap="attentionUser">关注</view>
-      <image class="userHead" src="{{currentMoment.headImgPath}}" bindtap="toShowModal"></image>
+      <view class="attentionText" bindtap="addAction">{{currentMoment.isHide?'收藏':'关注'}}</view>
+      <view class="centerImgView">
+        <view wx:if="{{currentMoment.isHide}}" class="{{currentMoment.gender==2?'left_Hide_WoManView':'left_Hide_ManView'}}" catchtap='toShowModal'>
+          <image wx:if="{{currentMoment.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
+          <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
+        </view>
+        <view wx:else data-uId='{{currentMoment.uId}}' class="leftView" catchtap="toShowModal">
+          <image src="{{currentMoment.headImgPath}}" class="userTitleHead" />
+        </view>
+      </view>
       <view class="reportText" bindtap="reportItem">举报</view>
     </view>
     <view class="nickNameView">
       <view class="nickNameText">{{currentMoment.nickName}} </view>
-      <view class="{{currentMoment.gender==1?'genderView':'gender_womanView'}}">
+      <view class="{{currentMoment.gender==1?'genderView':'gender_womanView'}}" wx:if="{{!currentMoment.isHide}}">
         <image wx:if="{{currentMoment.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
         <image wx:if="{{currentMoment.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
       </view>
@@ -108,4 +102,18 @@
     </range-slider>
   </view>
   <view class="confirmFilterBtnView" bindtap="confirmFilterBtn">确 认</view>
+</view>
+
+<!--custom Modal-->
+<view class="modal-mask-all" wx:if="{{showLoginModal}}"></view>
+<view wx:if="{{showLoginModal}}" class="modal-content-login">
+  <view class="loginTitleTxtView">
+    你还未登录，是否立即登录？
+  </view>
+  <view class="cancelBtnView">
+    <button lang="zh_CN" bindtap="cancelLogin" class="cancelBtn">取消</button>
+  </view>
+  <view class="loginBtnView">
+    <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo" class="loginBtn">登录</button>
+  </view>
 </view>
