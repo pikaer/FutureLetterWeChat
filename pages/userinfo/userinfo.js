@@ -4,20 +4,25 @@ Page({
     placeRegion: ['广东省', '广州市', '海珠区'],
     schoolTypeArray: ['其他', '学院/大学', '一本', '211/985/海外院校'],
     tempHeadImgPath: "",
+    inputTextTitle: "",
+    inputTextValue: "",
     cacheUserInfo: {}, //用户缓存信息
+    showTagModal: false, //个性标签
+    showTextInputModal: false, //个性标签
     tempUserInfo: {
       "gender": 1,
-      "nickName": "",
-      "birthDate": "",
-      "province": "",
-      "city": "",
-      "area": "",
-      "schoolName": "",
-      "entranceDate": "",
       "schoolType": 1,
-      "signature": "",
       "liveState": 2
-    }
+    },
+    tagItems: [],
+    needUpdate: false,
+    currentTagType: 0,
+    characterTagList: [],
+    sportTagList: [],
+    musicTagList: [],
+    foodTagList: [],
+    movieTagList: [],
+    travelTagList: []
   },
 
   onLoad: function() {
@@ -28,8 +33,7 @@ Page({
 
 
   initData: function() {
-    let cacheKey = "userEditInfo+" + app.globalData.apiHeader.UId;
-    let cacheValue = wx.getStorageSync(cacheKey);
+    let cacheValue = wx.getStorageSync('userEditInfo');
     if (!app.isBlank(cacheValue)) {
       let gender = 'tempUserInfo.gender';
       let nickName = 'tempUserInfo.nickName';
@@ -63,6 +67,12 @@ Page({
         [placeRegion0]: cacheValue.province,
         [placeRegion1]: cacheValue.city,
         [placeRegion2]: cacheValue.area,
+        characterTagList: cacheValue.characterTagList,
+        sportTagList: cacheValue.sportTagList,
+        musicTagList: cacheValue.musicTagList,
+        foodTagList: cacheValue.foodTagList,
+        movieTagList: cacheValue.movieTagList,
+        travelTagList: cacheValue.travelTagList,
       })
     }
   },
@@ -88,7 +98,7 @@ Page({
             tempHeadImgPath: res.headPhotoPath
           });
           app.setCache(cacheKey, res);
-          app.globalData.needCheckUseInfo=true;
+          app.globalData.needCheckUseInfo = true;
         },
         function(res) {
           console.error("获取用户头像失败！");
@@ -114,10 +124,8 @@ Page({
     }
   },
 
-  //获取我扔出去的没有被评论的动态
   getUserInfo: function() {
     var self = this;
-    let cacheKey = "userEditInfo+" + app.globalData.apiHeader.UId;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
         'Letter/GetUserInfo', {
@@ -126,41 +134,8 @@ Page({
         function(res) {
           if (res != null) {
             console.info("获取用户信息成功");
-            let gender = 'tempUserInfo.gender';
-            let nickName = 'tempUserInfo.nickName';
-            let birthDate = 'tempUserInfo.birthDate';
-            let province = 'tempUserInfo.province';
-            let city = 'tempUserInfo.city';
-            let area = 'tempUserInfo.area';
-            let schoolName = 'tempUserInfo.schoolName';
-            let entranceDate = 'tempUserInfo.entranceDate';
-            let schoolType = 'tempUserInfo.schoolType';
-            let liveState = 'tempUserInfo.liveState';
-            let signature = 'tempUserInfo.signature';
-
-            var placeRegion0 = "placeRegion[" + 0 + "]";
-            var placeRegion1 = "placeRegion[" + 1 + "]";
-            var placeRegion2 = "placeRegion[" + 2 + "]";
-
-            self.setData({
-              [gender]: res.gender,
-              [nickName]: res.nickName,
-              [birthDate]: res.birthDate,
-              [province]: res.province,
-              [city]: res.city,
-              [area]: res.area,
-              [schoolName]: res.schoolName,
-              [entranceDate]: res.entranceDate,
-              [schoolType]: res.schoolType,
-              [liveState]: res.liveState,
-              [signature]: res.signature,
-              //所在地下拉框默认值
-              [placeRegion0]: res.province,
-              [placeRegion1]: res.city,
-              [placeRegion2]: res.area,
-            })
-
-            app.setCache(cacheKey, res);
+            app.setCache('userEditInfo', res);
+            self.initData()
           }
         },
         function(res) {
@@ -169,13 +144,10 @@ Page({
     }
   },
 
-
-  //获取我扔出去的没有被评论的动态
   updateUserInfo: function() {
     let self = this;
     let tempUserInfo = this.data.tempUserInfo;
-    let cacheKey = "userEditInfo+" + app.globalData.apiHeader.UId;
-    app.setCache(cacheKey, tempUserInfo);
+    app.setCache('userEditInfo', tempUserInfo);
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
         'Letter/UpdateUserInfo', {
@@ -195,9 +167,8 @@ Page({
         function(res) {
           if (res.isExecuteSuccess) {
             console.info("修改用户信息成功")
-            app.saveToast(true);
           } else {
-            app.saveToast(false);
+            console.error("修改用户信息失败！");
           }
         },
         function(res) {
@@ -206,9 +177,196 @@ Page({
     }
   },
 
-  //页面下拉刷新监听
-  onPullDownRefresh: function() {
-    wx.stopPullDownRefresh();
+
+  updateUserTag: function() {
+    var self = this;
+    if (app.globalData.apiHeader.UId > 0) {
+      app.httpPost(
+        'Letter/UpdateUserTag', {
+          "UId": app.globalData.apiHeader.UId,
+          "TagType": this.data.currentTagType,
+          "TagList": this.data.tagItems
+        },
+        function(res) {
+          if (res != null && res.isExecuteSuccess) {
+            console.info("更新用户标签数据成功");
+          } else {
+            console.error("更新用户标签数据失败！");
+          }
+        },
+        function(res) {
+          console.error("更新用户标签数据失败！");
+        })
+    }
+  },
+
+  showTextInputModal: function(ops) {
+    let title = ops.currentTarget.dataset.texttitle;
+    let textValue = "";
+    switch (title) {
+      case '更改昵称':
+        textValue = this.data.tempUserInfo.nickName
+        break;
+      case '更改个性签名':
+        textValue = this.data.tempUserInfo.signature
+        break;
+      case '更改学校信息':
+        textValue = this.data.tempUserInfo.schoolName
+        break;
+    }
+    this.setData({
+      inputTextTitle: title,
+      inputTextValue: textValue,
+      showTextInputModal: true
+    })
+  },
+
+  //获取输入的聊天内容
+  textValueInputAction: function (e) {
+    this.setData({
+      inputTextValue: e.detail.value
+    })
+  },
+
+  cancelTextInput: function() {
+    this.setData({
+      showTextInputModal: false
+    })
+  },
+
+  submitTextInput: function() {
+    this.cancelTextInput();
+    let title = this.data.inputTextTitle;
+    let textValue = this.data.inputTextValue;
+    let userInfo = this.data.tempUserInfo;
+    switch (title) {
+      case '更改昵称':
+        userInfo.nickName = textValue;
+        break;
+      case '更改个性签名':
+        userInfo.signature = textValue;
+        break;
+      case '更改学校信息':
+        userInfo.schoolName = textValue;
+        break;
+    }
+    this.setData({
+      showTagModal: false,
+      tempUserInfo: userInfo
+    })
+    this.updateUserInfo();
+  },
+
+  tagCancelClick: function() {
+    this.setData({
+      showTagModal: false
+    })
+  },
+
+  tagSubmitClick: function() {
+    this.tagCancelClick();
+    if (!this.data.needUpdate) {
+      return;
+    }
+    let tagType = this.data.currentTagType;
+    let items = this.data.tagItems;
+    let userinfo = this.data.tempUserInfo;
+    switch (tagType) {
+      case 1:
+        this.setData({
+          characterTagList: items
+        });
+        userinfo.characterTagList = items;
+        break;
+      case 2:
+        this.setData({
+          sportTagList: items
+        });
+        userinfo.sportTagList = items;
+        break;
+      case 3:
+        this.setData({
+          musicTagList: items
+        });
+        userinfo.musicTagList = items;
+        break;
+      case 4:
+        this.setData({
+          foodTagList: items
+        });
+        userinfo.foodTagList = items;
+        break;
+      case 5:
+        this.setData({
+          movieTagList: items
+        });
+        userinfo.movieTagList = items;
+        break;
+      case 6:
+        this.setData({
+          travelTagList: items
+        });
+        userinfo.travelTagList = items;
+        break;
+    }
+    this.setData({
+      tempUserInfo: userinfo
+    });
+    app.setCache("userEditInfo", userinfo);
+    this.updateUserTag();
+  },
+
+  showTagSelectModel: function(ops) {
+    let tagType = ops.currentTarget.dataset.tagtype;
+    let tagItems = [];
+    switch (tagType) {
+      case 1:
+        tagItems = this.data.characterTagList;
+        break;
+      case 2:
+        tagItems = this.data.sportTagList;
+        break;
+      case 3:
+        tagItems = this.data.musicTagList;
+        break;
+      case 4:
+        tagItems = this.data.foodTagList;
+        break;
+      case 5:
+        tagItems = this.data.movieTagList;
+        break;
+      case 6:
+        tagItems = this.data.travelTagList;
+        break;
+    }
+    this.setData({
+      tagItems: tagItems,
+      currentTagType: tagType,
+      showTagModal: true,
+      needUpdate: false
+    })
+  },
+
+  tagAddClick: function() {
+
+  },
+
+  checkboxChange: function(ops) {
+    let tag = ops.currentTarget.dataset.tag;
+    let items = this.data.tagItems;
+    let needUpdate = false;
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].tag === tag) {
+        items[i].checked = !items[i].checked;
+        needUpdate = true;
+      }
+    }
+    if (needUpdate) {
+      this.setData({
+        tagItems: items,
+        needUpdate: needUpdate
+      })
+    }
   },
 
   //生日下拉列表框
@@ -217,6 +375,7 @@ Page({
     this.setData({
       [birth]: e.detail.value
     })
+    this.updateUserInfo();
   },
 
   //入学时间下拉列表
@@ -225,6 +384,7 @@ Page({
     this.setData({
       [entrance]: e.detail.value
     })
+    this.updateUserInfo();
   },
 
   //所在地监听变化
@@ -243,6 +403,7 @@ Page({
       [placeRegion1]: e.detail.value[1],
       [placeRegion2]: e.detail.value[2],
     })
+    this.updateUserInfo();
   },
 
   //学校类型下拉列表
@@ -251,6 +412,7 @@ Page({
     this.setData({
       [schoolType]: e.detail.value
     })
+    this.updateUserInfo();
   },
 
   //性别单选框值变动
@@ -259,6 +421,7 @@ Page({
     this.setData({
       [gender]: e.detail.value
     })
+    this.updateUserInfo();
   },
 
   //学籍状态单选框值变动
@@ -267,6 +430,7 @@ Page({
     this.setData({
       [liveState]: e.detail.value
     })
+    this.updateUserInfo();
   },
 
 
@@ -303,20 +467,20 @@ Page({
   },
 
   //分享功能
-  onShareAppMessage: function (res) {
+  onShareAppMessage: function(res) {
     let url = app.globalData.bingoLogo;
     let title = app.globalData.bingoTitle;
     return {
       title: title,
       imageUrl: url,
       path: "/pages/discovery/discovery",
-      success: function (res) {
+      success: function(res) {
         // 转发成功
       },
-      fail: function (res) {
+      fail: function(res) {
         // 转发失败
       }
     }
   }
-  
+
 })

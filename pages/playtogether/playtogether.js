@@ -18,7 +18,6 @@ Page({
     pickUpList_Movie: [],
     pageIndex: 1,
     loadTopHide: true,
-    showStartUp: true,
     statusBarHeight: app.globalData.statusBarHeight,
     currentTab: 0, //当前所在tab
     scrollLeft: 0,
@@ -27,20 +26,20 @@ Page({
   },
 
 
-  onLoad: function () {
+  onLoad: function() {
     this.initData();
     this.setData({
       windowWidth: wx.getSystemInfoSync().windowWidth
     });
   },
 
-  onShow: function () {
+  onShow: function() {
     this.getPlayTogetherList();
     this.unReadCountRefresh();
   },
 
   //初始化数据
-  initData: function () {
+  initData: function() {
     this.getPlayTogtherCacheData(0);
     this.getPlayTogtherCacheData(1);
     this.getPlayTogtherCacheData(2);
@@ -54,13 +53,13 @@ Page({
   },
 
   //获取动态
-  getPlayTogetherList: function (playType) {
+  getPlayTogetherList: function(playType) {
     var self = this;
     app.httpPost(
       'Letter/PlayTogetherList', {
         "UId": app.globalData.apiHeader.UId
       },
-      function (res) {
+      function(res) {
         self.setPlayTogtherData(res.playTogetherList_Other, 0);
         self.setPlayTogtherData(res.playTogetherList_WangZhe, 1);
         self.setPlayTogtherData(res.playTogetherList_ChiJi, 2);
@@ -73,7 +72,7 @@ Page({
         self.setPlayTogtherData(res.playTogetherList_Movie, 9);
         console.info("获取一起玩列表成功");
       },
-      function (res) {
+      function(res) {
         console.info("获取一起玩列表失败");
         self.setData({
           onloadText: "查看更多>>"
@@ -83,7 +82,7 @@ Page({
 
 
   //tab切换至动态
-  bindChange: function (e) {
+  bindChange: function(e) {
     let tabIndex = e.detail.current;
     this.setData({
       currentTab: tabIndex
@@ -92,10 +91,10 @@ Page({
   },
 
   //获取用户基础信息
-  toShowModal: function (ops) {
+  toShowModal: function(ops) {
     if (ops.currentTarget.dataset.ishide) {
       wx.showToast({
-        title: "无法查看匿名用户的信息",
+        title: "无法查看匿名用户的空间",
         icon: 'none',
         duration: 1500
       });
@@ -105,14 +104,32 @@ Page({
   },
 
   //跳转至个人空间
-  toUserSpace: function (uid) {
+  toUserSpace: function(uid) {
     wx.navigateTo({
       url: "../../pages/userspace/userspace?uId=" + uid
     })
   },
 
+  momentClickOpen: function(ops) {
+    let key = ops.currentTarget.dataset.key;
+    let list = this.data.pickUpList_Other;
+    list[key].isSelected = !list[key].isSelected;
+    this.setData({
+      pickUpList_Other: list
+    });
+  },
 
-  unReadCountRefresh: function () {
+  //动态详情页面
+  previewMomentDetail: function(e) {
+    let key = e.currentTarget.dataset.key;
+    let pickUpList = this.data.pickUpList_Other;
+    wx.navigateTo({
+      url: "../../pages/discussdetail/discussdetail?pickUpId=" + pickUpList[key].pickUpId + "&partnerUId=" + pickUpList[key].uId + "&momentId=" + pickUpList[key].momentId
+    })
+  },
+
+
+  unReadCountRefresh: function() {
     if (app.globalData.apiHeader.UId <= 0) {
       return;
     }
@@ -121,7 +138,7 @@ Page({
       'Letter/UnReadTotalCount', {
         "UId": app.globalData.apiHeader.UId
       },
-      function (res) {
+      function(res) {
         if (!app.isBlank(res.unReadCount)) {
           wx.setTabBarBadge({
             index: 2,
@@ -133,12 +150,12 @@ Page({
           })
         }
       },
-      function (res) {
+      function(res) {
         console.error("刷新未读数量失败!");
       })
   },
 
-  getPlayTogtherCacheData: function (playType) {
+  getPlayTogtherCacheData: function(playType) {
     let cacheKey = 'playTogetherListCacheData_playType_' + playType;
     let cacheValue = wx.getStorageSync(cacheKey);
     if (!app.isBlank(cacheValue)) {
@@ -146,7 +163,7 @@ Page({
     }
   },
 
-  setPlayTogtherData: function (pickUpList, playType) {
+  setPlayTogtherData: function(pickUpList, playType) {
     if (playType == 0) {
       this.setData({
         pickUpList_Other: pickUpList,
@@ -193,7 +210,7 @@ Page({
     app.setCache(cacheKey, pickUpList);
   },
 
-  onTabSelected: function (e) {
+  onTabSelected: function(e) {
     let tabIndex = e.currentTarget.dataset.currenttab;
     this.setData({
       currentTab: tabIndex
@@ -201,7 +218,7 @@ Page({
     this.scrollPosition(tabIndex);
   },
 
-  scrollPosition: function (tabIndex) {
+  scrollPosition: function(tabIndex) {
     if (tabIndex <= 2) {
       this.setData({
         scrollLeft: 0
@@ -217,7 +234,7 @@ Page({
     }
   },
   //发布动态
-  publishMoment: function () {
+  publishMoment: function() {
     wx.navigateTo({
       url: '../../pages/publishplaymoment/publishplaymoment'
     })

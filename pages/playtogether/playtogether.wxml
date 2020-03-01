@@ -1,6 +1,6 @@
-<view class="empty_custom" style="padding-top:{{statusBarHeight-15}}px"></view>
-<view class="custom" style="padding-top:{{statusBarHeight-15}}px">
-  <scroll-view scroll-x="true" scroll-with-animation='true' class="tabBarView" style="top:{{statusBarHeight+9}}px;width:{{windowWidth-100}}px" scroll-left='{{scrollLeft}}'>
+<view class="empty_custom" style="padding-top:{{statusBarHeight+10}}px"></view>
+<view class="custom" style="padding-top:{{statusBarHeight+10}}px">
+  <scroll-view scroll-x="true" scroll-with-animation='true' class="tabBarView" style="top:{{statusBarHeight+40}}px;" scroll-left='{{scrollLeft}}'>
     <view id='tab0' bindtap="onTabSelected" data-currentTab='0' class="{{currentTab==0?'barTitleViewCilick':'barTitleView'}}">全部</view>
     <view id='tab1' bindtap="onTabSelected" data-currentTab='1' class="{{currentTab==1?'barTitleViewCilick':'barTitleView'}}">王者</view>
     <view id='tab2' bindtap="onTabSelected" data-currentTab='2' class="{{currentTab==2?'barTitleViewCilick':'barTitleView'}}">吃鸡</view>
@@ -30,10 +30,10 @@
         <scroll-view scroll-y="false" class="momentArea">
           <!-- 占位 -->
           <view class="empty_topArea"></view>
-          <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_Other}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
+          <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindlongpress="moreAction" bindtap="momentClickOpen" wx:for="{{pickUpList_Other}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
-            <view class="contentArea" style="background-image: url({{value.imgContent}})">
-              <view class="{{value.isHide?'bodyView_Hide':'bodyView'}}">
+            <view class="{{value.isSelected?'contentArea_Hover':'contentArea'}}" style="background-image: url({{value.imgContent}})">
+              <view class="bodyView">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
               </view>
@@ -70,24 +70,77 @@
                   </view>
                 </view>
               </view>
-              <view wx:if="{{!value.isHide}}" class='momentImgListView' data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' bindtap="toShowModal">
-                <view class="momentImgView" wx:for="{{value.recentPlayMomentImgs}}" wx:key="key" wx:for-index="key" wx:for-item="imgUrl">
-                  <image src="{{imgUrl}}" class="momentImg" />
+            </view>
+            <view class="contentDetailArea" wx:if="{{value.isSelected}}">
+              <view wx:if="{{!value.isHide}}" class='momentImgListView' data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' catchtap="toShowModal">
+                <view class="userSpaceIconView">
+                  <image src="/content/images/userspace.svg" class="userSpaceIcon" />
                 </view>
+                <view class="userSpaceText">闪聊动态</view>
                 <view class="toUserSpaceView">
                   <image src="/content/images/right1.svg" class="toUserIcon" />
                 </view>
+                <view class="momentImgView" wx:for="{{value.recentPlayMomentImgs}}" wx:key="key" wx:for-index="key" wx:for-item="imgUrl">
+                  <image src="{{imgUrl}}" class="momentImg" />
+                </view>
               </view>
-              <view class="iconView">
-                <view class="iconfont comment" style='font-size:14px;float:left;color:#8e8e8e;padding-top: 2px;' />
-                <view class="chatTextView">聊一聊</view>
+              <view class="basicInfoTitle">个性签名</view>
+              <view class="signatureText">你好，欢迎来到腾讯客服，在下方对话框中输入想了解的内容或者点击菜单，马上为你服务！</view>
+              <view class="basicInfoTitle">我的信息</view>
+              <view class="basicInfoView">
+                <view class="basicInfoGroup">
+                  <view class="basicInfoIcon">
+                    <image src="/content/images/bag.svg" class="basicInfoImg" />
+                  </view>
+                  <view class="basicInfoText">学生</view>
+                </view>
+                <view class="basicInfoGroup">
+                  <view class="basicInfoIcon">
+                    <image src="/content/images/company.svg" class="basicInfoImg" />
+                  </view>
+                  <view class="basicInfoText">创始人</view>
+                </view>
+                <view class="basicInfoGroup">
+                  <view class="basicInfoIcon">
+                    <image src="/content/images/home.svg" class="basicInfoImg" />
+                  </view>
+                  <view class="basicInfoText">上海市，宝山区</view>
+                </view>
+              </view>
+              <view class="basicInfoTitle">我们的共同点</view>
+              <view class="commonTagText">4个共同爱好</view>
+              <view class="tagListView1">
+                <view class="tagItem">萌萌哒</view>
+                <view class="tagItem">强迫症</view>
+                <view class="tagItem">双重人格</view>
+                <view class="tagItem">文艺</view>
+                <view class="tagItem">强迫症</view>
+                <view class="tagItem">双重人格</view>
+                <view class="tagItem">文艺</view>
+              </view>
+              <view class="lineView"></view>
+              <view class="basicInfoTitle">我的标签</view>
+              <view class="tagListView">
+                <view class="tagItem">萌萌哒</view>
+                <view class="tagItem">强迫症</view>
+                <view class="tagItem">双重人格</view>
+                <view class="tagItem">文艺</view>
+                <view class="tagItem">讲义气</view>
+                <view class="tagItem">理想主义</view>
+                <view class="tagItem">萌萌哒</view>
+                <view class="tagItem">强迫症</view>
+                <view class="tagItem">双重人格</view>
+                <view class="tagItem">文艺</view>
+                <view class="tagItem">讲义气</view>
+                <view class="tagItem">理想主义</view>
+              </view>
+              <view data-key='{{key}}' catchtap="previewMomentDetail" class="toChatBtn" hover-class="toChatBtn_Hover">
+                <view class="iconfont comment" style='font-size:18px;font-weight: 650' />
+                <view class="toChatText">私聊</view>
               </view>
             </view>
           </view>
           <!-- 占位 -->
-          <view class="seeMore" hidden='{{pickUpList_Other.length<50}}' bindtap="onReachBottom">
-            {{onloadText}}
-          </view>
           <view class="placeUseView">没有更多啦</view>
         </scroll-view>
       </swiper-item>
@@ -144,16 +197,9 @@
                   <image src="/content/images/right1.svg" class="toUserIcon" />
                 </view>
               </view>
-              <view class="iconView">
-                <view class="iconfont comment" style='font-size:14px;float:left;color:#8e8e8e;padding-top: 2px;' />
-                <view class="chatTextView">聊一聊</view>
-              </view>
             </view>
           </view>
           <!-- 占位 -->
-          <view class="seeMore" hidden='{{pickUpList_WangZhe.length<50}}' bindtap="onReachBottom">
-            {{onloadText}}
-          </view>
           <view class="placeUseView">没有更多啦</view>
         </scroll-view>
       </swiper-item>
@@ -215,11 +261,9 @@
                 <view class="chatTextView">聊一聊</view>
               </view>
             </view>
+
           </view>
           <!-- 占位 -->
-          <view class="seeMore" hidden='{{pickUpList_ChiJi.length<50}}' bindtap="onReachBottom">
-            {{onloadText}}
-          </view>
           <view class="placeUseView">没有更多啦</view>
         </scroll-view>
       </swiper-item>
@@ -276,16 +320,9 @@
                   <image src="/content/images/right1.svg" class="toUserIcon" />
                 </view>
               </view>
-              <view class="iconView">
-                <view class="iconfont comment" style='font-size:14px;float:left;color:#8e8e8e;padding-top: 2px;' />
-                <view class="chatTextView">聊一聊</view>
-              </view>
             </view>
           </view>
           <!-- 占位 -->
-          <view class="seeMore" hidden='{{pickUpList_LianMai.length<50}}' bindtap="onReachBottom">
-            {{onloadText}}
-          </view>
           <view class="placeUseView">没有更多啦</view>
         </scroll-view>
       </swiper-item>
@@ -342,16 +379,9 @@
                   <image src="/content/images/right1.svg" class="toUserIcon" />
                 </view>
               </view>
-              <view class="iconView">
-                <view class="iconfont comment" style='font-size:14px;float:left;color:#8e8e8e;padding-top: 2px;' />
-                <view class="chatTextView">聊一聊</view>
-              </view>
             </view>
           </view>
           <!-- 占位 -->
-          <view class="seeMore" hidden='{{pickUpList_Game.length<50}}' bindtap="onReachBottom">
-            {{onloadText}}
-          </view>
           <view class="placeUseView">没有更多啦</view>
         </scroll-view>
       </swiper-item>
@@ -408,16 +438,9 @@
                   <image src="/content/images/right1.svg" class="toUserIcon" />
                 </view>
               </view>
-              <view class="iconView">
-                <view class="iconfont comment" style='font-size:14px;float:left;color:#8e8e8e;padding-top: 2px;' />
-                <view class="chatTextView">聊一聊</view>
-              </view>
             </view>
           </view>
           <!-- 占位 -->
-          <view class="seeMore" hidden='{{pickUpList_Learn.length<50}}' bindtap="onReachBottom">
-            {{onloadText}}
-          </view>
           <view class="placeUseView">没有更多啦</view>
         </scroll-view>
       </swiper-item>
@@ -474,16 +497,9 @@
                   <image src="/content/images/right1.svg" class="toUserIcon" />
                 </view>
               </view>
-              <view class="iconView">
-                <view class="iconfont comment" style='font-size:14px;float:left;color:#8e8e8e;padding-top: 2px;' />
-                <view class="chatTextView">聊一聊</view>
-              </view>
             </view>
           </view>
           <!-- 占位 -->
-          <view class="seeMore" hidden='{{pickUpList_TVTracker.length<50}}' bindtap="onReachBottom">
-            {{onloadText}}
-          </view>
           <view class="placeUseView">没有更多啦</view>
         </scroll-view>
       </swiper-item>
@@ -540,16 +556,9 @@
                   <image src="/content/images/right1.svg" class="toUserIcon" />
                 </view>
               </view>
-              <view class="iconView">
-                <view class="iconfont comment" style='font-size:14px;float:left;color:#8e8e8e;padding-top: 2px;' />
-                <view class="chatTextView">聊一聊</view>
-              </view>
             </view>
           </view>
           <!-- 占位 -->
-          <view class="seeMore" hidden='{{pickUpList_Earlybird.length<50}}' bindtap="onReachBottom">
-            {{onloadText}}
-          </view>
           <view class="placeUseView">没有更多啦</view>
         </scroll-view>
       </swiper-item>
@@ -606,16 +615,9 @@
                   <image src="/content/images/right1.svg" class="toUserIcon" />
                 </view>
               </view>
-              <view class="iconView">
-                <view class="iconfont comment" style='font-size:14px;float:left;color:#8e8e8e;padding-top: 2px;' />
-                <view class="chatTextView">聊一聊</view>
-              </view>
             </view>
           </view>
           <!-- 占位 -->
-          <view class="seeMore" hidden='{{pickUpList_Walk.length<50}}' bindtap="onReachBottom">
-            {{onloadText}}
-          </view>
           <view class="placeUseView">没有更多啦</view>
         </scroll-view>
       </swiper-item>
@@ -672,16 +674,9 @@
                   <image src="/content/images/right1.svg" class="toUserIcon" />
                 </view>
               </view>
-              <view class="iconView">
-                <view class="iconfont comment" style='font-size:14px;float:left;color:#8e8e8e;padding-top: 2px;' />
-                <view class="chatTextView">聊一聊</view>
-              </view>
             </view>
           </view>
           <!-- 占位 -->
-          <view class="seeMore" hidden='{{pickUpList_Movie.length<50}}' bindtap="onReachBottom">
-            {{onloadText}}
-          </view>
           <view class="placeUseView">没有更多啦</view>
         </scroll-view>
       </swiper-item>

@@ -138,26 +138,30 @@ Page({
 
   //连接WebSocket
   onConnected: function() {
-    if (app.globalData.apiHeader.UId <= 0) {
-      return;
+    try {
+      if (app.globalData.apiHeader.UId <= 0) {
+        return;
+      }
+      this.hubConnect = new HubConnection();
+      var url = app.globalData.socketUrl + "onLineHub";
+
+      this.hubConnect.start(url, {
+        UId: app.globalData.apiHeader.UId,
+        ConnetType: 0
+      });
+
+      this.hubConnect.onOpen = res => {
+        console.info("成功开启连接");
+      };
+
+      //订阅对方发来的消息
+      this.hubConnect.on("receive", res => {
+        console.info("成功订阅消息");
+        //this.unReadCountRefresh();
+      })
+    } catch (e) {
+      console.error(JSON.stringify(e));
     }
-    this.hubConnect = new HubConnection();
-    var url = app.globalData.socketUrl + "onLineHub";
-
-    this.hubConnect.start(url, {
-      UId: app.globalData.apiHeader.UId,
-      ConnetType: 0
-    });
-
-    this.hubConnect.onOpen = res => {
-      console.info("成功开启连接");
-    };
-
-    //订阅对方发来的消息
-    this.hubConnect.on("receive", res => {
-      console.info("成功订阅消息");
-      //this.unReadCountRefresh();
-    })
   },
 
   //通知对方刷新聊天页面

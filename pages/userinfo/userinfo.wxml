@@ -7,6 +7,7 @@
   </view>
   <view class="basicView">
     <view class="lineView"></view>
+    <view class="basicInfoText">基础信息</view>
     <view class="radio">
       <view class="radioLable">性别</view>
       <view class="radioView">
@@ -20,17 +21,15 @@
         </radio-group>
       </view>
     </view>
-    <view class="lineView"></view>
-    <view class="basicTextView">
-      <navigator url="../../pages/nickname/nickname?nickName={{tempUserInfo.nickName}}" class="navigator">
+    <view class="basicTextView" catchtap="showTextInputModal" data-textTitle='更改昵称'>
+      <view class="navigator">
         <view class="navigatorView">
           <view class="title">昵称</view>
           <view class="desc">{{tempUserInfo.nickName}}</view>
         </view>
         <view class="navigator-arrow"></view>
-      </navigator>
+      </view>
     </view>
-    <view class="lineView"></view>
     <view class="pickView">
       <view class="pickLable">生日</view>
       <view class="pickValue">
@@ -40,7 +39,6 @@
         <view class="arrow"></view>
       </view>
     </view>
-    <view class="lineView"></view>
     <view class="homeView">
       <view class="homeLable">所在地</view>
       <view class="homeValue">
@@ -52,31 +50,28 @@
       </view>
       <view class="arrow"></view>
     </view>
-    <view class="lineView"></view>
-    <view class="basicTextView">
-      <navigator url="../../pages/signature/signature?signature={{tempUserInfo.signature}}" class="navigator">
+    <view class="basicTextView" catchtap="showTextInputModal" data-textTitle='更改个性签名'>
+      <view class="navigator">
         <view class="navigatorView">
           <view class="title">个性签名</view>
           <view class="desc">{{tempUserInfo.signature}}</view>
         </view>
         <view class="navigator-arrow"></view>
-      </navigator>
+      </view>
     </view>
-    <view class="lineView"></view>
   </view>
-  <view class="explainTxt">以下信息用于提高匹配度，不会出现在简介里</view>
   <view class="blockView">
-     <view class="lineView"></view>
-    <view class="basicTextView">
-      <navigator url="../../pages/schoolname/schoolname?schoolName={{tempUserInfo.schoolName}}" class="navigator">
+    <view class="lineView"></view>
+    <view class="basicInfoText">学校信息</view>
+    <view class="basicTextView" catchtap="showTextInputModal" data-textTitle='更改学校信息'>
+      <view class="navigator">
         <view class="navigatorView">
           <view class="title">学校名称</view>
           <view class="desc">{{tempUserInfo.schoolName}}</view>
         </view>
         <view class="navigator-arrow"></view>
-      </navigator>
+      </view>
     </view>
-    <view class="lineView"></view>
     <view class="pickView">
       <view class="pickLable">入学时间</view>
       <view class="pickValue">
@@ -86,7 +81,6 @@
         <view class="arrow"></view>
       </view>
     </view>
-    <view class="lineView"></view>
     <view class="pickView">
       <view class="pickLable">学校类型</view>
       <view class="pickValue">
@@ -96,7 +90,6 @@
         <view class="arrow"></view>
       </view>
     </view>
-    <view class="lineView"></view>
     <view class="radio">
       <view class="radioLable">学籍状态</view>
       <view class="radioView">
@@ -110,12 +103,94 @@
         </radio-group>
       </view>
     </view>
-    <view class="lineView"></view>
   </view>
-
-  <view class="blockBtnView">
-    <view class="btnView">
-      <button class="primary" bindtap='updateUserInfo'>保 存</button>
+  <view class="blockView">
+    <view class="lineView"></view>
+    <view class="basicInfoText">个性标签</view>
+    <view class="tagListView" bindtap="showTagSelectModel" data-tagType='{{1}}'>
+      <view class="tagItem" wx:for="{{characterTagList}}" wx:key="key" wx:for-index="key" wx:for-item="value" wx:if="{{value.checked}}">{{value.tag}}</view>
+      <view class="tagAddIcon">+</view>
     </view>
+  </view>
+  <view class="blockView">
+    <view class="lineView"></view>
+    <view class="basicInfoText">喜欢的运动</view>
+    <view class="tagListView" bindtap="showTagSelectModel" data-tagType='{{2}}'>
+      <view class="tagItem1" wx:for="{{sportTagList}}" wx:key="key" wx:for-index="key" wx:for-item="value" wx:if="{{value.checked}}">{{value.tag}}</view>
+      <view class="tagAddIcon">+</view>
+    </view>
+  </view>
+  <view class="blockView">
+    <view class="lineView"></view>
+    <view class="basicInfoText">音乐爱好</view>
+    <view class="tagListView" bindtap="showTagSelectModel" data-tagType='{{3}}'>
+      <view class="tagItem2" wx:for="{{musicTagList}}" wx:key="key" wx:for-index="key" wx:for-item="value" wx:if="{{value.checked}}">{{value.tag}}</view>
+      <view class="tagAddIcon">+</view>
+    </view>
+  </view>
+  <view class="blockView">
+    <view class="lineView"></view>
+    <view class="basicInfoText">喜欢的食物</view>
+    <view class="tagListView" bindtap="showTagSelectModel" data-tagType='{{4}}'>
+      <view class="tagItem3" wx:for="{{foodTagList}}" wx:key="key" wx:for-index="key" wx:for-item="value" wx:if="{{value.checked}}">{{value.tag}}</view>
+      <view class="tagAddIcon">+</view>
+    </view>
+  </view>
+  <view class="blockView">
+    <view class="lineView"></view>
+    <view class="basicInfoText">喜欢的电影</view>
+    <view class="tagListView" bindtap="showTagSelectModel" data-tagType='{{5}}'>
+      <view class="tagItem4" wx:for="{{movieTagList}}" wx:key="key" wx:for-index="key" wx:for-item="value" wx:if="{{value.checked}}">{{value.tag}}</view>
+      <view class="tagAddIcon">+</view>
+    </view>
+  </view>
+  <view class="blockView">
+    <view class="lineView"></view>
+    <view class="basicInfoText">想去旅行的地方</view>
+    <view class="tagListView" bindtap="showTagSelectModel" data-tagType='{{6}}'>
+      <view class="tagItem5" wx:for="{{travelTagList}}" wx:key="key" wx:for-index="key" wx:for-item="value" wx:if="{{value.checked}}">{{value.tag}}</view>
+      <view class="tagAddIcon">+</view>
+    </view>
+  </view>
+</view>
+
+
+
+<view class="modal-mask-all" wx:if="{{showTagModal}}"></view>
+<view wx:if="{{showTagModal}}" class="modal-content-preferTag">
+  <view class="tagTitleView">个性标签</view>
+  <view class="createTagView">
+    <input class="createTagInput" value="{{tempTagValue}}" placeholder="创建我自己的标签" bindinput="tempTagValueInput" adjust-position='false'></input>
+  </view>
+  <view class="addTagBtn" bindtap="tagAddClick">添加</view>
+  <view class="lineView"></view>
+  <view class="tagCheckListView">
+    <checkbox-group>
+      <view class="check__label" wx:for="{{tagItems}}" wx:key="{{item.tag}}" data-tag='{{item.tag}}' catchtap="checkboxChange">
+        <view class="cell__hd">
+          <checkbox value="{{item.tag}}" checked="{{item.checked}}" />
+        </view>
+        <view class="cell__bd">{{item.tag}}</view>
+      </view>
+    </checkbox-group>
+  </view>
+  <view class="lineView"></view>
+  <view class="tagSubmitView" bindtap="tagSubmitClick">确认</view>
+  <view class="tagCancelView" bindtap="tagCancelClick">取消</view>
+</view>
+
+
+<!--custom Modal-->
+<view class="modal-mask-all" wx:if="{{showTextInputModal}}"></view>
+<view wx:if="{{showTextInputModal}}" class="modal-content-TextModel">
+  <view class="inputTextTitle">{{inputTextTitle}}</view>
+  <view class="inputTextView">
+    <textarea class="inputTextValue" value="{{inputTextValue}}" bindinput="textValueInputAction" adjust-position='false'></textarea>
+  </view>
+  <view class="cancelModelView">
+    <button lang="zh_CN" bindtap="cancelTextInput" class="cancelBtn">取消</button>
+  </view>
+  <view class="submitModelBtnView">
+    <button lang="zh_CN" bindtap="submitTextInput" class="submitBtn">提交</button>
   </view>
 </view>

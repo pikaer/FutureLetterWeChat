@@ -2,7 +2,7 @@
   <view class="fixedView">
     <view class="tabView">
       <view class="userView">
-        <view class="headPhotoView">
+        <view class="headPhotoView" data-imgContent='{{basicUserInfo.headPhotoPath}}' catchtap="previewImg">
           <image class="userHead" src="{{basicUserInfo.headPhotoPath}}"></image>
         </view>
         <view class="basicInfoView">
@@ -29,7 +29,7 @@
       <scroll-view scroll-y="true" class="momentArea">
         <view class="momentView" hover-class="momentView_Hover" wx:for="{{tempMomentList}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' bindtap="toMomentDetailPage">
           <view class="momentTitleView">
-            <view data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' class="leftView">
+            <view data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' class="leftView" data-imgContent='{{value.headImgPath}}' catchtap="previewImg">
               <image src="{{value.headImgPath}}" class="userTitleHead" />
             </view>
           </view>

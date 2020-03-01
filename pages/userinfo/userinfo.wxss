@@ -27,13 +27,15 @@
   font-size: 16px;
   margin-right: 16px;
   margin-top: 10px;
+  max-width: 70%;
 }
 
 .navigatorView {
   flex: 1;
   font-size: 16px;
-  margin-left: 7px;
   margin-bottom: 8px;
+  margin-left: 6px;
+  float: left;
 }
 
 .birth-arrow {
@@ -66,23 +68,13 @@
   background-color: #eff2fb;
 }
 
-.btnView {
-  margin-top: 15px;
-  margin-left: 40px;
-  margin-right: 40px;
-}
-
-.blockBtnView {
-  height: 100%;
-  width: 100%;
-  margin-bottom: 10px;
-}
 
 .pickView {
   width: 100%;
   height: 35px;
   margin-left: 22px;
   margin-top: 10px;
+  clear: both;
 }
 
 .pickLable {
@@ -134,22 +126,13 @@
 
 .pickData {
   float: left;
+  padding-top: 2px;
 }
 
 page {
   user-select: none;
   width: 100%;
   overflow-x: hidden;
-  background-color: #eff2fb;
-}
-
-.explainTxt {
-  width: 100%;
-  font-size: 12px;
-  padding-left: 20px;
-  padding-top: 16px;
-  padding-bottom: 6px;
-  color: #8e8e8e;
   background-color: #eff2fb;
 }
 
@@ -166,4 +149,305 @@ page {
 
 .basicTextView {
   background-color: #eff2fb;
+  clear: both;
+}
+
+.basicInfoText {
+  height: 25px;
+  padding-left: 21px;
+  padding-top: 5px;
+  font-size: 16px;
+  color: #eb553e;
+}
+
+.tagItem {
+  float: left;
+  height: 20px;
+  background-color: #8e9db0;
+  margin-right: 12px;
+  font-size: 15px;
+  border-radius: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  display: -webkit-flex;
+  align-items: center;
+}
+
+.tagItem1 {
+  float: left;
+  height: 20px;
+  background-color: #d2e8db;
+  color: #1a5232;
+  margin-right: 12px;
+  font-size: 15px;
+  border-radius: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  display: -webkit-flex;
+  align-items: center;
+}
+
+.tagAddIcon {
+  float: left;
+  height: 20px;
+  background-color: white;
+  margin-right: 12px;
+  font-size: 20px;
+  border-radius: 5px;
+  margin-top: 5px;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  width: 20px;
+  text-align: center;
+}
+
+.tagItem2 {
+  float: left;
+  height: 20px;
+  background-color: #b6bfe0;
+  color: #2c3380;
+  margin-right: 12px;
+  font-size: 15px;
+  border-radius: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  display: -webkit-flex;
+  align-items: center;
+}
+
+.tagItem3 {
+  float: left;
+  height: 20px;
+  background-color: #feedbf;
+  color: #967b37;
+  margin-right: 12px;
+  font-size: 15px;
+  border-radius: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  display: -webkit-flex;
+  align-items: center;
+}
+
+.tagItem4 {
+  float: left;
+  height: 20px;
+  background-color: #c9c9e1;
+  color: #59577c;
+  margin-right: 12px;
+  font-size: 15px;
+  border-radius: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  display: -webkit-flex;
+  align-items: center;
+}
+
+.tagItem5 {
+  float: left;
+  height: 20px;
+  background-color: #d4dce2;
+  color: #3a6783;
+  margin-right: 12px;
+  font-size: 15px;
+  border-radius: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  display: -webkit-flex;
+  align-items: center;
+}
+
+.tagListView {
+  margin-left: 20px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.modal-content-preferTag {
+  position: fixed;
+  top: 5%;
+  right: 10%;
+  left: 10%;
+  z-index: 9500;
+  background: white;
+  border-radius: 4px;
+}
+
+.modal-content-TextModel {
+  position: fixed;
+  top: 15%;
+  right: 10%;
+  left: 10%;
+  z-index: 9500;
+  background: white;
+  border-radius: 4px;
+  height: 260px;
+}
+
+.createTagView {
+  font-size: 14px;
+  padding: 4px;
+  border: 1px solid #e4dfdf;
+  width: 180px;
+  border-radius: 3px;
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 7px;
+  float: left;
+}
+
+.tagTitleView {
+  padding-top: 10px;
+  font-weight: 650;
+  font-size: 16px;
+  margin-left: 20px;
+}
+
+.tagCheckListView {
+  padding-top: 10px;
+  height: 450px;
+  overflow-y: auto;
+  margin-left: 15px;
+}
+
+.check__label {
+  clear: both;
+  padding-left: 5px;
+  width: 90%;
+  height: 30px;
+}
+
+.cell__hd {
+  float: left;
+  margin-bottom: 18px;
+}
+
+.cell__bd {
+  float: left;
+  padding-left: 10px;
+  padding-top: 2px;
+}
+
+.tagSubmitView {
+  float: right;
+  margin-right: 10px;
+  width: 60px;
+  height: 40px;
+  border-radius: 5px;
+  font-size: 15px;
+  text-align: center;
+  font-weight: 650;
+  margin-top: 5px;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tagCancelView {
+  float: right;
+  margin-right: 20px;
+  width: 60px;
+  height: 40px;
+  border-radius: 5px;
+  font-size: 15px;
+  text-align: center;
+  display: -webkit-flex;
+  justify-content: center;
+  margin-top: 5px;
+  align-items: center;
+}
+
+.createTagInput {
+}
+
+.addTagBtn {
+  float: left;
+  margin-top: 12px;
+  margin-left: 10px;
+  background-color: #00cd66;
+  padding: 2px;
+  width: 50px;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  color: white;
+}
+
+.inputTextTitle {
+  color: #1e90ff;
+  float: left;
+  font-size: 15px;
+  padding-left: 20px;
+  padding-top: 20px;
+  margin-bottom: 10px;
+}
+
+.inputTextView {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.inputTextValue {
+  height: 100px;
+  width: 95%;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #e4dfdf;
+  padding: 5px;
+}
+
+.cancelModelView {
+  float: left;
+  padding-left: 25px;
+  width: 110px;
+  margin-top: 32px;
+}
+
+.submitModelBtnView {
+  float: right;
+  padding-right: 25px;
+  width: 110px;
+  margin-top: 32px;
+}
+
+.cancelBtn {
+  width: 110px;
+  height: 40px;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  background: #e3e3e3;
+  font-weight: 650;
+}
+
+.submitBtn {
+  width: 110px;
+  height: 40px;
+  background: #00cd66;
+  color: white;
+  font-weight: 650;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
 }

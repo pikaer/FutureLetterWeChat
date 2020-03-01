@@ -101,7 +101,6 @@ swiper-item {
 .contentArea {
   margin-top: 2px;
   background-color: #fff;
-  box-shadow: 0px 0px 1px #837c7c;
   width: 95%;
   height: 400px;
   border-radius: 6px;
@@ -113,12 +112,14 @@ swiper-item {
 
 .contentArea_Hover {
   margin-top: 2px;
-  background-color: #eff2fb;
-  box-shadow: 0px 0px 1px #837c7c;
+  background-color: #fff;
   width: 95%;
-  height: 100%;
-  border-radius: 6px;
+  height: 400px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
   margin-left: 7px;
+  background-repeat: no-repeat;
+  background-size: 100% 400px;
   float: left;
 }
 
@@ -246,7 +247,7 @@ swiper-item {
   float: left;
   background-color: #f1f1f1;
   padding-left: 5px;
-  border-radius: 5px;
+  border-radius: 3px;
   padding-right: 5px;
   margin-right: 5px;
   font-size: 10px;
@@ -254,7 +255,7 @@ swiper-item {
 }
 
 .bodyView_Hide {
-  margin-top: 274px;
+  margin-top: 295px;
   background-color: white;
   float: left;
   border-top-left-radius: 10px;
@@ -265,7 +266,7 @@ swiper-item {
 }
 
 .bodyView {
-  margin-top: 210px;
+  margin-top: 295px;
   background-color: white;
   float: left;
   border-top-left-radius: 10px;
@@ -392,17 +393,16 @@ swiper-item {
 
 .momentImgListView {
   clear: both;
-  padding-left: 2px;
-  margin-top: 10px;
   height: 55px;
-  margin-left: 18px;
-  margin-right: 18px;
+  border-bottom: 1px solid #e4dfdf;
+  padding-top: 5px;
+  padding-left: 12px;
 }
 
 .momentImgView {
-  width: 39px;
-  height: 51px;
-  float: left;
+  width: 40px;
+  height: 50px;
+  float: right;
   margin-right: 4px;
   background-color: white;
   border-radius: 8px;
@@ -413,16 +413,14 @@ swiper-item {
 .momentImg {
   height: 50px;
   width: 38px;
-  border-radius: 8px;
+  border-radius: 5px;
 }
 
 .toUserSpaceView {
-  float: left;
+  float: right;
   width: 18px;
   height: 51px;
-  background-color: #eff2fb;
-  border-radius: 8px;
-  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .toUserIcon {
@@ -430,20 +428,159 @@ swiper-item {
   height: 51px;
 }
 
-.iconView {
-  float: right;
+.contentDetailArea {
+  clear: both;
+  width: 95%;
+  margin-left: 7px;
   background-color: white;
-  margin-top: 5px;
-  margin-right: 10px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-radius: 5px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 
-.chatTextView {
+.basicInfoTitle {
+  height: 25px;
+  padding-left: 12px;
+  padding-top: 5px;
+  padding-bottom:5px;
+  font-size: 15px;
+  color: #eb553e;
   float: left;
+}
+
+.basicInfoView {
+  border-bottom: 1px solid #e4dfdf;
+  padding-left: 12px;
+}
+
+.basicInfoGroup {
+  clear: both;
+  height: 20px;
+  padding-bottom: 10px;
+}
+
+.basicInfoIcon {
+  float: left;
+  padding-top: 1px;
+}
+
+.basicInfoImg {
+  width: 20px;
+  height: 20px;
+}
+
+.basicInfoText {
+  float: left;
+  margin-left: 12px;
+  font-size: 14px;
+}
+
+.userSpaceIcon {
+  width: 30px;
+  height: 30px;
+}
+
+.userSpaceIconView {
+  justify-content: center;
+  align-items: center;
+  display: -webkit-flex;
+  float: left;
+  height: 50px;
+}
+
+.userSpaceText {
+  float: left;
+  display: -webkit-flex;
+  align-items: center;
+  height: 50px;
+  margin-left: 12px;
+  font-size: 16px;
+}
+
+.tagListView {
+  margin-left: 12px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.tagListView1 {
+  margin-left: 12px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.tagItem {
+  float: left;
+  height: 20px;
+  background-color: #85d0ed;
+  color: white;
+  margin-right: 12px;
+  font-size: 14px;
+  border-radius: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
   padding-top: 3px;
-  padding-left: 3px;
+  padding-bottom: 3px;
+  margin-top: 5px;
+  display: -webkit-flex;
+  align-items: center;
+}
+
+.signatureText {
+  clear: both;
+  font-size: 14px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-bottom: 1px solid #e4dfdf;
+  padding-bottom: 10px;
+}
+
+.commonTagText {
+  float: left;
+  padding-top: 8px;
   font-size: 12px;
+  padding-left: 7px;
   color: #8e8e8e;
+}
+
+.toChatBtn {
+  width: 100%;
+  text-align: center;
+  height: 40px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toChatBtn_Hover {
+  width: 100%;
+  text-align: center;
+  height: 40px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e4dfdf;
+}
+
+.toChatText {
+  font-size: 16px;
+  padding-left: 10px;
+}
+
+.preferView {
+  display: inline-block;
+  clear: both;
+}
+
+.preferInfoIcon {
+  float: left;
+  margin-left: 12px;
+}
+
+.preferTagListView {
+  float: left;
+  width: 70%;
 }

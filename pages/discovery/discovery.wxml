@@ -37,7 +37,7 @@
     <div class="txtLoding">加载中</div>
   </view>
   <view class="page-body">
-    <swiper indicator-dots="{{indicatorDots}}" resistanceRatio='0' autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px"
+    <swiper indicator-dots="{{false}}" resistanceRatio='0' autoplay="{{false}}" circular="{{false}}" vertical="{{false}}" interval="{{2000}}" duration="{{500}}" previous-margin="0px" next-margin="0px"
       current="{{currentTab}}" bindchange="bindChange">
       <swiper-item>
         <scroll-view scroll-with-animation="true" scroll-y="false" class="momentArea">
@@ -176,7 +176,10 @@
     </swiper>
   </view>
 
- <view class="nineRecommendIcon" catchtap="toNineRecommend">
+  <view class="toMapIcon" catchtap="toMapPage">
+    <view class="iconfont add" style='font-size:25px;font-weight: 650;color: white;padding-top: 3px;' />
+  </view>
+  <view class="nineRecommendIcon" catchtap="toNineRecommend">
     <view class="iconfont add" style='font-size:25px;font-weight: 650;color: white;padding-top: 3px;' />
   </view>
   <view class="publishIcon" catchtap="publishMoment">
@@ -339,15 +342,6 @@
   </view>
 </mp-halfScreenDialog>
 <!--弹出框end-->
-
-<!-- 生成海报画布 -->
-<view style='width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 999; display: flex; align-items: center; justify-content: center; animation: {{isShow ? "show" : "dismiss"}}Mask 0.3s forwards ease; position: fixed; top: 0; left: {{isCreate ? 0 : "750rpx"}};'
-  catchtap='catchtap' catchtouchmove='blockTouches'>
-  <canvas canvas-id='poster' style='width: 622rpx; height: 882rpx; position: fixed; left: 750rpx;' />
-  <image style='width: 622rpx; height: 882rpx; margin-bottom: 96rpx;' src='{{poster}}' />
-  <button class='maskButton' hover-class='maskButton-hover' hidden='{{!isCreate}}' catchtap='btnCreate'>保存到本地相册
-  </button>
-</view>
 
 
 <!--提示金余额不足弹框-->

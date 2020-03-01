@@ -1,12 +1,15 @@
 const app = getApp()
-import { HubConnection } from "../../utils/signalR.js";
+import {
+  HubConnection
+} from "../../utils/signalR.js";
 import auth from '../../utils/auth.js';
-// 获取倍率
-const raterpx = 750.0 / wx.getSystemInfoSync().windowWidth;
-// 获取canvas转化后的rpx
-const rate = function (rpx) {
-  return rpx / raterpx
-};
+
+// 引入SDK核心类
+var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
+// 实例化API核心类
+var qqmapsdk = new QQMapWX({
+  key: 'SNZBZ-CGBLV-4BBPP-UVDAH-UGLHJ-6KB4U' //申请的开发者秘钥key
+});
 
 Page({
   data: {
@@ -33,16 +36,7 @@ Page({
     onPullDownRefreshDisabled: false,
     statusBarHeight: app.globalData.statusBarHeight,
     currentTab: 0, //当前所在tab
-    indicatorDots: false, //底部不展示小点
-    vertical: false, //水平翻页
-    autoplay: false, //自动翻页
-    circular: false, //循环播放
-    interval: 2000,
-    duration: 500, //翻页时间间隔
-    previousMargin: 0, //前边距
-    nextMargin: 0, //后边距
     topNum: 0,
-    totalCoin: 0, //金币余额
     insertDialogDiscussVlaue: "", //快速评论内容
     subscribeMessageOpen: false,
     messageReplyNotifyWechatId: "-zecjwuk6Z0uN1txUSwvgXKmaek081c1Y9t6mqAn6ck",
@@ -50,12 +44,13 @@ Page({
     momentTextContent: ""
   },
 
-  onLoad: function () {
+  onLoad: function() {
+    wx.cloud.init
     wx.hideTabBar();
     this.userLogin();
   },
 
-  onShow: function () {
+  onShow: function() {
     this.unReadCountRefresh();
     this.checkRegister();
     this.refreshMomentListData();
@@ -63,7 +58,7 @@ Page({
   },
 
   //初始化数据
-  init: function () {
+  init: function() {
     this.unReadCountRefresh();
     this.getGolobalPickUpList();
     this.getChatList();
@@ -75,13 +70,13 @@ Page({
   },
 
   //卸载页面
-  onUnload: function () {
+  onUnload: function() {
     console.info("卸载页面，断开连接")
     this.onDisconnected();
   },
 
   //刷新页面
-  refreshMomentListData: function () {
+  refreshMomentListData: function() {
     if (!app.isBlank(this.data.currentBasicUserInfo)) {
       this.data.pageIndex = 1;
       this.getPickUpList(true);
@@ -89,7 +84,7 @@ Page({
   },
 
   //卸载页面，中断webSocket
-  onDisconnected: function () {
+  onDisconnected: function() {
     try {
       this.hubConnect.close({
         UId: app.globalData.apiHeader.UId,
@@ -101,39 +96,45 @@ Page({
   },
 
   //跳转至个人空间
-  toUserSpace: function (uid) {
+  toUserSpace: function(uid) {
     wx.navigateTo({
       url: "../../pages/userspace/userspace?uId=" + uid
     })
   },
 
 
-  toNineRecommend: function (uid) {
+  toNineRecommend: function(uid) {
     wx.navigateTo({
       url: "../../pages/ninerecommend/ninerecommend"
     })
   },
 
-  getAttentionMomentCount: function () {
+  toMapPage: function(uid) {
+    wx.navigateTo({
+      url: "../../pages/map/map"
+    })
+  },
+
+  getAttentionMomentCount: function() {
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
         'Letter/AttentionMomentCount', {
           "UId": app.globalData.apiHeader.UId
         },
-        function (res) {
+        function(res) {
           console.info("获取用户关注好友新增动态（未查阅）数量成功！")
           self.setData({
             unReadMomentCount: res.unReadCountStr
           });
         },
-        function (res) {
+        function(res) {
           console.error("获取用户关注好友新增动态（未查阅）数量失败！");
         })
     }
   },
 
-  updateLastScanMomentTime: function () {
+  updateLastScanMomentTime: function() {
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       self.setData({
@@ -143,17 +144,17 @@ Page({
         'Letter/UpdateLastScanMomentTime', {
           "UId": app.globalData.apiHeader.UId
         },
-        function (res) {
+        function(res) {
           console.info("更新最新浏览关注好友动态时间成功！")
         },
-        function (res) {
+        function(res) {
           console.error("更新最新浏览关注好友动态时间失败！");
         })
     }
   },
 
 
-  checkRegister: function () {
+  checkRegister: function() {
     let self = this;
     if ((!app.isBlank(self.data.currentBasicUserInfo) && !self.data.currentBasicUserInfo.isRegister) ||
       app.globalData.needCheckUseInfo) {
@@ -162,20 +163,19 @@ Page({
           "UId": app.globalData.apiHeader.UId,
           "Type": 1
         },
-        function (res) {
+        function(res) {
           self.setData({
-            currentBasicUserInfo: res,
-            totalCoin: res.totalCoin
+            currentBasicUserInfo: res
           });
         },
-        function (res) {
+        function(res) {
           console.error("获取用户基础信息失败");
         })
     }
   },
 
   //用户登录
-  userLogin: function () {
+  userLogin: function() {
     let self = this;
 
     //优先获取缓存
@@ -202,7 +202,7 @@ Page({
     })
   },
 
-  unReadCountRefresh: function () {
+  unReadCountRefresh: function() {
     if (app.globalData.apiHeader.UId <= 0) {
       return;
     }
@@ -211,7 +211,7 @@ Page({
       'Letter/UnReadTotalCount', {
         "UId": app.globalData.apiHeader.UId
       },
-      function (res) {
+      function(res) {
         if (!app.isBlank(res.unReadCount)) {
           wx.setTabBarBadge({
             index: 2,
@@ -223,19 +223,19 @@ Page({
           })
         }
       },
-      function (res) {
+      function(res) {
         console.error("刷新未读数量失败!");
       })
   },
 
   //获取OpenId
-  getLoginInfo: function (code, needInit) {
+  getLoginInfo: function(code, needInit) {
     let self = this;
     app.httpPost(
       'Letter/UserLogin', {
         "LoginCode": code
       },
-      function (res) {
+      function(res) {
         if (res != null && res.uId > 0) {
           //res.uId = 50239;
           console.info("登录成功");
@@ -252,13 +252,13 @@ Page({
           console.error("登录失败!");
         }
       },
-      function (res) {
+      function(res) {
         console.error("登录失败!");
       })
   },
 
   //连接WebSocket
-  onConnected: function () {
+  onConnected: function() {
     if (app.globalData.apiHeader.UId <= 0) {
       return;
     }
@@ -282,7 +282,7 @@ Page({
   },
 
   //通知对方刷新聊天页面
-  sendMessage: function (partnerUId) {
+  sendMessage: function(partnerUId) {
     try {
       this.hubConnect.send("subScribeMessage", partnerUId);
     } catch (e) {
@@ -291,7 +291,7 @@ Page({
   },
 
   //获取动态
-  getGolobalPickUpList: function () {
+  getGolobalPickUpList: function() {
     var self = this;
     let cacheKey = "userPickUpListCache+" + app.globalData.apiHeader.UId;
     let cacheValue = wx.getStorageSync(cacheKey);
@@ -308,7 +308,7 @@ Page({
         "UId": app.globalData.apiHeader.UId,
         "PageIndex": 1
       },
-      function (res) {
+      function(res) {
         self.setData({
           pickUpList: res.pickUpList,
           showStartUp: false
@@ -318,7 +318,7 @@ Page({
         console.info("获取全局瓶子列表成功");
         self.getUserLocation();
       },
-      function (res) {
+      function(res) {
         console.info("获取全局瓶子列表数据失败");
         self.setData({
           showStartUp: false
@@ -329,7 +329,7 @@ Page({
 
 
   //获取用户数据
-  getChatList: function () {
+  getChatList: function() {
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
@@ -337,11 +337,11 @@ Page({
           "UId": app.globalData.apiHeader.UId,
           "PageIndex": 1
         },
-        function (res) {
+        function(res) {
           console.info("获取聊天列表成功！")
           app.setCache("chatListCache", res.discussList);
         },
-        function (res) {
+        function(res) {
           console.error("获取聊天列表失败！");
           self.setData({
             showStartUp: false
@@ -352,7 +352,7 @@ Page({
 
 
   //获取我扔出去的没有被评论的动态
-  getMyMomentList: function () {
+  getMyMomentList: function() {
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
@@ -360,19 +360,19 @@ Page({
           "UId": app.globalData.apiHeader.UId,
           "PageIndex": 1
         },
-        function (res) {
+        function(res) {
           console.info("获取聊天列表成功！")
           let cacheKey = "userMomentList_Uid_" + app.globalData.apiHeader.UId;
           app.setCache(cacheKey, res.momentList);
         },
-        function (res) {
+        function(res) {
           console.error("获取聊天列表失败！");
         })
     }
   },
 
   //获取收藏列表数据
-  getCollectList: function () {
+  getCollectList: function() {
     var self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
@@ -380,18 +380,18 @@ Page({
           "UId": app.globalData.apiHeader.UId,
           "PageIndex": 1
         },
-        function (res) {
+        function(res) {
           let cacheKey = "userCollectListCacheValue"
           app.setCache(cacheKey, res.collectList);
         },
-        function (res) {
+        function(res) {
           console.error("获取收藏列表数据失败！");
         })
     }
   },
 
   //分享功能
-  onShareAppMessage: function (res) {
+  onShareAppMessage: function(res) {
     this.hideModalShare();
     let url = app.globalData.bingoLogo;
     let title = app.globalData.bingoTitle;
@@ -400,10 +400,10 @@ Page({
         title: title,
         imageUrl: url,
         path: "/pages/discovery/discovery",
-        success: function (res) {
+        success: function(res) {
           // 转发成功
         },
-        fail: function (res) {
+        fail: function(res) {
           // 转发失败
         }
       }
@@ -419,29 +419,29 @@ Page({
       title: title,
       imageUrl: url,
       path: "/pages/sharepage/sharepage?momentId=" + momentId,
-      success: function (res) {
+      success: function(res) {
         // 转发成功
       },
-      fail: function (res) {
+      fail: function(res) {
         // 转发失败
       }
     }
   },
 
-  hideModalShare: function () {
+  hideModalShare: function() {
     this.setData({
       showModalStatus: false,
       showModalStatusAttention: false
     })
   },
 
-  hideChatModal: function () {
+  hideChatModal: function() {
     this.setData({
       showChatModal: false
     })
   },
 
-  showChatModal: function (ops) {
+  showChatModal: function(ops) {
     if (!app.globalData.basicUserInfo.isRegister) {
       this.showLoginModal();
       return;
@@ -476,7 +476,7 @@ Page({
     })
   },
 
-  showAttentionChatModal: function (ops) {
+  showAttentionChatModal: function(ops) {
     if (!app.globalData.basicUserInfo.isRegister) {
       this.showLoginModal();
       return;
@@ -488,13 +488,13 @@ Page({
     })
   },
 
-  hidePublishMomentModal: function () {
+  hidePublishMomentModal: function() {
     this.setData({
       showPublishMomentModal: false
     })
   },
 
-  showLoginModal: function () {
+  showLoginModal: function() {
     this.setData({
       showLoginModal: true
     })
@@ -503,10 +503,10 @@ Page({
 
 
   //获取用户基础信息
-  toShowModal: function (ops) {
+  toShowModal: function(ops) {
     if (ops.currentTarget.dataset.ishide) {
       wx.showToast({
-        title: "无法查看匿名用户的信息",
+        title: "无法查看匿名用户的空间",
         icon: 'none',
         duration: 1500
       });
@@ -516,13 +516,13 @@ Page({
   },
 
   //隐藏弹框
-  hideModal: function () {
+  hideModal: function() {
     this.setData({
       showModal: false
     });
   },
 
-  toTop: function () {
+  toTop: function() {
     this.setData({
       topNum: 0
     });
@@ -530,7 +530,7 @@ Page({
 
 
   //下拉刷新页面数据
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     this.toTop();
     if (!this.data.loadTopHide) {
       //防止并发请求
@@ -549,7 +549,7 @@ Page({
 
 
   //删除瓶子
-  deleteItem: function (ops) {
+  deleteItem: function(ops) {
     this.hideModalShare();
     var self = this;
     let pickUpId = this.data.currentMoment.pickUpId;
@@ -560,7 +560,7 @@ Page({
         "PickUpId": pickUpId,
         "DeleteType": 0
       },
-      function (res) {
+      function(res) {
         console.info("删除瓶子成功！");
         let list = self.data.pickUpList;
         list.splice(index, 1);
@@ -575,7 +575,7 @@ Page({
         });
         self.resetSelectItem()
       },
-      function (res) {
+      function(res) {
         wx.showToast({
           title: "删除失败",
           icon: 'none',
@@ -586,7 +586,7 @@ Page({
   },
 
   //删除瓶子
-  forwardMoment: function (ops) {
+  forwardMoment: function(ops) {
     this.hideModalShare();
     let momentId = this.data.currentMoment.momentId;
     app.httpPost(
@@ -594,14 +594,14 @@ Page({
         "UId": app.globalData.apiHeader.UId,
         "MomentId": momentId
       },
-      function (res) {
+      function(res) {
         wx.showToast({
           title: "转发成功",
           icon: 'success',
           duration: 1500
         });
       },
-      function (res) {
+      function(res) {
         wx.showToast({
           title: "转发失败",
           icon: 'none',
@@ -612,7 +612,7 @@ Page({
 
 
   //发表评论
-  insertDiscussContent: function (ops) {
+  insertDiscussContent: function(ops) {
     this.hideModalShare();
     var self = this;
     let pickUpId = this.data.currentMoment.pickUpId;
@@ -622,7 +622,7 @@ Page({
         "PickUpId": pickUpId,
         "TextContent": "Hi~"
       },
-      function (res) {
+      function(res) {
         if (res.isExecuteSuccess) {
           wx.showToast({
             title: "打招呼成功",
@@ -633,7 +633,7 @@ Page({
           console.info("打招呼成功");
         }
       },
-      function (res) {
+      function(res) {
         wx.showToast({
           title: "打招呼失败",
           icon: 'none',
@@ -645,11 +645,11 @@ Page({
 
 
   //获取用户输入的用户名
-  insertDialogDiscussInput: function (e) {
+  insertDialogDiscussInput: function(e) {
     this.data.insertDialogDiscussVlaue = e.detail.value
   },
 
-  insertDialogContent: function () {
+  insertDialogContent: function() {
     if (this.data.selectItem.type == 1) {
       this.insertDialogDiscussContent();
     } else {
@@ -658,7 +658,7 @@ Page({
   },
 
   //发表评论
-  insertDialogDiscussContent: function () {
+  insertDialogDiscussContent: function() {
     if (this.data.insertDialogDiscussVlaue.length == 0) {
       wx.showToast({
         title: "内容不能为空",
@@ -676,7 +676,7 @@ Page({
         "PickUpId": pickUpId,
         "TextContent": this.data.insertDialogDiscussVlaue
       },
-      function (res) {
+      function(res) {
         if (res.isExecuteSuccess) {
           wx.showToast({
             title: "评论成功",
@@ -687,7 +687,7 @@ Page({
           console.info("快速评论成功");
         }
       },
-      function (res) {
+      function(res) {
         wx.showToast({
           title: "评论失败",
           icon: 'none',
@@ -699,7 +699,7 @@ Page({
 
 
   //发表评论
-  insertAttentionDiscussContent: function (ops) {
+  insertAttentionDiscussContent: function(ops) {
     this.hideModalShare();
     var self = this;
     app.httpPost(
@@ -708,7 +708,7 @@ Page({
         "MomentId": this.data.currentMoment.momentId,
         "TextContent": "Hi~"
       },
-      function (res) {
+      function(res) {
         if (res.isExecuteSuccess) {
           wx.showToast({
             title: "打招呼成功",
@@ -719,7 +719,7 @@ Page({
           console.info("打招呼成功");
         }
       },
-      function (res) {
+      function(res) {
         wx.showToast({
           title: "打招呼失败",
           icon: 'none',
@@ -731,7 +731,7 @@ Page({
 
 
   //发表评论
-  insertDialogAttentionDiscussContent: function (ops) {
+  insertDialogAttentionDiscussContent: function(ops) {
     if (this.data.insertDialogDiscussVlaue.length == 0) {
       wx.showToast({
         title: "内容不能为空",
@@ -748,7 +748,7 @@ Page({
         "MomentId": this.data.currentMoment.momentId,
         "TextContent": this.data.insertDialogDiscussVlaue
       },
-      function (res) {
+      function(res) {
         if (res.isExecuteSuccess) {
           wx.showToast({
             title: "评论成功",
@@ -758,7 +758,7 @@ Page({
           self.sendMessage(self.data.currentMoment.uId);
         }
       },
-      function (res) {
+      function(res) {
         wx.showToast({
           title: "评论失败",
           icon: 'none',
@@ -768,7 +768,7 @@ Page({
   },
 
   //添加关注
-  addAttention: function (ops) {
+  addAttention: function(ops) {
     this.hideModalShare();
     var self = this;
     let uid = this.data.currentMoment.uId;
@@ -778,7 +778,7 @@ Page({
         "PartnerUId": uid,
         "MomentId": this.data.currentMoment.momentId
       },
-      function (res) {
+      function(res) {
         if (res.isExecuteSuccess) {
           wx.showToast({
             title: "关注成功",
@@ -789,7 +789,7 @@ Page({
           console.info("关注成功");
         }
       },
-      function (res) {
+      function(res) {
         wx.showToast({
           title: "关注失败",
           icon: 'none',
@@ -800,7 +800,7 @@ Page({
   },
 
   //取消关注
-  cancelAttention: function (ops) {
+  cancelAttention: function(ops) {
     this.hideModalShare();
     var self = this;
     let uid = this.data.currentMoment.uId;
@@ -809,7 +809,7 @@ Page({
         "UId": app.globalData.apiHeader.UId,
         "PartnerUId": uid
       },
-      function (res) {
+      function(res) {
         if (res.isExecuteSuccess) {
           wx.showToast({
             title: "取消成功",
@@ -820,7 +820,7 @@ Page({
           console.info("取消成功");
         }
       },
-      function (res) {
+      function(res) {
         wx.showToast({
           title: "取消失败",
           icon: 'none',
@@ -831,7 +831,7 @@ Page({
   },
 
 
-  onlineNotify: function (ops) {
+  onlineNotify: function(ops) {
     this.hideModalShare();
     var self = this;
     let uid = this.data.currentMoment.uId;
@@ -840,7 +840,7 @@ Page({
         "UId": app.globalData.apiHeader.UId,
         "PartnerUId": uid
       },
-      function (res) {
+      function(res) {
         if (res.success) {
           wx.showToast({
             title: "设置成功",
@@ -850,7 +850,7 @@ Page({
           console.info("设置成功");
         }
       },
-      function (res) {
+      function(res) {
         wx.showToast({
           title: "设置失败",
           icon: 'none',
@@ -861,14 +861,14 @@ Page({
   },
 
 
-  saveLocal: function () {
+  saveLocal: function() {
     this.hideModalShare();
 
     this.createPoster(this.data.currentMoment.imgContent);
   },
 
   //举报瓶子
-  reportItem: function (ops) {
+  reportItem: function(ops) {
     this.hideModalShare();
     var self = this;
     let pickUpId = this.data.currentMoment.pickUpId;
@@ -876,7 +876,7 @@ Page({
       'Letter/ReportBottle', {
         "PickUpId": pickUpId
       },
-      function (res) {
+      function(res) {
         console.info("举报瓶子成功！");
         self.resetSelectItem();
 
@@ -886,7 +886,7 @@ Page({
           duration: 1500
         });
       },
-      function (res) {
+      function(res) {
         console.info("举报瓶子失败");
         self.resetSelectItem()
       })
@@ -894,7 +894,7 @@ Page({
 
 
   //添加收藏
-  addCollect: function (ops) {
+  addCollect: function(ops) {
     this.hideModalShare();
     var self = this;
     app.httpPost(
@@ -904,7 +904,7 @@ Page({
         "PickUpId": self.data.currentMoment.pickUpId,
         "FromPage": "discoveryPage"
       },
-      function (res) {
+      function(res) {
         if (res.isExecuteSuccess) {
           console.info("添加收藏成功！");
           self.resetSelectItem();
@@ -915,14 +915,14 @@ Page({
           });
         }
       },
-      function (res) {
+      function(res) {
         console.info("收藏瓶子失败");
         self.resetSelectItem()
       })
   },
 
   //更多
-  moreAction: function (ops) {
+  moreAction: function(ops) {
     if (!app.globalData.basicUserInfo.isRegister) {
       this.showLoginModal();
       return;
@@ -934,7 +934,7 @@ Page({
     })
   },
 
-  setMoreContent: function (ops) {
+  setMoreContent: function(ops) {
     let key = ops.currentTarget.dataset.key;
     let pickUpList = this.data.pickUpList;
     this.setData({
@@ -947,7 +947,7 @@ Page({
 
 
   //更多
-  moreAtteitionAction: function (ops) {
+  moreAtteitionAction: function(ops) {
     if (!app.globalData.basicUserInfo.isRegister) {
       this.showLoginModal();
       return;
@@ -959,7 +959,7 @@ Page({
     })
   },
 
-  setMoreAtteitionContent: function (ops) {
+  setMoreAtteitionContent: function(ops) {
     let key = ops.currentTarget.dataset.key;
     let attentionList = this.data.attentionList;
     this.setData({
@@ -972,16 +972,16 @@ Page({
 
 
   //重置
-  resetSelectItem: function () {
+  resetSelectItem: function() {
     this.hideModalShare();
   },
 
 
-  handletouchtart: function (event) {
+  handletouchtart: function(event) {
     this.data.lastY = event.touches[0].pageY
   },
 
-  handletouchmove: function (event) {
+  handletouchmove: function(event) {
     let currentY = event.touches[0].pageY
     let ty = currentY - this.data.lastY
     if (ty > 30 && currentY < 700 && this.data.currentTab == 0) {
@@ -990,7 +990,7 @@ Page({
   },
 
   //清除未读消息
-  clearUnReadCount: function (pickUpId) {
+  clearUnReadCount: function(pickUpId) {
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
@@ -998,18 +998,18 @@ Page({
           "UId": app.globalData.apiHeader.UId,
           "PickUpId": pickUpId
         },
-        function (res) {
+        function(res) {
           console.info("清除未读消息成功！")
           self.unReadCountRefresh();
         },
-        function (res) {
+        function(res) {
           console.info("清除未读消息Http失败！")
         })
     }
   },
 
   //触底加载更多数据
-  onReachBottom: function () {
+  onReachBottom: function() {
     if (this.data.currentTab == 0) {
       let page = this.data.pageIndex + 1;
       this.setData({
@@ -1018,7 +1018,7 @@ Page({
       });
       let self = this;
       //loading动画加载1.5秒后执行
-      setTimeout(function () {
+      setTimeout(function() {
         self.getPickUpList(false);
       }, 1000)
     } else {
@@ -1029,14 +1029,14 @@ Page({
       });
       let self = this;
       //loading动画加载1.5秒后执行
-      setTimeout(function () {
+      setTimeout(function() {
         self.getAttentionList(false);
       }, 1000)
     }
   },
 
   //tab切换至动态
-  bindChange: function (e) {
+  bindChange: function(e) {
     if (e.detail.current == 1) {
       this.setData({
         loadTopHide: false,
@@ -1054,14 +1054,14 @@ Page({
     }
   },
 
-  toDiscoryList: function (e) {
+  toDiscoryList: function(e) {
     this.setData({
       currentTab: 0,
       pageIndex: 1
     });
   },
 
-  toAttentionList: function (e) {
+  toAttentionList: function(e) {
     this.setData({
       currentTab: 1
     });
@@ -1071,7 +1071,7 @@ Page({
 
 
   //动态详情页面
-  previewMomentDetail: function (e) {
+  previewMomentDetail: function(e) {
     let pickUpId = e.currentTarget.dataset.pickupid;
     let key = e.currentTarget.dataset.key;
     let pickUpList = this.data.pickUpList;
@@ -1085,7 +1085,7 @@ Page({
 
 
   //动态详情页面
-  previewAtentionMomentDetail: function (e) {
+  previewAtentionMomentDetail: function(e) {
     let key = e.currentTarget.dataset.key;
     let attentionList = this.data.attentionList;
     let cacheKey = "discussDetail_momentId_" + attentionList[key].momentId;
@@ -1096,7 +1096,7 @@ Page({
   },
 
   //发布动态
-  publishMoment: function () {
+  publishMoment: function() {
     wx.navigateTo({
       url: '../../pages/publishmoment/publishmoment'
     })
@@ -1104,20 +1104,20 @@ Page({
   },
 
   //金币余额
-  toCoinDetailPage: function () {
+  toCoinDetailPage: function() {
     wx.navigateTo({
       url: '../../pages/coin/coin'
     })
   },
 
-  toChatPage: function () {
+  toChatPage: function() {
     wx.navigateTo({
       url: '../../pages/chat/chat'
     })
   },
 
   // 预览图片
-  previewImg: function (e) {
+  previewImg: function(e) {
     let imgContent = e.currentTarget.dataset.imgcontent;
     let imgContents = [];
     imgContents.push(imgContent);
@@ -1130,7 +1130,7 @@ Page({
   },
 
   //获取动态
-  getPickUpList: function (onShow) {
+  getPickUpList: function(onShow) {
     var self = this;
     let tempPickUpList = self.data.pickUpList;
     app.httpPost(
@@ -1138,7 +1138,7 @@ Page({
         "UId": app.globalData.apiHeader.UId,
         "PageIndex": this.data.pageIndex
       },
-      function (res) {
+      function(res) {
         if (onShow) {
           tempPickUpList = res.pickUpList
         } else {
@@ -1160,7 +1160,7 @@ Page({
         let cacheKey = "userPickUpListCache+" + app.globalData.apiHeader.UId;
         app.setCache(cacheKey, tempPickUpList);
       },
-      function (res) {
+      function(res) {
         console.info("获取数据失败");
         self.setData({
           onloadText: "查看更多>>"
@@ -1169,7 +1169,7 @@ Page({
   },
 
   //获取关注用户的动态
-  getAttentionList: function (onShow) {
+  getAttentionList: function(onShow) {
     var self = this;
     if (onShow) {
       self.setData({
@@ -1182,7 +1182,7 @@ Page({
         "UId": app.globalData.apiHeader.UId,
         "PageIndex": this.data.attentionPageIndex
       },
-      function (res) {
+      function(res) {
         if (onShow) {
           tempAttentionList = res.attentionList
         } else {
@@ -1202,7 +1202,7 @@ Page({
         self.stopPullDownRefresh();
         console.info("获取关注用户的动态成功");
       },
-      function (res) {
+      function(res) {
         console.info("获取关注用户的动态失败");
         self.stopPullDownRefresh();
         self.setData({
@@ -1212,14 +1212,14 @@ Page({
   },
 
   //下拉获取新的瓶子
-  getPickUp: function () {
+  getPickUp: function() {
     var self = this;
     let tempPickUpList = self.data.pickUpList;
     app.httpPost(
       'Letter/PickUp', {
         "UId": app.globalData.apiHeader.UId
       },
-      function (res) {
+      function(res) {
         if (res.pickUpList.length != 0) {
           if (tempPickUpList.length == 0) {
             tempPickUpList = res.pickUpList
@@ -1243,7 +1243,7 @@ Page({
         }
         self.stopPullDownRefresh();
       },
-      function (res) {
+      function(res) {
         console.info("获取数据失败");
         //金币余额不足
         if (res.code == 80002) {
@@ -1263,10 +1263,10 @@ Page({
   },
 
   //休眠2秒，防止数据获取太快看不到加载动图
-  stopPullDownRefresh: function () {
+  stopPullDownRefresh: function() {
     let times = 0;
     let self = this;
-    var timer = setInterval(function () {
+    var timer = setInterval(function() {
       times++
       if (times >= 1) {
         self.setData({
@@ -1278,7 +1278,7 @@ Page({
   },
 
   //清空所有未回复过的瓶子
-  allClear: function () {
+  allClear: function() {
     var self = this;
     wx.showModal({
       content: '将清空所有消息!',
@@ -1288,14 +1288,14 @@ Page({
             'Letter/ClearAllBottle', {
               "UId": app.globalData.apiHeader.UId
             },
-            function (res) {
+            function(res) {
               console.info("清空所有未回复过的瓶子成功");
               self.setData({
                 pickUpList: []
               });
               self.resetSelectItem()
             },
-            function (res) {
+            function(res) {
               console.warn("清空所有未回复过的瓶子失败");
               self.resetSelectItem()
             })
@@ -1307,43 +1307,9 @@ Page({
   },
 
 
-  /// 创建海报
-  createPoster: function (backImg) {
-    if (backImg == null || backImg == "" || backImg.length == 0) {
-      wx.showToast({
-        title: "动态无图片，不支持保存本地",
-        icon: 'none',
-        duration: 3000
-      });
-      return;
-    }
-
-    app.showLoading('正在生成...')
-    /// 绘制的内容
-    const writing = {
-      bigImage: '',
-      code: 'https://www.pikaer.com/common/image/20191008_21841_86ce3d6c-7662-405c-8f4e-041782050225.jpg'
-    };
-    writing.bigImage = backImg;
-    /// 绘制
-    this.draw('poster', 650, 1000, writing).then(res => {
-      setTimeout(() => {
-        app.hideLoading();
-        this.setData({
-          isCreate: true,
-          isShow: true
-        })
-      }, 300)
-    }, err => {
-      setTimeout(() => {
-        app.hideLoading();
-        app.showToast('生成海报失败');
-      }, 300)
-    })
-  },
 
   /// 隐藏
-  catchtap: function (callback) {
+  catchtap: function(callback) {
     this.setData({
       isShow: false
     })
@@ -1357,125 +1323,7 @@ Page({
     }, 400)
   },
 
-  /// 绘制文本
-  drawText: function (options) {
-    /// 获取总行数
-    var allRow = Math.ceil(options.ctx.measureText(options.str).width / options.maxWidth);
-    /// 限制行数
-    var count = allRow >= options.maxLine ? options.maxLine : allRow,
-      /// 当前字符串的截断点
-      endPos = 0;
-    /// 设置文字颜色
-    options.ctx.setFillStyle(options.style ? options.style : '#353535');
-    /// 设置字体大小
-    options.ctx.setFontSize(options.fontSize ? options.fontSize : rate(20));
-    /// 循环截断
-    for (var j = 0; j < count; j++) {
-      /// 当前剩余的字符串
-      var nowStr = options.str.slice(endPos),
-        /// 每一行当前宽度
-        rowWid = 0,
-        /// 每一行顶部距离
-        y = options.y + (count == 1 ? 0 : j * options.height);
-      /// 如果当前的字符串宽度大于最大宽度，然后开始截取
-      if (options.ctx.measureText(nowStr).width > options.maxWidth) {
-        for (var m = 0; m < nowStr.length; m++) {
-          /// 计算当前字符串总宽度
-          rowWid += options.ctx.measureText(nowStr[m]).width;
-          if (rowWid > options.maxWidth) {
-            /// 如果是最后一行
-            if (j === options.maxLine - 1) {
-              options.ctx.fillText(nowStr.slice(0, m - 1) + '...', options.x, y);
-            } else {
-              options.ctx.fillText(nowStr.slice(0, m), options.x, y);
-            }
-            /// 保留下次截断点
-            endPos += m;
-            break;
-          }
-        }
-      } else { /// 如果当前的字符串宽度小于最大宽度就直接输出
-        options.ctx.fillText(nowStr.slice(0), options.x, y);
-      }
-    }
-  },
-
-  /// 绘制海报 1、canvas对象 2、canvas宽 3、canvas高 4、绘制的内容
-  draw: function (canvas, cavW, cavH, writing) {
-    return new Promise((resolve, reject) => {
-      if (!writing || !canvas) {
-        reject();
-        return;
-      }
-
-      /// 创建context
-      var ctx = wx.createCanvasContext(canvas);
-      ctx.clearRect(0, 0, rate(cavW), rate(cavH));
-
-      /// 获取大的背景图
-      let promise1 = new Promise(function (resolve, reject) {
-        wx.getImageInfo({
-          src: writing.bigImage,
-          success: function (res) {
-            resolve(res.path);
-          },
-          fail: function (err) {
-            reject(err);
-          }
-        })
-      });
-
-      /// 获取小程序码图片
-      let promise2 = new Promise(function (resolve, reject) {
-        wx.getImageInfo({
-          src: writing.code,
-          success: function (res) {
-            resolve(res.path);
-          },
-          fail: function (err) {
-            reject(err);
-          }
-        })
-      });
-
-      /// 同步回调
-      Promise.all(
-        [promise1, promise2]
-      ).then(res => {
-
-        /// 绘制底色
-        ctx.setFillStyle('white');
-        ctx.fillRect(0, 0, rate(cavW), rate(cavH));
-
-        /// 绘制背景图
-        ctx.drawImage(res[0], 0, 0, rate(628), rate(710));
-
-        /// 绘制小程序码
-        ctx.drawImage(res[1], 0, rate(710), rate(628), rate(175));
-
-        /// 绘制  
-        ctx.draw(false, () => {
-          wx.canvasToTempFilePath({
-            canvasId: 'poster',
-            fileType: 'png',
-            success: res => {
-              this.setData({
-                poster: res.tempFilePath
-              })
-              resolve();
-            },
-            fail: err => {
-              reject();
-            }
-          })
-        });
-      }, err => {
-        reject();
-      })
-    })
-  },
-
-  getUserLocation: function () {
+  getUserLocation: function() {
     let self = this
     wx.getSetting({
       success: (res) => {
@@ -1488,7 +1336,7 @@ Page({
           wx.showModal({
             title: '',
             content: '【Bingo聊天室】需要获取你的地理位置，请确认授权',
-            success: function (res) {
+            success: function(res) {
               if (res.cancel) {
                 wx.showToast({
                   title: '拒绝授权',
@@ -1499,7 +1347,7 @@ Page({
                 }, 1500)
               } else if (res.confirm) {
                 wx.openSetting({
-                  success: function (dataAu) {
+                  success: function(dataAu) {
                     // console.log('dataAu:success', dataAu)
                     if (dataAu.authSetting["scope.userLocation"] == true) {
                       //再次授权，调用wx.getLocation的API
@@ -1535,15 +1383,16 @@ Page({
     })
   },
   // 微信获得经纬度
-  getLocation: function (userLocation) {
+  getLocation: function(userLocation) {
     let self = this
     wx.getLocation({
       type: "wgs84",
-      success: function (res) {
+      success: function(res) {
         console.log('getLocation:success', res)
         self.updateUserLocation(res.latitude, res.longitude)
+        //self.getLocationDetail(res.latitude, res.longitude)
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log('getLocation:fail', res)
         if (res.errMsg === 'getLocation:fail:auth denied') {
           wx.showToast({
@@ -1582,7 +1431,25 @@ Page({
     })
   },
 
-  updateUserLocation: function (latitude, longitude) {
+  getLocationDetail: function(latitude, longitude) {
+    let self = this;
+    qqmapsdk.reverseGeocoder({
+      location: {
+        latitude: latitude,
+        longitude: longitude
+      },
+      success: function(res) {
+        //获取当前地址成功
+        console.log(res);
+      },
+      fail: function(res) {
+        console.log('获取当前地址失败');
+      }
+    })
+  },
+
+  updateUserLocation: function(latitude, longitude) {
+
     let self = this;
     if (app.globalData.apiHeader.UId > 0) {
       app.httpPost(
@@ -1591,16 +1458,16 @@ Page({
           "Latitude": latitude,
           "Longitude": longitude
         },
-        function (res) {
+        function(res) {
           console.info("更新位置信息成功！")
         },
-        function (res) {
+        function(res) {
           console.info("更新位置信息失败！")
         })
     }
   },
 
-  cancelLogin: function () {
+  cancelLogin: function() {
     this.setData({
       showLoginModal: false
     });
@@ -1608,7 +1475,7 @@ Page({
 
 
 
-  bindGetUserInfo: function (e) {
+  bindGetUserInfo: function(e) {
     let self = this;
     if (e.detail.userInfo) {
       wx.getSetting({
@@ -1634,7 +1501,7 @@ Page({
 
 
   //存入用户信息
-  setUserInfo: function (userInfoWX) {
+  setUserInfo: function(userInfoWX) {
     let self = this;
     app.globalData.basicUserInfo.headPhotoPath = userInfoWX.avatarUrl;
     app.globalData.basicUserInfo.nickName = userInfoWX.nickName;
@@ -1651,15 +1518,15 @@ Page({
         "Province": userInfoWX.province,
         "City": userInfoWX.city
       },
-      function (res) {
+      function(res) {
         console.info("存入用户信息成功");
       },
-      function (res) {
+      function(res) {
         console.error("存入用户信息失败!");
       })
   },
 
-  subscribeMessage: function (ops) {
+  subscribeMessage: function(ops) {
     this.setData({
       subscribeMessageOpen: ops.detail.value
     });
@@ -1694,28 +1561,4 @@ Page({
     }
   },
 
-  /// 保存图片
-  btnCreate: function (obj) {
-    app.showLoading('正在保存...')
-    wx.saveImageToPhotosAlbum({
-      filePath: this.data.poster,
-      success: res => {
-        app.hideLoading();
-        this.catchtap(() => {
-          wx.showToast({
-            title: '保存成功'
-          })
-        });
-      },
-      fail: err => {
-        app.hideLoading();
-        this.catchtap(() => {
-          wx.showToast({
-            title: '保存失败',
-            icon: 'none'
-          })
-        });
-      }
-    });
-  }
 })

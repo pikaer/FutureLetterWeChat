@@ -8,6 +8,7 @@
     "pages/userspace/userspace",
     "pages/ninerecommend/ninerecommend",
     "pages/meindex/meindex",
+    "pages/map/map",
     "pages/userinfo/userinfo",
     "pages/schoolname/schoolname",
     "pages/nickname/nickname",

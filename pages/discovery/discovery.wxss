@@ -867,3 +867,15 @@ swiper-item {
   border-radius: 100%;
   text-align: center;
 }
+
+
+.toMapIcon {
+  position: fixed;
+  bottom: 175px;
+  right: 15px;
+  width: 48px;
+  height: 48px;
+  background-color: #0178d4;
+  border-radius: 100%;
+  text-align: center;
+}
