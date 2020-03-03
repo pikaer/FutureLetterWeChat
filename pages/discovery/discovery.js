@@ -4,13 +4,6 @@ import {
 } from "../../utils/signalR.js";
 import auth from '../../utils/auth.js';
 
-// 引入SDK核心类
-var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
-// 实例化API核心类
-var qqmapsdk = new QQMapWX({
-  key: 'SNZBZ-CGBLV-4BBPP-UVDAH-UGLHJ-6KB4U' //申请的开发者秘钥key
-});
-
 Page({
   data: {
     currentMoment: {},
@@ -45,7 +38,6 @@ Page({
   },
 
   onLoad: function() {
-    wx.cloud.init
     wx.hideTabBar();
     this.userLogin();
   },

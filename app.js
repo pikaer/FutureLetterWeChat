@@ -13,10 +13,10 @@ const rate = function(rpx) {
 App({
   //全局变量
   globalData: {
-    // baseUrl: "https://122.51.93.10/todayapi/api/",
+    baseUrl: "https://122.51.93.10/todayapi/api/",
     socketUrl: "https://122.51.93.10/signalR/",
-    baseUrl: "https://localhost:44386/api/",
-    //socketUrl: "https://localhost:44375/",
+    // baseUrl: "https://localhost:44386/api/",
+    // socketUrl: "https://localhost:44375/",
 
     httpHeader: {
       "Content-Type": "application/json"

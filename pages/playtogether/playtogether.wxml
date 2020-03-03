@@ -32,7 +32,7 @@
           <view class="empty_topArea"></view>
           <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindlongpress="moreAction" bindtap="momentClickOpen" wx:for="{{pickUpList_Other}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
-            <view class="{{value.isSelected?'contentArea_Hover':'contentArea'}}" style="background-image: url({{value.imgContent}})">
+            <view class="contentArea" style="background-image: url({{value.imgContent}})">
               <view class="bodyView">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
@@ -42,7 +42,7 @@
                   <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
                   <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
                 </view>
-                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" bindtap="toShowModal">
+                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" catchtap="toShowModal">
                   <image src="{{value.headImgPath}}" class="userHead" />
                 </view>
                 <view class="centerTitleView">
@@ -69,74 +69,6 @@
                     <view class="tagView">{{value.constellation}}</view>
                   </view>
                 </view>
-              </view>
-            </view>
-            <view class="contentDetailArea" wx:if="{{value.isSelected}}">
-              <view wx:if="{{!value.isHide}}" class='momentImgListView' data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' catchtap="toShowModal">
-                <view class="userSpaceIconView">
-                  <image src="/content/images/userspace.svg" class="userSpaceIcon" />
-                </view>
-                <view class="userSpaceText">闪聊动态</view>
-                <view class="toUserSpaceView">
-                  <image src="/content/images/right1.svg" class="toUserIcon" />
-                </view>
-                <view class="momentImgView" wx:for="{{value.recentPlayMomentImgs}}" wx:key="key" wx:for-index="key" wx:for-item="imgUrl">
-                  <image src="{{imgUrl}}" class="momentImg" />
-                </view>
-              </view>
-              <view class="basicInfoTitle">个性签名</view>
-              <view class="signatureText">你好，欢迎来到腾讯客服，在下方对话框中输入想了解的内容或者点击菜单，马上为你服务！</view>
-              <view class="basicInfoTitle">我的信息</view>
-              <view class="basicInfoView">
-                <view class="basicInfoGroup">
-                  <view class="basicInfoIcon">
-                    <image src="/content/images/bag.svg" class="basicInfoImg" />
-                  </view>
-                  <view class="basicInfoText">学生</view>
-                </view>
-                <view class="basicInfoGroup">
-                  <view class="basicInfoIcon">
-                    <image src="/content/images/company.svg" class="basicInfoImg" />
-                  </view>
-                  <view class="basicInfoText">创始人</view>
-                </view>
-                <view class="basicInfoGroup">
-                  <view class="basicInfoIcon">
-                    <image src="/content/images/home.svg" class="basicInfoImg" />
-                  </view>
-                  <view class="basicInfoText">上海市，宝山区</view>
-                </view>
-              </view>
-              <view class="basicInfoTitle">我们的共同点</view>
-              <view class="commonTagText">4个共同爱好</view>
-              <view class="tagListView1">
-                <view class="tagItem">萌萌哒</view>
-                <view class="tagItem">强迫症</view>
-                <view class="tagItem">双重人格</view>
-                <view class="tagItem">文艺</view>
-                <view class="tagItem">强迫症</view>
-                <view class="tagItem">双重人格</view>
-                <view class="tagItem">文艺</view>
-              </view>
-              <view class="lineView"></view>
-              <view class="basicInfoTitle">我的标签</view>
-              <view class="tagListView">
-                <view class="tagItem">萌萌哒</view>
-                <view class="tagItem">强迫症</view>
-                <view class="tagItem">双重人格</view>
-                <view class="tagItem">文艺</view>
-                <view class="tagItem">讲义气</view>
-                <view class="tagItem">理想主义</view>
-                <view class="tagItem">萌萌哒</view>
-                <view class="tagItem">强迫症</view>
-                <view class="tagItem">双重人格</view>
-                <view class="tagItem">文艺</view>
-                <view class="tagItem">讲义气</view>
-                <view class="tagItem">理想主义</view>
-              </view>
-              <view data-key='{{key}}' catchtap="previewMomentDetail" class="toChatBtn" hover-class="toChatBtn_Hover">
-                <view class="iconfont comment" style='font-size:18px;font-weight: 650' />
-                <view class="toChatText">私聊</view>
               </view>
             </view>
           </view>
@@ -152,7 +84,7 @@
           <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_WangZhe}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
             <view class="contentArea" style="background-image: url({{value.imgContent}})">
-              <view class="{{value.isHide?'bodyView_Hide':'bodyView'}}">
+              <view class="bodyView">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
               </view>
@@ -161,7 +93,7 @@
                   <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
                   <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
                 </view>
-                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" bindtap="toShowModal">
+                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" catchtap="toShowModal">
                   <image src="{{value.headImgPath}}" class="userHead" />
                 </view>
                 <view class="centerTitleView">
@@ -187,14 +119,6 @@
                     <view class="tagView">{{value.ageYear}}</view>
                     <view class="tagView">{{value.constellation}}</view>
                   </view>
-                </view>
-              </view>
-              <view wx:if="{{!value.isHide}}" class='momentImgListView' data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' bindtap="toShowModal">
-                <view class="momentImgView" wx:for="{{value.recentPlayMomentImgs}}" wx:key="key" wx:for-index="key" wx:for-item="imgUrl">
-                  <image src="{{imgUrl}}" class="momentImg" />
-                </view>
-                <view class="toUserSpaceView">
-                  <image src="/content/images/right1.svg" class="toUserIcon" />
                 </view>
               </view>
             </view>
@@ -211,7 +135,7 @@
           <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_ChiJi}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
             <view class="contentArea" style="background-image: url({{value.imgContent}})">
-              <view class="{{value.isHide?'bodyView_Hide':'bodyView'}}">
+              <view class="bodyView">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
               </view>
@@ -220,7 +144,7 @@
                   <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
                   <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
                 </view>
-                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" bindtap="toShowModal">
+                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" catchtap="toShowModal">
                   <image src="{{value.headImgPath}}" class="userHead" />
                 </view>
                 <view class="centerTitleView">
@@ -248,20 +172,7 @@
                   </view>
                 </view>
               </view>
-              <view wx:if="{{!value.isHide}}" class='momentImgListView' data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' bindtap="toShowModal">
-                <view class="momentImgView" wx:for="{{value.recentPlayMomentImgs}}" wx:key="key" wx:for-index="key" wx:for-item="imgUrl">
-                  <image src="{{imgUrl}}" class="momentImg" />
-                </view>
-                <view class="toUserSpaceView">
-                  <image src="/content/images/right1.svg" class="toUserIcon" />
-                </view>
-              </view>
-              <view class="iconView">
-                <view class="iconfont comment" style='font-size:14px;float:left;color:#8e8e8e;padding-top: 2px;' />
-                <view class="chatTextView">聊一聊</view>
-              </view>
             </view>
-
           </view>
           <!-- 占位 -->
           <view class="placeUseView">没有更多啦</view>
@@ -275,7 +186,7 @@
           <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_LianMai}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
             <view class="contentArea" style="background-image: url({{value.imgContent}})">
-              <view class="{{value.isHide?'bodyView_Hide':'bodyView'}}">
+              <view class="bodyView">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
               </view>
@@ -284,7 +195,7 @@
                   <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
                   <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
                 </view>
-                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" bindtap="toShowModal">
+                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" catchtap="toShowModal">
                   <image src="{{value.headImgPath}}" class="userHead" />
                 </view>
                 <view class="centerTitleView">
@@ -310,14 +221,6 @@
                     <view class="tagView">{{value.ageYear}}</view>
                     <view class="tagView">{{value.constellation}}</view>
                   </view>
-                </view>
-              </view>
-              <view wx:if="{{!value.isHide}}" class='momentImgListView' data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' bindtap="toShowModal">
-                <view class="momentImgView" wx:for="{{value.recentPlayMomentImgs}}" wx:key="key" wx:for-index="key" wx:for-item="imgUrl">
-                  <image src="{{imgUrl}}" class="momentImg" />
-                </view>
-                <view class="toUserSpaceView">
-                  <image src="/content/images/right1.svg" class="toUserIcon" />
                 </view>
               </view>
             </view>
@@ -334,7 +237,7 @@
           <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_Game}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
             <view class="contentArea" style="background-image: url({{value.imgContent}})">
-              <view class="{{value.isHide?'bodyView_Hide':'bodyView'}}">
+              <view class="bodyView">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
               </view>
@@ -343,7 +246,7 @@
                   <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
                   <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
                 </view>
-                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" bindtap="toShowModal">
+                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" catchtap="toShowModal">
                   <image src="{{value.headImgPath}}" class="userHead" />
                 </view>
                 <view class="centerTitleView">
@@ -369,14 +272,6 @@
                     <view class="tagView">{{value.ageYear}}</view>
                     <view class="tagView">{{value.constellation}}</view>
                   </view>
-                </view>
-              </view>
-              <view wx:if="{{!value.isHide}}" class='momentImgListView' data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' bindtap="toShowModal">
-                <view class="momentImgView" wx:for="{{value.recentPlayMomentImgs}}" wx:key="key" wx:for-index="key" wx:for-item="imgUrl">
-                  <image src="{{imgUrl}}" class="momentImg" />
-                </view>
-                <view class="toUserSpaceView">
-                  <image src="/content/images/right1.svg" class="toUserIcon" />
                 </view>
               </view>
             </view>
@@ -393,7 +288,7 @@
           <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_Learn}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
             <view class="contentArea" style="background-image: url({{value.imgContent}})">
-              <view class="{{value.isHide?'bodyView_Hide':'bodyView'}}">
+              <view class="bodyView">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
               </view>
@@ -402,7 +297,7 @@
                   <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
                   <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
                 </view>
-                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" bindtap="toShowModal">
+                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" catchtap="toShowModal">
                   <image src="{{value.headImgPath}}" class="userHead" />
                 </view>
                 <view class="centerTitleView">
@@ -428,14 +323,6 @@
                     <view class="tagView">{{value.ageYear}}</view>
                     <view class="tagView">{{value.constellation}}</view>
                   </view>
-                </view>
-              </view>
-              <view wx:if="{{!value.isHide}}" class='momentImgListView' data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' bindtap="toShowModal">
-                <view class="momentImgView" wx:for="{{value.recentPlayMomentImgs}}" wx:key="key" wx:for-index="key" wx:for-item="imgUrl">
-                  <image src="{{imgUrl}}" class="momentImg" />
-                </view>
-                <view class="toUserSpaceView">
-                  <image src="/content/images/right1.svg" class="toUserIcon" />
                 </view>
               </view>
             </view>
@@ -452,7 +339,7 @@
           <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_TVTracker}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
             <view class="contentArea" style="background-image: url({{value.imgContent}})">
-              <view class="{{value.isHide?'bodyView_Hide':'bodyView'}}">
+              <view class="bodyView">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
               </view>
@@ -461,7 +348,7 @@
                   <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
                   <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
                 </view>
-                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" bindtap="toShowModal">
+                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" catchtap="toShowModal">
                   <image src="{{value.headImgPath}}" class="userHead" />
                 </view>
                 <view class="centerTitleView">
@@ -487,14 +374,6 @@
                     <view class="tagView">{{value.ageYear}}</view>
                     <view class="tagView">{{value.constellation}}</view>
                   </view>
-                </view>
-              </view>
-              <view wx:if="{{!value.isHide}}" class='momentImgListView' data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' bindtap="toShowModal">
-                <view class="momentImgView" wx:for="{{value.recentPlayMomentImgs}}" wx:key="key" wx:for-index="key" wx:for-item="imgUrl">
-                  <image src="{{imgUrl}}" class="momentImg" />
-                </view>
-                <view class="toUserSpaceView">
-                  <image src="/content/images/right1.svg" class="toUserIcon" />
                 </view>
               </view>
             </view>
@@ -511,7 +390,7 @@
           <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_Earlybird}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
             <view class="contentArea" style="background-image: url({{value.imgContent}})">
-              <view class="{{value.isHide?'bodyView_Hide':'bodyView'}}">
+              <view class="bodyView">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
               </view>
@@ -520,7 +399,7 @@
                   <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
                   <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
                 </view>
-                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" bindtap="toShowModal">
+                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" catchtap="toShowModal">
                   <image src="{{value.headImgPath}}" class="userHead" />
                 </view>
                 <view class="centerTitleView">
@@ -546,14 +425,6 @@
                     <view class="tagView">{{value.ageYear}}</view>
                     <view class="tagView">{{value.constellation}}</view>
                   </view>
-                </view>
-              </view>
-              <view wx:if="{{!value.isHide}}" class='momentImgListView' data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' bindtap="toShowModal">
-                <view class="momentImgView" wx:for="{{value.recentPlayMomentImgs}}" wx:key="key" wx:for-index="key" wx:for-item="imgUrl">
-                  <image src="{{imgUrl}}" class="momentImg" />
-                </view>
-                <view class="toUserSpaceView">
-                  <image src="/content/images/right1.svg" class="toUserIcon" />
                 </view>
               </view>
             </view>
@@ -570,7 +441,7 @@
           <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_Walk}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
             <view class="contentArea" style="background-image: url({{value.imgContent}})">
-              <view class="{{value.isHide?'bodyView_Hide':'bodyView'}}">
+              <view class="bodyView">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
               </view>
@@ -579,7 +450,7 @@
                   <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
                   <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
                 </view>
-                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" bindtap="toShowModal">
+                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" catchtap="toShowModal">
                   <image src="{{value.headImgPath}}" class="userHead" />
                 </view>
                 <view class="centerTitleView">
@@ -605,14 +476,6 @@
                     <view class="tagView">{{value.ageYear}}</view>
                     <view class="tagView">{{value.constellation}}</view>
                   </view>
-                </view>
-              </view>
-              <view wx:if="{{!value.isHide}}" class='momentImgListView' data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' bindtap="toShowModal">
-                <view class="momentImgView" wx:for="{{value.recentPlayMomentImgs}}" wx:key="key" wx:for-index="key" wx:for-item="imgUrl">
-                  <image src="{{imgUrl}}" class="momentImg" />
-                </view>
-                <view class="toUserSpaceView">
-                  <image src="/content/images/right1.svg" class="toUserIcon" />
                 </view>
               </view>
             </view>
@@ -628,53 +491,6 @@
           <view class="empty_topArea"></view>
           <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_Movie}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
-            <view class="contentArea" style="background-image: url({{value.imgContent}})">
-              <view class="{{value.isHide?'bodyView_Hide':'bodyView'}}">
-                <!-- 文本动态 -->
-                <view class="textView">{{value.textContent}}</view>
-              </view>
-              <view class="titleView">
-                <view wx:if="{{value.isHide}}" class="{{value.gender==2?'left_Hide_WoManView':'left_Hide_ManView'}}" data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' data-pickUpId='{{value.pickUpId}}' catchtap='toShowModal'>
-                  <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
-                  <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
-                </view>
-                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" bindtap="toShowModal">
-                  <image src="{{value.headImgPath}}" class="userHead" />
-                </view>
-                <view class="centerTitleView">
-                  <view class="topHeadView">
-                    <view class="nickNameView">{{value.nickName}}</view>
-                    <view class="onlineView" wx:if="{{value.onLineDesc!=''}}">
-                      <mp-badge style="margin-left: 5px;margin-right: 5px;float:left;padding-top:1rpx;" ext-class="blue" />
-                      <view class="onlineTextView">{{value.onLineDesc}}</view>
-                    </view>
-                  </view>
-                  <view class="centerView">
-                    <view wx:if="{{!value.isHide}}" class="{{value.gender==1?'genderView':'gender_womanView'}}">
-                      <view class="genderImgView">
-                        <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
-                        <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
-                      </view>
-                    </view>
-                    <view class="tagView">{{value.playTypeSesc}}</view>
-                    <view class="tagView">
-                      <view class="iconfont dingwei" style="font-size:10px;padding-right: 2px;float:left;color:#8e8e8e;"></view>
-                      {{value.distanceDesc}}
-                    </view>
-                    <view class="tagView">{{value.ageYear}}</view>
-                    <view class="tagView">{{value.constellation}}</view>
-                  </view>
-                </view>
-              </view>
-              <view wx:if="{{!value.isHide}}" class='momentImgListView' data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' bindtap="toShowModal">
-                <view class="momentImgView" wx:for="{{value.recentPlayMomentImgs}}" wx:key="key" wx:for-index="key" wx:for-item="imgUrl">
-                  <image src="{{imgUrl}}" class="momentImg" />
-                </view>
-                <view class="toUserSpaceView">
-                  <image src="/content/images/right1.svg" class="toUserIcon" />
-                </view>
-              </view>
-            </view>
           </view>
           <!-- 占位 -->
           <view class="placeUseView">没有更多啦</view>
@@ -684,5 +500,159 @@
   </view>
   <view class="publishIcon" catchtap="publishMoment">
     <view class="iconfont edit" style='font-size:25px;font-weight: 650;color: white;padding-top: 3px;' />
+  </view>
+</view>
+
+
+
+<view class="modal-mask-all" wx:if="{{showMomentDetailModal}}"></view>
+<view wx:if="{{showMomentDetailModal}}" class="modal-content-momentDetail">
+  <view class="contentArea_Hover" style="background-image: url({{'https://pic2.zhimg.com/80/v2-4757053c946344fe0667c16dc529cfdd_720w.jpg'}});height:{{screenHeight-52}}px;background-size: 100% {{screenHeight-52}}px" bindtap="momentDetailClick">
+    <view class="bodyView_Hover" style="margin-top:{{screenHeight-172}}px">
+      <!-- 文本动态 -->
+      <view class="textView">{{currentMoment.textContent}}</view>
+    </view>
+    <view class="titleView">
+      <view wx:if="{{currentMoment.isHide}}" class="{{currentMoment.gender==2?'left_Hide_WoManView':'left_Hide_ManView'}}" data-uId='{{currentMoment.uId}}' data-isHide='{{currentMoment.isHide}}' data-pickUpId='{{currentMoment.pickUpId}}' catchtap='toShowModal'>
+        <image wx:if="{{currentMoment.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
+        <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
+      </view>
+      <view wx:else data-uId='{{currentMoment.uId}}' data-pickUpId='{{currentMoment.pickUpId}}' data-isHide='{{currentMoment.isHide}}' class="leftView" catchtap="toShowModal">
+        <image src="{{currentMoment.headImgPath}}" class="userHead" />
+      </view>
+      <view class="centerTitleView">
+        <view class="topHeadView">
+          <view class="nickNameView">{{currentMoment.nickName}}</view>
+          <view class="onlineView" wx:if="{{currentMoment.onLineDesc!=''}}">
+            <mp-badge style="margin-left: 5px;margin-right: 5px;float:left;padding-top:1rpx;" ext-class="blue" />
+            <view class="onlineTextView">{{currentMoment.onLineDesc}}</view>
+          </view>
+        </view>
+        <view class="centerView">
+          <view wx:if="{{!currentMoment.isHide}}" class="{{currentMoment.gender==1?'genderView':'gender_womanView'}}">
+            <view class="genderImgView">
+              <image wx:if="{{currentMoment.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
+              <image wx:if="{{currentMoment.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
+            </view>
+          </view>
+          <view class="tagView">{{currentMoment.playTypeSesc}}</view>
+          <view class="tagView">
+            <view class="iconfont dingwei" style="font-size:10px;padding-right: 2px;float:left;color:#8e8e8e;"></view>
+            {{currentMoment.distanceDesc}}
+          </view>
+          <view class="tagView">{{currentMoment.ageYear}}</view>
+          <view class="tagView">{{currentMoment.constellation}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="contentDetailArea">
+    <view wx:if="{{!currentMoment.isHide}}" class='momentImgListView' data-uId='{{currentMoment.uId}}' data-isHide='{{currentMoment.isHide}}' catchtap="toShowModal">
+      <view class="userSpaceIconView">
+        <image src="/content/images/userspace.svg" class="userSpaceIcon" />
+      </view>
+      <view class="userSpaceText">闪聊动态</view>
+      <view class="toUserSpaceView">
+        <image src="/content/images/right1.svg" class="toUserIcon" />
+      </view>
+      <view class="momentImgView" wx:for="{{currentMoment.recentPlayMomentImgs}}" wx:key="key" wx:for-index="key" wx:for-item="imgUrl">
+        <image src="{{imgUrl}}" class="momentImg" />
+      </view>
+    </view>
+    <view class="basicInfoTitle">个性签名</view>
+    <view class="signatureText">你好，欢迎来到腾讯客服，在下方对话框中输入想了解的内容或者点击菜单，马上为你服务！</view>
+    <view class="basicInfoTitle">我的信息</view>
+    <view class="basicInfoView">
+      <view class="basicInfoGroup">
+        <view class="basicInfoIcon">
+          <image src="/content/images/bag.svg" class="basicInfoImg" />
+        </view>
+        <view class="basicInfoText">学生</view>
+      </view>
+      <view class="basicInfoGroup">
+        <view class="basicInfoIcon">
+          <image src="/content/images/company.svg" class="basicInfoImg" />
+        </view>
+        <view class="basicInfoText">创始人</view>
+      </view>
+      <view class="basicInfoGroup">
+        <view class="basicInfoIcon">
+          <image src="/content/images/home.svg" class="basicInfoImg" />
+        </view>
+        <view class="basicInfoText">上海市，宝山区</view>
+      </view>
+    </view>
+    <view class="basicInfoTitle1">我们的共同点</view>
+    <view class="commonTagText">4个共同爱好</view>
+    <view class="tagListView1">
+      <view class="tagItem0">萌萌哒</view>
+      <view class="tagItem0">强迫症</view>
+      <view class="tagItem0">双重人格</view>
+      <view class="tagItem0">文艺</view>
+      <view class="tagItem0">强迫症</view>
+      <view class="tagItem0">双重人格</view>
+      <view class="tagItem0">文艺</view>
+    </view>
+    <view class="lineView"></view>
+    <view class="basicInfoTitle">我的标签</view>
+    <view class="tagListView">
+      <view class="tagItem">萌萌哒</view>
+      <view class="tagItem">强迫症</view>
+      <view class="tagItem">双重人格</view>
+      <view class="tagItem">文艺</view>
+      <view class="tagItem">讲义气</view>
+      <view class="tagItem">理想主义</view>
+      <view class="tagItem">萌萌哒</view>
+      <view class="tagItem">强迫症</view>
+      <view class="tagItem">双重人格</view>
+      <view class="tagItem">文艺</view>
+      <view class="tagItem">讲义气</view>
+      <view class="tagItem">理想主义</view>
+    </view>
+    <view class="lineView"></view>
+    <view class="basicInfoTitle">喜欢的运动</view>
+    <view class="tagListView">
+      <view class="tagItem1">萌萌哒</view>
+    </view>
+    <view class="lineView"></view>
+    <view class="basicInfoTitle">音乐爱好</view>
+    <view class="tagListView">
+      <view class="tagItem2">萌萌哒</view>
+      <view class="tagItem2">强迫症</view>
+      <view class="tagItem2">双重人格</view>
+      <view class="tagItem2">文艺</view>
+      <view class="tagItem2">讲义气</view>
+      <view class="tagItem2">理想主义</view>
+      <view class="tagItem2">讲义气</view>
+      <view class="tagItem2">理想主义</view>
+    </view>
+    <view class="lineView"></view>
+    <view class="basicInfoTitle">喜欢的食物</view>
+    <view class="tagListView">
+      <view class="tagItem3">萌萌哒</view>
+      <view class="tagItem3">强迫症</view>
+      <view class="tagItem3">双重人格</view>
+      <view class="tagItem3">文艺</view>
+      <view class="tagItem3">讲义气</view>
+      <view class="tagItem3">理想主义</view>
+      <view class="tagItem3">理想主义</view>
+    </view>
+    <view class="lineView"></view>
+    <view class="basicInfoTitle">喜欢的电影</view>
+    <view class="tagListView">
+      <view class="tagItem4">萌萌哒</view>
+      <view class="tagItem4">理想主义</view>
+    </view>
+    <view class="lineView"></view>
+    <view class="basicInfoTitle">想去旅行的地方</view>
+    <view class="tagListView">
+      <view class="tagItem5">萌萌哒</view>
+      <view class="tagItem5">强迫症</view>
+      <view class="tagItem5">双重人格</view>
+    </view>
+    <view data-key='{{key}}' catchtap="previewMomentDetail" class="toChatBtn" hover-class="toChatBtn_Hover">
+      <view class="iconfont comment" style='font-size:18px;font-weight: 650' />
+      <view class="toChatText">私聊</view>
+    </view>
   </view>
 </view>

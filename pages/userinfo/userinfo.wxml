@@ -158,13 +158,13 @@
 
 <view class="modal-mask-all" wx:if="{{showTagModal}}"></view>
 <view wx:if="{{showTagModal}}" class="modal-content-preferTag">
-  <view class="tagTitleView">个性标签</view>
+  <view class="tagTitleView">{{tagTitle}}</view>
   <view class="createTagView">
-    <input class="createTagInput" value="{{tempTagValue}}" placeholder="创建我自己的标签" bindinput="tempTagValueInput" adjust-position='false'></input>
+    <input class="createTagInput" value="{{tempTagValue}}" placeholder="创建我自己的标签" bindinput="tempTagInputAction" adjust-position='false'></input>
   </view>
   <view class="addTagBtn" bindtap="tagAddClick">添加</view>
   <view class="lineView"></view>
-  <view class="tagCheckListView">
+  <scroll-view scroll-y scroll-top='{{topNum}}' class="tagCheckListView" style="height:{{windowHeight-200}}px">
     <checkbox-group>
       <view class="check__label" wx:for="{{tagItems}}" wx:key="{{item.tag}}" data-tag='{{item.tag}}' catchtap="checkboxChange">
         <view class="cell__hd">
@@ -173,7 +173,7 @@
         <view class="cell__bd">{{item.tag}}</view>
       </view>
     </checkbox-group>
-  </view>
+  </scroll-view>
   <view class="lineView"></view>
   <view class="tagSubmitView" bindtap="tagSubmitClick">确认</view>
   <view class="tagCancelView" bindtap="tagCancelClick">取消</view>

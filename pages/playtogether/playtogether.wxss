@@ -7,7 +7,7 @@
   font-size: 14rpx;
   color: #000;
   padding-left: 10px;
-  padding-right: 3px;
+  padding-right: 10px;
   overflow: hidden;
   width: 100%;
   height: 100%;
@@ -95,32 +95,24 @@ swiper-item {
 .contentAreaView {
   width: 100%;
   clear: both;
-  padding-top: 8px;
+  padding-top: 12px;
 }
 
 .contentArea {
   margin-top: 2px;
   background-color: #fff;
-  width: 95%;
   height: 400px;
   border-radius: 6px;
-  margin-left: 7px;
   background-repeat: no-repeat;
   background-size: 100% 400px;
-  float: left;
+  box-shadow: 0px 0px 4px #837c7c;
+  margin-right: 7px;
+  margin-left: 7px;
 }
 
 .contentArea_Hover {
-  margin-top: 2px;
   background-color: #fff;
-  width: 95%;
-  height: 400px;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-  margin-left: 7px;
   background-repeat: no-repeat;
-  background-size: 100% 400px;
-  float: left;
 }
 
 .titleView {
@@ -174,11 +166,10 @@ swiper-item {
 }
 
 .genderImgView {
-  float: left;
   padding-top: 3px;
-  margin-bottom: 2px;
-  padding-left: 3px;
-  padding-right: 3px;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .centerTitleView {
@@ -267,6 +258,17 @@ swiper-item {
 
 .bodyView {
   margin-top: 295px;
+  background-color: white;
+  float: left;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin-left: 45px;
+  margin-bottom: 4px;
+}
+
+.bodyView_Hover {
+  margin-top: 395px;
   background-color: white;
   float: left;
   border-top-left-radius: 10px;
@@ -430,19 +432,25 @@ swiper-item {
 
 .contentDetailArea {
   clear: both;
-  width: 95%;
-  margin-left: 7px;
   background-color: white;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
+  padding-bottom: 60px;
 }
 
 .basicInfoTitle {
   height: 25px;
   padding-left: 12px;
   padding-top: 5px;
-  padding-bottom:5px;
-  font-size: 15px;
+  padding-bottom: 5px;
+  font-size: 16px;
+  color: #eb553e;
+}
+
+.basicInfoTitle1 {
+  height: 25px;
+  padding-left: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 16px;
   color: #eb553e;
   float: left;
 }
@@ -511,15 +519,116 @@ swiper-item {
 .tagItem {
   float: left;
   height: 20px;
-  background-color: #85d0ed;
-  color: white;
+  background-color: #8e9db0;
   margin-right: 12px;
   font-size: 14px;
   border-radius: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-top: 3px;
-  padding-bottom: 3px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  display: -webkit-flex;
+  align-items: center;
+}
+
+.tagItem0 {
+  float: left;
+  height: 20px;
+  background-color: #f7afa4;
+  color: #a83726;
+  margin-right: 12px;
+  font-size: 14px;
+  border-radius: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  display: -webkit-flex;
+  align-items: center;
+}
+
+.tagItem1 {
+  float: left;
+  height: 20px;
+  background-color: #d2e8db;
+  color: #1a5232;
+  margin-right: 12px;
+  font-size: 14px;
+  border-radius: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  display: -webkit-flex;
+  align-items: center;
+}
+
+.tagItem2 {
+  float: left;
+  height: 20px;
+  background-color: #b6bfe0;
+  color: #2c3380;
+  margin-right: 12px;
+  font-size: 14px;
+  border-radius: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  display: -webkit-flex;
+  align-items: center;
+}
+
+.tagItem3 {
+  float: left;
+  height: 20px;
+  background-color: #feedbf;
+  color: #967b37;
+  margin-right: 12px;
+  font-size: 14px;
+  border-radius: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  display: -webkit-flex;
+  align-items: center;
+}
+
+.tagItem4 {
+  float: left;
+  height: 20px;
+  background-color: #c9c9e1;
+  color: #59577c;
+  margin-right: 12px;
+  font-size: 14px;
+  border-radius: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  display: -webkit-flex;
+  align-items: center;
+}
+
+.tagItem5 {
+  float: left;
+  height: 20px;
+  background-color: #d4dce2;
+  color: #3a6783;
+  margin-right: 12px;
+  font-size: 14px;
+  border-radius: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   margin-top: 5px;
   display: -webkit-flex;
   align-items: center;
@@ -544,25 +653,26 @@ swiper-item {
 
 .toChatBtn {
   width: 100%;
-  text-align: center;
-  height: 40px;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
   display: -webkit-flex;
-  align-items: center;
   justify-content: center;
+  padding-bottom: 12px;
+  padding-top: 12px;
+  position: fixed;
+  bottom: 0px;
+  background-color: white;
+  border-top: 1px solid #e4dfdf;
 }
 
 .toChatBtn_Hover {
   width: 100%;
-  text-align: center;
-  height: 40px;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
   display: -webkit-flex;
-  align-items: center;
   justify-content: center;
+  padding-bottom: 12px;
+  padding-top: 12px;
+  position: fixed;
+  bottom: 0px;
   background-color: #e4dfdf;
+  border-top: 1px solid #e4dfdf;
 }
 
 .toChatText {
@@ -583,4 +693,12 @@ swiper-item {
 .preferTagListView {
   float: left;
   width: 70%;
+}
+
+.modal-content-momentDetail {
+  position: fixed;
+  top: 0;
+  z-index: 9500;
+  height: 100%;
+  overflow-y: auto;
 }

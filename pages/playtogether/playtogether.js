@@ -16,20 +16,24 @@ Page({
     pickUpList_Earlybird: [],
     pickUpList_Walk: [],
     pickUpList_Movie: [],
+    currentMoment:{},
     pageIndex: 1,
     loadTopHide: true,
+    showMomentDetailModal:false,
     statusBarHeight: app.globalData.statusBarHeight,
     currentTab: 0, //当前所在tab
     scrollLeft: 0,
     onloadText: "",
-    windowWidth: 300
+    windowWidth: 300,
+    screenHeight:0
   },
 
 
   onLoad: function() {
     this.initData();
     this.setData({
-      windowWidth: wx.getSystemInfoSync().windowWidth
+      windowWidth: wx.getSystemInfoSync().windowWidth,
+      screenHeight: wx.getSystemInfoSync().screenHeight
     });
   },
 
@@ -113,12 +117,21 @@ Page({
   momentClickOpen: function(ops) {
     let key = ops.currentTarget.dataset.key;
     let list = this.data.pickUpList_Other;
-    list[key].isSelected = !list[key].isSelected;
     this.setData({
-      pickUpList_Other: list
+      currentMoment: list[key],
+      showMomentDetailModal: true
     });
+    wx.hideTabBar();
   },
 
+  momentDetailClick: function (ops) {
+    this.setData({
+      showMomentDetailModal:false
+    });
+    wx.showTabBar();
+  },
+
+  
   //动态详情页面
   previewMomentDetail: function(e) {
     let key = e.currentTarget.dataset.key;

@@ -12,7 +12,7 @@
   padding: 0;
   font-size: 14rpx;
   color: #000;
-  background-color: #EFF2FB;
+  background-color: #eff2fb;
   overflow-x: hidden;
   overflow-y: hidden;
 }
@@ -41,12 +41,11 @@
 }
 
 .navigator {
-  padding: 0rpx 30rpx;
+  padding: 0rpx 15rpx;
   position: relative;
   display: flex;
   align-items: center;
-  background-color: #EFF2FB;
-
+  background-color: #eff2fb;
 }
 
 .navigator:before {
@@ -72,7 +71,7 @@
 }
 
 .navigator-arrow {
-  padding-right: 26rpx;
+  padding-right: 36rpx;
   position: relative;
 }
 
@@ -88,7 +87,7 @@
   position: absolute;
   top: 50%;
   margin-top: -8rpx;
-  right: 28rpx;
+  right: 38rpx;
 }
 
 /* for custom modal */

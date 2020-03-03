@@ -6,6 +6,7 @@ Page({
     tempHeadImgPath: "",
     inputTextTitle: "",
     inputTextValue: "",
+    tempTagValue: "",
     cacheUserInfo: {}, //用户缓存信息
     showTagModal: false, //个性标签
     showTextInputModal: false, //个性标签
@@ -15,8 +16,10 @@ Page({
       "liveState": 2
     },
     tagItems: [],
+    windowHeight: 0,
     needUpdate: false,
     currentTagType: 0,
+    topNum: 0,
     characterTagList: [],
     sportTagList: [],
     musicTagList: [],
@@ -29,8 +32,10 @@ Page({
     this.initData();
     this.getHeadImgPath();
     this.getUserInfo();
+    this.setData({
+      windowHeight: wx.getSystemInfoSync().windowHeight
+    })
   },
-
 
   initData: function() {
     let cacheValue = wx.getStorageSync('userEditInfo');
@@ -222,9 +227,15 @@ Page({
   },
 
   //获取输入的聊天内容
-  textValueInputAction: function (e) {
+  textValueInputAction: function(e) {
     this.setData({
       inputTextValue: e.detail.value
+    })
+  },
+
+  tempTagInputAction: function(e) {
+    this.setData({
+      tempTagValue: e.detail.value
     })
   },
 
@@ -233,6 +244,7 @@ Page({
       showTextInputModal: false
     })
   },
+
 
   submitTextInput: function() {
     this.cancelTextInput();
@@ -251,7 +263,7 @@ Page({
         break;
     }
     this.setData({
-      showTagModal: false,
+      showTextInputModal: false,
       tempUserInfo: userInfo
     })
     this.updateUserInfo();
@@ -319,36 +331,74 @@ Page({
   showTagSelectModel: function(ops) {
     let tagType = ops.currentTarget.dataset.tagtype;
     let tagItems = [];
+    let title="";
     switch (tagType) {
       case 1:
         tagItems = this.data.characterTagList;
+        title="个性标签";
         break;
       case 2:
         tagItems = this.data.sportTagList;
+        title = "喜欢的运动";
         break;
       case 3:
         tagItems = this.data.musicTagList;
+        title = "音乐爱好";
         break;
       case 4:
         tagItems = this.data.foodTagList;
+        title = "喜欢的食物";
         break;
       case 5:
         tagItems = this.data.movieTagList;
+        title = "喜欢的电影";
         break;
       case 6:
         tagItems = this.data.travelTagList;
+        title = "想去旅行的地方";
         break;
     }
     this.setData({
       tagItems: tagItems,
       currentTagType: tagType,
+      tagTitle: title,
       showTagModal: true,
       needUpdate: false
     })
   },
 
   tagAddClick: function() {
+    if (app.isBlank(this.data.tempTagValue)) {
+      return;
+    }
+    let newItems = this.data.tagItems;
+    for (let i=0; i < newItems.length;i++){
+      if (newItems[i].tag === this.data.tempTagValue){
+        wx.showToast({
+          title: "标签已存在",
+          icon: 'none',
+          duration: 1500
+        });
+        return;
+      }
+    }
+    newItems.unshift({
+      tag: this.data.tempTagValue,
+      checked: true
+    });
+    this.setData({
+      tagItems: newItems,
+      needUpdate:true,
+      tempTagValue:""
+    })
+    this.goTop();
+  },
 
+  //回到顶部
+  goTop: function() {
+    this.setData({
+      topNum: 0
+    })
   },
 
   checkboxChange: function(ops) {
