@@ -1,17 +1,40 @@
-<view class="empty_custom" style="padding-top:{{statusBarHeight+10}}px"></view>
-<view class="custom" style="padding-top:{{statusBarHeight+10}}px">
-  <scroll-view scroll-x="true" scroll-with-animation='true' class="tabBarView" style="top:{{statusBarHeight+40}}px;" scroll-left='{{scrollLeft}}'>
-    <view id='tab0' bindtap="onTabSelected" data-currentTab='0' class="{{currentTab==0?'barTitleViewCilick':'barTitleView'}}">全部</view>
-    <view id='tab1' bindtap="onTabSelected" data-currentTab='1' class="{{currentTab==1?'barTitleViewCilick':'barTitleView'}}">王者</view>
-    <view id='tab2' bindtap="onTabSelected" data-currentTab='2' class="{{currentTab==2?'barTitleViewCilick':'barTitleView'}}">吃鸡</view>
-    <view id='tab3' bindtap="onTabSelected" data-currentTab='3' class="{{currentTab==3?'barTitleViewCilick':'barTitleView'}}">连麦</view>
-    <view id='tab4' bindtap="onTabSelected" data-currentTab='4' class="{{currentTab==4?'barTitleViewCilick':'barTitleView'}}">游戏</view>
-    <view id='tab5' bindtap="onTabSelected" data-currentTab='5' class="{{currentTab==5?'barTitleViewCilick':'barTitleView'}}">学习</view>
-    <view id='tab6' bindtap="onTabSelected" data-currentTab='6' class="{{currentTab==6?'barTitleViewCilick':'barTitleView'}}">追剧</view>
-    <view id='tab7' bindtap="onTabSelected" data-currentTab='7' class="{{currentTab==7?'barTitleViewCilick':'barTitleView'}}">早起</view>
-    <view id='tab8' bindtap="onTabSelected" data-currentTab='8' class="{{currentTab==8?'barTitleViewCilick':'barTitleView'}}">散步</view>
-    <view id='tab9' bindtap="onTabSelected" data-currentTab='9' class="{{currentTab==9?'barTitleViewCilick':'barTitleView'}}">看电影</view>
-  </scroll-view>
+<view class="empty_custom" style="padding-top:{{statusBarHeight+16}}px"></view>
+<view class="custom" style="padding-top:{{statusBarHeight+6}}px">
+  <view class="toUserPage">
+    <view bindtap="onTabSelected" data-currentTab='0' class="leftTitleView">
+      <view class="{{currentTab==0?'momentTitleCilick':'momentTitle'}}">线上</view>
+    </view>
+    <view bindtap="onTabSelected" data-currentTab='1' class="rightTitleView">
+      <view class="{{currentTab==0?'momentTitle':'momentTitleCilick'}}">线下</view>
+    </view>
+  </view>
+
+  <view class="filterArea">
+    <view class="filterItemView">
+      <view class="filterIconView">
+        <image class='actionFilterIcon' src="/content/images/filter_black.svg" />
+      </view>
+      <view class="filterTextView">标签</view>
+    </view>
+    <view class="filterItemView">
+      <view class="filterIconView">
+        <image class='gendericonImg' src="/content/images/gender-all.svg" />
+      </view>
+      <view class="filterTextView">性别</view>
+    </view>
+    <view class="filterItemView">
+      <view class="filterIconView">
+        <image class='ageiconImg' src="/content/images/ageicon.svg" />
+      </view>
+      <view class="filterTextView">年龄</view>
+    </view>
+    <view class="filterItemView">
+      <view class="filterIconView">
+        <image class='homeiconImg' src="/content/images/home1.svg" />
+      </view>
+      <view class="filterTextView">位置</view>
+    </view>
+  </view>
 </view>
 <!-- 自定义的导航栏 -->
 <view class="indexContainer">
@@ -25,14 +48,14 @@
   </view>
   <view class="page-body">
     <swiper indicator-dots="{{false}}" resistanceRatio='0' autoplay="{{false}}" circular="{{false}}" vertical="{{false}}" interval="{{2000}}" duration="500" previous-margin="0px" next-margin="0px" current="{{currentTab}}" bindchange="bindChange">
-      <!-- 其它 -->
+      <!-- 线上 -->
       <swiper-item>
         <scroll-view scroll-y="false" class="momentArea">
           <!-- 占位 -->
           <view class="empty_topArea"></view>
           <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindlongpress="moreAction" bindtap="momentClickOpen" wx:for="{{pickUpList_Other}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
-            <view class="contentArea" style="background-image: url({{value.imgContent}})">
+            <view class="contentArea" style="background-image: url('https://pic2.zhimg.com/80/v2-4757053c946344fe0667c16dc529cfdd_720w.jpg')">
               <view class="bodyView">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
@@ -76,14 +99,14 @@
           <view class="placeUseView">没有更多啦</view>
         </scroll-view>
       </swiper-item>
-      <!-- 王者 -->
+      <!-- 线下 -->
       <swiper-item>
         <scroll-view scroll-y="false" class="momentArea">
           <!-- 占位 -->
           <view class="empty_topArea"></view>
-          <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_WangZhe}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
+          <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindlongpress="moreAction" bindtap="momentClickOpen" wx:for="{{pickUpList_Other}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
             data-key='{{key}}'>
-            <view class="contentArea" style="background-image: url({{value.imgContent}})">
+            <view class="contentArea" style="background-image: url('https://pic2.zhimg.com/80/v2-4757053c946344fe0667c16dc529cfdd_720w.jpg')">
               <view class="bodyView">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
@@ -122,375 +145,6 @@
                 </view>
               </view>
             </view>
-          </view>
-          <!-- 占位 -->
-          <view class="placeUseView">没有更多啦</view>
-        </scroll-view>
-      </swiper-item>
-      <!-- 吃鸡 -->
-      <swiper-item>
-        <scroll-view scroll-y="false" class="momentArea">
-          <!-- 占位 -->
-          <view class="empty_topArea"></view>
-          <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_ChiJi}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
-            data-key='{{key}}'>
-            <view class="contentArea" style="background-image: url({{value.imgContent}})">
-              <view class="bodyView">
-                <!-- 文本动态 -->
-                <view class="textView">{{value.textContent}}</view>
-              </view>
-              <view class="titleView">
-                <view wx:if="{{value.isHide}}" class="{{value.gender==2?'left_Hide_WoManView':'left_Hide_ManView'}}" data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' data-pickUpId='{{value.pickUpId}}' catchtap='toShowModal'>
-                  <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
-                  <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
-                </view>
-                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" catchtap="toShowModal">
-                  <image src="{{value.headImgPath}}" class="userHead" />
-                </view>
-                <view class="centerTitleView">
-                  <view class="topHeadView">
-                    <view class="nickNameView">{{value.nickName}}</view>
-                    <view class="onlineView" wx:if="{{value.onLineDesc!=''}}">
-                      <mp-badge style="margin-left: 5px;margin-right: 5px;float:left;padding-top:1rpx;" ext-class="blue" />
-                      <view class="onlineTextView">{{value.onLineDesc}}</view>
-                    </view>
-                  </view>
-                  <view class="centerView">
-                    <view wx:if="{{!value.isHide}}" class="{{value.gender==1?'genderView':'gender_womanView'}}">
-                      <view class="genderImgView">
-                        <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
-                        <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
-                      </view>
-                    </view>
-                    <view class="tagView">{{value.playTypeSesc}}</view>
-                    <view class="tagView">
-                      <view class="iconfont dingwei" style="font-size:10px;padding-right: 2px;float:left;color:#8e8e8e;"></view>
-                      {{value.distanceDesc}}
-                    </view>
-                    <view class="tagView">{{value.ageYear}}</view>
-                    <view class="tagView">{{value.constellation}}</view>
-                  </view>
-                </view>
-              </view>
-            </view>
-          </view>
-          <!-- 占位 -->
-          <view class="placeUseView">没有更多啦</view>
-        </scroll-view>
-      </swiper-item>
-      <!-- 连麦 -->
-      <swiper-item>
-        <scroll-view scroll-y="false" class="momentArea">
-          <!-- 占位 -->
-          <view class="empty_topArea"></view>
-          <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_LianMai}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
-            data-key='{{key}}'>
-            <view class="contentArea" style="background-image: url({{value.imgContent}})">
-              <view class="bodyView">
-                <!-- 文本动态 -->
-                <view class="textView">{{value.textContent}}</view>
-              </view>
-              <view class="titleView">
-                <view wx:if="{{value.isHide}}" class="{{value.gender==2?'left_Hide_WoManView':'left_Hide_ManView'}}" data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' data-pickUpId='{{value.pickUpId}}' catchtap='toShowModal'>
-                  <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
-                  <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
-                </view>
-                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" catchtap="toShowModal">
-                  <image src="{{value.headImgPath}}" class="userHead" />
-                </view>
-                <view class="centerTitleView">
-                  <view class="topHeadView">
-                    <view class="nickNameView">{{value.nickName}}</view>
-                    <view class="onlineView" wx:if="{{value.onLineDesc!=''}}">
-                      <mp-badge style="margin-left: 5px;margin-right: 5px;float:left;padding-top:1rpx;" ext-class="blue" />
-                      <view class="onlineTextView">{{value.onLineDesc}}</view>
-                    </view>
-                  </view>
-                  <view class="centerView">
-                    <view wx:if="{{!value.isHide}}" class="{{value.gender==1?'genderView':'gender_womanView'}}">
-                      <view class="genderImgView">
-                        <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
-                        <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
-                      </view>
-                    </view>
-                    <view class="tagView">{{value.playTypeSesc}}</view>
-                    <view class="tagView">
-                      <view class="iconfont dingwei" style="font-size:10px;padding-right: 2px;float:left;color:#8e8e8e;"></view>
-                      {{value.distanceDesc}}
-                    </view>
-                    <view class="tagView">{{value.ageYear}}</view>
-                    <view class="tagView">{{value.constellation}}</view>
-                  </view>
-                </view>
-              </view>
-            </view>
-          </view>
-          <!-- 占位 -->
-          <view class="placeUseView">没有更多啦</view>
-        </scroll-view>
-      </swiper-item>
-      <!-- 游戏 -->
-      <swiper-item>
-        <scroll-view scroll-y="false" class="momentArea">
-          <!-- 占位 -->
-          <view class="empty_topArea"></view>
-          <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_Game}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
-            data-key='{{key}}'>
-            <view class="contentArea" style="background-image: url({{value.imgContent}})">
-              <view class="bodyView">
-                <!-- 文本动态 -->
-                <view class="textView">{{value.textContent}}</view>
-              </view>
-              <view class="titleView">
-                <view wx:if="{{value.isHide}}" class="{{value.gender==2?'left_Hide_WoManView':'left_Hide_ManView'}}" data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' data-pickUpId='{{value.pickUpId}}' catchtap='toShowModal'>
-                  <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
-                  <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
-                </view>
-                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" catchtap="toShowModal">
-                  <image src="{{value.headImgPath}}" class="userHead" />
-                </view>
-                <view class="centerTitleView">
-                  <view class="topHeadView">
-                    <view class="nickNameView">{{value.nickName}}</view>
-                    <view class="onlineView" wx:if="{{value.onLineDesc!=''}}">
-                      <mp-badge style="margin-left: 5px;margin-right: 5px;float:left;padding-top:1rpx;" ext-class="blue" />
-                      <view class="onlineTextView">{{value.onLineDesc}}</view>
-                    </view>
-                  </view>
-                  <view class="centerView">
-                    <view wx:if="{{!value.isHide}}" class="{{value.gender==1?'genderView':'gender_womanView'}}">
-                      <view class="genderImgView">
-                        <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
-                        <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
-                      </view>
-                    </view>
-                    <view class="tagView">{{value.playTypeSesc}}</view>
-                    <view class="tagView">
-                      <view class="iconfont dingwei" style="font-size:10px;padding-right: 2px;float:left;color:#8e8e8e;"></view>
-                      {{value.distanceDesc}}
-                    </view>
-                    <view class="tagView">{{value.ageYear}}</view>
-                    <view class="tagView">{{value.constellation}}</view>
-                  </view>
-                </view>
-              </view>
-            </view>
-          </view>
-          <!-- 占位 -->
-          <view class="placeUseView">没有更多啦</view>
-        </scroll-view>
-      </swiper-item>
-      <!-- 学习 -->
-      <swiper-item>
-        <scroll-view scroll-y="false" class="momentArea">
-          <!-- 占位 -->
-          <view class="empty_topArea"></view>
-          <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_Learn}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
-            data-key='{{key}}'>
-            <view class="contentArea" style="background-image: url({{value.imgContent}})">
-              <view class="bodyView">
-                <!-- 文本动态 -->
-                <view class="textView">{{value.textContent}}</view>
-              </view>
-              <view class="titleView">
-                <view wx:if="{{value.isHide}}" class="{{value.gender==2?'left_Hide_WoManView':'left_Hide_ManView'}}" data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' data-pickUpId='{{value.pickUpId}}' catchtap='toShowModal'>
-                  <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
-                  <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
-                </view>
-                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" catchtap="toShowModal">
-                  <image src="{{value.headImgPath}}" class="userHead" />
-                </view>
-                <view class="centerTitleView">
-                  <view class="topHeadView">
-                    <view class="nickNameView">{{value.nickName}}</view>
-                    <view class="onlineView" wx:if="{{value.onLineDesc!=''}}">
-                      <mp-badge style="margin-left: 5px;margin-right: 5px;float:left;padding-top:1rpx;" ext-class="blue" />
-                      <view class="onlineTextView">{{value.onLineDesc}}</view>
-                    </view>
-                  </view>
-                  <view class="centerView">
-                    <view wx:if="{{!value.isHide}}" class="{{value.gender==1?'genderView':'gender_womanView'}}">
-                      <view class="genderImgView">
-                        <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
-                        <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
-                      </view>
-                    </view>
-                    <view class="tagView">{{value.playTypeSesc}}</view>
-                    <view class="tagView">
-                      <view class="iconfont dingwei" style="font-size:10px;padding-right: 2px;float:left;color:#8e8e8e;"></view>
-                      {{value.distanceDesc}}
-                    </view>
-                    <view class="tagView">{{value.ageYear}}</view>
-                    <view class="tagView">{{value.constellation}}</view>
-                  </view>
-                </view>
-              </view>
-            </view>
-          </view>
-          <!-- 占位 -->
-          <view class="placeUseView">没有更多啦</view>
-        </scroll-view>
-      </swiper-item>
-      <!-- 追剧 -->
-      <swiper-item>
-        <scroll-view scroll-y="false" class="momentArea">
-          <!-- 占位 -->
-          <view class="empty_topArea"></view>
-          <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_TVTracker}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
-            data-key='{{key}}'>
-            <view class="contentArea" style="background-image: url({{value.imgContent}})">
-              <view class="bodyView">
-                <!-- 文本动态 -->
-                <view class="textView">{{value.textContent}}</view>
-              </view>
-              <view class="titleView">
-                <view wx:if="{{value.isHide}}" class="{{value.gender==2?'left_Hide_WoManView':'left_Hide_ManView'}}" data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' data-pickUpId='{{value.pickUpId}}' catchtap='toShowModal'>
-                  <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
-                  <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
-                </view>
-                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" catchtap="toShowModal">
-                  <image src="{{value.headImgPath}}" class="userHead" />
-                </view>
-                <view class="centerTitleView">
-                  <view class="topHeadView">
-                    <view class="nickNameView">{{value.nickName}}</view>
-                    <view class="onlineView" wx:if="{{value.onLineDesc!=''}}">
-                      <mp-badge style="margin-left: 5px;margin-right: 5px;float:left;padding-top:1rpx;" ext-class="blue" />
-                      <view class="onlineTextView">{{value.onLineDesc}}</view>
-                    </view>
-                  </view>
-                  <view class="centerView">
-                    <view wx:if="{{!value.isHide}}" class="{{value.gender==1?'genderView':'gender_womanView'}}">
-                      <view class="genderImgView">
-                        <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
-                        <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
-                      </view>
-                    </view>
-                    <view class="tagView">{{value.playTypeSesc}}</view>
-                    <view class="tagView">
-                      <view class="iconfont dingwei" style="font-size:10px;padding-right: 2px;float:left;color:#8e8e8e;"></view>
-                      {{value.distanceDesc}}
-                    </view>
-                    <view class="tagView">{{value.ageYear}}</view>
-                    <view class="tagView">{{value.constellation}}</view>
-                  </view>
-                </view>
-              </view>
-            </view>
-          </view>
-          <!-- 占位 -->
-          <view class="placeUseView">没有更多啦</view>
-        </scroll-view>
-      </swiper-item>
-      <!-- 早起 -->
-      <swiper-item>
-        <scroll-view scroll-y="false" class="momentArea">
-          <!-- 占位 -->
-          <view class="empty_topArea"></view>
-          <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_Earlybird}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
-            data-key='{{key}}'>
-            <view class="contentArea" style="background-image: url({{value.imgContent}})">
-              <view class="bodyView">
-                <!-- 文本动态 -->
-                <view class="textView">{{value.textContent}}</view>
-              </view>
-              <view class="titleView">
-                <view wx:if="{{value.isHide}}" class="{{value.gender==2?'left_Hide_WoManView':'left_Hide_ManView'}}" data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' data-pickUpId='{{value.pickUpId}}' catchtap='toShowModal'>
-                  <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
-                  <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
-                </view>
-                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" catchtap="toShowModal">
-                  <image src="{{value.headImgPath}}" class="userHead" />
-                </view>
-                <view class="centerTitleView">
-                  <view class="topHeadView">
-                    <view class="nickNameView">{{value.nickName}}</view>
-                    <view class="onlineView" wx:if="{{value.onLineDesc!=''}}">
-                      <mp-badge style="margin-left: 5px;margin-right: 5px;float:left;padding-top:1rpx;" ext-class="blue" />
-                      <view class="onlineTextView">{{value.onLineDesc}}</view>
-                    </view>
-                  </view>
-                  <view class="centerView">
-                    <view wx:if="{{!value.isHide}}" class="{{value.gender==1?'genderView':'gender_womanView'}}">
-                      <view class="genderImgView">
-                        <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
-                        <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
-                      </view>
-                    </view>
-                    <view class="tagView">{{value.playTypeSesc}}</view>
-                    <view class="tagView">
-                      <view class="iconfont dingwei" style="font-size:10px;padding-right: 2px;float:left;color:#8e8e8e;"></view>
-                      {{value.distanceDesc}}
-                    </view>
-                    <view class="tagView">{{value.ageYear}}</view>
-                    <view class="tagView">{{value.constellation}}</view>
-                  </view>
-                </view>
-              </view>
-            </view>
-          </view>
-          <!-- 占位 -->
-          <view class="placeUseView">没有更多啦</view>
-        </scroll-view>
-      </swiper-item>
-      <!-- 散步 -->
-      <swiper-item>
-        <scroll-view scroll-y="false" class="momentArea">
-          <!-- 占位 -->
-          <view class="empty_topArea"></view>
-          <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_Walk}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
-            data-key='{{key}}'>
-            <view class="contentArea" style="background-image: url({{value.imgContent}})">
-              <view class="bodyView">
-                <!-- 文本动态 -->
-                <view class="textView">{{value.textContent}}</view>
-              </view>
-              <view class="titleView">
-                <view wx:if="{{value.isHide}}" class="{{value.gender==2?'left_Hide_WoManView':'left_Hide_ManView'}}" data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' data-pickUpId='{{value.pickUpId}}' catchtap='toShowModal'>
-                  <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
-                  <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
-                </view>
-                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" catchtap="toShowModal">
-                  <image src="{{value.headImgPath}}" class="userHead" />
-                </view>
-                <view class="centerTitleView">
-                  <view class="topHeadView">
-                    <view class="nickNameView">{{value.nickName}}</view>
-                    <view class="onlineView" wx:if="{{value.onLineDesc!=''}}">
-                      <mp-badge style="margin-left: 5px;margin-right: 5px;float:left;padding-top:1rpx;" ext-class="blue" />
-                      <view class="onlineTextView">{{value.onLineDesc}}</view>
-                    </view>
-                  </view>
-                  <view class="centerView">
-                    <view wx:if="{{!value.isHide}}" class="{{value.gender==1?'genderView':'gender_womanView'}}">
-                      <view class="genderImgView">
-                        <image wx:if="{{value.gender==1}}" src="/content/images/gender_man.svg" class="genderImg" />
-                        <image wx:if="{{value.gender!=1}}" src="/content/images/gender_woman.svg" class="genderImg" />
-                      </view>
-                    </view>
-                    <view class="tagView">{{value.playTypeSesc}}</view>
-                    <view class="tagView">
-                      <view class="iconfont dingwei" style="font-size:10px;padding-right: 2px;float:left;color:#8e8e8e;"></view>
-                      {{value.distanceDesc}}
-                    </view>
-                    <view class="tagView">{{value.ageYear}}</view>
-                    <view class="tagView">{{value.constellation}}</view>
-                  </view>
-                </view>
-              </view>
-            </view>
-          </view>
-          <!-- 占位 -->
-          <view class="placeUseView">没有更多啦</view>
-        </scroll-view>
-      </swiper-item>
-      <!-- 看电影 -->
-      <swiper-item>
-        <scroll-view scroll-y="false" class="momentArea">
-          <!-- 占位 -->
-          <view class="empty_topArea"></view>
-          <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList_Movie}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
-            data-key='{{key}}'>
           </view>
           <!-- 占位 -->
           <view class="placeUseView">没有更多啦</view>
@@ -498,8 +152,12 @@
       </swiper-item>
     </swiper>
   </view>
+
   <view class="publishIcon" catchtap="publishMoment">
-    <view class="iconfont edit" style='font-size:25px;font-weight: 650;color: white;padding-top: 3px;' />
+    <view class="iconfont edit" style='font-size:27px;font-weight: 650;color: white' />
+  </view>
+  <view class="toDiscoryAction" catchtap="toNineRecommend">
+    <view class="iconfont search" style='font-size:30px;font-weight: 650;color: white' />
   </view>
 </view>
 
@@ -507,8 +165,8 @@
 
 <view class="modal-mask-all" wx:if="{{showMomentDetailModal}}"></view>
 <view wx:if="{{showMomentDetailModal}}" class="modal-content-momentDetail">
-  <view class="contentArea_Hover" style="background-image: url({{'https://pic2.zhimg.com/80/v2-4757053c946344fe0667c16dc529cfdd_720w.jpg'}});height:{{screenHeight-52}}px;background-size: 100% {{screenHeight-52}}px" bindtap="momentDetailClick">
-    <view class="bodyView_Hover" style="margin-top:{{screenHeight-172}}px">
+  <view class="contentArea_Hover" style="background-image: url({{'https://pic2.zhimg.com/80/v2-4757053c946344fe0667c16dc529cfdd_720w.jpg'}});height:{{screenHeight-252}}px;background-size: 100% {{screenHeight-252}}px" bindtap="momentDetailClick">
+    <view class="bodyView_Hover" style="margin-top:{{screenHeight-370}}px">
       <!-- 文本动态 -->
       <view class="textView">{{currentMoment.textContent}}</view>
     </view>

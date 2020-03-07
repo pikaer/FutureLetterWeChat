@@ -577,31 +577,6 @@ Page({
       })
   },
 
-  //删除瓶子
-  forwardMoment: function(ops) {
-    this.hideModalShare();
-    let momentId = this.data.currentMoment.momentId;
-    app.httpPost(
-      'Letter/ForwardMoment', {
-        "UId": app.globalData.apiHeader.UId,
-        "MomentId": momentId
-      },
-      function(res) {
-        wx.showToast({
-          title: "转发成功",
-          icon: 'success',
-          duration: 1500
-        });
-      },
-      function(res) {
-        wx.showToast({
-          title: "转发失败",
-          icon: 'none',
-          duration: 1500
-        });
-      })
-  },
-
 
   //发表评论
   insertDiscussContent: function(ops) {
@@ -1141,6 +1116,7 @@ Page({
               tempPickUpList = tempPickUpList.concat(res.pickUpList);
             }
           }
+
         }
         self.setData({
           pickUpList: tempPickUpList,
@@ -1151,6 +1127,7 @@ Page({
 
         let cacheKey = "userPickUpListCache+" + app.globalData.apiHeader.UId;
         app.setCache(cacheKey, tempPickUpList);
+
       },
       function(res) {
         console.info("获取数据失败");
@@ -1226,14 +1203,20 @@ Page({
 
           let cacheKey = "userPickUpListCache+" + app.globalData.apiHeader.UId;
           app.setCache(cacheKey, tempPickUpList);
+          self.stopPullDownRefresh();
+          wx.showToast({
+            title: "为你推荐了" + res.pickUpList.length + "新动态",
+            icon: 'none',
+            duration: 3000
+          });
         } else {
+          self.stopPullDownRefresh();
           wx.showToast({
             title: '没有更多动态啦，去发布一个吧~',
             icon: 'none',
             duration: 3000
           })
         }
-        self.stopPullDownRefresh();
       },
       function(res) {
         console.info("获取数据失败");

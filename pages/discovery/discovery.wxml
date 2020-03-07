@@ -4,11 +4,9 @@
   <view class="toUserPage">
     <view bindtap="toDiscoryList" class="leftTitleView">
       <view class="{{currentTab==0?'momentTitleCilick':'momentTitle'}}">探索 </view>
-      <view class="{{currentTab==0?'momentTitleCilickBottom':''}}"></view>
     </view>
     <view bindtap="toAttentionList" class="rightTitleView">
       <view class="{{currentTab==0?'momentTitle':'momentTitleCilick'}}"> 关注 </view>
-      <view class="{{currentTab==0?'':'momentTitleCilickBottom'}}"></view>
     </view>
     <view class="unreadCount" bindtap="toAttentionList" wx:if="{{unReadMomentCount!=''&&unReadMomentCount.length>0}}">
       <view class="weui-badge">{{unReadMomentCount}}</view>
@@ -37,8 +35,7 @@
     <div class="txtLoding">加载中</div>
   </view>
   <view class="page-body">
-    <swiper indicator-dots="{{false}}" resistanceRatio='0' autoplay="{{false}}" circular="{{false}}" vertical="{{false}}" interval="{{2000}}" duration="{{500}}" previous-margin="0px" next-margin="0px"
-      current="{{currentTab}}" bindchange="bindChange">
+    <swiper indicator-dots="{{false}}" resistanceRatio='0' autoplay="{{false}}" circular="{{false}}" vertical="{{false}}" interval="{{2000}}" duration="{{500}}" previous-margin="0px" next-margin="0px" current="{{currentTab}}" bindchange="bindChange">
       <swiper-item>
         <scroll-view scroll-with-animation="true" scroll-y="false" class="momentArea">
           <view class="defaultDescView" wx:if="{{pickUpList.length==0}}">
@@ -49,15 +46,15 @@
           </view>
           <!-- 占位 -->
           <view class="empty_topArea"></view>
-          <view class="contentAreaView" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}' data-key='{{key}}'>
-            <view class="contentArea" hover-class="contentArea_Hover">
+          <view class="contentAreaView" hover-class="contentAreaView_Hover" bindtap="previewMomentDetail" bindlongpress="moreAction" wx:for="{{pickUpList}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}' data-key='{{key}}'>
+            <view class="contentArea">
               <view class="titleView">
                 <view wx:if="{{value.isHide}}" class="{{value.gender==2?'left_Hide_WoManView':'left_Hide_ManView'}}" data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' data-pickUpId='{{value.pickUpId}}' catchtap='toShowModal'>
                   <image wx:if="{{value.gender==2}}" src="/content/images/gender_woman.svg" class="genderImgHead" />
                   <image wx:else src="/content/images/gender_man.svg" class="genderImgHead" />
                 </view>
                 <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView" catchtap='toShowModal'>
-                  <image src="{{value.headImgPath}}" class="userHead" />
+                  <image src="https://pic2.zhimg.com/80/v2-4757053c946344fe0667c16dc529cfdd_720w.jpg" class="userHead" />
                 </view>
                 <view class="centerTitleView">
                   <view class="topHeadView">
@@ -81,24 +78,19 @@
                     </view>
                   </view>
                 </view>
-                <view class="rightBtnView">
-                  <view class="rightView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-key='{{key}}' data-type='1' catchtap='showChatModal'>
-                    <view class="iconfont comment" style='font-size:17px;float:left;font-weight: 650' />
-                  </view>
-                  <view class="shuxianView">|</view>
-                  <view class="rightCommentView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-key='{{key}}' catchtap='moreAction'>
-                    <view class="commentView">
-                      <view class="iconfont more2" style='font-size:17px;font-weight: 650' />
-                    </view>
-                  </view>
-                </view>
               </view>
               <view class="bodyView">
                 <!-- 文本动态 -->
                 <view class="textView">{{value.textContent}}</view>
                 <!-- 图片动态 -->
                 <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
-                  <image src="{{value.imgContent}}" catchtap="previewImg" data-imgContent='{{value.imgContent}}' class="imgCount" mode="aspectFill" />
+                  <image src="https://pic4.zhimg.com/80/v2-0199bc603def5ada5aef1bc6b07019ef_720w.jpg" catchtap="previewImg" data-imgContent='{{value.imgContent}}' class="imgCount" mode="aspectFill" />
+                </view>
+              </view>
+              <view class="bottomBtnView">
+                <view class="commentView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-key='{{key}}' data-type='1' catchtap='showChatModal'>
+                  <view class="commentTextView">聊一聊</view>
+                  <view class="iconfont comment" style='font-size:17px;float: right;' />
                 </view>
               </view>
             </view>
@@ -116,8 +108,9 @@
           </view>
           <!-- 占位 -->
           <view class="empty_topArea"></view>
-          <view class="contentAreaView" bindtap="previewAtentionMomentDetail" bindlongpress="moreAtteitionAction" wx:for="{{attentionList}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-momentId='{{value.momentId}}' data-key='{{key}}'>
-            <view class="contentArea" hover-class="contentArea_Hover">
+          <view class="contentAreaView" hover-class="contentAreaView_Hover" bindtap="previewAtentionMomentDetail" bindlongpress="moreAtteitionAction" wx:for="{{attentionList}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-momentId='{{value.momentId}}'
+            data-key='{{key}}'>
+            <view class="contentArea">
               <view class="titleView">
                 <view data-uId='{{value.uId}}' data-momentId='{{value.momentId}}' class="leftView" catchtap='toShowModal'>
                   <image src="{{value.headImgPath}}" class="userHead" />
@@ -148,12 +141,12 @@
                 </view>
                 <view class="rightBtnView">
                   <view class="rightView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-type='2' data-key='{{key}}' catchtap='showAttentionChatModal'>
-                    <view class="iconfont comment" style='font-size:17px;float:left;font-weight: 650' />
+                    <view class="iconfont comment" style='font-size:17px;float:left;' />
                   </view>
-                  <view class="shuxianView">|</view>
                   <view class="rightCommentView" data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-key='{{key}}' catchtap='moreAtteitionAction'>
                     <view class="commentView">
-                      <view class="iconfont more2" style='font-size:17px;font-weight: 650' />
+                      <view class="iconfont more2" style='font-size:17px;' />
+                      <view class="commentView">聊一聊</view>
                     </view>
                   </view>
                 </view>
@@ -176,14 +169,11 @@
     </swiper>
   </view>
 
-  <view class="toMapIcon" catchtap="toMapPage">
-    <view class="iconfont add" style='font-size:25px;font-weight: 650;color: white;padding-top: 3px;' />
+  <view class="publishIcon" catchtap="publishMoment">
+    <view class="iconfont edit" style='font-size:27px;font-weight: 650;color: white' />
   </view>
   <view class="nineRecommendIcon" catchtap="toNineRecommend">
-    <view class="iconfont add" style='font-size:25px;font-weight: 650;color: white;padding-top: 3px;' />
-  </view>
-  <view class="publishIcon" catchtap="publishMoment">
-    <view class="iconfont edit" style='font-size:25px;font-weight: 650;color: white;padding-top: 3px;' />
+    <view class="iconfont search" style='font-size:30px;font-weight: 650;color: white' />
   </view>
 </view>
 
@@ -240,24 +230,18 @@
 <!--弹出框start-->
 <mp-halfScreenDialog show="{{showModalStatus}}" closabled="{{false}}">
   <view slot="footer" class='shareArea'>
-    <view class='dialog_content'>
+    <view class='dialog_content' wx:if="{{!currentMoment.isHide}}">
       <view class="shareTo">
         <button bindtap="allClear">
           <image class="shareIcon" src="/content/images/clear.svg" />
         </button>
         <view class="shareText">全部清空</view>
       </view>
-      <view class="shareTo">
-        <button bindtap="addCollect">
-          <image class="shareIcon" src="/content/images/collect.svg " />
-        </button>
-        <view class="shareText">添加收藏</view>
-      </view>
-      <view class="shareTo" bindtap="forwardMoment" wx:if="{{!currentMoment.isHide}}">
+      <view class="shareTo" bindtap="addAttention">
         <button>
-          <image class="shareIcon" src="/content/images/share.svg" />
+          <image class="shareIcon" src="/content/images/addattention.svg " />
         </button>
-        <view class="shareText">一键转发</view>
+        <view class="shareText">关注Ta</view>
       </view>
       <view class="shareTo" bindtap="insertDiscussContent">
         <button>
@@ -266,7 +250,7 @@
         <view class="shareText">打招呼</view>
       </view>
     </view>
-    <view class='dialog_content'>
+    <view class='dialog_content' wx:if="{{!currentMoment.isHide}}">
       <view class="shareTo" bindtap="deleteItem">
         <button>
           <image class="shareIcon" src="/content/images/delete.svg " />
@@ -279,11 +263,25 @@
         </button>
         <view class="shareText">举报</view>
       </view>
-      <view class="shareTo" bindtap="addAttention" wx:if="{{!currentMoment.isHide}}">
-        <button>
-          <image class="shareIcon" src="/content/images/addattention.svg " />
+      <view class="shareTo">
+        <button open-type='share'>
+          <image class="shareIcon" src="/content/images/weixin.svg " />
         </button>
-        <view class="shareText">关注Ta</view>
+        <view class="shareText">分享好友/群</view>
+      </view>
+    </view>
+    <view class='dialog_content' wx:if="{{currentMoment.isHide}}">
+      <view class="shareTo" bindtap="deleteItem">
+        <button>
+          <image class="shareIcon" src="/content/images/delete.svg " />
+        </button>
+        <view class="shareText">删除</view>
+      </view>
+      <view class="shareTo ">
+        <button bindtap="reportItem">
+          <image class="shareIcon" src="/content/images/report.svg " />
+        </button>
+        <view class="shareText">举报</view>
       </view>
       <view class="shareTo">
         <button open-type='share'>
@@ -306,11 +304,11 @@
         </button>
         <view class="shareText">举报</view>
       </view>
-      <view class="shareTo" bindtap="forwardMoment">
+      <view class="shareTo" bindtap="cancelAttention">
         <button>
-          <image class="shareIcon" src="/content/images/share.svg" />
+          <image class="shareIcon" src="/content/images/cancelattention.svg " />
         </button>
-        <view class="shareText">一键转发</view>
+        <view class="shareText">取消关注</view>
       </view>
       <view class="shareTo" bindtap="insertAttentionDiscussContent">
         <button>
@@ -318,25 +316,11 @@
         </button>
         <view class="shareText">打招呼</view>
       </view>
-    </view>
-    <view class='dialog_content'>
       <view class="shareTo">
         <button open-type='share'>
           <image class="shareIcon" src="/content/images/weixin.svg " />
         </button>
         <view class="shareText ">分享好友/群</view>
-      </view>
-      <view class="shareTo" bindtap="cancelAttention">
-        <button>
-          <image class="shareIcon" src="/content/images/cancelattention.svg " />
-        </button>
-        <view class="shareText">取消关注</view>
-      </view>
-      <view class="shareTo">
-        <button bindtap="addCollect">
-          <image class="shareIcon" src="/content/images/collect.svg " />
-        </button>
-        <view class="shareText">添加收藏</view>
       </view>
     </view>
   </view>

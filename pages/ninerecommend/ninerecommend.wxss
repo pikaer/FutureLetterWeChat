@@ -91,8 +91,6 @@ page {
   margin-left: 16px;
   margin-right: 8px;
   margin-top: 10px;
-  box-shadow: 0px 0px 4px #837c7c;
-
 }
 
 .contentRowView {
@@ -243,7 +241,7 @@ page {
 }
 
 .textValueView {
-  font-size: 12px;
+  font-size: 14px;
   padding-top: 10px;
   width: 100%;
   box-shadow: 0px 0px 1px #837c7c;
@@ -339,7 +337,7 @@ page {
 .genderImg {
   width: 7px;
   height: 7px;
-  padding-bottom: 8px;
+  padding-bottom: 9px;
 }
 
 .tagView {

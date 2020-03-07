@@ -105,7 +105,7 @@ swiper-item {
   border-radius: 6px;
   background-repeat: no-repeat;
   background-size: 100% 400px;
-  box-shadow: 0px 0px 4px #837c7c;
+  box-shadow: 0px 0px 8px #837c7c;
   margin-right: 7px;
   margin-left: 7px;
 }
@@ -293,7 +293,7 @@ swiper-item {
   width: 100%;
   top: 0;
   left: 0;
-  height: 60px;
+  height: 70px;
   z-index: 999;
   border-bottom: 1px solid #e4dfdf;
 }
@@ -309,41 +309,9 @@ swiper-item {
   border-radius: 100%;
 }
 
-.tabBarView {
-  white-space: nowrap;
-  position: fixed;
-}
-
 .empty_custom {
   height: 60px;
   width: 100%;
-}
-
-.barTitleViewCilick {
-  display: inline-block;
-  background-color: #85d0ed;
-  color: white;
-  margin-left: 5px;
-  margin-right: 5px;
-  border-radius: 5px;
-  padding-left: 9px;
-  padding-right: 9px;
-  font-size: 15px;
-  padding-top: 1px;
-  padding-bottom: 1px;
-}
-
-.barTitleView {
-  display: inline-block;
-  /* background-color: white; */
-  margin-left: 5px;
-  margin-right: 5px;
-  border-radius: 5px;
-  padding-left: 9px;
-  padding-right: 9px;
-  font-size: 15px;
-  padding-top: 1px;
-  padding-bottom: 1px;
 }
 
 .box {
@@ -369,17 +337,6 @@ swiper-item {
   width: 0;
   height: 0;
   color: transparent;
-}
-
-.publishIcon {
-  position: fixed;
-  bottom: 15px;
-  right: 15px;
-  width: 48px;
-  height: 48px;
-  background-color: #0178d4;
-  border-radius: 100%;
-  text-align: center;
 }
 
 .placeUseView {
@@ -432,7 +389,7 @@ swiper-item {
 
 .contentDetailArea {
   clear: both;
-  background-color: white;
+  background-color: #eff2fb;
   padding-bottom: 60px;
 }
 
@@ -659,7 +616,7 @@ swiper-item {
   padding-top: 12px;
   position: fixed;
   bottom: 0px;
-  background-color: white;
+  background-color: #eff2fb;
   border-top: 1px solid #e4dfdf;
 }
 
@@ -701,4 +658,145 @@ swiper-item {
   z-index: 9500;
   height: 100%;
   overflow-y: auto;
+}
+
+.toUserPage {
+  height: 32px;
+  width: 127px;
+  background-color: #e5e5e5;
+  margin-left: 10px;
+  border-radius: 5px;
+  margin-bottom: 11px;
+}
+
+.leftTitleView {
+  float: left;
+  font-size: 15px;
+  display: -webkit-flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 58px;
+  padding-left: 4px;
+  padding-right: 3px;
+  border-radius: 10px;
+}
+
+.momentTitleCilick {
+  font-weight: 650;
+  width: 58px;
+  background-color: white;
+  border-radius: 5px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+.momentTitle {
+  color: black;
+}
+
+.rightTitleView {
+  float: left;
+  font-size: 15px;
+  flex-grow: 1;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 100%;
+  background-color: #e5e5e5;
+}
+
+.publishIcon {
+  position: fixed;
+  bottom: 20px;
+  width: 54px;
+  height: 54px;
+  background-color: #0178d4;
+  border-radius: 100%;
+  text-align: center;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(to bottom right, #8077e2, #b37bea);
+  right: 10px;
+}
+
+.toDiscoryAction {
+  position: fixed;
+  bottom: 100px;
+  width: 54px;
+  height: 54px;
+  background-color: #0178d4;
+  border-radius: 100%;
+  text-align: center;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(to bottom right, #6190ea, #6ab6c6);
+  right: 10px;
+}
+
+.actionView {
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.actionIcon {
+  height: 20px;
+  width: 20px;
+}
+
+.filterArea {
+  width: 100%;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filterItemView {
+  width: 100%;
+  float: left;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filterLeftView {
+  float: left;
+}
+
+.filterIconView {
+}
+
+.actionFilterIcon {
+  height: 18px;
+  width: 18px;
+}
+
+.filterTextView {
+  font-size: 13px;
+  margin-left: 3px;
+  margin-bottom: 5px;
+}
+
+.ageiconImg {
+  height: 20px;
+  width: 20px;
+}
+
+.gendericonImg {
+  height: 22px;
+  width: 22px;
+}
+
+.homeiconImg {
+  height: 23px;
+  width: 23px;
 }

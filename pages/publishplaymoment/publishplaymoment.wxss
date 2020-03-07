@@ -218,7 +218,7 @@ button {
 
 .publishView {
   padding-top: 0px;
-  padding-bottom: 60px;
+  padding-bottom: 10px;
   background-color: #eff2fb;
 }
 

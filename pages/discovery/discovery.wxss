@@ -17,33 +17,13 @@ page {
   box-sizing: border-box;
   font-size: 14rpx;
   color: #000;
-  padding-left: 10px;
-  padding-right: 3px;
   overflow: hidden;
   width: 100%;
   height: 100%;
 }
 
 .contentArea {
-  margin-top: 2px;
-  background-color: #fff;
-  box-shadow: 0px 0px 1px #837c7c;
-  width: 95%;
-  height: 100%;
-  border-radius: 6px;
-  margin-left: 7px;
-  float: left;
-}
-
-.contentArea_Hover {
-  margin-top: 2px;
-  background-color: #eff2fb;
-  box-shadow: 0px 0px 1px #837c7c;
-  width: 95%;
-  height: 100%;
-  border-radius: 6px;
-  margin-left: 7px;
-  float: left;
+  border-bottom: solid 1px #e4e4e4;
 }
 
 .userHead {
@@ -54,6 +34,8 @@ page {
 
 .titleView {
   width: 100%;
+  margin-left: 2px;
+  margin-top: 7px;
 }
 
 .leftView {
@@ -93,11 +75,11 @@ page {
 .rightView {
   float: right;
   width: 20px;
-  padding-right: 4px;
+  padding-right: 14px;
 }
 
 .nickNameView {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 650;
   float: left;
   margin-top: 4px;
@@ -106,14 +88,14 @@ page {
 
 .bodyView {
   clear: both;
+  margin-left: 60px;
 }
 
 .textView {
   font-size: 14px;
   padding-top: 10px;
   padding-bottom: 7px;
-  margin-left: 14px;
-  margin-right: 8px;
+  margin-right: 14px;
 }
 
 .imgView {
@@ -122,20 +104,21 @@ page {
 }
 
 .imgCount {
-  max-width: 92%;
-  margin-bottom: -3px;
-  border-radius: 10px;
 }
 
 .publishIcon {
   position: fixed;
-  bottom: 15px;
-  right: 15px;
-  width: 48px;
-  height: 48px;
+  bottom: 20px;
+  width: 54px;
+  height: 54px;
   background-color: #0178d4;
   border-radius: 100%;
   text-align: center;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(to bottom right, #8077e2, #b37bea);
+  right: 10px;
 }
 
 .spinner {
@@ -220,6 +203,7 @@ image {
   width: 100%;
   display: inline-block;
   overflow: hidden;
+  border-radius: 5px;
 }
 
 .defaultDescView {
@@ -410,13 +394,9 @@ button {
 }
 
 .imgView {
-  width: 100%;
   height: 100%;
-  margin-left: 14px;
-  margin-bottom: 15px;
-  margin-right: 10px;
-  display: inline-block;
-  border-radius: 100%;
+  margin-bottom: 8px;
+  max-width: 80%;
 }
 
 .checkoutView {
@@ -448,31 +428,44 @@ button {
 .contentAreaView {
   width: 100%;
   clear: both;
-  padding-top: 8px;
+  padding-top: 1px;
+}
+
+.contentAreaView_Hover {
+  background-color: #e5e5e5;
+  width: 100%;
+  clear: both;
+  padding-top: 1px;
 }
 
 .onlineView {
   float: left;
+  padding-top: 10px;
   width: 80px;
-  font-size: 8px;
-  padding-top: 8px;
 }
 
 .commentView {
   font-size: 13px;
-  width: 100%;
+  float: right;
+}
+
+.commentTextView {
+  font-size: 13px;
+  float: right;
+  padding-top: 4px;
+  padding-left: 4px;
+  margin-right: 14px;
 }
 
 .rightCommentView {
   float: right;
   width: 15px;
-  padding-right: 7px;
+  padding-right: 20px;
 }
 
 .onlineTextView {
   color: #8e8e8e;
   font-size: 8px;
-  padding-top: 5rpx;
 }
 
 .topHeadView {
@@ -558,21 +551,37 @@ button {
 
 .leftTitleView {
   float: left;
-  font-size: 17px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 7px;
+  font-size: 15px;
+  display: -webkit-flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 58px;
+  padding-left: 4px;
+  padding-right: 3px;
+  border-radius: 10px;
 }
 
 .rightTitleView {
   float: left;
-  font-size: 17px;
+  font-size: 15px;
   flex-grow: 1;
-  padding-top: 7px;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 100%;
+  background-color: #e5e5e5;
 }
 
 .toUserPage {
-  /* display: inline-block; */
+  height: 32px;
+  width: 127px;
+  background-color: #e5e5e5;
+  margin-left: 10px;
+  margin-top: 4px;
+  border-radius: 5px;
 }
 
 .page-body {
@@ -609,12 +618,16 @@ swiper-item {
 }
 
 .momentTitleCilick {
-  color: #09f;
   font-weight: 650;
+  width: 58px;
+  background-color: white;
+  border-radius: 5px;
+  padding-top: 1px;
+  padding-bottom: 1px;
 }
 
 .momentTitle {
-  color: #09f;
+  color: black;
 }
 
 .empty_topArea {
@@ -704,29 +717,23 @@ swiper-item {
   float: left;
   background-color: #eff2fb;
   border-radius: 3px;
-  padding-left: 5px;
   padding-right: 5px;
 }
 
 .userPlaceView {
   float: left;
   background-color: #eff2fb;
-  margin-left: 5px;
+  margin-left: 3px;
   padding-right: 5px;
-  padding-left: 4px;
   border-radius: 3px;
   font-size: 10px;
   color: #8e8e8e;
 }
 
-.rightBtnView {
-  border: 1rpx solid #f0f0f0;
-  border-radius: 100px;
+.bottomBtnView {
   height: 25px;
-  width: 68px;
-  float: right;
-  margin-top: 7px;
-  margin-right: 8px;
+  color: #8e8e8e;
+  margin-bottom: 8px;
 }
 
 .shuxianView {
@@ -859,23 +866,15 @@ swiper-item {
 
 .nineRecommendIcon {
   position: fixed;
-  bottom: 75px;
-  right: 15px;
-  width: 48px;
-  height: 48px;
+  bottom: 100px;
+  width: 54px;
+  height: 54px;
   background-color: #0178d4;
   border-radius: 100%;
   text-align: center;
-}
-
-
-.toMapIcon {
-  position: fixed;
-  bottom: 175px;
-  right: 15px;
-  width: 48px;
-  height: 48px;
-  background-color: #0178d4;
-  border-radius: 100%;
-  text-align: center;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(to bottom right, #6190ea, #6ab6c6);
+  right: 10px;
 }

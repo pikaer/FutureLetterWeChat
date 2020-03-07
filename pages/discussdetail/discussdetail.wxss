@@ -25,8 +25,6 @@
   margin-bottom: 20px;
 }
 
-
-
 .leftView {
   float: left;
   margin-left: 3px;
@@ -63,8 +61,6 @@
 .discussView {
   clear: both;
 }
-
-
 
 .discussContent {
   clear: both;
@@ -300,7 +296,6 @@ button {
   font-weight: 700;
 }
 
-
 .cancelBtnView {
   float: left;
   padding-left: 5px;
@@ -425,7 +420,6 @@ button {
   left: 105px;
   position: fixed;
 }
-
 
 .topNickNameView {
   font-size: 14px;
@@ -635,8 +629,54 @@ button {
 }
 
 /* 隐藏滚动条 */
+
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
   color: transparent;
+}
+
+.contactDisplayView {
+  position: fixed;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.contactItemView {
+  width: 90px;
+  margin-left: 10px;
+  margin-right: 10px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.contactItemView_Hover {
+  width: 90px;
+  margin-left: 10px;
+  margin-right: 10px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #e5e5e5;
+}
+
+.contactIconView {
+  clear: both;
+  justify-content: center;
+  display: -webkit-flex;
+  padding-top: 5px;
+}
+
+.contactText {
+  clear: both;
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.svgIcon {
+  height: 23px;
+  width: 23px;
 }

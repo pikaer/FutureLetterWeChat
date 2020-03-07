@@ -21,13 +21,42 @@
       <view class="distanceDescView">{{partnerDetail.distanceDesc}}</view>
     </view>
   </view>
-  <view bindtap="toShowTextContentModal" class="momentContentView" hover-class="momentContentView_Hover" style="top:{{statusBarHeight+45}}px">
+
+  <view class="contactDisplayView" style="top:{{statusBarHeight+50}}px">
+    <view class="contactItemView" hover-class="contactItemView_Hover">
+      <view class="contactIconView">
+        <image class='svgIcon' src="/content/images/weixin.svg" />
+      </view>
+      <view class="contactText">发送微信号</view>
+    </view>
+    <view class="contactItemView" hover-class="contactItemView_Hover">
+      <view class="contactIconView">
+        <image class='svgIcon' src="/content/images/qqicon.svg" />
+      </view>
+      <view class="contactText">发送QQ号</view>
+    </view>
+    <view class="contactItemView" hover-class="contactItemView_Hover">
+      <view class="contactIconView">
+        <image class='svgIcon' src="/content/images/close.svg" />
+      </view>
+      <view class="contactText">不感兴趣</view>
+    </view>
+    <view class="contactItemView" hover-class="contactItemView_Hover">
+      <view class="contactIconView">
+        <image class='svgIcon' src="/content/images/addattention.svg" />
+      </view>
+      <view class="contactText">关注Ta</view>
+    </view>
+  </view>
+
+  <!-- <view bindtap="toShowTextContentModal" class="momentContentView" hover-class="momentContentView_Hover" style="top:{{statusBarHeight+45}}px">
     <view class="imgMomentContent">
       <image class='momentDiscussImg' wx:if="{{momentDetail.imgContent!=null&&momentDetail.imgContent.length>0}}" src="{{momentDetail.imgContent}}" catchtap="previewImg" data-imgContent='{{momentDetail.imgContent}}'></image>
     </view>
     <view class="textmomentContent">{{momentTextContent}}</view>
     <view wx:if="{{momentTextContent!=null&&momentTextContent!=''&&momentTextContent.length!=momentDetail.textContent.length}}" class="navigator-right"></view>
-  </view>
+  </view> -->
+
 </view>
 <view class="scrollContainer">
   <scroll-view scroll-with-animation="true" class="indexContainer" style="padding-bottom:{{keyBoardHeight+20}}px" scroll-y="true">

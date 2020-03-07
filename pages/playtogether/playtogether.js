@@ -22,7 +22,6 @@ Page({
     showMomentDetailModal:false,
     statusBarHeight: app.globalData.statusBarHeight,
     currentTab: 0, //当前所在tab
-    scrollLeft: 0,
     onloadText: "",
     windowWidth: 300,
     screenHeight:0
@@ -231,21 +230,6 @@ Page({
     this.scrollPosition(tabIndex);
   },
 
-  scrollPosition: function(tabIndex) {
-    if (tabIndex <= 2) {
-      this.setData({
-        scrollLeft: 0
-      });
-    } else if (tabIndex >= 7) {
-      this.setData({
-        scrollLeft: 9999
-      });
-    } else {
-      this.setData({
-        scrollLeft: (tabIndex + 1) * 30
-      });
-    }
-  },
   //发布动态
   publishMoment: function() {
     wx.navigateTo({
