@@ -10,32 +10,189 @@
   </view>
 
   <view class="filterArea">
-    <view class="filterItemView">
+    <view class="filterItemView" hover-class="filterItemView_Hover" catchtap="showTagFilterModal">
       <view class="filterIconView">
         <image class='actionFilterIcon' src="/content/images/filter_black.svg" />
       </view>
-      <view class="filterTextView">标签</view>
+      <view class="filterTextView">过滤</view>
     </view>
-    <view class="filterItemView">
+    <view class="filterItemView" hover-class="filterItemView_Hover" catchtap="showGenderFilterModal">
       <view class="filterIconView">
         <image class='gendericonImg' src="/content/images/gender-all.svg" />
       </view>
       <view class="filterTextView">性别</view>
     </view>
-    <view class="filterItemView">
+    <view class="filterItemView" hover-class="filterItemView_Hover" catchtap="showAgeFilterModal">
       <view class="filterIconView">
         <image class='ageiconImg' src="/content/images/ageicon.svg" />
       </view>
       <view class="filterTextView">年龄</view>
     </view>
-    <view class="filterItemView">
+    <view class="filterItemView" hover-class="filterItemView_Hover" catchtap="showHomeFilterModal">
       <view class="filterIconView">
         <image class='homeiconImg' src="/content/images/home1.svg" />
       </view>
       <view class="filterTextView">位置</view>
     </view>
   </view>
+
+  <view class="modal-mask-all-white" wx:if="{{showTagFilterModal}}" bindtap="confirmTagFilterBtn" />
+  <view class="modal-filterContent" wx:if="{{showTagFilterModal}}" style="top:{{statusBarHeight+76}}px">
+    <view class="tagAreaItemView" style="height:60px">
+      <view class="tagTextView">身份</view>
+      <view class="stateTagView">
+        <view bindtap="selectedSchoolStateBtn" data-schoolState='0' class="{{filterData.schoolState==0?'filterBtn_Selected':'filterBtn'}}">不限</view>
+        <view bindtap="selectedSchoolStateBtn" data-schoolState='1' class="{{filterData.schoolState==1?'filterBtn_Selected':'filterBtn'}}">学生党</view>
+        <view bindtap="selectedSchoolStateBtn" data-schoolState='2' class="{{filterData.schoolState==2?'filterBtn_Selected':'filterBtn'}}">工作党</view>
+      </view>
+    </view>
+    <view class="tagAreaItemView" style="height:150px">
+      <view class="tagTextView">目的</view>
+      <view class="stateTagView">
+        <view class="check_goal" data-goal='{{0}}' catchtap="goalChange">
+          <view class="cell__hdgoal">
+            <checkbox value="0" checked="{{filterData.goal.all}}" />
+          </view>
+          <view class="cell__bdgoal">不限</view>
+        </view>
+        <view class="check_goal" data-goal='{{1}}' catchtap="goalChange">
+          <view class="cell__hdgoal">
+            <checkbox value="1" checked="{{filterData.goal.goal1}}" />
+          </view>
+          <view class="cell__bdgoal">谈恋爱</view>
+        </view>
+        <view class="check_goal" data-goal='{{2}}' catchtap="goalChange">
+          <view class="cell__hdgoal">
+            <checkbox value="2" checked="{{filterData.goal.goal2}}" />
+          </view>
+          <view class="cell__bdgoal">找人陪伴</view>
+        </view>
+      </view>
+      <view class="stateTagView">
+        <view class="check_goal" data-goal='{{3}}' catchtap="goalChange">
+          <view class="cell__hdgoal">
+            <checkbox value="3" checked="{{filterData.goal.goal3}}" />
+          </view>
+          <view class="cell__bdgoal">打发时间</view>
+        </view>
+        <view class="check_goal" data-goal='{{4}}' catchtap="goalChange">
+          <view class="cell__hdgoal">
+            <checkbox value="4" checked="{{filterData.goal.goal4}}" />
+          </view>
+          <view class="cell__bdgoal">谈婚论嫁</view>
+        </view>
+        <view class="check_goal" data-goal='{{5}}' catchtap="goalChange">
+          <view class="cell__hdgoal">
+            <checkbox value="5" checked="{{filterData.goal.goal5}}" />
+          </view>
+          <view class="cell__bdgoal">单纯交友</view>
+        </view>
+      </view>
+      <view class="stateTagView">
+        <view class="check_goal" data-goal='{{6}}' catchtap="goalChange">
+          <view class="cell__hdgoal">
+            <checkbox value="6" checked="{{filterData.goal.goal6}}" />
+          </view>
+          <view class="cell__bdgoal">找树洞</view>
+        </view>
+        <view class="check_goal" data-goal='{{7}}' catchtap="goalChange">
+          <view class="cell__hdgoal">
+            <checkbox value="7" checked="{{filterData.goal.goal7}}" />
+          </view>
+          <view class="cell__bdgoal">找soulmate</view>
+        </view>
+        <view class="check_goal" data-goal='{{8}}' catchtap="goalChange">
+          <view class="cell__hdgoal">
+            <checkbox value="8" checked="{{filterData.goal.goal8}}" />
+          </view>
+          <view class="cell__bdgoal">同城约见</view>
+        </view>
+      </view>
+    </view>
+    <view class="confirmFilterBtnView" bindtap="confirmTagFilterBtn">确 认</view>
+  </view>
+
+  <view class="modal-mask-all-white" wx:if="{{showGenderFilterModal}}" bindtap="confirmGenderFilterBtn" />
+  <view class="modal-filterContent" wx:if="{{showGenderFilterModal}}" style="top:{{statusBarHeight+76}}px">
+    <view class="genderFilterView">
+      <view bindtap="selectedGenderBtn" data-gender='3' class="{{filterData.gender==3?'filterBtn_Selected':'filterBtn'}}">显示全部</view>
+      <view bindtap="selectedGenderBtn" data-gender='1' class="{{filterData.gender==1?'filterBtn_Selected':'filterBtn'}}">只看男生</view>
+      <view bindtap="selectedGenderBtn" data-gender='2' class="{{filterData.gender==2?'filterBtn_Selected':'filterBtn'}}">只看女生</view>
+    </view>
+    <view class="confirmFilterBtnView" bindtap="confirmGenderFilterBtn">确 认</view>
+  </view>
+
+  <view class="modal-mask-all-white" wx:if="{{showAgeFilterModal}}" bindtap="confirmAgeFilterBtn" />
+  <view class="modal-filterContent" wx:if="{{showAgeFilterModal}}" style="top:{{statusBarHeight+76}}px">
+    <view class="ageFilterView">
+      <checkbox-group>
+        <view class="check__label" data-value='0' catchtap="checkboxChange">
+          <view class="cell__bd">全部</view>
+          <view class="cell__hd">
+            <checkbox value="0" checked="{{filterData.age.all}}" />
+          </view>
+        </view>
+        <view class="check__label" data-value='{{1}}' catchtap="checkboxChange">
+          <view class="cell__bd">05后</view>
+          <view class="cell__hd">
+            <checkbox value="1" checked="{{filterData.age.after05}}" />
+          </view>
+        </view>
+        <view class="check__label" data-value='{{2}}' catchtap="checkboxChange">
+          <view class="cell__bd">00后</view>
+          <view class="cell__hd">
+            <checkbox value="2" checked="{{filterData.age.after00}}" />
+          </view>
+        </view>
+        <view class="check__label" data-value='{{3}}' catchtap="checkboxChange">
+          <view class="cell__bd">95后</view>
+          <view class="cell__hd">
+            <checkbox value="3" checked="{{filterData.age.after95}}" />
+          </view>
+        </view>
+        <view class="check__label" data-value='{{4}}' catchtap="checkboxChange">
+          <view class="cell__bd">90后</view>
+          <view class="cell__hd">
+            <checkbox value="4" checked="{{filterData.age.after90}}" />
+          </view>
+        </view>
+        <view class="check__label" data-value='{{5}}' catchtap="checkboxChange">
+          <view class="cell__bd">85后</view>
+          <view class="cell__hd">
+            <checkbox value="5" checked="{{filterData.age.after85}}" />
+          </view>
+        </view>
+        <view class="check__label" data-value='{{6}}' catchtap="checkboxChange">
+          <view class="cell__bd">80后</view>
+          <view class="cell__hd">
+            <checkbox value="6" checked="{{filterData.age.after80}}" />
+          </view>
+        </view>
+        <view class="check__label" data-value='{{7}}' catchtap="checkboxChange">
+          <view class="cell__bd">80前</view>
+          <view class="cell__hd">
+            <checkbox value="7" checked="{{filterData.age.before80}}" />
+          </view>
+        </view>
+      </checkbox-group>
+    </view>
+    <view class="confirmFilterBtnView" bindtap="confirmAgeFilterBtn">确 认</view>
+  </view>
+
+  <view class="modal-mask-all-white" wx:if="{{showHomeFilterModal}}" bindtap="confirmHomeFilterBtn" />
+  <view class="modal-filterContent" wx:if="{{showHomeFilterModal}}" style="top:{{statusBarHeight+76}}px">
+    <view class="genderFilterView">
+      <view bindtap="selectedHomeBtn" data-home='0' class="{{filterData.home==0?'filterBtn_Selected':'filterBtn'}}">地区不限</view>
+      <view bindtap="selectedHomeBtn" data-home='1' class="{{filterData.home==1?'filterBtn_Selected':'filterBtn'}}">接受同省</view>
+      <view bindtap="selectedHomeBtn" data-home='2' class="{{filterData.home==2?'filterBtn_Selected':'filterBtn'}}">只要同城</view>
+    </view>
+    <view class="confirmFilterBtnView" bindtap="confirmHomeFilterBtn">确 认</view>
+  </view>
+
+
 </view>
+
+
 <!-- 自定义的导航栏 -->
 <view class="indexContainer">
   <view class="topSpinner" hidden='{{loadTopHide}}'>
@@ -314,3 +471,6 @@
     </view>
   </view>
 </view>
+
+
+<!--custom Modal-->

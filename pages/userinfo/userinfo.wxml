@@ -106,9 +106,9 @@
   </view>
   <view class="blockView">
     <view class="lineView"></view>
-    <view class="basicInfoText">个性标签</view>
+    <view class="basicInfoText">个性标签</view> 
     <view class="tagListView" bindtap="showTagSelectModel" data-tagType='{{1}}'>
-      <view class="tagItem" wx:for="{{characterTagList}}" wx:key="key" wx:for-index="key" wx:for-item="value" wx:if="{{value.checked}}">{{value.tag}}</view>
+      <view class="tagItem" wx:for="{{characterTagList}}" wx:key="key" wx:for-index="key" wx:for-item="value" wx:if="{{value.checked}}">{{value.tag}}        </view>
       <view class="tagAddIcon">+</view>
     </view>
   </view>

@@ -666,7 +666,7 @@ swiper-item {
   background-color: #e5e5e5;
   margin-left: 10px;
   border-radius: 5px;
-  margin-bottom: 11px;
+  margin-bottom: 6px;
 }
 
 .leftTitleView {
@@ -766,6 +766,17 @@ swiper-item {
   display: -webkit-flex;
   align-items: center;
   justify-content: center;
+  padding-top: 5px;
+}
+
+.filterItemView_Hover {
+  width: 100%;
+  float: left;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e5e5e5;
+  padding-top: 5px;
 }
 
 .filterLeftView {
@@ -799,4 +810,125 @@ swiper-item {
 .homeiconImg {
   height: 23px;
   width: 23px;
+}
+
+.modal-filterContent {
+  position: fixed;
+  top: 20%;
+  z-index: 9500;
+  background: #eff2fb;
+  left: 0px;
+  right: 0px;
+  text-align: center;
+}
+
+.genderFilterView {
+  margin-top: 40px;
+  height: 40px;
+  margin-left: 25px;
+  width: 100%;
+}
+
+.ageFilterView {
+  margin-top: 20px;
+  margin-left: 25px;
+  width: 100%;
+}
+
+.filterBtn {
+  float: left;
+  width: 90px;
+  height: 32px;
+  background-color: white;
+  margin-right: 20px;
+  border-radius: 2px;
+  font-size: 13px;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filterBtn_Selected {
+  background-color: #4d80fd;
+  color: white;
+  float: left;
+  width: 90px;
+  height: 32px;
+  margin-right: 20px;
+  border-radius: 2px;
+  font-size: 13px;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirmFilterBtnView {
+  height: 40px;
+  background-color: #00cd66;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  color: white;
+  font-weight: 650;
+  font-size: 18px;
+  margin-left: 80px;
+  margin-right: 80px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.check__label {
+  clear: both;
+  padding-left: 5px;
+  width: 90%;
+  height: 30px;
+  margin-bottom: 15px;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cell__hd {
+  float: left;
+}
+
+.cell__bd {
+  float: left;
+  margin-right: 10px;
+  padding-top: 2px;
+  font-size: 15px;
+}
+
+.tagAreaItemView {
+  width: 100%;
+  clear: both;
+  margin-left: 25px;
+  margin-top: 20px;
+}
+
+.stateTagView {
+  clear: both;
+  padding-top: 10px;
+  height: 35px;
+  width: 100%;
+  font-size: 13px;
+}
+
+.tagTextView {
+  float: left;
+  font-size: 14px;
+}
+
+.check_goal {
+  float: left;
+  width: 110px;
+}
+
+.cell__hdgoal {
+  float: left;
+}
+
+.cell__bdgoal {
+  float: left;
 }

@@ -52,6 +52,8 @@
 
 .momentContainer {
   width: 100%;
+  clear: both;
+  padding-top: 10px;
 }
 
 .itemTitleView {
@@ -63,12 +65,12 @@
 }
 
 .titleView {
-  width: 100%;
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  text-align: center;
-  padding-top: 8px;
+  height: 32px;
+  width: 127px;
+  background-color: #e5e5e5;
+  margin-left: 10px;
+  border-radius: 5px;
+  margin-bottom: 6px;
 }
 
 page {
@@ -246,19 +248,6 @@ swiper-item {
   margin-bottom: 12px;
   border-radius: 6px;
   box-shadow: 0px 0px 1px #837c7c;
-}
-
-.momentTitleCilick {
-  width: 90px;
-  margin: auto;
-  border-bottom: solid 3px #09f;
-  color: #09f;
-}
-
-.momentTitle {
-  width: 90px;
-  margin: auto;
-  color: #9d9d9d;
 }
 
 .placeUseView {
@@ -521,4 +510,46 @@ button {
 .tagAreaView {
   margin-top: 8px;
   clear: both;
+}
+
+.leftTitleView {
+  float: left;
+  font-size: 15px;
+  display: -webkit-flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 58px;
+  padding-left: 4px;
+  padding-right: 3px;
+  border-radius: 10px;
+}
+
+.rightTitleView {
+  float: left;
+  font-size: 15px;
+  flex-grow: 1;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 100%;
+  background-color: #e5e5e5;
+}
+
+.momentTitleCilick {
+  font-weight: 650;
+  width: 58px;
+  background-color: white;
+  border-radius: 5px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  justify-content: center;
+  align-items: center;
+  display: -webkit-flex;
+}
+
+.momentTitle {
+  color: black;
 }

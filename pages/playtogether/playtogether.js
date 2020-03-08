@@ -16,15 +16,46 @@ Page({
     pickUpList_Earlybird: [],
     pickUpList_Walk: [],
     pickUpList_Movie: [],
-    currentMoment:{},
+    currentMoment: {},
+    filterData: {
+      "gender": 3,
+      "home": 0,
+      "goal": 0,
+      "schoolState": 0,
+      "age": {
+        "all": true,
+        "after05": true,
+        "after00": true,
+        "after95": true,
+        "after90": true,
+        "after85": true,
+        "after80": true,
+        "before80": true,
+      },
+      "goal": {
+        "all": true,
+        "goal1": true,
+        "goal2": true,
+        "goal3": true,
+        "goal4": true,
+        "goal5": true,
+        "goal6": true,
+        "goal7": true,
+        "goal8": true,
+      }
+    },
     pageIndex: 1,
     loadTopHide: true,
-    showMomentDetailModal:false,
+    showMomentDetailModal: false,
+    showGenderFilterModal: false,
+    showHomeFilterModal: false,
+    showAgeFilterModal: false,
+    showTagFilterModal: false,
     statusBarHeight: app.globalData.statusBarHeight,
     currentTab: 0, //当前所在tab
     onloadText: "",
     windowWidth: 300,
-    screenHeight:0
+    screenHeight: 0
   },
 
 
@@ -123,14 +154,62 @@ Page({
     wx.hideTabBar();
   },
 
-  momentDetailClick: function (ops) {
+  momentDetailClick: function(ops) {
     this.setData({
-      showMomentDetailModal:false
+      showMomentDetailModal: false
     });
     wx.showTabBar();
   },
 
-  
+
+  confirmGenderFilterBtn: function() {
+    this.setData({
+      showGenderFilterModal: false
+    });
+  },
+
+  showGenderFilterModal: function() {
+    this.setData({
+      showGenderFilterModal: true
+    });
+  },
+  confirmHomeFilterBtn: function() {
+    this.setData({
+      showHomeFilterModal: false
+    });
+  },
+
+  showHomeFilterModal: function() {
+    this.setData({
+      showHomeFilterModal: true
+    });
+  },
+
+
+  confirmAgeFilterBtn: function() {
+    this.setData({
+      showAgeFilterModal: false
+    });
+  },
+
+  showAgeFilterModal: function() {
+    this.setData({
+      showAgeFilterModal: true
+    });
+  },
+
+  confirmTagFilterBtn: function() {
+    this.setData({
+      showTagFilterModal: false
+    });
+  },
+
+  showTagFilterModal: function() {
+    this.setData({
+      showTagFilterModal: true
+    });
+  },
+
   //动态详情页面
   previewMomentDetail: function(e) {
     let key = e.currentTarget.dataset.key;
@@ -236,5 +315,158 @@ Page({
       url: '../../pages/publishplaymoment/publishplaymoment'
     })
   },
+
+  selectedGenderBtn: function(ops) {
+    let filterDataItem = this.data.filterData;
+    filterDataItem.gender = ops.currentTarget.dataset.gender;
+    this.setData({
+      filterData: filterDataItem
+    })
+  },
+
+  selectedSchoolStateBtn: function(ops) {
+    let filterDataItem = this.data.filterData;
+    filterDataItem.schoolState = ops.currentTarget.dataset.schoolstate;
+    this.setData({
+      filterData: filterDataItem
+    })
+  },
+
+  selectedHomeBtn: function(ops) {
+    let filterDataItem = this.data.filterData;
+    filterDataItem.home = ops.currentTarget.dataset.home;
+    this.setData({
+      filterData: filterDataItem
+    })
+  },
+
+  checkboxChange: function(ops) {
+    let tag = ops.currentTarget.dataset.value;
+    let ageItem = this.data.filterData.age;
+    if (tag == 0) {
+      if (ageItem.all) {
+        ageItem.after05 = false;
+        ageItem.after00 = false;
+        ageItem.after95 = false;
+        ageItem.after90 = false;
+        ageItem.after85 = false;
+        ageItem.after80 = false;
+        ageItem.before80 = false;
+        ageItem.all = false;
+      } else {
+        ageItem.after05 = true;
+        ageItem.after00 = true;
+        ageItem.after95 = true;
+        ageItem.after90 = true;
+        ageItem.after85 = true;
+        ageItem.after80 = true;
+        ageItem.before80 = true;
+        ageItem.all = true;
+      }
+    } else {
+      switch (tag) {
+        case 1:
+          ageItem.after05 = !ageItem.after05;
+          break;
+        case 2:
+          ageItem.after00 = !ageItem.after00;
+          break;
+        case 3:
+          ageItem.after95 = !ageItem.after95;
+          break;
+        case 4:
+          ageItem.after90 = !ageItem.after90;
+          break;
+        case 5:
+          ageItem.after85 = !ageItem.after85;
+          break;
+        case 6:
+          ageItem.after80 = !ageItem.after80;
+          break;
+        case 7:
+          ageItem.before80 = !ageItem.before80;
+          break;
+      }
+    }
+    //全部选中
+    if (ageItem.after05 && ageItem.after00 && ageItem.after95 && ageItem.after90 &&
+      ageItem.after85 && ageItem.after80 && ageItem.before80) {
+      ageItem.all = true;
+    } else {
+      ageItem.all = false;
+    }
+
+    this.setData({
+      filterData: this.data.filterData
+    })
+  },
+
+
+  goalChange: function(ops) {
+    let goal = ops.currentTarget.dataset.goal;
+    let goalItem = this.data.filterData.goal;
+    if (goal == 0) {
+      if (goalItem.all) {
+        goalItem.goal1 = false;
+        goalItem.goal2 = false;
+        goalItem.goal3 = false;
+        goalItem.goal4 = false;
+        goalItem.goal5 = false;
+        goalItem.goal6 = false;
+        goalItem.goal7 = false;
+        goalItem.goal8 = false;
+        goalItem.all = false;
+      } else {
+        goalItem.goal1 = true;
+        goalItem.goal2 = true;
+        goalItem.goal3 = true;
+        goalItem.goal4 = true;
+        goalItem.goal5 = true;
+        goalItem.goal6 = true;
+        goalItem.goal7 = true;
+        goalItem.goal8 = true;
+        goalItem.all = true;
+      }
+    } else {
+      switch (goal) {
+        case 1:
+          goalItem.goal1 = !goalItem.goal1;
+          break;
+        case 2:
+          goalItem.goal2 = !goalItem.goal2;
+          break;
+        case 3:
+          goalItem.goal3 = !goalItem.goal3;
+          break;
+        case 4:
+          goalItem.goal4 = !goalItem.goal4;
+          break;
+        case 5:
+          goalItem.goal5 = !goalItem.goal5;
+          break;
+        case 6:
+          goalItem.goal6 = !goalItem.goal6;
+          break;
+        case 7:
+          goalItem.goal7 = !goalItem.goal7;
+          break;
+        case 8:
+          goalItem.goal8 = !goalItem.goal8;
+          break;
+      }
+    }
+    //全部选中
+    if (goalItem.goal1 && goalItem.goal2 && goalItem.goal3 && goalItem.goal4 &&
+      goalItem.goal5 && goalItem.goal6 && goalItem.goal7 && goalItem.goal8) {
+      goalItem.all = true;
+    } else {
+      goalItem.all = false;
+    }
+
+    this.setData({
+      filterData: this.data.filterData
+    })
+  },
+
 
 })
