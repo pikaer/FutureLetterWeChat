@@ -1,0 +1,30 @@
+<view class="containerView">
+  <view class="title">你想找人玩什么</view>
+  <view class="contentView">
+    <view class="contentTitle">线上活动</view>
+    <view class="tagContent" style="height: 150px;">
+      <view wx:for="{{onlinePlayList}}" wx:key="key" wx:for-index="key" wx:for-item="value" bindtap="selectedItemClick" data-playType="{{value.playType}}" data-stateType="{{value.stateType}}" data-desc="{{value.desc}}" class="{{selectedItem.playType==value.playType&&selectedItem.stateType==value.stateType?'tagItem_Selected':'tagItem'}}">{{value.desc}}</view>
+      <view class="tagAddIcon" bindtap="showAddTagModal" data-stateType="1">+</view>
+    </view>
+    <view class="contentTitle">线下活动</view>
+    <view class="tagContent" style="height: 150px;">
+      <view wx:for="{{offlinePlayList}}" wx:key="key" wx:for-index="key" wx:for-item="value" bindtap="selectedItemClick" data-playType="{{value.playType}}" data-stateType="{{value.stateType}}" data-desc="{{value.desc}}" class="{{selectedItem.playType==value.playType&&selectedItem.stateType==value.stateType?'tagItem_Selected':'tagItem'}}">{{value.desc}}</view>
+      <view class="tagAddIcon" bindtap="showAddTagModal" data-stateType="2">+</view>
+    </view>
+  </view>
+  <view wx:if="{{source==0}}" class="nextBtnView">
+    <view bindtap="{{selectedItem.playType==0?'':'toNextPage'}}" class="{{selectedItem.playType==0?'nextBtn':'nextBtn_Selected'}}">下一步</view>
+  </view>
+</view>
+
+<!--custom Modal-->
+<view class="modal-mask-all" wx:if="{{showAddTagModal}}"></view>
+<view wx:if="{{showAddTagModal}}" class="modal-content-addTag">
+  <view class="showTextTitle">新增标签:</view>
+  <view class="inputTextContentView">
+    <input class="inputTextContent" maxlength="10" value="{{tempTextContent}}" bindinput="textContentInput" adjust-position='false'></input>
+  </view>
+  <view class="cancelModelView">
+    <button lang="zh_CN" bindtap="cancelAddTagModal" class="submitBtn">确认</button>
+  </view>
+</view>

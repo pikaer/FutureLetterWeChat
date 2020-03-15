@@ -84,7 +84,6 @@ page {
 .page-body {
   height: 100%;
   width: 100%;
-  border-top: solid 1px #e4dfdf;
 }
 
 .page-section {
@@ -162,11 +161,10 @@ swiper-item {
 .textView {
   font-size: 14px;
   margin-bottom: 10px;
-  padding-left: 3px;
 }
 
 .imgView {
-  width: 100%;
+  width: 80%;
   height: 100%;
   margin-left: 5px;
   margin-bottom: 8px;
@@ -198,17 +196,14 @@ swiper-item {
 
 .publishTime {
   font-size: 10px;
-  float: left;
-  background-color: #eff2fb;
   color: #8e8e8e;
-  padding-left: 5px;
+  float: left;
   padding-right: 5px;
   border-radius: 3px;
 }
 
 .momentImg {
-  margin-bottom: -3px;
-  border-radius: 10px;
+  border-radius: 5px;
   width: 100%;
   max-width: 97%;
 }
@@ -223,41 +218,28 @@ swiper-item {
 }
 
 .momentView {
-  background-color: white;
-  padding-left: 8px;
+  padding-left: 12px;
   padding-right: 8px;
-  padding-top: 5px;
-  margin-top: 5px;
-  padding-bottom: 5px;
-  margin-left: 12px;
-  margin-right: 12px;
-  margin-bottom: 12px;
-  border-radius: 6px;
-  box-shadow: 0px 0px 1px #837c7c;
+  border-bottom: solid 1px #e4e4e4;
+  clear: both;
 }
 
 .momentView_Hover {
-  background-color: #eff2fb;
-  padding-left: 8px;
+  background-color: #e5e5e5;
+  padding-left: 12px;
   padding-right: 8px;
-  padding-top: 5px;
-  margin-top: 5px;
-  padding-bottom: 5px;
-  margin-left: 12px;
-  margin-right: 12px;
-  margin-bottom: 12px;
-  border-radius: 6px;
-  box-shadow: 0px 0px 1px #837c7c;
+  border-bottom: solid 1px #e4e4e4;
+  clear: both;
 }
 
 .placeUseView {
-  height: 100px;
-  width: 100%;
-  margin-bottom: 70px;
+  margin-bottom: 170px;
   text-align: center;
   font-size: 14px;
   color: #9d9d9d;
+  clear: both;
   padding-top: 10px;
+  border-top: solid 1px #e4e4e4;
 }
 
 .dialog_content {
@@ -305,6 +287,8 @@ button::after {
 .content {
   clear: both;
   padding-top: 9px;
+  margin-left: 6px;
+  margin-right: 15px;
 }
 
 button {
@@ -331,34 +315,13 @@ button {
 
 .iconView {
   float: right;
+  padding-right: 3px;
+  padding-top: 3px;
 }
 
 .momentTitleView {
-  width: 100%;
-}
-
-.hideHeadPhoto_Man_View {
   float: left;
-  width: 48px;
-  height: 48px;
-  background-color: #85d0ed;
-  border-radius: 100%;
-}
-
-.hideHeadPhoto_WoMan_View {
-  float: left;
-  width: 48px;
-  height: 48px;
-  background-color: #fda3e6;
-  border-radius: 100%;
-}
-
-.shortNameView {
-  width: 100%;
-  height: 100%;
-  font-size: 24px;
-  padding-top: 5px;
-  text-align: center;
+  padding-top: 10px;
 }
 
 .genderImgHead {
@@ -368,16 +331,7 @@ button {
   padding-top: 10px;
 }
 
-.leftView {
-  float: left;
-  width: 45px;
-  height: 45px;
-}
-
-.userTitleHead {
-  width: 45px;
-  height: 45px;
-  border-radius: 100%;
+.rightTopView {
 }
 
 .centerTitleView {
@@ -406,12 +360,9 @@ button {
 .hideTextView {
   font-size: 10px;
   float: left;
-  background-color: #eff2fb;
   color: #8e8e8e;
-  padding-left: 5px;
   padding-right: 5px;
   border-radius: 3px;
-  margin-left: 5px;
 }
 
 .left_Hide_ManView {
@@ -552,4 +503,25 @@ button {
 
 .momentTitle {
   color: black;
+}
+
+.publishDate {
+  font-size: 23px;
+  font-weight: 650;
+}
+
+.publishMonth {
+  text-align: center;
+  font-size: 11px;
+}
+
+.publishYear {
+  text-align: center;
+  font-size: 8px;
+}
+
+.rightContentView {
+  float: right;
+  width: 90%;
+  padding-top: 10px;
 }

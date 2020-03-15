@@ -3,6 +3,8 @@
     "pages/discovery/discovery",
     "pages/chat/chat",
     "pages/playtogether/playtogether",
+    "pages/playtypeedit/playtypeedit",
+    "pages/playcontent/playcontent",
     "pages/playmomentdetail/playmomentdetail",
     "pages/publishplaymoment/publishplaymoment",
     "pages/publishtextmoment/publishtextmoment",

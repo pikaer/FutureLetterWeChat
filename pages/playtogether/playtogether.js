@@ -145,13 +145,13 @@ Page({
   },
 
   momentClickOpen: function(ops) {
+    wx.hideTabBar();
     let key = ops.currentTarget.dataset.key;
     let list = this.data.pickUpList_Other;
     this.setData({
       currentMoment: list[key],
       showMomentDetailModal: true
     });
-    wx.hideTabBar();
   },
 
   momentDetailClick: function(ops) {
@@ -312,7 +312,7 @@ Page({
   //发布动态
   publishMoment: function() {
     wx.navigateTo({
-      url: '../../pages/publishplaymoment/publishplaymoment'
+      url: '../../pages/playtypeedit/playtypeedit'
     })
   },
 

@@ -217,9 +217,12 @@ button {
 }
 
 .publishView {
-  padding-top: 0px;
-  padding-bottom: 10px;
-  background-color: #eff2fb;
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .notifyBtnView {
@@ -385,36 +388,14 @@ button {
 }
 
 .contentArea {
-  margin-top: 2px;
+  margin-top: 20px;
   background-color: #fff;
   box-shadow: 0px 0px 1px #837c7c;
-  width: 80%;
-  height: 400px;
+  width: 90%;
   border-radius: 6px;
-  background-repeat: no-repeat;
-  background-size: 100% 400px;
   float: left;
-  margin-left: 10%;
+  margin-left: 5%;
   margin-bottom: 20px;
-}
-
-.editBackGroundView {
-  height: 20px;
-  float: right;
-  padding-top: 5px;
-  padding-right: 5px;
-  width: 100%;
-}
-
-.editBackGroundText {
-  font-size: 12px;
-  float: right;
-  background-color: #eff2fb;
-  border-radius: 4px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 3px;
-  padding-bottom: 3px;
 }
 
 .editBackGroundImg {
@@ -428,14 +409,6 @@ button {
   height: 16px;
 }
 
-.editView {
-  width: 15px;
-  height: 15px;
-  float: left;
-  margin-top: 260px;
-  margin-left: 5px;
-}
-
 .editImg {
   width: 100%;
   height: 100%;
@@ -445,6 +418,14 @@ button {
   width: 7px;
   height: 7px;
   padding-bottom: 20px;
+}
+
+.editView {
+  width: 15px;
+  height: 15px;
+  float: left;
+  margin-top: 7px;
+  margin-left: 12px;
 }
 
 .genderImgView {
@@ -486,30 +467,25 @@ button {
   padding-top: 7px;
   padding-bottom: 7px;
   margin-left: 7px;
-  margin-right: 7px;
-  max-width: 300px;
 }
 
 .bodyView {
-  margin-top: 260px;
   background-color: white;
   float: left;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  margin-left: 45px;
+  margin-left: 15px;
   margin-bottom: 4px;
+  max-width: 85%;
 }
 
 .tagView {
   float: left;
   background-color: #f1f1f1;
   padding-left: 5px;
-  border-radius: 5px;
+  border-radius: 3px;
   padding-right: 5px;
-  margin-right: 8px;
+  margin-right: 5px;
   font-size: 10px;
-  color: black;
+  color: #8e8e8e;
 }
 
 .centerView {
@@ -531,7 +507,6 @@ button {
 
 .centerTitleView {
   float: left;
-  color: white;
 }
 
 .titleView {
@@ -549,7 +524,8 @@ button {
 
 .left_Hide_ManView {
   float: left;
-  margin-left: 20px;
+  margin-left: 10px;
+  margin-bottom: 10px;
   margin-top: 5px;
   width: 45px;
   height: 45px;
@@ -559,7 +535,8 @@ button {
 
 .left_Hide_WoManView {
   float: left;
-  margin-left: 20px;
+  margin-left: 10px;
+  margin-bottom: 10px;
   margin-top: 5px;
   width: 45px;
   height: 45px;
@@ -578,7 +555,8 @@ button {
   float: left;
   width: 47px;
   height: 47px;
-  margin-left: 20px;
+  margin-left: 10px;
+  margin-bottom: 10px;
   border-radius: 100%;
   background-color: white;
 }
@@ -587,7 +565,7 @@ button {
   float: left;
   padding-left: 5px;
   width: 100%;
-  margin-top: 32px;
+  margin-top: 18px;
 }
 
 .submitModelBtnView {
@@ -607,12 +585,12 @@ button {
 }
 
 .inputTextContentView {
-  height: 40px;
+  height: 100px;
   margin-top: 45px;
   background-color: #eff2fb;
   padding: 10px;
   border-radius: 5px;
-  padding-left: 7px;
+  margin-right: 10px;
 }
 
 .inputTextContent {
@@ -620,16 +598,16 @@ button {
   width: 100%;
   background-color: white;
   border-radius: 5px;
-  padding-left: 6px;
+  padding: 6px;
 }
 
 .modal-content-TextContent {
   position: fixed;
-  top: 20%;
+  top: 10%;
   right: 10%;
   left: 10%;
   z-index: 9500;
-  height: 200px;
+  height: 240px;
   background: #eff2fb;
   border-radius: 6px;
   padding-left: 15px;

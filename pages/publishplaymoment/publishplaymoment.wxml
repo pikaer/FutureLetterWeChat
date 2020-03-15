@@ -1,14 +1,11 @@
 <view class="containerView">
-  <view class="contentArea" style="background-image: url({{backGroundImg}})">
-    <view class="editBackGroundView" bindtap="uploadpic">
-      <view class="editBackGroundText">更换背景图 </view>
-    </view>
+  <view class="contentArea">
     <view class="bodyView" bindtap="showTextContentModal">
       <!-- 文本动态 -->
       <view class="textView">{{tempTextContent}}</view>
     </view>
     <view class="editView" bindtap="showTextContentModal">
-      <image class="editImg" src="/content/images/whiteedit.svg"></image>
+      <image class="editImg" src="/content/images/editnickname.svg"></image>
     </view>
     <view class="titleView">
       <view wx:if="{{isHideNickName}}" class="{{basicUserInfo.gender==2?'left_Hide_WoManView':'left_Hide_ManView'}}">
@@ -46,12 +43,10 @@
       <image class='notifyImg' src="/content/images/tag.svg" />
     </view>
     <view class="notifyText">一起玩类型</view>
-    <view class="pickValue">
-      <picker bindchange="bindPlayTypeChange" value="{{playTypeArray}}" range="{{playTypeArray}}">
-        <view class="pickData">{{playTypeArray[playTypeIndex]}}</view>
-      </picker>
+    <view class="pickValue" catchtap="toEditPage">
+      <view class="pickData">{{desc}}</view>
     </view>
-    <view class="navigator-right"></view>
+    <view class="navigator-right" catchtap="toEditPage"></view>
   </view>
   <view class="lineView"></view>
   <view class="notifyView">
@@ -92,39 +87,22 @@
     <view class="navigator-right"></view>
   </navigator>
   <view wx:if="{{isHideNickName}}" class="lineView"></view>
-  <view wx:if="{{isRegister}}" class="publishView">
-    <button disabled='{{publishDisabled}}' bindtap="upload_file_publishMoment" class='yes-upload'>发布动态</button>
-  </view>
-
-  <view wx:else class="publishView">
-    <button disabled='{{publishDisabled}}' bindtap="toLogin" class="yes-upload">发布动态</button>
+  <view class="publishView">
+    <button disabled='{{this.data.tempTextContent.lenght>0}}' class='yes-upload'>发布</button>
   </view>
 </view>
 
 <!--custom Modal-->
 <view class="modal-mask-all" wx:if="{{showTextContentModal}}"></view>
 <view wx:if="{{showTextContentModal}}" class="modal-content-TextContent">
-  <view class="showTextTitle">一句话介绍自己:</view>
+  <view class="showTextTitle">一句话自我介绍:</view>
   <view class="inputTextContentView">
-    <input class="inputTextContent" maxlength="14" value="{{tempTextContent}}" placeholder="不要超过14个字哦" bindinput="textContentInput" adjust-position='false'></input>
+    <textarea class="inputTextContent" maxlength="400" value="{{tempTextContent}}" bindinput="textContentInput" adjust-position='false'></textarea>
   </view>
   <view class="cancelModelView">
     <button lang="zh_CN" bindtap="cancelTextContentModal" class="submitBtn">确认</button>
   </view>
 </view>
-
-<!--custom Modal-->
-<view class="modal-mask-all" bindtap="hideLoginModal" wx:if="{{showLoginModal}}"></view>
-<view wx:if="{{showLoginModal}}">
-  <view class="modal-content-login">
-    <view class="titleTxtView">
-      你还未登录，登录后才能发布动态~
-    </view>
-    <button lang="zh_CN" bindtap="cancelLogin" class="cancelBtn">取消</button>
-    <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo" class="loginBtn">登录</button>
-  </view>
-</view>
-
 
 <!--custom Modal-->
 <view class="modal-mask-all" wx:if="{{showShareModal}}"></view>

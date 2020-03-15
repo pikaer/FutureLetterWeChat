@@ -28,27 +28,21 @@
     <view class="page-section page-section-spacing swiper">
       <scroll-view scroll-y="true" class="momentArea">
         <view class="momentView" hover-class="momentView_Hover" wx:for="{{tempMomentList}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' bindtap="toMomentDetailPage">
-          <view class="momentTitleView">
-            <view data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' class="leftView" data-imgContent='{{value.headImgPath}}' catchtap="previewImg">
-              <image src="{{value.headImgPath}}" class="userTitleHead" />
-            </view>
-          </view>
           <view class="centerTitleView">
-            <view class="nickName_Left_View">{{value.nickName}}</view>
-            <view class="centerView">
-              <view class="publishTime">{{value.publishTime}}</view>
-              <view class="hideTextView">{{value.sourceDesc}}</view>
-              <view wx:if="{{value.playType!=0}}" class="hideTextView">{{value.playTypeSesc}}</view>
-            </view>
-          </view>
-          <view class="iconView">
-            <view class="iconfont comment" style='font-size:18px;float:left;color:#8e8e8e' />
-            <view class="chatTextView">聊一聊</view>
+            <view class="publishDate">12</view>
+            <view class="publishMonth">三月</view>
+            <view class="publishYear">2019</view>
           </view>
           <view class="content">
             <view class="textView">{{value.textContent}}</view>
             <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
               <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' catchtap="previewImg" class="momentImg" mode="aspectFill"></image>
+            </view>
+          </view>
+          <view class="bottomBtnView">
+            <view class="iconView">
+              <view class="iconfont comment" style='font-size:18px;float:left;color:#8e8e8e' />
+              <view class="chatTextView">聊一聊</view>
             </view>
           </view>
         </view>

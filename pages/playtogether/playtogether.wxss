@@ -95,17 +95,14 @@ swiper-item {
 .contentAreaView {
   width: 100%;
   clear: both;
-  padding-top: 12px;
+  padding-top: 10px;
 }
 
 .contentArea {
   margin-top: 2px;
   background-color: #fff;
-  height: 400px;
   border-radius: 6px;
-  background-repeat: no-repeat;
-  background-size: 100% 400px;
-  box-shadow: 0px 0px 8px #837c7c;
+  /* box-shadow: 0px 0px 1px #837c7c; */
   margin-right: 7px;
   margin-left: 7px;
 }
@@ -119,11 +116,12 @@ swiper-item {
   width: 100%;
   clear: both;
   height: 48px;
+  padding-bottom: 10px;
 }
 
 .left_Hide_ManView {
   float: left;
-  margin-left: 20px;
+  margin-left: 10px;
   margin-top: 5px;
   width: 45px;
   height: 45px;
@@ -133,7 +131,7 @@ swiper-item {
 
 .left_Hide_WoManView {
   float: left;
-  margin-left: 20px;
+  margin-left: 10px;
   margin-top: 5px;
   width: 45px;
   height: 45px;
@@ -152,7 +150,7 @@ swiper-item {
   float: left;
   width: 47px;
   height: 47px;
-  margin-left: 20px;
+  margin-left: 10px;
   border-radius: 100%;
   background-color: white;
 }
@@ -174,7 +172,6 @@ swiper-item {
 
 .centerTitleView {
   float: left;
-  color: white;
 }
 
 .topHeadView {
@@ -257,13 +254,13 @@ swiper-item {
 }
 
 .bodyView {
-  margin-top: 295px;
+  margin-top: 5px;
   background-color: white;
   float: left;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  margin-left: 45px;
+  margin-left: 15px;
   margin-bottom: 4px;
 }
 
@@ -282,9 +279,7 @@ swiper-item {
   font-size: 14px;
   padding-top: 7px;
   padding-bottom: 7px;
-  margin-left: 7px;
-  margin-right: 7px;
-  max-width: 300px;
+  margin-right: 15px;
 }
 
 .custom {

@@ -10,7 +10,7 @@
 .userHead {
   width: 140rpx;
   height: 140rpx;
-  margin-left: 28rpx;
+  margin-left: 18rpx;
   border-radius: 100%;
 }
 
@@ -107,29 +107,29 @@ button:last-child {
 .imgView {
   width: 100%;
   height: 100%;
-  margin-left: 5px;
   margin-bottom: 8px;
   margin-right: 5px;
   display: inline-block;
   border-radius: 100%;
 }
 
-.publishTime {
-  font-size: 10px;
-  float: left;
-  background-color: #eff2fb;
-  color: #8e8e8e;
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-bottom: 1px;
-  padding-top: 1px;
-  border-radius: 5px;
-  margin-right: 5px;
+.publishDate {
+  font-size: 23px;
+  font-weight: 650;
+}
+
+.publishMonth {
+  text-align: center;
+  font-size: 11px;
+}
+
+.publishYear {
+  text-align: center;
+  font-size:8px;
 }
 
 .momentImg {
-  margin-bottom: -3px;
-  border-radius: 10px;
+  border-radius: 4px;
   width: 100%;
   max-width: 97%;
 }
@@ -144,31 +144,16 @@ button:last-child {
 }
 
 .momentView {
-  background-color: white;
-  padding-left: 8px;
+  border-bottom: solid 1px #e4e4e4;
+  padding-left:12px;
   padding-right: 8px;
-  padding-top: 5px;
-  margin-top: 5px;
-  padding-bottom: 5px;
-  margin-left: 12px;
-  margin-right: 12px;
-  margin-bottom: 12px;
-  border-radius: 6px;
-  box-shadow: 0px 0px 1px #837c7c;
 }
 
 .momentView_Hover {
-  background-color: #eff2fb;
-  padding-left: 8px;
+  background-color: #e5e5e5;
+  border-bottom: solid 1px #e4e4e4;
+  padding-left:12px;
   padding-right: 8px;
-  padding-top: 5px;
-  margin-top: 5px;
-  padding-bottom: 5px;
-  margin-left: 12px;
-  margin-right: 12px;
-  margin-bottom: 12px;
-  border-radius: 6px;
-  box-shadow: 0px 0px 1px #837c7c;
 }
 
 .placeUseView {
@@ -186,8 +171,9 @@ button::after {
 }
 
 .content {
-  clear: both;
   padding-top: 9px;
+  margin-left: 42px;
+  margin-right: 3px;
 }
 
 button {
@@ -203,39 +189,12 @@ button {
 
 .iconView {
   float: right;
-}
-
-.momentTitleView {
-  width: 100%;
-}
-
-.leftView {
-  float: left;
-  width: 45px;
-  height: 45px;
-}
-
-.userTitleHead {
-  width: 45px;
-  height: 45px;
-  border-radius: 100%;
+  height: 25px;
+  margin-right: 6px;
 }
 
 .centerTitleView {
   float: left;
-  padding-top: 4px;
-}
-
-.nickName_Left_View {
-  font-size: 14px;
-  margin-left: 8px;
-  font-weight: 650;
-  float: left;
-}
-
-.centerView {
-  margin-left: 8px;
-  clear: both;
 }
 
 .genderView {
@@ -307,23 +266,16 @@ button {
   padding-bottom: 5px;
 }
 
-.hideTextView {
-  font-size: 10px;
-  float: left;
-  background-color: #eff2fb;
-  color: #8e8e8e;
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-bottom: 1px;
-  padding-top: 1px;
-  border-radius: 5px;
-  margin-right: 5px;
-}
-
 .chatTextView {
   float: left;
   padding-top: 4px;
   padding-left: 3px;
   font-size: 12px;
   color: #8e8e8e;
+}
+
+.bottomBtnView {
+  height: 25px;
+  width: 100%;
+  clear: both;
 }

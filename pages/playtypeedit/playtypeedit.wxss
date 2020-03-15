@@ -1,0 +1,200 @@
+page {
+  background-color: #eff2fb;
+}
+
+.containerView {
+}
+
+.title {
+  font-size: 20px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.contentView {
+  clear: both;
+  margin-left: 20px;
+  overflow-y: auto;
+  margin-bottom: 80px;
+}
+
+.contentTitle {
+  clear: both;
+  font-size: 15px;
+  margin-top: 20px;
+}
+
+.tagContent {
+  clear: both;
+}
+
+.tag {
+  float: left;
+  width: 90px;
+  height: 32px;
+  background-color: white;
+  margin-right: 20px;
+  border-radius: 2px;
+  font-size: 15px;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.tag_Selected {
+  background-color: #4d80fd;
+  color: white;
+  float: left;
+  width: 90px;
+  height: 32px;
+  margin-right: 20px;
+  border-radius: 2px;
+  font-size: 15px;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.nextBtnView {
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nextBtn_Selected {
+  font-weight: 550;
+  color: #fff;
+  box-sizing: border-box;
+  font-size: 18px;
+  border-radius: 5px;
+  background-color: #00cd66;
+  height: 45px;
+  width: 80%;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nextBtn {
+  background-color: #e5e5e5;
+  font-weight: 550;
+  color: #fff;
+  box-sizing: border-box;
+  font-size: 18px;
+  border-radius: 5px;
+  height: 45px;
+  width: 80%;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tagAddIcon {
+  float: left;
+  height: 20px;
+  background-color: white;
+  margin-right: 12px;
+  font-size: 20px;
+  border-radius: 5px;
+  margin-top: 15px;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  width: 20px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.tagItem {
+  float: left;
+  height: 20px;
+  background-color: white;
+  margin-right: 12px;
+  font-size: 15px;
+  border-radius: 5px;
+  padding-left: 18px;
+  padding-right: 18px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 15px;
+  display: -webkit-flex;
+  align-items: center;
+}
+
+.tagItem_Selected {
+  float: left;
+  height: 20px;
+  background-color: #4d80fd;
+  color: white;
+  margin-right: 12px;
+  font-size: 15px;
+  border-radius: 5px;
+  padding-left: 18px;
+  padding-right: 18px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 15px;
+  display: -webkit-flex;
+  align-items: center;
+}
+
+.modal-content-addTag {
+  position: fixed;
+  top: 10%;
+  right: 10%;
+  left: 10%;
+  z-index: 9500;
+  height: 200px;
+  background: #eff2fb;
+  border-radius: 6px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.showTextTitle {
+  color: #1e90ff;
+  float: left;
+  font-size: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 28px;
+}
+
+.inputTextContentView {
+  height: 40px;
+  margin-top: 45px;
+  background-color: #eff2fb;
+  padding: 10px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.inputTextContent {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  border-radius: 5px;
+  padding-left: 5px;
+}
+
+.cancelModelView {
+  float: left;
+  padding-left: 5px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.submitBtn {
+  width: 80%;
+  background: #00cd66;
+  color: white;
+  font-weight: 650;
+}

@@ -1,7 +1,5 @@
 {
   "navigationBarTitleText": "发布一起玩",
   "enablePullDownRefresh": false,
-  "usingComponents": {
-    "mp-badge": "../../components/badge/badge"
-  }
+  "backgroundTextStyle": "dark"
 }

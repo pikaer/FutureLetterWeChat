@@ -7,10 +7,8 @@ Page({
     upload_percent: 0,
     ishidden: false,
     hasImg: true,
-    publishDisabled: false,
-    isRegister: true,
     isHideNickName: false,
-    tempTextContent: "快来和我一起玩呀！",
+    tempTextContent: "",
     hidingNickName: "",
     momentId: "",
     basicUserInfo: {},
@@ -18,36 +16,33 @@ Page({
     showLoginModal: false,
     showShareModal: false,
     showTextContentModal: false,
-    playTypeArray: ['其他', '王者', '吃鸡', '连麦', '游戏', '学习', '追剧', '早起', '散步', '看电影'],
-    playTypeIndex: 0,
+    desc: "",
+    playType: 0,
+    stateType: 0,
     messageDiscussNotifyWechatId: "GytyYcEW0BqLnACK9hFZMMXbvOZc2oq5DQjdJ65sRFI",
     messageDiscussNotifyQQId: "59880ab542241403ede33bb4c64f0166"
   },
 
-  onLoad: function() {
+  onLoad: function(options) {
     this.setData({
-      isRegister: app.globalData.basicUserInfo.isRegister,
       basicUserInfo: app.globalData.basicUserInfo,
       backGroundImg: app.globalData.basicUserInfo.headPhotoPath,
       serverImgsPath: app.globalData.basicUserInfo.headPhotoPath,
-      hidingNickName: app.globalData.basicUserInfo.nickName
+      hidingNickName: app.globalData.basicUserInfo.nickName,
+      tempTextContent: options.tempTextContent,
+      desc: options.desc,
+      playType: options.playType,
+      stateType: options.stateType
     })
   },
 
   onShow: function() {
     this.setData({
-      isRegister: app.globalData.basicUserInfo.isRegister,
       basicUserInfo: app.globalData.basicUserInfo
     })
     this.basicUserInfo();
   },
 
-
-  cancelLogin: function() {
-    this.setData({
-      showLoginModal: false
-    });
-  },
 
   hideShareModal() {
     this.setData({
@@ -62,11 +57,6 @@ Page({
     })
   },
 
-  toLogin: function() {
-    this.setData({
-      showLoginModal: true
-    });
-  },
 
   //单选框值变动
   identityValueChange: function(e) {
@@ -75,39 +65,14 @@ Page({
     })
   },
 
-  bindGetUserInfo: function(e) {
-    let self = this;
-    if (e.detail.userInfo) {
-      wx.getSetting({
-        success: res => {
-          if (res.authSetting['scope.userInfo']) {
-            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-            wx.getUserInfo({
-              lang: "zh_CN",
-              success: res => {
-                console.info("获取微信用户信息成功!" + JSON.stringify(res));
-                // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回所以此处加入 callback 以防止这种情况
-                if (self.userInfoReadyCallback) {
-                  self.userInfoReadyCallback(res)
-                }
-                self.setUserInfo(res.userInfo);
-              }
-            })
-          }
-        }
-      })
-    }
-  },
-
 
   //获取用户基础信息
   basicUserInfo: function(ops) {
     var self = this;
-    let cacheKey = "basicUserInfo+" +app.globalData.apiHeader.UId;
+    let cacheKey = "basicUserInfo+" + app.globalData.apiHeader.UId;
     let cacheValue = wx.getStorageSync(cacheKey);
     if (!app.isBlank(cacheValue)) {
       self.setData({
-        isRegister: cacheValue.isRegister,
         basicUserInfo: cacheValue
       });
     }
@@ -119,42 +84,12 @@ Page({
       function(res) {
         app.globalData.basicUserInfo = res;
         self.setData({
-          isRegister: res.isRegister,
           basicUserInfo: res
         })
         app.setCache(cacheKey, res);
       },
       function(res) {
         console.error("获取用户基础信息失败");
-      })
-  },
-
-  //存入用户信息
-  setUserInfo: function(userInfoWX) {
-    let self = this;
-    app.globalData.basicUserInfo.headPhotoPath = userInfoWX.avatarUrl;
-    app.globalData.basicUserInfo.nickName = userInfoWX.nickName;
-    app.globalData.basicUserInfo.gender = userInfoWX.gender;
-    app.globalData.basicUserInfo.isRegister = true;
-    self.isRegister = true;
-    if (app.globalData.basicUserInfo.isRegister) {
-      self.upload_file_publishMoment();
-    }
-    app.httpPost(
-      'Letter/SetUserInfo', {
-        "UId": app.globalData.apiHeader.UId,
-        "NickName": userInfoWX.nickName,
-        "AvatarUrl": userInfoWX.avatarUrl,
-        "Gender": userInfoWX.gender,
-        "Country": userInfoWX.country,
-        "Province": userInfoWX.province,
-        "City": userInfoWX.city
-      },
-      function(res) {
-        console.info("存入用户信息成功");
-      },
-      function(res) {
-        console.error("存入用户信息失败!");
       })
   },
 
@@ -169,6 +104,13 @@ Page({
       imageUrl: url,
       path: "/pages/discovery/discovery"
     }
+  },
+
+  //发布动态
+  toEditPage: function() {
+    wx.navigateTo({
+      url: '../../pages/playtypeedit/playtypeedit?desc=' + this.data.desc + "&playType=" + this.data.playType + "&stateType=" + this.data.stateType + "&source=1"
+    })
   },
 
   publishMoment: function(ops) {
@@ -217,7 +159,6 @@ Page({
     this.setData({
       tempTextContent: e.detail.value
     })
-    this.updateBtnState();
   },
 
 
@@ -305,48 +246,16 @@ Page({
     this.setData({
       tempTextContent: str
     })
-    this.updateBtnState();
+    let pages = getCurrentPages();
+    let prevPage = pages[pages.length - 2];
+    prevPage.setData({
+      tempTextContent: str
+    })
   },
 
   bindPlayTypeChange: function(e) {
     this.setData({
       playTypeIndex: e.detail.value
-    })
-  },
-
-  //更新按钮禁用状态
-  updateBtnState: function() {
-    this.setData({
-      publishDisabled: app.isBlank(this.data.tempTextContent) || app.isBlank(this.data.backGroundImg)
-    })
-  },
-
-
-
-  //选择图片方法
-  uploadpic: function(e) {
-    let self = this //获取上下文
-    //选择图片
-    wx.chooseImage({
-      count: 1, // 默认9，这里显示一次选择相册的图片数量 
-      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有  
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function(res) { // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片 
-        if (res.tempFiles.length > 1) {
-          wx.showToast({
-            title: "不能超过1张",
-            icon: 'success',
-            image: "../../content/images/warn.png",
-            duration: 3000
-          })
-          return;
-        }
-
-        self.setData({
-          backGroundImg: res.tempFiles[0].path,
-        });
-
-      }
     })
   },
 
@@ -428,38 +337,4 @@ Page({
       })
     }
   },
-
-
-  upload_file_publishMoment() {
-    if (this.data.backGroundImg===app.globalData.basicUserInfo.headPhotoPath) {
-      this.publishMoment();
-    } else {
-      let self = this
-      const upload_task = wx.uploadFile({
-        url: app.globalData.baseUrl + "Letter/UpLoadImg", //需要用HTTPS，同时在微信公众平台后台添加服务器地址  
-        filePath: this.data.backGroundImg, //上传的文件本地地址    
-        name: 'file',
-        success: function(res) {
-          let data = JSON.parse(res.data);
-          if (data.success) {
-            self.setData({
-              serverImgsPath: data.content.imgPath
-            });
-            self.publishMoment();
-          }
-        },
-        fail: function(res) {
-          var data = JSON.parse(res.data);
-          console.info(data);
-          self.publishToast(false);
-        }
-      })
-      //上传 进度方法
-      upload_task.onProgressUpdate((res) => {
-        self.setData({
-          upload_percent: res.progress
-        });
-      });
-    }
-  }
 })

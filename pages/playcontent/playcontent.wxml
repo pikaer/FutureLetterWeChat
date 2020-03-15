@@ -1,0 +1,17 @@
+<view class="containerView">
+  <view class="title">介绍下一起玩什么</view>
+  <view class="contentView">
+    <textarea class="inputTextContent" maxlength="400" value="{{tempTextContent}}"  bindinput="textContentInput" adjust-position='true'></textarea>
+  </view>
+  <view class="topTagView">
+    <view class="topTagLeft">热门输入</view>
+    <view class="topTagRight">换一批</view>
+  </view>
+  <view class="hotContentView" wx:for="{{hotContentList}}" wx:key="key" wx:for-index="key" wx:for-item="value">
+    <view class="hotTag" data-hotContent='{{value}}' bindtap="hotContentClick">{{value}}</view>
+  </view>
+
+  <view class="nextBtnView">
+    <view bindtap="{{tempTextContent.length==0?'':'toNextPage'}}" class="{{tempTextContent.length==0?'nextBtn':'nextBtn_Selected'}}">下一步</view>
+  </view>
+</view>

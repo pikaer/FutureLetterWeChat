@@ -210,12 +210,11 @@
         <scroll-view scroll-y="false" class="momentArea">
           <!-- 占位 -->
           <view class="empty_topArea"></view>
-          <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindlongpress="moreAction" bindtap="momentClickOpen" wx:for="{{pickUpList_Other}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'
-            data-key='{{key}}'>
-            <view class="contentArea" style="background-image: url('https://pic2.zhimg.com/80/v2-4757053c946344fe0667c16dc529cfdd_720w.jpg')">
+          <view class="contentAreaView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}" bindlongpress="moreAction" bindtap="momentClickOpen" wx:for="{{pickUpList_Other}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-pickUpId='{{value.pickUpId}}'   data-key='{{key}}'>
+            <view class="contentArea">
               <view class="bodyView">
                 <!-- 文本动态 -->
-                <view class="textView">{{value.textContent}}</view>
+                <view class="textView">{{value.textContent}}春暖花开的时候，一起去玩吗？春暖花开的时候，一起去玩吗？春暖花开的时候，一起去玩吗？</view>
               </view>
               <view class="titleView">
                 <view wx:if="{{value.isHide}}" class="{{value.gender==2?'left_Hide_WoManView':'left_Hide_ManView'}}" data-uId='{{value.uId}}' data-isHide='{{value.isHide}}' data-pickUpId='{{value.pickUpId}}' catchtap='toShowModal'>

@@ -53,32 +53,31 @@
         <swiper-item>
           <scroll-view scroll-y="true" class="momentArea">
             <view class="momentView" hover-class="momentView_Hover" wx:for="{{tempMomentList}}" wx:key="key" wx:for-index="key" wx:for-item="value" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' bindtap="toMomentDetailPage" bindlongpress="bindlongMomentPress">
-              <view class="momentTitleView">
-                <view wx:if="{{value.isHide}}" class="{{value.gender==2?'hideHeadPhoto_WoMan_View':'hideHeadPhoto_Man_View'}}" data-isHide='{{value.isHide}}'>
-                  <view class="shortNameView">{{value.shortNickName}}</view>
-                </view>
-                <view wx:else data-uId='{{value.uId}}' data-pickUpId='{{value.pickUpId}}' data-isHide='{{value.isHide}}' class="leftView">
-                  <image src="{{value.headImgPath}}" class="userTitleHead" />
-                </view>
-              </view>
-              <view class="centerTitleView">
-                <view class="nickName_Left_View">{{value.nickName}}</view>
-                <view class="centerView">
-                  <view class="publishTime">{{value.publishTime}}</view>
-                  <view wx:if="{{value.isHide}}" class="hideTextView">匿名发布</view>
-                  <view class="hideTextView">{{value.sourceDesc}}</view>
-                  <view wx:if="{{value.playType==1}}" class="hideTextView">{{value.playTypeSesc}}</view>
-                </view>
-              </view>
-              <view class="iconView" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' catchtap='bindlongMomentPress'>
-                <view class="iconfont more" style='font-size:20px'></view>
-              </view>
-              <view class="content">
-                <view class="textView">{{value.textContent}}</view>
-                <view class="imgView" wx:if="{{value.imgContent!=null&&value.imgContent!=''}}">
-                  <image src="{{value.imgContent}}" data-imgContent='{{value.imgContent}}' catchtap="previewImg" class="momentImg" mode="aspectFill"></image>
-                </view>
 
+              <view class="momentTitleView">
+                <view class="publishDate">12</view>
+                <view class="publishMonth">三月</view>
+                <view class="publishYear">2019</view>
+              </view>
+              <view class="rightContentView">
+                <view class="rightTopView">
+                  <view class="centerTitleView">
+                    <view class="nickName_Left_View">{{value.nickName}}</view>
+                    <view class="centerView">
+                      <view wx:if="{{value.isHide}}" class="hideTextView">匿名发布</view>
+                      <view class="hideTextView">{{value.sourceDesc}}</view>
+                    </view>
+                  </view>
+                  <view class="iconView" data-index='{{key}}' data-momentId='{{value.momentId}}' data-type='1' catchtap='bindlongMomentPress'>
+                    <view class="iconfont more" style='font-size:20px'></view>
+                  </view>
+                </view>
+                <view class="content">
+                  <view class="textView">{{value.textContent}}</view>
+                  <view class="imgView" wx:if="{{value.textContent.length>20}}">
+                    <image src="https://pic2.zhimg.com/80/v2-4757053c946344fe0667c16dc529cfdd_720w.jpg" data-imgContent='{{value.imgContent}}' catchtap="previewImg" class="momentImg" mode="aspectFill"></image>
+                  </view>
+                </view>
               </view>
             </view>
             <view class="placeUseView">没有更多啦</view>
